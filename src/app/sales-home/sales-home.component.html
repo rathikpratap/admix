@@ -1,0 +1,10 @@
+
+<div class="container-fluid g-0">
+    <app-sales-navbar (salesSideNavToggled)="salesSideNavStatus = $event;"></app-sales-navbar>
+    <main>
+      <app-sales-side-nav [salesSideNavStatus]="salesSideNavStatus" [ngClass]="{'app-side-nav-open': salesSideNavStatus}"></app-sales-side-nav>
+      <div class="display-area p-3" [ngClass]="{'display-area-shrink': salesSideNavStatus}">
+        <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

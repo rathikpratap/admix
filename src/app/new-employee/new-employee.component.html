@@ -1,0 +1,109 @@
+<div class="registration-heading">
+    <h1> Employee Registration Form </h1>
+</div>
+<div class="registration-form">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <h4> Enter Your Details</h4>
+            <form [formGroup]="registrationForm" (ngSubmit)="registrationForm.status !== 'INVALID' && regis()">
+                <div [ngClass]="className" role="alert">
+                    {{message}}
+                </div>
+                <div class="form-group inputBox">
+                    <input type="text" class="from-control" formControlName="signupName"
+                        [ngClass]="{error:getControls('signupName')?.errors && getControls('signupName')?.touched}"
+                        placeholder="Enter Your Name">
+                    <div *ngIf="getControls('signupName')?.errors && getControls('signupName')?.touched">
+                        <label class="text-danger" *ngIf="getControls('signupName')?.errors?.['required']"> Name is
+                            Required </label>
+                    </div>
+                </div>
+                <div class="form-group inputBox">
+                    <input type="text" class="from-control" formControlName="signupUsername"
+                        [ngClass]="{error:getControls('signupUsername')?.errors && getControls('signupUsername')?.touched}"
+                        placeholder="Enter Your Username">
+                    <div *ngIf="getControls('signupUsername')?.errors && getControls('signupUsername')?.touched">
+                        <label class="text-danger" *ngIf="getControls('signupUsername')?.errors?.['required']"> Username
+                            is Required </label>
+                    </div>
+                </div>
+                <div class="form-group inputBox">
+                    <input type="email" class="from-control" formControlName="signupEmail"
+                        [ngClass]="{error:getControls('signupEmail')?.errors && getControls('signupEmail')?.touched}"
+                        placeholder=" Enter your Email">
+                    <div *ngIf="getControls('signupEmail')?.errors && getControls('signupEmail')?.touched">
+                        <label class="text-danger" *ngIf="getControls('signupEmail')?.errors?.['required']"> Email is
+                            Required 
+                        </label>
+                        <label class="text-danger" *ngIf="getControls('signupEmail')?.errors?.['pattern']">
+                            Please enter a valid email
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group inputBox">
+                    <input type="text" class="from-control" formControlName="signupNumber"
+                        [ngClass]="{error:getControls('signupNumber')?.errors && getControls('signupNumber')?.touched}"
+                        placeholder="Mobile Number">
+                    <div *ngIf="getControls('signupNumber')?.errors && getControls('signupNumber')?.touched">
+                        <label class="text-danger" *ngIf="getControls('signupNumber')?.errors?.['required']"> Number is
+                            Required 
+                        </label>
+                        <label class="text-danger" *ngIf="getControls('signupNumber')?.errors?.['maxLength'] || getControls('signupNumber')?.errors?.['mminLength'] || getControls('signupNumber')?.errors?.['pattern']">
+                            Please enter a valid mobile number
+                        </label>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <div class="form-inline">
+                        <h4> Select your Gender </h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="form-group inputBox">
+                    <div class="showpass">
+                        <input [type]="changetype?'password':'text'" class="from-control" formControlName="signupPassword"
+                        [ngClass]="{error:getControls('signupPassword')?.errors && getControls('signupPassword')?.touched}"
+                        placeholder="Create Password">
+                    </div>
+                    <div *ngIf="getControls('signupPassword')?.errors && getControls('signupPassword')?.touched">
+                        <label class="text-danger" *ngIf="getControls('signupPassword')?.errors?.['required']"> Password
+                            is Required
+                        </label>
+                        <label class="text-danger" *ngIf="getControls('signupPassword')?.errors?.['pattern']">
+                            Please enter a Valid Password.
+                            <ul>
+                                <li> At least 1 uppercase letter</li>
+                                <li> At least 1 lowercase letter</li>
+                                <li> At least 1 number and 1 Special Character</li>
+                            </ul>
+                        </label>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <h5> Upload your ID Proof </h5>
+                    <input type="file" class="file from-control" formControlName="regisID"
+                        [ngClass]="{error:getControls('regisID')?.errors && getControls('regisID')?.touched}">
+                    <div *ngIf="getControls('regisID')?.errors && getControls('regisID')?.touched">
+                        <label class="text-danger" *ngIf="getControls('regisID')?.errors?.['required']"> ID Proof is Required </label>
+                    </div>
+                </div>-->
+                <input type="submit" [disabled]="registrationForm.status === 'INVALID'" class="btn btn-success">
+            </form>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <img src="assets/Images/registration.png" alt="">
+        </div>
+    </div>
+</div>

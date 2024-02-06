@@ -1,0 +1,221 @@
+<!--<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="card-txt">
+                        <h5> Today's Sale </h5>
+                        <h2> 21 </h2>
+                    </div>
+                    <div class="card-img">
+                        <img src="assets/Images/Sale.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="card-txt">
+                        <h5> Monthly Sale </h5>
+                        <h2> 21 </h2>
+                    </div>
+                    <div class="card-img">
+                        <img src="assets/Images/Sale.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="card-txt">
+                        <h5> Monthly Target </h5>
+                        <h2> 21 </h2>
+                    </div>
+                    <div class="card-img">
+                        <img src="assets/Images/Sale.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-heading">
+                <h2> History </h2>
+                <hr>
+            </div>
+            <div>
+                <h5> November </h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                </div>
+            </div>
+            <div>
+                <h5> December </h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+            </div>
+            <div>
+                <h5> January </h5>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-heading">
+                <h4> Monthly Conversion Rate </h4>
+                <hr>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                            Overall
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <h5> Conversion Rate </h5>
+                            <p> 5.63% </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Individual
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <h5> Conversion Rate </h5>
+                            <p> 5.63% </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-heading">
+                <h4> Customer By Location </h4>
+                <hr>
+            </div>
+            <div class="loc-list">
+                <ul>
+                    <li> Mathura</li>
+                    <li> Agra</li>
+                    <li> Hathras</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card ongoing">
+            <div class="card-heading">
+                <h4>Ongoing Projects</h4>
+                <hr>
+            </div>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Project Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of data">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card completed">
+            <div class="card-heading">
+                <h4>Completed Projects</h4>
+                <hr>
+            </div>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Project Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let users of completeData">
+                            <td>{{users.custCode}}</td>
+                            <td>{{users.custName}}</td>
+                            <td>{{users.custBussiness}}</td>
+                            <td>{{users.closingCateg}}</td>
+                            <td>{{users.closingDate}}</td>
+                            <td>{{users.closingPrice}}</td>
+                            <td>{{users.AdvPay}}</td>
+                            <td>{{users.remainingAmount}}</td>
+                            <td>{{users.projectStatus}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{users._id}}"> Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
