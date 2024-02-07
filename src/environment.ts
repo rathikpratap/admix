@@ -1,3 +1,3 @@
 export const appConfig = {
-    apiUrl : 'http://api.admixmedia.in'
+    apiUrl : 'http://localhost:5000'
 };
