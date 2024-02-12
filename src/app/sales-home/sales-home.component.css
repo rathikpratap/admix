@@ -32,7 +32,7 @@ app-sales-side-nav {
     left: 60px;
     width: calc(100% - 60px);
     transition: left 250ms ease-in, width 250ms ease-in;
-    background-color: #f3f4f7;
+    background: linear-gradient(135deg, #71b1e6, #9b59b6);
 }
 .display-area-shrink{
     width: calc(100% - 250px);

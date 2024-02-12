@@ -25,12 +25,22 @@ export class UpdateCustomerComponent {
       custCity : new FormControl("", [Validators.required]),
       custState : new FormControl("", [Validators.required]),
       projectStatus : new FormControl("",[Validators.required]),
-      salesPerson : new FormControl("",[Validators.required])
+      salesPerson : new FormControl("",[Validators.required]),
+      remark  : new FormControl("",[Validators.required])
     })
 
 
     constructor(private router:Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth:AuthService ){
       this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+
+      this.updateForm.valueChanges.subscribe(values =>{
+        const closingPriceValue = parseFloat(values.closingPrice || '0');
+        const AdvPayValue = parseFloat(values.AdvPay || '0');
+        const remainingAmount =  closingPriceValue - AdvPayValue;
+
+        this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());
+      });
+
       this.auth.getCustomer(this.getId).subscribe((res: any)=>{
         console.log("res ==>",res);
         
@@ -44,9 +54,11 @@ export class UpdateCustomerComponent {
           closingCateg : res['closingCateg'],
           AdvPay : res['AdvPay'],
           custCity : res['custCity'],
+          remainingAmount : res['remainingAmount'],
           custState : res['custState'],
           projectStatus : res['projectStatus'],
-          salesPerson :res['salesPerson']
+          salesPerson :res['salesPerson'],
+          remark : res['remark']
         })
 
       });
@@ -68,3 +80,4 @@ export class UpdateCustomerComponent {
       })
     }
 }
+ 

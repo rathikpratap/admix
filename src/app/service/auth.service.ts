@@ -40,6 +40,22 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjects`);
   }
 
+  salesAllProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);
+  }
+
+  allProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
+  }
+
+  allEmployee(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allEmployee`);
+  }
+
+  searchCustomerbyMobile(mobile:string): Observable<any>{
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/searchCustomer/${mobile}`);
+  }
+
     getProfile(){
     let headers = {
       'Authorization': "Bearer " + localStorage.getItem('token')

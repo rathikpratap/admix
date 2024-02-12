@@ -1,0 +1,36 @@
+.card-details{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-details strong{
+    margin-right: 15px;
+}
+.card{
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 10px 10px 10px;
+}
+.card .image img{
+    width: 100%;
+    height: auto;
+    display: block;
+
+}
+.card .circle{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.card .image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.Employees{
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    width: 13%;
+    background-color: white;
+}

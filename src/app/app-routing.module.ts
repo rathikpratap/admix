@@ -12,6 +12,9 @@ import { SalesSideNavComponent } from './sales-side-nav/sales-side-nav.component
 import { SalesNavbarComponent } from './sales-navbar/sales-navbar.component';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
 import { UpdateCustomerComponent } from './update-customer/update-customer.component';
+import { AllCustomersComponent } from './all-customers/all-customers.component';
+import { AllEmployeesComponent } from './all-employees/all-employees.component';
+import { AllProjectsComponent } from './all-projects/all-projects.component';
 
 const routes: Routes = [
   {
@@ -43,7 +46,14 @@ const routes: Routes = [
         path: 'newEmployee',
         component: NewEmployeeComponent
       },
-      
+      {
+        path: 'allEmployees',
+        component: AllEmployeesComponent
+      },
+      {
+        path: 'all-projects',
+        component: AllProjectsComponent
+      }
     ]
   },
   {
@@ -69,6 +79,10 @@ const routes: Routes = [
       {
         path: 'updateCustomer/:id',
         component: UpdateCustomerComponent
+      },
+      {
+        path: 'allCustomers',
+        component: AllCustomersComponent
       }
     ]
   }

@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="searchCustomer">
+            <div class="nameCard">
+                <div class="title-heading">
+                    <h5> Search Customer </h5>
+                </div>
+                <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
+                    <input type="text" formControlName="mobile" placeholder="Enter Mobile Number">
+                    <button class="btn btn-primary" type="submit"> Search</button>
+                </form>
+            </div>
+            <hr>
+            <div *ngIf="customers.length > 0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Project Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let customer of customers">
+                            <td>{{customer.custCode}}</td>
+                            <td>{{customer.custName}}</td>
+                            <td>{{customer.custNumb}}</td>
+                            <td>{{customer.closingCateg}}</td>
+                            <td>{{customer.closingDate}}</td>
+                            <td>{{customer.closingPrice}}</td>
+                            <td>{{customer.AdvPay}}</td>
+                            <td>{{customer.remainingAmount}}</td>
+                            <td>{{customer.projectStatus}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="allCustomers">
+            <div class="ProjectCard"> 
+                <h5>All Projects</h5>
+            </div>
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Project Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of data">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custNumb}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary"
+                                    routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

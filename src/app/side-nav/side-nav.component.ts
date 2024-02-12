@@ -20,6 +20,18 @@ export class SideNavComponent {
       name: 'Add New Employee',
       icon: 'bi bi-person-fill-add',
       route: '/newEmployee'
+    },
+    {
+      number: '3',
+      name: 'All Projects',
+      icon: 'bi bi-card-list',
+      route: '/all-projects'
+    },
+    {
+      number: '4',
+      name: 'All Employees',
+      icon: 'bi bi-person-badge',
+      route: '/allEmployees'
     }
   ]
 }

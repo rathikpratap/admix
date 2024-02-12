@@ -17,7 +17,10 @@ import { SalesSideNavComponent } from './sales-side-nav/sales-side-nav.component
 import { SalesHomeComponent } from './sales-home/sales-home.component';
 import { SalesNavbarComponent } from './sales-navbar/sales-navbar.component';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
-import { UpdateCustomerComponent } from './update-customer/update-customer.component'
+import { UpdateCustomerComponent } from './update-customer/update-customer.component';
+import { AllCustomersComponent } from './all-customers/all-customers.component';
+import { AllEmployeesComponent } from './all-employees/all-employees.component';
+import { AllProjectsComponent } from './all-projects/all-projects.component'
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { UpdateCustomerComponent } from './update-customer/update-customer.compo
     SalesHomeComponent,
     SalesNavbarComponent,
     SalesDashboardComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
+    AllCustomersComponent,
+    AllEmployeesComponent,
+    AllProjectsComponent
   ],
   imports: [
     BrowserModule,

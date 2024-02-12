@@ -12,10 +12,19 @@ export class NewCustomerComponent {
   message:string = '';
   isProcess:boolean = false;
   className = 'd-none'
-
+  tok!:any;
   
 
   constructor(private auth:AuthService){
+
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+
+      if(this.tok) {
+        this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
+      }
+    });
+
     this.customerForm.valueChanges.subscribe(values =>{
       const closingPriceValue = parseFloat(values.closingPrice|| '0');
       const AdvPayValue = parseFloat(values.AdvPay|| '0');
@@ -23,7 +32,10 @@ export class NewCustomerComponent {
       const remainingAmount = closingPriceValue - AdvPayValue;
 
       this.customerForm.get('remainingAmount')!.setValue(remainingAmount.toString());
+
     });
+
+    
   }
 
   customerForm = new FormGroup({
@@ -33,13 +45,14 @@ export class NewCustomerComponent {
     custBussiness : new FormControl("", [Validators.required]),
     closingDate : new FormControl("", [Validators.required]),
     closingPrice : new FormControl("", [Validators.required]),
-    closingCateg : new FormControl("", [Validators.required]),
+    closingCateg : new FormControl("null", [Validators.required]),
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
     custCity : new FormControl("", [Validators.required]),
     custState : new FormControl("", [Validators.required]),
-    projectStatus : new FormControl("",[Validators.required]),
+    projectStatus : new FormControl("null",[Validators.required]),
     salesPerson : new FormControl("",[Validators.required]),
+    remark  : new FormControl("",[Validators.required])
     
   })
 

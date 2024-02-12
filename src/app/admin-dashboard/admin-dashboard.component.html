@@ -153,7 +153,7 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Sales Person</th>
-                            <th scope="col">Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -168,9 +168,7 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
                             <td>{{user.salesPerson}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
-                            </td>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -180,7 +178,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card completed">
+        <div class="card">
             <div class="card-heading">
                 <h4>Completed Projects</h4>
                 <hr>
@@ -198,7 +196,6 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -212,9 +209,6 @@
                             <td>{{users.AdvPay}}</td>
                             <td>{{users.remainingAmount}}</td>
                             <td>{{users.projectStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{users._id}}"> Update</button>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

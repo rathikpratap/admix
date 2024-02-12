@@ -26,7 +26,9 @@ export class NewEmployeeComponent {
     signupUsername : new FormControl("", [Validators.required]),
     signupEmail : new FormControl("", [Validators.required, Validators.pattern(this.emailRegex)]),
     signupNumber : new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(this.integerRegex)]),
+    signupGender : new FormControl("Male",[Validators.required]),
     signupPassword : new FormControl("", [Validators.required, Validators.pattern(this.passwordRegex)]),
+    signupAddress : new FormControl("",[Validators.required])
     //signupID: new FormControl("",[Validators.required])
   })
   getControls(name: any) : AbstractControl | null{

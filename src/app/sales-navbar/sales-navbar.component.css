@@ -2,6 +2,9 @@ nav {
     height: 100%;
 
 }
+.navbar-brand img{
+    width: 130px;
+}
 
 .side-nav-button {
     display: flex;
