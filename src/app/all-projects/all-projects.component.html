@@ -65,7 +65,6 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,9 +78,6 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
