@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 
+
 @Component({
   selector: 'app-new-customer',
   templateUrl: './new-customer.component.html',
@@ -9,12 +10,13 @@ import { AuthService } from '../service/auth.service';
 })
 export class NewCustomerComponent {
 
+  integerRegex = /^\d+$/;
   message:string = '';
   isProcess:boolean = false;
   className = 'd-none'
   tok!:any;
   
-
+ 
   constructor(private auth:AuthService){
 
     this.auth.getProfile().subscribe((res:any)=>{
@@ -41,7 +43,7 @@ export class NewCustomerComponent {
   customerForm = new FormGroup({
     custCode : new FormControl("", [Validators.required]),
     custName : new FormControl("", [Validators.required]),
-    custNumb : new FormControl("", [Validators.required]),
+    custNumb : new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(this.integerRegex)]),
     custBussiness : new FormControl("", [Validators.required]),
     closingDate : new FormControl("", [Validators.required]),
     closingPrice : new FormControl("", [Validators.required]),

@@ -15,6 +15,7 @@ import { UpdateCustomerComponent } from './update-customer/update-customer.compo
 import { AllCustomersComponent } from './all-customers/all-customers.component';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import { AllProjectsComponent } from './all-projects/all-projects.component';
+import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'all-projects',
         component: AllProjectsComponent
+      },
+      {
+        path: 'updateEmployee/:id',
+        component: UpdateEmployeeComponent
       }
     ]
   },

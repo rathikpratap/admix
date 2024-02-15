@@ -16,4 +16,14 @@ export class AllEmployeesComponent {
       this.data = list;
     })
   }
+
+  delete(id:any, i:any){
+    console.log(id);
+    if(window.confirm("Are you Sure want to Delete?")){
+      this.auth.deleteEmp(id).subscribe((res : any)=>{
+        this.data.splice(i,1);
+      })
+    }
+  }
+
 }

@@ -7,9 +7,9 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
   selector: 'app-update-customer',
   templateUrl: './update-customer.component.html',
   styleUrls: ['./update-customer.component.css']
-})
+}) 
 export class UpdateCustomerComponent {
-
+ 
     getId:any;
     
     updateForm = new FormGroup({

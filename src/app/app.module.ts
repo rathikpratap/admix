@@ -20,7 +20,8 @@ import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.compo
 import { UpdateCustomerComponent } from './update-customer/update-customer.component';
 import { AllCustomersComponent } from './all-customers/all-customers.component';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
-import { AllProjectsComponent } from './all-projects/all-projects.component'
+import { AllProjectsComponent } from './all-projects/all-projects.component';
+import { UpdateEmployeeComponent } from './update-employee/update-employee.component'
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AllProjectsComponent } from './all-projects/all-projects.component'
     UpdateCustomerComponent,
     AllCustomersComponent,
     AllEmployeesComponent,
-    AllProjectsComponent
+    AllProjectsComponent,
+    UpdateEmployeeComponent
   ],
   imports: [
     BrowserModule,

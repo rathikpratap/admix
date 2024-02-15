@@ -33,6 +33,7 @@ app-side-nav {
     left: 60px;
     width: calc(100% - 60px);
     background: linear-gradient(135deg, #71b1e6, #9b59b6);
+
     transition: left 250ms ease-in, width 250ms ease-in;
     
 }

@@ -171,7 +171,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Date: </span>
-                            <input type="text" class="form-control" formControlName="closingDate"
+                            <input type="datetime-local" class="form-control" formControlName="closingDate"
                         [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
                         placeholder="Enter Closing Date">
                     <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
@@ -271,6 +271,7 @@
                             <option value="Voice Over">Voice Over</option>
                             <option value="Video Editing">Video Editing</option>
                             <option value="Video Changes">Video Changes</option>
+                            <option value="Completed">Completed</option>
                         </select>
                     <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
                         <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']"> Project
@@ -307,7 +308,7 @@
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-
+ 
         </div>
     </div>
 </div>

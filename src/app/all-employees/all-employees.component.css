@@ -1,9 +1,14 @@
 .card-details{
     display: flex;
-    flex-wrap: wrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .card-details strong{
     margin-right: 15px;
+}
+.card-details button{
+    margin-right: 100px;
 }
 .card{
     padding: 25px;
@@ -33,4 +38,4 @@
     box-shadow: 10px 10px 10px;
     width: 13%;
     background-color: white;
-}
+} 

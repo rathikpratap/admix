@@ -184,7 +184,11 @@
                             <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number
                                     is Required </label>
-                            </div>
+                                    <label class="text-danger"
+                                    *ngIf="getControls('custNumb')?.errors?.['maxLength'] || getControls('custNumb')?.errors?.['minLength'] || getControls('custNumb')?.errors?.['pattern']">
+                                    Please enter a valid mobile number
+                                </label>
+                            </div> 
                         </div>
                     </div>
                     <div class="input-box">
@@ -308,6 +312,7 @@
                                 <option value="Voice Over">Voice Over</option>
                                 <option value="Video Editing">Video Editing</option>
                                 <option value="Video Changes">Video Changes</option>
+                                <option value="Completed">Completed</option>
                             </select>
 
                             <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">

@@ -98,3 +98,7 @@ form .user-details .input-box{
 .user-details .input-box select:focus{
     border-color: blueviolet;
 }
+.btn:disabled{
+    background-color: black;
+    opacity: 0.2;
+}

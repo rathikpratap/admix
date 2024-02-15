@@ -21,7 +21,7 @@ export class LoginComponent {
     this.auth.signin(loginData).subscribe((res)=>{
       if(res.success){ 
         localStorage.setItem('token', res.token);
-        alert(res.message);
+        //alert(res.message);
         if(this.loginForm.value.loginUsername === 'Shiva Varshney' || this.loginForm.value.loginUsername === 'Swati Varshney'){
           this.router.navigateByUrl('/admin-dashboard')
         }else{

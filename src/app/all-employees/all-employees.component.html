@@ -28,14 +28,22 @@
                         <div class="card-details">
                             <strong> Mobile Number: </strong>
                             <p> {{user.signupNumber}}</p>
-                        </div>
+                        </div> 
                         <div class="card-details">
                             <strong> Gender: </strong>
                             <p> {{user.signupGender}}</p>
                         </div>
                         <div class="card-details">
+                            <strong> Role: </strong>
+                            <p> {{user.signupRole}}</p>
+                        </div>
+                        <div class="card-details">
                             <strong> Address: </strong>
                             <p> {{user.signupAddress}}</p>
+                        </div>
+                        <div class="card-details">
+                            <button class="btn btn-primary"routerLink="/updateEmployee/{{user._id}}"> Update </button>
+                            <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button> 
                         </div>
                     </div>
                 </div>

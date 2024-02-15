@@ -23,15 +23,15 @@ export class SideNavComponent {
     },
     {
       number: '3',
-      name: 'All Projects',
-      icon: 'bi bi-card-list',
-      route: '/all-projects'
-    },
-    {
-      number: '4',
       name: 'All Employees',
       icon: 'bi bi-person-badge',
       route: '/allEmployees'
+    },
+    {
+      number: '4',
+      name: 'All Projects',
+      icon: 'bi bi-card-list',
+      route: '/all-projects'
     }
   ]
 }
