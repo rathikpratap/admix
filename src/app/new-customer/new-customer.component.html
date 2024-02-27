@@ -1,142 +1,3 @@
-<!--<div class="customer-heading">
-    <h1> Enter Customer Details</h1>
-</div>
-<div class="customer-details">
-    <div class="row">
-        <div class="col-lg-3 col-md-3">
-
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-            <div [ngClass]="className" role="alert">
-                {{message}}
-            </div>
-            <form [formGroup]="customerForm" (ngSubmit)="customerForm.status !== 'INVALID' && addCust()">
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custCode"
-                        [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
-                        placeholder="Enter Client Code">
-                    <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is
-                            Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custName"
-                        [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}"
-                        placeholder="Enter Customer Name">
-                    <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name is
-                            Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custNumb"
-                        [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
-                        placeholder="Enter Customer Number">
-                    <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number is
-                            Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custBussiness"
-                        [ngClass]="{error:getControls('custBussiness')?.errors && getControls('custBussiness')?.touched}"
-                        placeholder="Enter Customer Business">
-                    <div *ngIf="getControls('custBussiness')?.errors && getControls('custBussiness')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custBussiness')?.errors?.['required']"> Business
-                            Name is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="closingDate"
-                        [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
-                        placeholder="Enter Closing Date">
-                    <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
-                        <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Closing
-                            Date is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" formControlName="closingPrice"
-                        [ngClass]="{error:getControls('closingPrice')?.errors && getControls('closingPrice')?.touched}"
-                        placeholder="Enter Closing Price">
-                    <div *ngIf="getControls('closingPrice')?.errors && getControls('closingPrice')?.touched">
-                        <label class="text-danger" *ngIf="getControls('closingPrice')?.errors?.['required']"> Closing
-                            Price is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="closingCateg"
-                        [ngClass]="{error:getControls('closingCateg')?.errors && getControls('closingCateg')?.touched}"
-                        placeholder="Enter Closing Category">
-                    <div *ngIf="getControls('closingCateg')?.errors && getControls('closingCateg')?.touched">
-                        <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']"> Closing
-                            Category is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" formControlName="AdvPay"
-                        [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
-                        placeholder="Enter Received Payment">
-                    <div *ngIf="getControls('AdvPay')?.errors && getControls('AdvPay')?.touched">
-                        <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received Payment
-                            is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" formControlName="remainingAmount"
-                        [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
-                        placeholder="Remaining Amount">
-                    <div *ngIf="getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched">
-                        <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']">
-                            Received Payment is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custCity"
-                        [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}"
-                        placeholder="Enter Customer City">
-                    <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City is
-                            Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="custState"
-                        [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}"
-                        placeholder="Enter Customer State">
-                    <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> Country is
-                            Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="projectStatus"
-                        [ngClass]="{error:getControls('projectStatus')?.errors && getControls('projectStatus')?.touched}"
-                        placeholder="Enter Project Status">
-                    <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
-                        <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']"> Project
-                            Status is Required </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="salesPerson"
-                        [ngClass]="{error:getControls('salesPerson')?.errors && getControls('salesPerson')?.touched}"
-                        placeholder="Enter your Username">
-                    <div *ngIf="getControls('salesPerson')?.errors && getControls('salesPerson')?.touched">
-                        <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']"> Username is
-                            Required </label>
-                    </div>
-                </div>
-                <input type="Submit" [disabled]="customerForm.status === 'INVALID'" class="btn btn-success">
-            </form>
-        </div>
-        <div class="col-lg-3 col-md-3">
-
-        </div>
-    </div>
-</div>-->
-
 <div class="new-customer">
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -156,10 +17,9 @@
                             <span class="details"> Client Code: </span>
                             <input type="text" class="form-control" formControlName="custCode"
                                 [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
-                                placeholder="Enter Client Code">
+                                placeholder="Enter Client Code" #codeInput>
                             <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client
-                                    Code is Required </label>
+                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
                             </div>
                         </div>
                     </div>
@@ -170,8 +30,7 @@
                                 [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}"
                                 placeholder="Enter Customer Name">
                             <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name
-                                    is Required </label>
+                                <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name is Required </label>
                             </div>
                         </div>
                     </div>
@@ -182,9 +41,8 @@
                                 [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
                                 placeholder="Enter Customer Number">
                             <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number
-                                    is Required </label>
-                                    <label class="text-danger"
+                                <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number is Required </label>
+                                <label class="text-danger"
                                     *ngIf="getControls('custNumb')?.errors?.['maxLength'] || getControls('custNumb')?.errors?.['minLength'] || getControls('custNumb')?.errors?.['pattern']">
                                     Please enter a valid mobile number
                                 </label>
@@ -198,8 +56,7 @@
                                 [ngClass]="{error:getControls('custBussiness')?.errors && getControls('custBussiness')?.touched}"
                                 placeholder="Enter Customer Business">
                             <div *ngIf="getControls('custBussiness')?.errors && getControls('custBussiness')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custBussiness')?.errors?.['required']">
-                                    Business Name is Required </label>
+                                <label class="text-danger" *ngIf="getControls('custBussiness')?.errors?.['required']"> Business Name is Required </label>
                             </div>
                         </div>
                     </div>
@@ -210,9 +67,7 @@
                                 [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
                                 placeholder="Enter Closing Date">
                             <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
-                                <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']">
-                                    Closing
-                                    Date is Required </label>
+                                <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Closing Date is Required </label> 
                             </div>
                         </div>
                     </div>
@@ -223,9 +78,7 @@
                                 [ngClass]="{error:getControls('closingPrice')?.errors && getControls('closingPrice')?.touched}"
                                 placeholder="Enter Closing Price">
                             <div *ngIf="getControls('closingPrice')?.errors && getControls('closingPrice')?.touched">
-                                <label class="text-danger" *ngIf="getControls('closingPrice')?.errors?.['required']">
-                                    Closing
-                                    Price is Required </label>
+                                <label class="text-danger" *ngIf="getControls('closingPrice')?.errors?.['required']"> Closing Price is Required </label>
                             </div>
                         </div>
                     </div>
@@ -243,8 +96,7 @@
                                 <option value="Festival">Festival</option>
                             </select>
                             <div *ngIf="getControls('closingCateg')?.errors && getControls('closingCateg')?.touched">
-                                <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']">
-                                    Closing Category is Required </label>
+                                <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']"> Closing Category is Required </label>
                             </div>
                         </div>
                     </div>
@@ -255,48 +107,55 @@
                                 [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
                                 placeholder="Enter Received Payment">
                             <div *ngIf="getControls('AdvPay')?.errors && getControls('AdvPay')?.touched">
-                                <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received
-                                    Payment
-                                    is Required </label>
+                                <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received Payment is Required </label>
                             </div>
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Remaining Amount: </span>
-                            <input type="number" class="form-control" formControlName="remainingAmount"
+                            <input type="text" class="form-control" formControlName="remainingAmount"
                                 [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
-                                placeholder="Remaining Amount" [disabled]="true">
+                                placeholder="Remaining Amount">
                             <div
                                 *ngIf="getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched">
-                                <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']">
-                                    Received Payment is Required </label>
+                                <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']"> Received Payment is Required </label>
                             </div>
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
-                            <span class="details"> Customer City: </span>
-                            <input type="text" class="form-control" formControlName="custCity"
-                                [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}"
-                                placeholder="Enter Customer City">
-                            <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City
-                                    is
-                                    Required </label>
+                            <span class="details"> Customer Country: </span>
+                            <select formControlName="custCountry" (change)="onCountryChange()" [ngClass]="{error:getControls('custCountry')?.errors && getControls('custCountry')?.touched}">
+                                <option value="null">Select Country</option>
+                                <option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</option>
+                            </select>
+                            <div *ngIf="getControls('custCountry')?.errors && getControls('custCountry')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custCountry')?.errors?.['required']"> Country is Required </label>
                             </div>
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer State: </span>
-                            <input type="text" class="form-control" formControlName="custState"
-                                [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}"
-                                placeholder="Enter Customer State">
+                            <select formControlName="custState"(change)="onStateChange()" [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}">
+                                <option value="null">Select State</option>
+                                <option *ngFor="let state of states" [value]="state.isoCode">{{state.name}}</option>
+                            </select>
                             <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']">
-                                    Country is
-                                    Required </label>
+                                <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> State is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer City: </span>
+                            <select formControlName="custCity" [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}">
+                                <option value="null">Select City</option>
+                                <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+                            </select>
+                            <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City is Required </label>
                             </div>
                         </div>
                     </div>
@@ -314,11 +173,8 @@
                                 <option value="Video Changes">Video Changes</option>
                                 <option value="Completed">Completed</option>
                             </select>
-
                             <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
-                                <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']">
-                                    Project
-                                    Status is Required </label>
+                                <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']"> Project Status is Required </label>
                             </div>
                         </div>
                     </div>
@@ -329,10 +185,14 @@
                                 [ngClass]="{error:getControls('salesPerson')?.errors && getControls('salesPerson')?.touched}"
                                 placeholder="Enter your Username">
                             <div *ngIf="getControls('salesPerson')?.errors && getControls('salesPerson')?.touched">
-                                <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']">
-                                    Username is
-                                    Required </label>
+                                <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']"> Username is Required </label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Youtube Video Link: </span>
+                            <textarea type="text" class="form-control" formControlName="youtubeLink" placeholder="Enter youtubeLink"></textarea>  
                         </div>
                     </div>
                     <div class="input-box">
@@ -342,8 +202,7 @@
                                 [ngClass]="{error:getControls('remark')?.errors && getControls('remark')?.touched}"
                                 placeholder="Enter Remark"></textarea>  
                             <div *ngIf="getControls('remark')?.errors && getControls('reamrk')?.touched">
-                                <label class="text-danger" *ngIf="getControls('remark')?.errors?.['required']">
-                                    Remark is required</label>
+                                <label class="text-danger" *ngIf="getControls('remark')?.errors?.['required']"> Remark is required</label>
                             </div>
                         </div>
                     </div>

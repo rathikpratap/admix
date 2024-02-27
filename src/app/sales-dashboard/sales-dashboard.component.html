@@ -1,14 +1,15 @@
-<!--<div class="row">
+
+<div class="row">
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="card-txt">
                         <h5> Today's Sale </h5>
-                        <h2> 21 </h2>
+                        <h2> {{todayEntries}} </h2>
                     </div>
                     <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                        <img [src]="todayEntries < 4 ? 'assets/Images/sad_face.png' : 'assets/Images/normal_face.png'" alt="">
                     </div>
                 </div>
             </div>
@@ -20,10 +21,10 @@
                 <div class="d-flex">
                     <div class="card-txt">
                         <h5> Monthly Sale </h5>
-                        <h2> 21 </h2>
+                        <h2> {{totalEntries}} </h2>
                     </div>
                     <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                        <img [src]="totalEntries <= 2 ? 'assets/Images/sad_face.png' : totalEntries > 2 && totalEntries < 5 ? 'assets/Images/normal_face.png' : 'assets/Images/happy_face.png'" alt="">
                     </div>
                 </div>
             </div>
@@ -31,106 +32,75 @@
     </div>
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
         <div class="card">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()">
+                <div class="form-container">
+                    <div class="details">
+                        <label for="startDate"> Start Date</label>
+                        <input type="date" formControlName="startDate" id="startDate">
+                    </div>
+                    <div class="details">
+                        <label for="endDate"> End Date</label>
+                        <input type="date" formControlName="endDate" id="endDate">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary"> Submit</button>    
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
             <div class="card-body">
-                <div class="d-flex">
+                <div class="form-container">
                     <div class="card-txt">
-                        <h5> Monthly Target </h5>
-                        <h2> 21 </h2>
+                        <h5> Monthly Closing Amount</h5>
+                        <h4> Rs.{{totalAmount}} </h4>
                     </div>
-                    <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Closing Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalAmount }} </h4>
+                    <button class="btn btn-sm btn-primary" (click)="downloadRangeFile()"> Download File </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-container">
+                    <div class="card-txt">
+                        <h5> Monthly Received Amount</h5>   
+                        <h4> Rs.{{totalRecv}} </h4>
                     </div>
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Received Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalRecv }} </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-container">
+                    <div class="card-txt">
+                        <h5> Monthly Due Amount</h5>
+                        <h4>Rs. {{totalDue}} </h4>
+                    </div>
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Due Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalDue }} </h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-heading">
-                <h2> History </h2>
-                <hr>
-            </div>
-            <div>
-                <h5> November </h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-                </div>
-            </div>
-            <div>
-                <h5> December </h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                </div>
-            </div>
-            <div>
-                <h5> January </h5>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-heading">
-                <h4> Monthly Conversion Rate </h4>
-                <hr>
-            </div>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                            Overall
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <h5> Conversion Rate </h5>
-                            <p> 5.63% </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            Individual
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                        data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <h5> Conversion Rate </h5>
-                            <p> 5.63% </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-heading">
-                <h4> Customer By Location </h4>
-                <hr>
-            </div>
-            <div class="loc-list">
-                <ul>
-                    <li> Mathura</li>
-                    <li> Agra</li>
-                    <li> Hathras</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>-->
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card ongoing">

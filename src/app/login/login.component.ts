@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   
-  constructor(private auth:AuthService, private router:Router) {}
+  userRole:any;
+  constructor(private auth:AuthService, private router:Router) {
+    
+  }
 
   loginForm = new FormGroup({
     loginUsername: new FormControl(''),
     loginPswd: new FormControl('')
-  })
+  }) 
   loginUser(){
     const loginData = this.loginForm.value;
     this.auth.signin(loginData).subscribe((res)=>{

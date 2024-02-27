@@ -7,7 +7,7 @@
             <div class="new-heading">
                 <h2> Update Employee Details </h2>
             </div>
-            <form [formGroup]="empUpdateForm" (ngSubmit)="empUpdateForm.status !== 'INVALID' && onUpdate()"> 
+            <form [formGroup]="empUpdateForm" (ngSubmit)="empUpdateForm.status !== 'INVALID' && onUpdate()">
                 <div class="user-details">
                     <div class="input-box">
                         <div class="form-group">
@@ -28,9 +28,7 @@
                                 placeholder="Enter Your Username">
                             <div
                                 *ngIf="getControls('signupUsername')?.errors && getControls('signupUsername')?.touched">
-                                <label class="text-danger" *ngIf="getControls('signupUsername')?.errors?.['required']">
-                                    Username
-                                    is Required </label>
+                                <label class="text-danger" *ngIf="getControls('signupUsername')?.errors?.['required']"> Username is Required </label>
                             </div>
                         </div>
                     </div>
@@ -42,12 +40,8 @@
                                 placeholder=" Enter your Email">
                             <div *ngIf="getControls('signupEmail')?.errors && getControls('signupEmail')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupEmail')?.errors?.['required']">
-                                    Email is
-                                    Required
-                                </label>
-                                <label class="text-danger" *ngIf="getControls('signupEmail')?.errors?.['pattern']">
-                                    Please enter a valid email
-                                </label>
+                                    Email is Required </label>
+                                <label class="text-danger" *ngIf="getControls('signupEmail')?.errors?.['pattern']"> Please enter a valid email </label>
                             </div>
                         </div>
                     </div>
@@ -59,9 +53,7 @@
                                 placeholder="Mobile Number">
                             <div *ngIf="getControls('signupNumber')?.errors && getControls('signupNumber')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupNumber')?.errors?.['required']">
-                                    Number is
-                                    Required
-                                </label>
+                                    Number is Required </label>
                                 <label class="text-danger"
                                     *ngIf="getControls('signupNumber')?.errors?.['maxLength'] || getControls('signupNumber')?.errors?.['mminLength'] || getControls('signupNumber')?.errors?.['pattern']">
                                     Please enter a valid mobile number
@@ -88,8 +80,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Role: </span>
-                            <select class="form-select" formControlName="signupRole"
-                                aria-label="Default select example"
+                            <select class="form-select" formControlName="signupRole" aria-label="Default select example"
                                 [ngClass]="{error:getControls('signupRole')?.errors && getControls('signupRole')?.touched}">
                                 <option value="Select Role"> Select Employee Role </option>
                                 <option value="Admin"> Admin </option>
@@ -99,8 +90,7 @@
                                 <option value="Web Developer"> Web Developer </option>
                             </select>
                             <div *ngIf="getControls('signupRole')?.errors && getControls('signupRole')?.touched">
-                                <label class="text-danger" *ngIf="getControls('signupRole')?.errors?.['required']">
-                                    Role is Required </label>
+                                <label class="text-danger" *ngIf="getControls('signupRole')?.errors?.['required']"> Role is Required </label>
                             </div>
                         </div>
                     </div>
@@ -110,7 +100,8 @@
                             <input type="text" class="from-control" formControlName="signupPassword"
                                 [ngClass]="{error:getControls('signupPassword')?.errors && getControls('signupPassword')?.touched}"
                                 placeholder="Create Password">
-                            <div *ngIf="getControls('signupPassword')?.errors && getControls('signupPassword')?.touched">
+                            <div
+                                *ngIf="getControls('signupPassword')?.errors && getControls('signupPassword')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupPassword')?.errors?.['required']">
                                     Password is Required
                                 </label>
@@ -131,10 +122,9 @@
                             <textarea class="from-control" formControlName="signupAddress"
                                 [ngClass]="{error:getControls('signupAddress')?.errors && getControls('signupAddress')?.touched}"
                                 placeholder="Enter your Address">  </textarea>
-                                <div *ngIf="getControls('signupAddress')?.errors && getControls('signupAddress')?.touched">
-                                    <label class="text-danger" *ngIf="getControls('signupAddress')?.errors?.['required']">
-                                        Address is Required </label>
-                                </div>
+                            <div *ngIf="getControls('signupAddress')?.errors && getControls('signupAddress')?.touched">
+                                <label class="text-danger" *ngIf="getControls('signupAddress')?.errors?.['required']"> Address is Required </label>
+                            </div>
                         </div>
                     </div>
                 </div>

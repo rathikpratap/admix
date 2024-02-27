@@ -15,7 +15,9 @@
 .card-txt{
     width: 100%;
 }
-
+.card-heading h4{
+    font-family: 'poppins';
+}
 .card:hover{
     box-shadow: 10px 10px 10px; 
 }
@@ -26,6 +28,7 @@
 .card-img img{
     float: right;
     margin-right: 50px;
+    width: 60%;
 }
 .progress{
     width: 90%;
@@ -46,4 +49,34 @@
 .table-scroll{
     overflow: scroll;
     height: 250px;
+}
+
+.form-container{
+    display: flex;
+}
+.form-container .details label{
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.form-container .details input{
+    margin-bottom: 10px;
+    height: 35px;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-bottom-width: 3px;
+    transition: all 0.3s ease;
+}
+.form-container .details input:focus{
+    border-color: blueviolet;
+}
+.card-txt2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-txt2 h5{
+    margin-left: 45px;
 }

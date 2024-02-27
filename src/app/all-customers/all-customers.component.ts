@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./all-customers.component.css']
 })
 export class AllCustomersComponent {
+
+ @ViewChild('fileInput') fileInput:any;
+ selectedFile: File | null =null;
  
   data:any=[];
   searchForm: FormGroup;
@@ -18,7 +21,7 @@ export class AllCustomersComponent {
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });
-
+ 
     this.auth.salesAllProjects().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
@@ -38,4 +41,27 @@ export class AllCustomersComponent {
     });
   }
 
+  uploadFile(event:any){
+    this.selectedFile = event.target.files[0];
+    //this.uploadFileToServer(file);
+  }
+  async selectFile(): Promise<void>{
+    if(this.selectedFile){
+      try{
+        await this.auth.uploadFile(this.selectedFile);
+        alert("File Upload Successful");
+        console.log("Upload Successful");
+      } catch(error){
+        console.log("Error Uploading File", error);
+      }
+    } else{
+      console.log("No File Selected")
+    }
+    
+  }
+
+  downloadFile(){
+    this.auth.downloadFile();
+  }
+ 
 }

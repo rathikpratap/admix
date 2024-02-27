@@ -1,17 +1,20 @@
 .nameCard{
-    font-style: italic;
-    font-family:'Segoe UI';
-    font-weight: 700;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+}
+.nameCard2{
+    display: flex;
+    justify-content: space-between;
 }
 .title-heading{
     background-color: white;
     border-radius: 15px;
     padding: 10px;
     box-shadow: 10px 10px 10px;
-    width: 13%;
+    font-family: 'poppins';
+    width: fit-content;
+    font-style: italic;
 }
 .nameCard form{
     margin-left: auto;
@@ -31,15 +34,18 @@
 }
 .ProjectCard{
     font-style: italic;
-    font-family: 'Segoe UI';
-    font-weight: 700;
+    font-family: 'poppins';
     background-color: white;
     border-radius: 15px;
     padding: 10px;
     box-shadow: 10px 10px 10px;
-    width: 10%;
+    width: fit-content;
 }
 
 .table{
     box-shadow: 10px 10px 10px;
+}
+.downloadFile{
+    text-align: right;
+    margin-bottom: 15px;
 }

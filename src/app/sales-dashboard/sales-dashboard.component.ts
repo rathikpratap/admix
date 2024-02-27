@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-sales-dashboard',
@@ -9,8 +11,20 @@ import { AuthService } from '../service/auth.service';
 export class SalesDashboardComponent {
 
   
-  data:any=[];
-  completeData: any=[];
+  data:any;
+  completeData: any;
+  totalEntries: any;
+  todayEntries : any;
+  totalAmount:any;
+  totalRecv: any;
+  totalDue: any;
+  rangeData : any;
+
+
+  dateRangeForm = new FormGroup({
+    startDate : new FormControl(""),
+    endDate: new FormControl("")
+  });
 
   constructor(private auth: AuthService){
     this.auth.getCustData().subscribe((list : any)=>{
@@ -22,6 +36,60 @@ export class SalesDashboardComponent {
       console.log("completeList",completeList)
       this.completeData = completeList;
     })
+ 
+    this.auth.getMonthEntries().subscribe((res : any)=>{
+      this.totalEntries = res.totalEntries.length;
+      this.totalAmount = res.totalAmount;
+      this.totalRecv = res.totalRecv;
+      this.totalDue = res.totalDue;
+    },(error)=>{
+      console.error('Error fetching total Entries', error);
+    });
+
+    this.auth.getTodayEntries().subscribe((todayRes:any)=>{
+      console.log('Response Data:', todayRes);
+      const totalDayEntry = todayRes.totalDayEntry;
+      if(Array.isArray(totalDayEntry)){
+        this.todayEntries = totalDayEntry.length;
+      }else{
+        this.todayEntries = 0;
+      }
+      
+    },(error)=>{
+      console.error('Error Fetching today Entreis', error);
+    });
   }
   
+  onDate(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.getDatabyRange(startDate, endDate).subscribe((rangedata:any)=>{
+        console.log("Data by Date Range==>", rangedata);
+        this.rangeData = rangedata;
+      },(error)=>{
+        console.error('Error fetching data', error);
+      });
+    }else{
+      console.error("Start date and End Date is not Valid");
+    }
+    
+  }
+
+  downloadRangeFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadRangeFile(startDate, endDate);
+    }
+  }
+
 }

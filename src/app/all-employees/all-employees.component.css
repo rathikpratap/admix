@@ -36,6 +36,7 @@
     border-radius: 15px;
     padding: 10px;
     box-shadow: 10px 10px 10px;
-    width: 13%;
+    font-family: 'poppins';
+    width: fit-content;
     background-color: white;
 } 

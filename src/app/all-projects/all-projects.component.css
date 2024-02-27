@@ -6,6 +6,10 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+.nameCard2{
+    display: flex;
+    justify-content: space-between;
+}
 .nameCard form{
     margin-left: auto;
 }
@@ -24,15 +28,14 @@
 }
 .ProjectCard{
     font-style: italic;
-    font-family: 'Segoe UI';
-    font-weight: 700;
+    font-family: 'poppins';
     border-radius: 15px;
     padding: 10px;
     box-shadow: 10px 10px 10px;
-    width: 10%;
+    width: fit-content;
     background-color: white;
 }
-
+ 
 .table{
     box-shadow: 10px 10px 10px;
 }
@@ -40,6 +43,11 @@
     border-radius: 15px;
     padding: 10px;
     box-shadow: 10px 10px 10px;
-    width: 13%;
+    font-family: 'poppins';
+    width: fit-content;
     background-color: white;
+}
+.downloadFile{
+    text-align: right;
+    margin-bottom: 15px;
 }

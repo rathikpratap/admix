@@ -89,6 +89,62 @@ export class AuthService {
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-emp/${id}`, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
   }
 
+  getCountries(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/countries`);
+  }
+
+  getStates(countryCode: any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/states/${countryCode}`);
+  }
+
+  getCities(countryCode:any, stateCode: any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/cities/${countryCode}/${stateCode}`);
+  }
+
+  getMonthEntries(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntries`);
+  }
+
+  getTodayEntries(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntries`);
+  }
+
+  getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
+  uploadFile(file: File): Promise<any>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${appConfig.apiUrl}/auth/uploadFile`, formData).toPromise();
+  }
+
+  downloadFile(){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadFile`,{responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log('Download Complete')
+    }, error => {
+      console.error('Error Downloading File', error);
+    });
+  }
+
+  downloadRangeFile(startDate: Date, endDate: Date){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    });
+  }
+  
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

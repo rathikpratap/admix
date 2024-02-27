@@ -26,6 +26,7 @@ export class UpdateCustomerComponent {
       custState : new FormControl("", [Validators.required]),
       projectStatus : new FormControl("",[Validators.required]),
       salesPerson : new FormControl("",[Validators.required]),
+      youtubeLink : new FormControl(""),
       remark  : new FormControl("",[Validators.required])
     })
 
@@ -58,6 +59,7 @@ export class UpdateCustomerComponent {
           custState : res['custState'],
           projectStatus : res['projectStatus'],
           salesPerson :res['salesPerson'],
+          youtubeLink : res['youtubeLink'],
           remark : res['remark']
         })
 

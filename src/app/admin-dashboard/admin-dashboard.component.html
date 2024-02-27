@@ -1,15 +1,14 @@
-<!--<div class="row">
+<div class="row">
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
-                    <div class="card-txt">
+                    <div class="card-txt"> 
                         <h5> Today's Sale </h5>
-                        <h2> 21 </h2>
-                        <h1>{{tok?.signupUsername}}</h1>
+                        <h2> {{todayEntries}} </h2>
                     </div>
                     <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                        <img [src]="todayEntries < 4 ? 'assets/Images/sad_face.png' : 'assets/Images/normal_face.png'" alt="">
                     </div>
                 </div>
             </div>
@@ -21,10 +20,10 @@
                 <div class="d-flex">
                     <div class="card-txt">
                         <h5> Monthly Sale </h5>
-                        <h2> 21 </h2>
+                        <h2> {{totalEntries}} </h2>
                     </div>
                     <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                        <img [src]="todayEntries < 20 ? 'assets/Images/sad_face.png' : todayEntries > 20 && todayEntries < 30 ? 'assets/Images/normal_face.png' : 'assets/Images/happy_face.png'" alt="">
                     </div>
                 </div>
             </div>
@@ -32,21 +31,77 @@
     </div>
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
         <div class="card">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+                <div class="form-container">
+                    <div class="details">
+                        <label for="startDate"> Start Date</label>
+                        <input type="date" formControlName="startDate" id="startDate">
+                    </div>
+                    <div class="details">
+                        <label for="endDate"> End Date</label>
+                        <input type="date" formControlName="endDate" id="endDate">
+                    </div>
+                </div>
+                <div class="card-txt2">               
+                    <button type="submit" class="btn btn-primary"> Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
             <div class="card-body">
-                <div class="d-flex">
+                <div class="form-container">
                     <div class="card-txt">
-                        <h5> Monthly Target </h5>
-                        <h2> 21 </h2>
+                        <h5> Monthly Closing Amount</h5>
+                        <h4> Rs.{{totalAmount}} </h4>
                     </div>
-                    <div class="card-img">
-                        <img src="assets/Images/Sale.png" alt="">
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Closing Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalAmount }} </h4>
+                    <button class="btn btn-sm btn-primary" (click)="downloadRangeFile()"> Download File </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-container">
+                    <div class="card-txt">
+                        <h5> Monthly Received Amount</h5>   
+                        <h4> Rs.{{totalRecv}} </h4>
                     </div>
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Received Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalRecv }} </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-container">
+                    <div class="card-txt">
+                        <h5> Monthly Due Amount</h5>
+                        <h4>Rs. {{totalDue}} </h4>
+                    </div>
+                </div>
+                <div class="card-txt1" *ngIf="rangeData">
+                    <h5> Total Due Amount </h5>
+                    <h4> Rs.{{ rangeData.rangeTotalDue }} </h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
+<!--<div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12 col-12">
         <div class="card">
             <div class="card-heading">
@@ -153,7 +208,6 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Sales Person</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
@@ -168,7 +222,6 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
                             <td>{{user.salesPerson}}</td>
-                            
                         </tr>
                     </tbody>
                 </table>

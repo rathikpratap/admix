@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -8,11 +8,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./all-projects.component.css']
 })
 export class AllProjectsComponent {
+
+  @ViewChild('fileInput') fileInput:any;
+ selectedFile: File | null =null;
  
   data:any=[];
   searchForm: FormGroup;
   customers :any[] = [];
   errorMessage: any;
+  dataLength: any; 
  
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
     this.searchForm = this.formBuilder.group({
@@ -36,6 +40,29 @@ export class AllProjectsComponent {
       this.customers = [];
       this.errorMessage = error.message;
     });
+  }
+
+  uploadFile(event:any){
+    this.selectedFile = event.target.files[0];
+    //this.uploadFileToServer(file);
+  }
+  async selectFile(): Promise<void>{
+    if(this.selectedFile){
+      try{
+        await this.auth.uploadFile(this.selectedFile);
+        alert("File Upload Successful");
+        console.log("Upload Successful");
+      } catch(error){
+        console.log("Error Uploading File", error);
+      }
+    } else{
+      console.log("No File Selected")
+    }
+    
+  }
+
+  downloadFile(){
+    this.auth.downloadFile();
   }
 
 
