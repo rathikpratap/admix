@@ -1,38 +1,127 @@
 <div class="row">
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
+        <div class="card1">
             <div class="card-body">
-                <div class="d-flex">
+                <div class="form-container2">
                     <div class="card-txt"> 
-                        <h5> Today's Sale </h5>
-                        <h2> {{todayEntries}} </h2>
-                    </div>
-                    <div class="card-img">
-                        <img [src]="todayEntries < 4 ? 'assets/Images/sad_face.png' : 'assets/Images/normal_face.png'" alt="">
+                        <div class="card-bg">
+                            <h5> Today's Sale </h5>
+                        </div>
+                        <h2> {{todayEntries}} </h2>    
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
+        <div class="card1">
             <div class="card-body">
-                <div class="d-flex">
+                <div class="form-container2">
                     <div class="card-txt">
-                        <h5> Monthly Sale </h5>
+                        <div class="card-bg">
+                            <h5> Monthly Sale </h5>
+                        </div>
                         <h2> {{totalEntries}} </h2>
                     </div>
-                    <div class="card-img">
-                        <img [src]="todayEntries < 20 ? 'assets/Images/sad_face.png' : todayEntries > 20 && todayEntries < 30 ? 'assets/Images/normal_face.png' : 'assets/Images/happy_face.png'" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card2">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt"> 
+                        <div class="card-bg">
+                            <h5> Today's Sale </h5>
+                        </div>
+                        <h2> {{todayEntries}} </h2>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card3">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Monthly Closing Amount</h5>
+                        </div>
+                        <h4> Rs.{{totalAmount}} </h4>
+                    </div>
+                </div>
+                <div class="form-container2" *ngIf="rangeData">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Total Closing Amount </h5>
+                        </div>
+                        <h4> Rs.{{ rangeData.rangeTotalAmount }} </h4>
+                    </div>
+                    <button class="btn btn-sm btn-primary" (click)="downloadRangeFile()"> Download File </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card3">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Monthly Received Amount</h5>
+                        </div>
+                        <h4> Rs.{{totalRecv}} </h4>
+                    </div>
+                </div>
+                <div class="form-container2" *ngIf="rangeData">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Total Received Amount </h5>
+                        </div>
+                        <h4> Rs.{{ rangeData.rangeTotalRecv }} </h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Monthly Due Amount</h5>
+                        </div>
+                        <h4>Rs. {{totalDue}} </h4>
+                    </div>
+                </div>
+                <div class="form-container2" *ngIf="rangeData">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h5> Total Due Amount </h5>
+                        </div>
+                        <h4> Rs.{{ rangeData.rangeTotalDue }} </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card5">
             <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
                 <div class="form-container">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h4>Search Data</h4>
+                        </div>
+                    </div>
                     <div class="details">
                         <label for="startDate"> Start Date</label>
                         <input type="date" formControlName="startDate" id="startDate">
@@ -41,63 +130,13 @@
                         <label for="endDate"> End Date</label>
                         <input type="date" formControlName="endDate" id="endDate">
                     </div>
-                </div>
-                <div class="card-txt2">               
                     <button type="submit" class="btn btn-primary"> Submit</button>
+                    <div class="downloadButton" *ngIf="rangeData">
+                        <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
+                    </div>
                 </div>
+                
             </form>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-container">
-                    <div class="card-txt">
-                        <h5> Monthly Closing Amount</h5>
-                        <h4> Rs.{{totalAmount}} </h4>
-                    </div>
-                </div>
-                <div class="card-txt1" *ngIf="rangeData">
-                    <h5> Total Closing Amount </h5>
-                    <h4> Rs.{{ rangeData.rangeTotalAmount }} </h4>
-                    <button class="btn btn-sm btn-primary" (click)="downloadRangeFile()"> Download File </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-container">
-                    <div class="card-txt">
-                        <h5> Monthly Received Amount</h5>   
-                        <h4> Rs.{{totalRecv}} </h4>
-                    </div>
-                </div>
-                <div class="card-txt1" *ngIf="rangeData">
-                    <h5> Total Received Amount </h5>
-                    <h4> Rs.{{ rangeData.rangeTotalRecv }} </h4>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-container">
-                    <div class="card-txt">
-                        <h5> Monthly Due Amount</h5>
-                        <h4>Rs. {{totalDue}} </h4>
-                    </div>
-                </div>
-                <div class="card-txt1" *ngIf="rangeData">
-                    <h5> Total Due Amount </h5>
-                    <h4> Rs.{{ rangeData.rangeTotalDue }} </h4>
-                </div>
-            </div>
         </div>
     </div>
 </div>

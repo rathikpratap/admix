@@ -6,25 +6,95 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.card1{
+    background-image: url("/assets/Images/Green.png");
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card2{
+    background-image: url("/assets/Images/Purple.png");
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card3{
+    background-image: url("/assets/Images/Blue.png");
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card4{
+    background-image: url("/assets/Images/Red.png");
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card5{
+    background-image: url("/assets/Images/Purple2.png");
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.form-container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-bg{
+    background-color: #fff;
+    padding: 2px 50px 0px 50px;
+    border-radius: 10px;
+    border: 2px solid black;
+    color: black;
+}
 .form-container{
     display: flex;
+}
+.form-container .details{
+    margin-left: 50px;
+    color: #fff;
 }
 .form-container .details label{
     font-weight: 600;
     margin-bottom: 10px;
+    margin-right: 50px;
 }
 .form-container .details input{
     margin-bottom: 10px;
+    height: 35px;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-bottom-width: 3px;
+    transition: all 0.3s ease;
+}
+.form-container button{
+    margin-left: 70px;
+    padding: 0px 30px 0px 30px;
+}
+.form-container .downloadButton {
+    padding: 10px 30px 0px 30px;
 }
 .card-heading{
     font-family: 'poppins';
     font-style: italic;
 }
-.d-flex{
-    display: flex;
-}
 .card-txt{
-    width: 100%;
+    text-align: center;
+    color: #fff;
 } 
 .card-txt1 h5{
     margin-top: 15px;
@@ -34,6 +104,21 @@
 }
 .card:hover{
     box-shadow: 10px 10px 10px;
+}
+.card1:hover{
+    box-shadow: 10px 10px 10px; 
+}
+.card2:hover{
+    box-shadow: 10px 10px 10px; 
+}
+.card3:hover{
+    box-shadow: 10px 10px 10px; 
+}
+.card4:hover{
+    box-shadow: 10px 10px 10px; 
+}
+.card5:hover{
+    box-shadow: 10px 10px 10px; 
 }
 .completed:hover{
     background-color: rgb(171, 52, 52);
