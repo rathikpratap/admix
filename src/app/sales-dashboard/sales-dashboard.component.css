@@ -8,6 +8,9 @@
 }
 .card1{
     background-image: url("/assets/Images/Green.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 15px;
     border-radius: 25px;
     border: 2px solid grey;
@@ -16,6 +19,9 @@
 }
 .card2{
     background-image: url("/assets/Images/Purple.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 15px;
     border-radius: 25px;
     border: 2px solid grey;
@@ -24,6 +30,9 @@
 }
 .card3{
     background-image: url("/assets/Images/Blue.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 15px;
     border-radius: 25px;
     border: 2px solid grey;
@@ -32,6 +41,9 @@
 }
 .card4{
     background-image: url("/assets/Images/Red.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 15px;
     border-radius: 25px;
     border: 2px solid grey;
@@ -40,6 +52,9 @@
 }
 .card5{
     background-image: url("/assets/Images/Purple2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 15px;
     border-radius: 25px;
     border: 2px solid grey;

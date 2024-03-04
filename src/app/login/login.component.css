@@ -13,6 +13,9 @@
 	/*background: linear-gradient(90deg, #C7C5F4, #776BCC);*/
 	background-image: url("/assets/Images/AdMix_Media_App.png");
 	min-height: 100vh;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
