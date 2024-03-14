@@ -1,12 +1,12 @@
 
-.new-customer{
-    margin-top: 20px;
+.new-registration{
+    margin-top: 30px;
 }
 form{
     background-color: white;
     padding: 20px 20px 50px 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-bottom: 79px;
     border-radius: 10px;
     box-shadow: 10px 10px 10px ;
 }
@@ -23,12 +23,19 @@ form{
     border-radius: 15px;
     padding: 1px;
     box-shadow: 10px 10px 10px;
-}
-.new-customer form .user-details{
+} 
+.new-registration form .user-details{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 5px 0 5px 0;
+}
+.form-check-inline{
+    display: inline-flex;
+    margin-right: 25px;
+}
+.form-check-inline .input{
+    width: 100%;
 }
 form .user-details .input-box{
     width: 50%;
@@ -39,7 +46,7 @@ form .user-details .input-box{
     font-weight: 500;
 }
 .user-details .input-box input{
-    height: 45px;
+    
     width: 100%;
     padding: 10px;
     outline: none;
@@ -52,8 +59,18 @@ form .user-details .input-box{
 .user-details .input-box input:focus{
     border-color: blueviolet;
 }
+.btn{
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.error{
+    border: 1px solid red;
+}
 .user-details .input-box textarea{
-    height: 45px;
+    
     width: 100%;
     padding: 10px;
     outline: none;
@@ -65,19 +82,6 @@ form .user-details .input-box{
 }
 .user-details .input-box textarea:focus{
     border-color: blueviolet;
-}
-.btn{
-    width: 100%;
-    outline: none;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-.error{
-    border: 1px solid red;
-}
-.hidden-input{
-    display: none;
 }
 .user-details .input-box select{
     height: 45px;
@@ -93,6 +97,7 @@ form .user-details .input-box{
 .user-details .input-box select:focus{
     border-color: blueviolet;
 }
-.youtubeVideo{
-    margin-top: 20px;
+.btn:disabled{
+    background-color: black;
+    opacity: 0.2;
 }

@@ -28,6 +28,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
   }
 
+  getLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);
+  }
+  fetchLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
+  }
+
   getCompleteProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
   }
@@ -89,6 +96,10 @@ export class AuthService {
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-emp/${id}`, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
   }
 
+  deleteCust(id:any):Observable<any>{
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-cust/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  }
+
   getCountries(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/countries`);
   }
@@ -144,7 +155,28 @@ export class AuthService {
       console.error('Error Downloading File: ',error);
     });
   }
+
+  downloadDueFile(startDate: Date, endDate: Date){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    });
+  }
+
+  newCategory(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/newCategory`, data);
+  }
   
+  getCategory():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getCategory`);
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

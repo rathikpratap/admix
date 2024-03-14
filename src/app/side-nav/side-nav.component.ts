@@ -32,6 +32,18 @@ export class SideNavComponent {
       name: 'All Projects',
       icon: 'bi bi-card-list',
       route: '/all-projects'
-    }
+    },
+    {
+      number: '5',
+      name: 'Add New Category',
+      icon: 'bi bi-file-earmark-plus-fill',
+      route: '/new-category'
+    }//,
+    //{
+    //  number: '6',
+    //  name: 'Get Leads',
+    //  icon: 'bi bi-arrow-down-circle',
+    //  route: '/facebook-leads'
+    //}
   ]
 }

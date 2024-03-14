@@ -7,6 +7,21 @@
     display: flex;
     justify-content: space-between;
 }
+.searchData{
+    display: flex;
+    justify-content: flex-end;
+}
+.details{
+    text-align: right;
+}
+.rangeData{
+    margin-top: 20px;
+}
+.downloadButton{
+    text-align: right;
+    margin-bottom: 15px;
+}
+
 .title-heading{
     background-color: white;
     border-radius: 15px;
@@ -48,4 +63,21 @@
 .downloadFile{
     text-align: right;
     margin-bottom: 15px;
+}
+.buttons{
+    display: flex;
+}
+.buttons button{
+    margin-left: 15px;
+}
+.searchData .details{
+    margin-right: 15px;
+    
+}
+.searchData .details input{
+    margin-left: 10px;
+    padding: 5px;
+}
+.searchData .details label{
+    font-weight: 500;
 }

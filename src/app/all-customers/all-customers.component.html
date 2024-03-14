@@ -3,10 +3,10 @@
         <div class="searchCustomer">
             <div class="nameCard">
                 <div class="title-heading">
-                    <h5> Search Customer </h5>
+                    <h5> Search Customer </h5> 
                 </div>
                 <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
-                    <input type="text" formControlName="mobile" placeholder="Enter Mobile Number">
+                    <input type="text" formControlName="mobile" placeholder="Enter Mobile No/ Name">
                     <button class="btn btn-primary" type="submit"> Search</button>
                 </form>
             </div> 
@@ -51,12 +51,67 @@
                 <div class="ProjectCard"> 
                     <h5>All Projects</h5>
                 </div>
-                <div class="custom-file-upload">
-                    <h6 for="fileInput"> Select File to Upload</h6>
-                    <input id="fileInput" type="file" #fileInput (change)="uploadFile($event)">
-                    <button class="btn btn-sm btn-primary" (click)="selectFile()"> Upload File </button>
+                <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()" class="search-Form">
+                    <div class="searchData">
+                        <!--<div class="nameCard2">
+                            <div class="ProjectCard">
+                                <h4>Search Data</h4>
+                            </div>
+                        </div>-->
+                        <div class="details">
+                            <label for="startDate"> Start Date</label>
+                            <input type="date" formControlName="startDate" id="startDate">
+                        </div>
+                        <div class="details">
+                            <label for="endDate"> End Date</label>
+                            <input type="date" formControlName="endDate" id="endDate">
+                        </div>
+                        <div class="details">
+                            <button type="submit" class="btn btn-primary"> Submit</button>
+                        </div>
+                    </div>
+                </form>  
+            </div>
+            <div class="rangeData">
+                <div class="downloadButton" *ngIf="rangeData">
+                    <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
                 </div>
-            </div> 
+                <div class="table-scroll" *ngIf="rangeData">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Mobile Number</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of rangeData">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
             <hr>
             <div class="downloadFile">
                 <button class="btn btn-sm btn-success" (click)="downloadFile()"> Download File </button>
@@ -89,7 +144,11 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                                <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>   
+                                </div>
+                                
                             </td>
                         </tr>
                     </tbody>

@@ -16,6 +16,8 @@ import { AllCustomersComponent } from './all-customers/all-customers.component';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import { AllProjectsComponent } from './all-projects/all-projects.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
+import { NewCategoryComponent } from './new-category/new-category.component';
+import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,14 @@ const routes: Routes = [
       {
         path: 'updateEmployee/:id',
         component: UpdateEmployeeComponent
+      },
+      {
+        path: 'new-category',
+        component: NewCategoryComponent
+      },
+      {
+        path: 'facebook-leads',
+        component: FacebookLeadsComponent
       }
     ]
   },

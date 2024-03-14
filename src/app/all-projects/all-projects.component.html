@@ -6,7 +6,7 @@
                     <h5> Search Customer</h5>
                 </div>
                 <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
-                    <input type="text" formControlName="mobile" placeholder="Enter Mobile Number">
+                    <input type="text" formControlName="mobile" placeholder="Enter Mobile No/ Name">
                     <button class="btn btn-primary" type="submit"> Search</button>
                 </form>
             </div> 
@@ -24,6 +24,7 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
+                            <th scope="col">Sales Person</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,7 @@
                             <td>{{customer.AdvPay}}</td>
                             <td>{{customer.remainingAmount}}</td>
                             <td>{{customer.projectStatus}}</td>
+                            <td>{{customer.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -44,6 +46,77 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="allCustomers">
+            <div class="nameCard2">
+                <div class="ProjectCard"> 
+                    <h5>Get Data</h5>
+                </div>
+                <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()" class="search-Form">
+                    <div class="searchData">
+                        <!--<div class="nameCard2">
+                            <div class="ProjectCard">
+                                <h4>Search Data</h4>
+                            </div>
+                        </div>-->
+                        <div class="details">
+                            <label for="startDate"> Start Date</label>
+                            <input type="date" formControlName="startDate" id="startDate">
+                        </div>
+                        <div class="details">
+                            <label for="endDate"> End Date</label>
+                            <input type="date" formControlName="endDate" id="endDate">
+                        </div>
+                        <div class="details">
+                            <button type="submit" class="btn btn-primary"> Submit</button>
+                        </div>
+                    </div>
+                </form>  
+            </div>
+            <hr>
+            <div class="rangeData">
+                <div class="downloadButton" *ngIf="rangeData">
+                    <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
+                </div>
+                <div class="table-scroll" *ngIf="rangeData">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Mobile Number</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of rangeData">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="allCustomers">
@@ -74,6 +147,7 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
+                            <th scope="col">Sales Person</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +161,7 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
+                            <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>

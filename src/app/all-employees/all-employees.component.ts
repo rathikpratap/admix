@@ -14,7 +14,7 @@ export class AllEmployeesComponent {
     this.auth.allEmployee().subscribe((list : any)=>{
       console.log("list", list)
       this.data = list;
-    })
+    }) 
   }
 
   delete(id:any, i:any){

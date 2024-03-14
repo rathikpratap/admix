@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-all-customers',
@@ -16,6 +16,12 @@ export class AllCustomersComponent {
   searchForm: FormGroup;
   customers :any[] = [];
   errorMessage: any;
+
+  dateRangeForm = new FormGroup({
+    startDate : new FormControl(""),
+    endDate: new FormControl("")
+  });
+  rangeData: any;
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
     this.searchForm = this.formBuilder.group({
@@ -41,27 +47,44 @@ export class AllCustomersComponent {
     });
   }
 
-  uploadFile(event:any){
-    this.selectedFile = event.target.files[0];
-    //this.uploadFileToServer(file);
-  }
-  async selectFile(): Promise<void>{
-    if(this.selectedFile){
-      try{
-        await this.auth.uploadFile(this.selectedFile);
-        alert("File Upload Successful");
-        console.log("Upload Successful");
-      } catch(error){
-        console.log("Error Uploading File", error);
-      }
-    } else{
-      console.log("No File Selected")
-    }
-    
-  }
-
   downloadFile(){
     this.auth.downloadFile();
+  }
+
+  onDate(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
+        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
+        this.rangeData = rangeData.rangeTotalData;
+      })
+    }
+  }
+
+  downloadRangeFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadRangeFile(startDate, endDate);
+    }
+  }
+
+  delete(id:any, i:any){
+    console.log(id);
+    if(window.confirm("Are you Sure want to Delete?")){
+      this.auth.deleteCust(id).subscribe((res : any)=>{
+        this.data.splice(i,1);
+      })
+    }
   }
  
 }

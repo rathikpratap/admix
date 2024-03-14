@@ -82,11 +82,7 @@
                                 aria-label="Default select example"
                                 [ngClass]="{error:getControls('closingCateg')?.errors && getControls('closingCateg')?.touched}">
                                 <option value="null">Select Category</option>
-                                <option value="Advertisement Video">Advertisement Video</option>
-                                <option value="Graphic Designing">Graphic Designing</option>
-                                <option value="Logo Design">Logo Design</option>
-                                <option value="Website Development">Website Development</option>
-                                <option value="Festival">Festival</option>
+                                <option *ngFor="let category of Category" value="{{category.categoryName}}">{{category.categoryName}}</option>
                             </select>
                     <div *ngIf="getControls('closingCateg')?.errors && getControls('closingCateg')?.touched">
                         <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']"> Closing Category is Required </label>
@@ -104,9 +100,25 @@
                     </div>
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment: </span>
+                            <input type="number" class="form-control" formControlName="restAmount"
+                        [ngClass]="{error:getControls('restAmount')?.errors && getControls('restAmount')?.touched}"
+                        placeholder="Rest Amount">
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment Date: </span>
+                            <input [type]="updateForm.get('restPaymentDate')!.value ? 'text' : 'date'" class="form-control" formControlName="restPaymentDate"
+                        [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
+                        placeholder="Enter Closing Date">
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
-                            <span class="details"> Remaining Amoount: </span>
+                            <span class="details"> Remaining Amount: </span>
                             <input type="number" class="form-control" formControlName="remainingAmount"
                         [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
                         placeholder="Remaining Amount">
@@ -144,11 +156,13 @@
                             aria-label="Default select example"
                             [ngClass]="{error:getControls('projectStatus')?.errors && getControls('projectStatus')?.touched}">
                             <option value="null">Select Project Status</option>
+                            <option value="Closing">Closing</option>
                             <option value="Scripting">Scripting</option>
                             <option value="Script Correction">Script Correction</option>
                             <option value="Voice Over">Voice Over</option>
                             <option value="Video Editing">Video Editing</option>
                             <option value="Video Changes">Video Changes</option>
+                            <option value="Video Done">Video Done</option>
                             <option value="Completed">Completed</option>
                         </select>
                     <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
@@ -186,6 +200,9 @@
                     </div>
                 </div>
                 <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
+                <div class="youtubeVideo" *ngIf="safeVideoUrl">
+                    <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">

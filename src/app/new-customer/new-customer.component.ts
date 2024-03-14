@@ -20,6 +20,7 @@ export class NewCustomerComponent {
   countries: any;
   states: any;
   cities: any;
+  Category: any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   
@@ -68,6 +69,11 @@ export class NewCustomerComponent {
       console.log("data==>", Countrydata);
       this.countries = Countrydata;
     });
+
+    this.auth.getCategory().subscribe((category:any)=>{
+      console.log("Categories===>>", category);
+      this.Category = category;
+    })
     
   }
 

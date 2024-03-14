@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-all-projects',
@@ -17,6 +17,12 @@ export class AllProjectsComponent {
   customers :any[] = [];
   errorMessage: any;
   dataLength: any; 
+
+  dateRangeForm = new FormGroup({
+    startDate : new FormControl(""),
+    endDate: new FormControl("")
+  });
+  rangeData: any;
  
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
     this.searchForm = this.formBuilder.group({
@@ -65,5 +71,31 @@ export class AllProjectsComponent {
     this.auth.downloadFile();
   }
 
+  onDate(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
+        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
+        this.rangeData = rangeData.rangeTotalData;
+      })
+    }
+  }
+
+  downloadRangeFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadRangeFile(startDate, endDate);
+    }
+  }
 
 }

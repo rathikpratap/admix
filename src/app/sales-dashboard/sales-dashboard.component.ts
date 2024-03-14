@@ -19,6 +19,7 @@ export class SalesDashboardComponent {
   totalRecv: any;
   totalDue: any;
   rangeData : any;
+  dataLength : any;
 
 
   dateRangeForm = new FormGroup({
@@ -30,7 +31,9 @@ export class SalesDashboardComponent {
     this.auth.getCustData().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
+      this.dataLength = list.length; 
     })
+    
 
     this.auth.getCompleteProjects().subscribe((completeList: any)=>{
       console.log("completeList",completeList)
@@ -90,6 +93,22 @@ export class SalesDashboardComponent {
     if(startDate && endDate){
       this.auth.downloadRangeFile(startDate, endDate);
     }
+  }
+
+  downloadDueFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadDueFile(startDate, endDate);
+    }
+  }
+
+  resetData(){
+    location.reload(); 
   }
 
 }

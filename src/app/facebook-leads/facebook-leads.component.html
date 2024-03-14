@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="leads">
+            <div class="nameCard">
+                <div class="title-heading">
+                    <h5> Get Facebook Leads </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+
+    </div>
+    <div class="col-lg-1">
+        <button class="btn btn-sm btn-success getButton" (click)="getLeads()"> Get Leads </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="salesPerson">
+            <select #salespersonSelect>
+                <option *ngFor="let employee of emp" value="{{employee.salesperson}}">
+                    {{employee.signupUsername}}
+                </option>
+            </select>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"> Select </th>
+                    <th scope="col"> Campaign Name </th>
+                    <th scope="col"> Ad Name </th>
+                    <th scope="col"> Created Time </th>
+                    <th scope="col"> Customer Name </th>
+                    <th scope="col"> Mobile Number </th>
+                    <th scope="col"> Email </th>
+                    <th scope="col"> State Name </th>
+                    <th scope="col"> Company Name </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let list of data">
+                    <td><input type="checkbox"></td>
+                    <td>{{list.campaign_Name}}</td>
+                    <td>{{list.ad_Name}}</td>
+                    <td>{{list.created_time}}</td>
+                    <td>{{list.name}}</td>
+                    <td>{{list.phone}}</td>
+                    <td>{{list.email}}</td>
+                    <td>{{list.state}}</td>
+                    <td>{{list.company_name}}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

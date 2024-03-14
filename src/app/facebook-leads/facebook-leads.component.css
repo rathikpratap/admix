@@ -1,0 +1,21 @@
+.nameCard{
+    font-style: italic;
+    font-family:'Segoe UI';
+    font-weight: 700;
+}
+.title-heading{
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    font-family: 'poppins';
+    width: fit-content;
+    background-color: white;
+}
+.table{
+    box-shadow: 10px 10px 10px;
+    margin-top: 40px;
+}
+.getButton{
+    padding: 10px 15px 15px 15px;
+    border-radius: 15px;
+}

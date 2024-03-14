@@ -18,6 +18,7 @@ export class AdminDashboardComponent {
   totalAmount:any;
   totalRecv: any;
   totalDue: any;
+  dataLength: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -28,6 +29,7 @@ export class AdminDashboardComponent {
     this.auth.getAllProjects().subscribe((allList : any)=>{
       console.log("allList",allList)
       this.data = allList;
+      this.dataLength = allList.length;
       console.log('loag ==>', this.data);
       
     })
@@ -90,5 +92,21 @@ export class AdminDashboardComponent {
     if(startDate && endDate){
       this.auth.downloadRangeFile(startDate, endDate);
     }
+  }
+
+  downloadDueFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadDueFile(startDate, endDate);
+    }
+  }
+
+  resetData(){
+    location.reload(); 
   }
 }
