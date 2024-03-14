@@ -105,6 +105,7 @@
                                 <td>{{user.projectStatus}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                                    <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>
                                 </td>
                             </tr>
                         </tbody>
