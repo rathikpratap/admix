@@ -14,7 +14,7 @@ export class AllCustomersComponent {
  
   data:any=[];
   searchForm: FormGroup;
-  customers :any[] = [];
+  customers :any[] = []; 
   errorMessage: any;
 
   dateRangeForm = new FormGroup({

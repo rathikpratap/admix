@@ -35,6 +35,10 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
   }
 
+  updateSalesperson(data: any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`,{items: data});
+  }
+
   getCompleteProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
   }
@@ -55,6 +59,10 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
   }
 
+  dataLength(){
+    return this.http.get(`${appConfig.apiUrl}/auth/dataLength`);
+  }
+
   allEmployee(){
     return this.http.get(`${appConfig.apiUrl}/auth/allEmployee`);
   }
@@ -63,7 +71,11 @@ export class AuthService {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchCustomer/${mobile}`);
   }
 
-    getProfile(){
+  searchCustomerbyProject(projectStatus:string): Observable<any>{
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/customerProject/${projectStatus}`);
+  }
+
+  getProfile(){
     let headers = {
       'Authorization': "Bearer " + localStorage.getItem('token')
     }
@@ -124,6 +136,14 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
+  getLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/leadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
+  getSalesLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
   uploadFile(file: File): Promise<any>{
     const formData = new FormData();
     formData.append('file', file);
@@ -175,6 +195,18 @@ export class AuthService {
   
   getCategory():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getCategory`);
+  }
+
+  getSalesLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
+  }
+
+  transferLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/transferLeads`);
+  }
+
+  getAdminLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/getAdmin-leads`);
   }
 
   handleError(error: HttpErrorResponse) {

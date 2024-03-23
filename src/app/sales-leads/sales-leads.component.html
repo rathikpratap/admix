@@ -12,7 +12,7 @@
 
     </div>
     <div class="col-lg-1 col-md-12 col-sm-12 col-12">
-        <button class="btn btn-sm btn-success getButton" (click)="getLeads()"> Referesh </button>
+        <button class="btn btn-sm btn-success getButton"> Refresh </button>
     </div>
 </div>
 <div class="row">
@@ -21,6 +21,28 @@
             <div class="nameCard">
                 <div class="title-heading">
                     <h5> Search Data </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="searchData2">
+            <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
+                <input type="text" formControlName="projectStatus" placeholder="Enter Project Status">
+                <button class="btn btn-primary" type="submit"> Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="leads">
+            <div class="nameCard">
+                <div class="title-heading">
+                    <h5> Search By Date </h5>
                 </div>
             </div>
         </div>
@@ -47,19 +69,43 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <!--<div class="update-button">
-            <button class="btn btn-sm btn-primary" (click)="updateSalesperson()">Update Salesperson</button>
-        </div>-->
-        <div class="update-button">
-            <button class="btn btn-sm btn-primary" (click)="transferLeads()">Transfer Leads</button>
+    <div class="col-lg-12">
+        <div *ngIf="customers.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Campaign Name</th>
+                        <th scope="col">Ad Name</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Bussiness</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Project Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of customers">
+                        <td>{{customer.campaign_Name}}</td>
+                        <td>{{customer.ad_Name}}</td>
+                        <td>{{customer.custName}}</td>
+                        <td>{{customer.custNumb}}</td>
+                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.custEmail}}</td>
+                        <td>{{customer.custBussiness}}</td>
+                        <td>{{customer.state}}</td>
+                        <td>{{customer.projectStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="rangeData">
             <!--<div class="downloadButton" *ngIf="rangeData">
                 <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
             </div>-->
             <div class="table-scroll" *ngIf="rangeData">
-                <table class="table table-striped">
+                <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
                             <th scope="col"> Campaign Name </th>
@@ -70,34 +116,28 @@
                             <th scope="col"> Email </th>
                             <th scope="col"> State Name </th>
                             <th scope="col"> Company Name </th>
-                            <th scope="col"> Select Salesperson </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let list of rangeData">
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.ad_Name}}</td>
-                            <td>{{list.created_time}}</td>
-                            <td>{{list.name}}</td>
-                            <td>{{list.phone}}</td>
-                            <td>{{list.email}}</td>
+                            <td>{{list.closingDate}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custEmail}}</td>
                             <td>{{list.state}}</td>
-                            <td>{{list.company_name}}</td>
-                            <td>
-                                <select [(ngModel)]="list.salesperson">
-                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
+                            <td>{{list.custBussiness}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <table class="table table-striped">
+
+        <div class="table table-striped table-responsive">
             <thead>
                 <tr>
+                    
                     <th scope="col"> Campaign Name </th>
                     <th scope="col"> Ad Name </th>
                     <th scope="col"> Created Time </th>
@@ -106,20 +146,28 @@
                     <th scope="col"> Email </th>
                     <th scope="col"> State Name </th>
                     <th scope="col"> Company Name </th>
+                    <th scope="col"> Project Status</th>
+                    <th scope="col"> Action </th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let list of data">
+                    
                     <td>{{list.campaign_Name}}</td>
                     <td>{{list.ad_Name}}</td>
-                    <td>{{list.created_time}}</td>
-                    <td>{{list.name}}</td>
-                    <td>{{list.phone}}</td>
-                    <td>{{list.email}}</td>
+                    <td>{{list.closingDate}}</td>
+                    <td>{{list.custName}}</td>
+                    <td>{{list.custNumb}}</td>
+                    <td>{{list.custEmail}}</td>
                     <td>{{list.state}}</td>
-                    <td>{{list.company_name}}</td>
+                    <td>{{list.custBussiness}}</td>
+                    <td>{{list.projectStatus}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{list._id}}"> Update</button>
+                        
+                    </td>
                 </tr>
             </tbody>
-        </table>
+        </div>
     </div>
 </div>

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -23,7 +24,10 @@ import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import { AllProjectsComponent } from './all-projects/all-projects.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
-import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component'
+import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
+import { SalesLeadsComponent } from './sales-leads/sales-leads.component';
+import { LeadsComponent } from './leads/leads.component';
+
 
 
 @NgModule({
@@ -47,13 +51,17 @@ import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.componen
     AllProjectsComponent,
     UpdateEmployeeComponent,
     NewCategoryComponent,
-    FacebookLeadsComponent
+    FacebookLeadsComponent,
+    SalesLeadsComponent,
+    LeadsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

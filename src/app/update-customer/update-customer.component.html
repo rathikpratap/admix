@@ -129,21 +129,11 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
-                            <span class="details"> Customer City: </span>
-                            <input type="text" class="form-control" formControlName="custCity"
-                        [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}"
-                        placeholder="Enter Customer City">
-                    <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
-                        <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City is Required </label>
-                    </div>
-                        </div> 
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Customer State: </span>
-                            <input type="text" class="form-control" formControlName="custState"
-                        [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}"
-                        placeholder="Enter Customer State">
+                            <span class="details"> Customer Country: </span>
+                            <select formControlName="custCountry" (change)="onCountryChange()" [ngClass]="{error:getControls('custCountry')?.errors && getControls('custCountry')?.touched}">
+                                <option value="null">Select Country</option>
+                                <option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</option>
+                            </select>
                     <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
                         <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> Country is Required </label>
                     </div>
@@ -151,11 +141,38 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Customer State: </span>
+                            <select formControlName="custState"(change)="onStateChange()" [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}">
+                                <option value="null">Select State</option>
+                                <option *ngFor="let state of states" [value]="state.isoCode">{{state.name}}</option>
+                            </select>
+                    <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
+                        <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> Country is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer City: </span>
+                            <select formControlName="custCity" [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}">
+                                <option value="null">Select City</option>
+                                <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+                            </select>
+                    <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
+                        <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City is Required </label>
+                    </div>
+                        </div> 
+                    </div>
+                    
+                    
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Project Status: </span>
                             <select class="form-select" formControlName="projectStatus"
                             aria-label="Default select example"
                             [ngClass]="{error:getControls('projectStatus')?.errors && getControls('projectStatus')?.touched}">
                             <option value="null">Select Project Status</option>
+                            <option value="Not Interested">Not Interested</option>
                             <option value="Closing">Closing</option>
                             <option value="Scripting">Scripting</option>
                             <option value="Script Correction">Script Correction</option>

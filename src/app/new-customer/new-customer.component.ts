@@ -48,8 +48,8 @@ export class NewCustomerComponent {
       }
     });
 
-    this.auth.allProjects().subscribe((list : any)=>{
-      this.dataLength = list.length + 1;
+    this.auth.dataLength().subscribe((list : any)=>{
+      this.dataLength = list + 1; 
       if(this.dataLength){
         this.customerForm.get('custCode')!.setValue(this.dataLength);
       }
@@ -96,7 +96,7 @@ export class NewCustomerComponent {
     remark  : new FormControl("",[Validators.required])
     
   })
-
+ 
   getControls(name: any) : AbstractControl | null{
     return this.customerForm.get(name)
   }

@@ -3,7 +3,7 @@
         <div class="leads">
             <div class="nameCard">
                 <div class="title-heading">
-                    <h5> Get Facebook Leads </h5>
+                    <h5> Transfer Leads Here</h5>
                 </div>
             </div>
         </div>
@@ -48,12 +48,10 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <!--<div class="update-button">
-            <button class="btn btn-sm btn-primary" (click)="updateSalesperson()">Update Salesperson</button>
-        </div>-->
         <div class="update-button">
-            <button class="btn btn-sm btn-primary" (click)="transferLeads()">Transfer Leads</button>
+            <button class="btn btn-sm btn-primary" (click)="updateSalesperson()">Update Salesperson</button>
         </div>
+        
         <div class="rangeData">
             <!--<div class="downloadButton" *ngIf="rangeData">
                 <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
@@ -98,6 +96,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">Sr. No.</th>
                     <th scope="col"> Campaign Name </th>
                     <th scope="col"> Ad Name </th>
                     <th scope="col"> Created Time </th>
@@ -106,10 +105,12 @@
                     <th scope="col"> Email </th>
                     <th scope="col"> State Name </th>
                     <th scope="col"> Company Name </th>
+                    <th scope="col">SalesPerson</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let list of data">
+                <tr *ngFor="let list of data; let i = index">
+                    <td>{{i+1}}</td>
                     <td>{{list.campaign_Name}}</td>
                     <td>{{list.ad_Name}}</td>
                     <td>{{list.created_time}}</td>
@@ -118,6 +119,7 @@
                     <td>{{list.email}}</td>
                     <td>{{list.state}}</td>
                     <td>{{list.company_name}}</td>
+                    <td>{{list.salesperson}}</td>
                 </tr>
             </tbody>
         </table>

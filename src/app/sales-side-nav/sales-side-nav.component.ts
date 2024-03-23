@@ -26,6 +26,12 @@ export class SalesSideNavComponent {
       name: 'All Customers',
       icon: 'bi bi-person-square',
       route: '/salesHome/allCustomers'
+    },
+    {
+      number: '4',
+      name: 'Leads',
+      icon: 'bi bi-arrow-down-circle',
+      route: '/salesHome/sales-leads'
     }
   ]
 }

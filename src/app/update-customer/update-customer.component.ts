@@ -4,6 +4,7 @@ import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-update-customer',
   templateUrl: './update-customer.component.html',
@@ -13,6 +14,9 @@ export class UpdateCustomerComponent {
 
   getId: any;
   Category: any;
+  countries: any;
+  states: any;
+  cities: any;
   
   safeVideoUrl: SafeResourceUrl | null = null;
 
@@ -22,16 +26,17 @@ export class UpdateCustomerComponent {
     custNumb: new FormControl("", [Validators.required]),
     custBussiness: new FormControl("", [Validators.required]),
     closingDate: new FormControl("", [Validators.required]),
-    closingPrice: new FormControl("", [Validators.required]),
-    closingCateg: new FormControl("", [Validators.required]),
-    AdvPay: new FormControl("", [Validators.required]),
+    closingPrice: new FormControl(""),
+    closingCateg: new FormControl(""),
+    AdvPay: new FormControl(""),
     remainingAmount: new FormControl(""),
-    custCity: new FormControl("", [Validators.required]),
-    custState: new FormControl("", [Validators.required]),
+    custCity: new FormControl(""),
+    custState: new FormControl(""),
+    custCountry: new FormControl(""),
     projectStatus: new FormControl("", [Validators.required]),
     salesPerson: new FormControl("", [Validators.required]),
     youtubeLink: new FormControl(""),
-    remark: new FormControl("", [Validators.required]),
+    remark: new FormControl(""),
     restAmount: new FormControl(""),
     restPaymentDate: new FormControl("")
   })
@@ -73,9 +78,26 @@ export class UpdateCustomerComponent {
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
       console.log("res ==>", res);
+ 
+      if(res['custCode']){
+        console.log("COdee====>>", res['custCode']);
+        this.updateForm.patchValue({
+          custCode: res['custCode']
+        });
+      }else{
+        console.log("Code not found===>>");
+        this.auth.dataLength().subscribe((length:any)=>{
+          res['custCode']=length+1;
+          console.log("new Code==>", res['custCode']);
+          this.updateForm.patchValue({
+            custCode: res['custCode']
+          });
+        })
+      }
 
       this.updateForm.patchValue({
-        custCode: res['custCode'],
+
+        
         custName: res['custName'],
         custNumb: res['custNumb'],
         custBussiness: res['custBussiness'],
@@ -86,6 +108,7 @@ export class UpdateCustomerComponent {
         custCity: res['custCity'],
         remainingAmount: res['remainingAmount'],
         custState: res['custState'],
+        custCountry: res['custCountry'],
         projectStatus: res['projectStatus'],
         salesPerson: res['salesPerson'],
         youtubeLink: res['youtubeLink'],
@@ -100,6 +123,11 @@ export class UpdateCustomerComponent {
       console.log("Categories===>>", category);
       this.Category = category;
     })
+
+    this.auth.getCountries().subscribe((Countrydata: any) =>{
+      console.log("data==>", Countrydata);
+      this.countries = Countrydata;
+    });
 
   }
 
@@ -116,6 +144,23 @@ export class UpdateCustomerComponent {
     }, (err) => {
       console.log(err)
     })
+  }
+
+  onCountryChange(): void{
+    const countryCode = this.updateForm.get('custCountry')?.value;
+    this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
+      console.log("States==>", Statedata)
+      this.states = Statedata;
+    });
+  }
+
+  onStateChange(): void{
+    const stateCode = this.updateForm.get('custState')?.value;
+    const countryCode = this.updateForm.get('custCountry')?.value;
+    this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
+      console.log("Cities==>", Citydata);
+      this.cities = Citydata;
+    });
   }
 
 }

@@ -118,7 +118,7 @@
                                 <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']"> Received Payment is Required </label>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Country: </span>
@@ -162,6 +162,7 @@
                                 aria-label="Default select example"
                                 [ngClass]="{error:getControls('projectStatus')?.errors && getControls('projectStatus')?.touched}">
                                 <option value="null">Select Project Status</option>
+                                <option value="Not Interested">Not Interested</option>
                                 <option value="Closing">Closing</option>
                                 <option value="Scripting">Scripting</option>
                                 <option value="Script Correction">Script Correction</option>

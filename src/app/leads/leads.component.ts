@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-facebook-leads',
-  templateUrl: './facebook-leads.component.html',
-  styleUrls: ['./facebook-leads.component.css']
+  selector: 'app-leads',
+  templateUrl: './leads.component.html',
+  styleUrls: ['./leads.component.css']
 })
-export class FacebookLeadsComponent {
- 
+export class LeadsComponent {
+
   data: any;
   data2: any;
   emp: any;
@@ -21,11 +21,11 @@ export class FacebookLeadsComponent {
   
 
   constructor(private auth: AuthService){
-    this.auth.fetchLeads().subscribe((res :any)=>{
-      this.data2 = res;
-    });
+    //this.auth.fetchLeads().subscribe((res :any)=>{
+    //  this.data2 = res;
+    //});
 
-    this.auth.getLeads().subscribe((list : any)=>{
+    this.auth.getAdminLeads().subscribe((list : any)=>{
       console.log("list==>",list)
       this.data = list;
     });
@@ -37,16 +37,27 @@ export class FacebookLeadsComponent {
   }
 
   getLeads(){
-    this.auth.getLeads().subscribe((list : any)=>{
+    this.auth.getAdminLeads().subscribe((list : any)=>{
       console.log("list==>",list)
       this.data = list;
       console.log(list.campaign_name)
     })
   }
 
+  updateSalesperson(){
+
+    this.auth.updateSalesperson(this.rangeData).subscribe(( res: any)=>{
+      if(this.rangeData){
+        alert("Leads Successfully Transfered");
+        console.log("SalesPerson Updated Data", this.rangeData);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+
   transferLeads(){
     this.auth.transferLeads().subscribe((res: any)=>{
-      alert("Leads Successfully Transfered");
       console.log("Leads transfered Succefully to admin Leads");
     })
   }

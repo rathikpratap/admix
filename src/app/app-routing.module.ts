@@ -18,6 +18,8 @@ import { AllProjectsComponent } from './all-projects/all-projects.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
+import { SalesLeadsComponent } from './sales-leads/sales-leads.component';
+import { LeadsComponent } from './leads/leads.component';
 
 const routes: Routes = [
   {
@@ -68,6 +70,10 @@ const routes: Routes = [
       {
         path: 'facebook-leads',
         component: FacebookLeadsComponent
+      },
+      {
+        path: 'Leads',
+        component: LeadsComponent
       }
     ]
   },
@@ -98,6 +104,10 @@ const routes: Routes = [
       {
         path: 'allCustomers',
         component: AllCustomersComponent
+      },
+      {
+        path: 'sales-leads',
+        component: SalesLeadsComponent
       }
     ]
   }

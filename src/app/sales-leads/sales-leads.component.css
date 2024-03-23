@@ -11,25 +11,12 @@
     font-family: 'poppins';
     width: fit-content;
     background-color: white;
-} 
+}
 .table{
     box-shadow: 10px 10px 10px;
     margin-top: 40px;
+    border-radius: 20px;
 }
-.getButton{
-    padding: 10px 15px 15px 15px;
-    border-radius: 15px;
-}
-.update-button{
-    display: flex;
-    justify-content: right;
-    margin-top: 15px;
-}
-.update-button button{
-    padding: 10px;
-    border-radius: 15px;
-}
-
 .searchData{
     display: flex;
     justify-content: flex-end;
@@ -44,4 +31,8 @@
 }
 .searchData .details label{
     font-weight: 500;
+}
+.searchData2 input{
+    margin-right: 20px;
+    margin-left: 30px;
 }
