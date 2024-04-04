@@ -1,0 +1,9 @@
+<div class="container-fluid g-0">
+    <app-editor-navbar (editorSideNavToggled)="editorSideNavStatus = $event;"></app-editor-navbar>
+    <main>
+      <app-editor-sidenav [editorSideNavStatus]="editorSideNavStatus" [ngClass]="{'app-side-nav-open': editorSideNavStatus}"></app-editor-sidenav>
+      <div class="display-area p-3" [ngClass]="{'display-area-shrink': editorSideNavStatus}">
+        <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

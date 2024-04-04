@@ -27,9 +27,28 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
 import { SalesLeadsComponent } from './sales-leads/sales-leads.component';
 import { LeadsComponent } from './leads/leads.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { EditorHomeComponent } from './editor-home/editor-home.component';
+import { EditorDashboardComponent } from './editor-dashboard/editor-dashboard.component';
+import { ScriptHomeComponent } from './script-home/script-home.component';
+import { ScriptDashboardComponent } from './script-dashboard/script-dashboard.component';
+import { VoHomeComponent } from './vo-home/vo-home.component';
+import { VoDashboardComponent } from './vo-dashboard/vo-dashboard.component';
+import { VoNavbarComponent } from './vo-navbar/vo-navbar.component';
+import { ScriptNavbarComponent } from './script-navbar/script-navbar.component';
+import { EditorNavbarComponent } from './editor-navbar/editor-navbar.component';
+import { EditorSidenavComponent } from './editor-sidenav/editor-sidenav.component';
+import { ScriptSidenavComponent } from './script-sidenav/script-sidenav.component';
+import { VoSidenavComponent } from './vo-sidenav/vo-sidenav.component';
+import { ScriptUpdateComponent } from './script-update/script-update.component';
+import { EditorUpdateComponent } from './editor-update/editor-update.component';
+import { VoUpdateComponent } from './vo-update/vo-update.component';
+import { TeamLeadsComponent } from './team-leads/team-leads.component';
 
 
 
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,15 +72,32 @@ import { LeadsComponent } from './leads/leads.component';
     NewCategoryComponent,
     FacebookLeadsComponent,
     SalesLeadsComponent,
-    LeadsComponent
+    LeadsComponent,
+    EditorHomeComponent,
+    EditorDashboardComponent,
+    ScriptHomeComponent,
+    ScriptDashboardComponent,
+    VoHomeComponent,
+    VoDashboardComponent,
+    VoNavbarComponent,
+    ScriptNavbarComponent,
+    EditorNavbarComponent,
+    EditorSidenavComponent,
+    ScriptSidenavComponent,
+    VoSidenavComponent,
+    ScriptUpdateComponent,
+    EditorUpdateComponent,
+    VoUpdateComponent,
+    TeamLeadsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

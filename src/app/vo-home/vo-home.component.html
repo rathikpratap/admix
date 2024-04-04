@@ -1,0 +1,9 @@
+<div class="container-fluid g-0">
+    <app-vo-navbar (voSideNavToggled)="voSideNavStatus = $event;"></app-vo-navbar>
+    <main>
+      <app-vo-sidenav [voSideNavStatus]="voSideNavStatus" [ngClass]="{'app-side-nav-open': voSideNavStatus}"></app-vo-sidenav>
+      <div class="display-area p-3" [ngClass]="{'display-area-shrink': voSideNavStatus}">
+        <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

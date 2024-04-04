@@ -15,6 +15,7 @@ export class NavbarComponent {
 
   constructor(private auth: AuthService){
     this.auth.getProfile().subscribe((res:any)=>{
+      console.log("Token===>", res)
       this.tok = res?.data
     })
   }

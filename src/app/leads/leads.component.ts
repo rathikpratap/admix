@@ -18,20 +18,17 @@ export class LeadsComponent {
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
-  
 
   constructor(private auth: AuthService){
-    //this.auth.fetchLeads().subscribe((res :any)=>{
-    //  this.data2 = res;
-    //});
 
-    this.auth.getAdminLeads().subscribe((list : any)=>{
-      console.log("list==>",list)
-      this.data = list;
-    });
+     this.auth.getAdminLeads().subscribe((list : any)=>{
+       console.log("list==>",list)
+       this.data = list;
+      
+     });
 
-    this.auth.allEmployee().subscribe((res : any)=>{
-      console.log("employee==>", res);
+    this.auth.getSalesTeam().subscribe((res : any)=>{
+      console.log("Sales Teams==>", res);
       this.emp = res;
     })
   }
@@ -43,8 +40,9 @@ export class LeadsComponent {
       console.log(list.campaign_name)
     })
   }
+ 
 
-  updateSalesperson(){
+  updateSalesperson(){ 
 
     this.auth.updateSalesperson(this.rangeData).subscribe(( res: any)=>{
       if(this.rangeData){
@@ -76,4 +74,8 @@ export class LeadsComponent {
       })
     }
   }
+
+
+  
+  
 }

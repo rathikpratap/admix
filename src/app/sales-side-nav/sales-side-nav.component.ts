@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./sales-side-nav.component.css']
 })
 export class SalesSideNavComponent {
- 
+  
   @Input() salesSideNavStatus: boolean = false;
   list = [
     {
@@ -32,6 +32,12 @@ export class SalesSideNavComponent {
       name: 'Leads',
       icon: 'bi bi-arrow-down-circle',
       route: '/salesHome/sales-leads'
+    },
+    {
+      number: '5',
+      name: 'Team Leads',
+      icon: 'bi bi-chat-square-text',
+      route: '/salesHome/team-leads'
     }
   ]
 }

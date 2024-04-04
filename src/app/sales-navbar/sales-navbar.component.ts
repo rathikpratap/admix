@@ -7,7 +7,7 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./sales-navbar.component.css']
 })
 export class SalesNavbarComponent {
-
+ 
   tok:any;
 
   @Output() salesSideNavToggled = new EventEmitter<boolean>();

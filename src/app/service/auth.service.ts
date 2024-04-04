@@ -26,7 +26,7 @@ export class AuthService {
 
   getCustData(){
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
-  }
+  } 
 
   getLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);
@@ -37,6 +37,14 @@ export class AuthService {
 
   updateSalesperson(data: any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`,{items: data});
+  }
+
+  updateProjectStatus(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{items: data});
+  }
+
+  updateEditors(data: any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`,{items: data});
   }
 
   getCompleteProjects(){
@@ -88,6 +96,12 @@ export class AuthService {
     )
   }
 
+  updateCustomerbyEditor(id:any, data:any):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   getCustomer(id:any) :Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/read-cust/${id}`,{headers:this.httpHeaders}).pipe(map((res:any)=>{
       return res || {}
@@ -128,8 +142,16 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntries`);
   }
 
+  getMonthEntriesEmp(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`);
+  }
+
   getTodayEntries(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntries`);
+  }
+
+  getTodayEntriesEmp(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`);
   }
 
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
@@ -186,7 +208,7 @@ export class AuthService {
       console.log("Download Done")
     }, error =>{
       console.error('Error Downloading File: ',error);
-    });
+    }); 
   }
 
   newCategory(data:any):Observable<any>{
@@ -197,8 +219,20 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getCategory`);
   }
 
+  newSalesTeam(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/newSalesTeam`, data);
+  }
+
+  getSalesTeam():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeam`)
+  }
+
   getSalesLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
+  }
+
+  getTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`);
   }
 
   transferLeads():Observable<any>{
@@ -207,6 +241,10 @@ export class AuthService {
 
   getAdminLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getAdmin-leads`);
+  }
+
+  scriptProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptProjects`);
   }
 
   handleError(error: HttpErrorResponse) {

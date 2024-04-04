@@ -14,7 +14,7 @@
                             <span class="details"> Client Code: </span>
                             <input type="text" class="form-control" formControlName="custCode"
                                 [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
-                                placeholder="Enter Client Code">
+                                placeholder="Enter Client Code" #codeInput>
                             <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
                             </div>
@@ -187,12 +187,12 @@
                     </div>
                         </div>
                     </div>
-                    <div class="input-box hidden-input">
+                    <div class="input-box hidden-input"> 
                         <div class="form-group">
                             <span class="details"> Sales Person : </span>
                             <input type="text" class="form-control" formControlName="salesPerson"
-                        [ngClass]="{error:getControls('salesPerson')?.errors && getControls('salesPerson')?.touched}"
-                        placeholder="Enter your Username">
+                                [ngClass]="{error:getControls('salesPerson')?.errors && getControls('salesPerson')?.touched}"
+                                placeholder="Enter your Username">
                     <div *ngIf="getControls('salesPerson')?.errors && getControls('salesPerson')?.touched">
                         <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']"> Username is Required </label>
                     </div>

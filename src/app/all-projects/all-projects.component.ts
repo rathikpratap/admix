@@ -12,11 +12,14 @@ export class AllProjectsComponent {
   @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
  
+ updateEditorVisible: boolean = true;
   data:any=[];
   searchForm: FormGroup;
   customers :any[] = [];
   errorMessage: any;
   dataLength: any; 
+  emp: any;
+  editors: any; 
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -32,6 +35,21 @@ export class AllProjectsComponent {
     this.auth.allProjects().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
+    });
+
+    this.auth.allEmployee().subscribe((res : any)=>{
+      console.log("employee==>", res);
+      this.emp = res;
+    })
+  }
+
+  updateEditors(){
+    this.auth.updateEditors(this.data).subscribe((res: any)=>{
+      if(this.data){
+        alert("Editor Succesfully Assigned");
+        console.log("Editor Updated List", this.data);
+      }
+      console.log("Successfully Assigned", res);
     })
   }
 

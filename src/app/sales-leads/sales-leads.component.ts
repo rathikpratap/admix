@@ -6,11 +6,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-sales-leads',
   templateUrl: './sales-leads.component.html',
-  styleUrls: ['./sales-leads.component.css']
+  styleUrls: ['./sales-leads.component.css'] 
 })
 export class SalesLeadsComponent {
 
-  data:any;
+  data:any; 
   dataLength:any;
   rangeData: any;
   searchForm: FormGroup;
@@ -21,6 +21,7 @@ export class SalesLeadsComponent {
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
+ 
 
   constructor(private auth: AuthService,private formBuilder: FormBuilder){
 

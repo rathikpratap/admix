@@ -25,13 +25,13 @@ export class SalesDashboardComponent {
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
-  });
+  }); 
 
   constructor(private auth: AuthService){
     this.auth.getCustData().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
-      this.dataLength = list.length; 
+      this.dataLength = list.length;  
     })
     
 
@@ -40,7 +40,7 @@ export class SalesDashboardComponent {
       this.completeData = completeList;
     })
  
-    this.auth.getMonthEntries().subscribe((res : any)=>{
+    this.auth.getMonthEntriesEmp().subscribe((res : any)=>{
       this.totalEntries = res.totalEntries.length;
       this.totalAmount = res.totalAmount;
       this.totalRecv = res.totalRecv;
@@ -49,7 +49,7 @@ export class SalesDashboardComponent {
       console.error('Error fetching total Entries', error);
     });
 
-    this.auth.getTodayEntries().subscribe((todayRes:any)=>{
+    this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){

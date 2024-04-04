@@ -15,6 +15,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">No.</th>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Mobile Number</th>
@@ -28,7 +29,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let customer of customers">
+                        <tr *ngFor="let customer of customers; let i = index">
+                            <td>{{i+1}}</td>
                             <td>{{customer.custCode}}</td>
                             <td>{{customer.custName}}</td>
                             <td>{{customer.custNumb}}</td>
@@ -84,6 +86,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">No.</th>
                                 <th scope="col">Client Code</th>
                                 <th scope="col">Client Name</th>
                                 <th scope="col">Mobile Number</th>
@@ -97,7 +100,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of rangeData">
+                            <tr *ngFor="let user of rangeData; let i = index">
+                                <td>{{i+1}}</td>
                                 <td>{{user.custCode}}</td>
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custNumb}}</td>
@@ -134,10 +138,14 @@
             <div class="downloadFile">
                 <button class="btn btn-sm btn-success" (click)="downloadFile()"> Download File </button>
             </div>
+            <div class="update-button">
+                <button class="btn btn-sm btn-primary" (click)="updateEditors()">Update Editor</button>
+            </div>
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col">No.</th>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Mobile Number</th>
@@ -148,10 +156,12 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Sales Person</th>
+                            <th scope="col">Select Editor</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data">
+                        <tr *ngFor="let user of data; let i = index">
+                            <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custNumb}}</td>
@@ -160,12 +170,44 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <td>
+                                <select [(ngModel)]="user.projectStatus" (change)="updateEditorVisible = (user.projectStatus === 'closing')">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Changes">Video Changes</option> 
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
+                            
+                             <td>
+                                <select *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'" [(ngModel)]="user.scriptWriter">
+                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                                        {{employee.signupUsername}}
+                                    </option>
+                                </select>
+                                <select *ngIf="user.projectStatus === 'Video Editing' ||user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' " [(ngModel)]="user.editor">
+                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                                        {{employee.signupUsername}}
+                                    </option>
+                                </select>
+                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                                        {{employee.signupUsername}}
+                                    </option>
+                                </select>
+                            </td> 
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        
     </div>
  </div>

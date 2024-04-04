@@ -20,6 +20,22 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
 import { SalesLeadsComponent } from './sales-leads/sales-leads.component';
 import { LeadsComponent } from './leads/leads.component';
+import { EditorHomeComponent } from './editor-home/editor-home.component';
+import { EditorDashboardComponent } from './editor-dashboard/editor-dashboard.component';
+import { ScriptHomeComponent } from './script-home/script-home.component';
+import { ScriptDashboardComponent } from './script-dashboard/script-dashboard.component';
+import { VoHomeComponent } from './vo-home/vo-home.component';
+import { VoDashboardComponent } from './vo-dashboard/vo-dashboard.component';
+import { EditorNavbarComponent } from './editor-navbar/editor-navbar.component';
+import { EditorSidenavComponent } from './editor-sidenav/editor-sidenav.component';
+import { ScriptNavbarComponent } from './script-navbar/script-navbar.component';
+import { ScriptSidenavComponent } from './script-sidenav/script-sidenav.component';
+import { VoNavbarComponent } from './vo-navbar/vo-navbar.component';
+import { VoSidenavComponent } from './vo-sidenav/vo-sidenav.component';
+import { ScriptUpdateComponent } from './script-update/script-update.component';
+import { EditorUpdateComponent } from './editor-update/editor-update.component';
+import { VoUpdateComponent } from './vo-update/vo-update.component';
+import { TeamLeadsComponent } from './team-leads/team-leads.component';
 
 const routes: Routes = [
   {
@@ -108,6 +124,76 @@ const routes: Routes = [
       {
         path: 'sales-leads',
         component: SalesLeadsComponent
+      },
+      {
+        path: 'team-leads',
+        component: TeamLeadsComponent
+      }
+    ]
+  },
+  {
+    path: 'editor-home',
+    component: EditorHomeComponent,
+    children: [
+      {
+        path: 'editor-dashboard',
+        component: EditorDashboardComponent
+      },
+      {
+        path: 'editor-navbar',
+        component: EditorNavbarComponent
+      },
+      {
+        path: 'editor-sidenav',
+        component: EditorSidenavComponent
+      },
+      {
+        path: 'editor-update/:id',
+        component: EditorUpdateComponent
+      }
+    ]
+  },
+  {
+    path: 'script-home',
+    component: ScriptHomeComponent,
+    children: [
+      {
+        path: 'script-dashboard',
+        component: ScriptDashboardComponent
+      },
+      {
+        path: 'script-navbar',
+        component: ScriptNavbarComponent
+      },
+      {
+        path: 'script-sidenav',
+        component: ScriptSidenavComponent
+      },
+      {
+        path: 'script-update/:id',
+        component: ScriptUpdateComponent
+      }
+    ]
+  },
+  {
+    path: 'vo-home',
+    component: VoHomeComponent,
+    children: [
+      {
+        path: 'vo-dashboard',
+        component: VoDashboardComponent
+      },
+      {
+        path: 'vo-navbar',
+        component: VoNavbarComponent
+      },
+      {
+        path: 'vo-sidenav',
+        component: VoSidenavComponent
+      },
+      {
+        path: 'vo-update/:id',
+        component: VoUpdateComponent
       }
     ]
   }

@@ -49,13 +49,17 @@
     text-align: right;
     margin-bottom: 15px;
 }
+.update-button{
+    text-align: right;
+    margin-bottom: 15px;
+}
 
 .searchData{
     display: flex;
     justify-content: flex-end;
 }
 .searchData .details{
-    margin-right: 15px;
+    margin-left: 15px;
     
 }
 .searchData .details input{

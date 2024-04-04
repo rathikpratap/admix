@@ -12,11 +12,7 @@
     width: fit-content;
     background-color: white;
 }
-.table{
-    box-shadow: 10px 10px 10px;
-    margin-top: 40px;
-    border-radius: 20px;
-}
+
 .searchData{
     display: flex;
     justify-content: flex-end;
@@ -35,4 +31,10 @@
 .searchData2 input{
     margin-right: 20px;
     margin-left: 30px;
+}
+.table-scroll{
+    overflow: scroll;
+    height: 400px;
+    margin-top: 40px;
+    box-shadow: 10px 10px 10px;
 }

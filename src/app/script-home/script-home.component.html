@@ -1,0 +1,9 @@
+<div class="container-fluid g-0">
+    <app-script-navbar (scriptSideNavToggled)="scriptSideNavStatus = $event;"></app-script-navbar>
+    <main>
+      <app-script-sidenav [scriptSideNavStatus]="scriptSideNavStatus" [ngClass]="{'app-side-nav-open': scriptSideNavStatus}"></app-script-sidenav>
+      <div class="display-area p-3" [ngClass]="{'display-area-shrink': scriptSideNavStatus}">
+        <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

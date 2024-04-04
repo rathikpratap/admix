@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, ElementRef, NgZone, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
@@ -17,6 +17,21 @@ export class UpdateCustomerComponent {
   countries: any;
   states: any;
   cities: any;
+  tok:any;
+  emp:any;
+
+  codeInput!: ElementRef<HTMLInputElement>;
+  
+  
+
+  ngAfterViewInit() {
+    console.log("Its Called");
+    const inputElement = this.el.nativeElement.querySelector('input[type=text]');
+    if (inputElement) {
+      this.renderer.selectRootElement(inputElement).focus();
+    }
+    
+  }
   
   safeVideoUrl: SafeResourceUrl | null = null;
 
@@ -34,7 +49,7 @@ export class UpdateCustomerComponent {
     custState: new FormControl(""),
     custCountry: new FormControl(""),
     projectStatus: new FormControl("", [Validators.required]),
-    salesPerson: new FormControl("", [Validators.required]),
+    salesPerson: new FormControl(""),
     youtubeLink: new FormControl(""),
     remark: new FormControl(""),
     restAmount: new FormControl(""),
@@ -64,7 +79,7 @@ export class UpdateCustomerComponent {
   }
 
 
-  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
+  constructor(private router: Router, private ngZone: NgZone,private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.updateForm.valueChanges.subscribe(values => {
@@ -75,6 +90,11 @@ export class UpdateCustomerComponent {
 
       this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());
     });
+
+    this.auth.allEmployee().subscribe((res: any)=>{
+      this.emp = res;
+      console.log("Emp===>", this.emp)
+    })
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
       console.log("res ==>", res);
@@ -131,8 +151,6 @@ export class UpdateCustomerComponent {
 
   }
 
-
-
   getControls(name: any): AbstractControl | null {
     return this.updateForm.get(name)
   }
@@ -163,4 +181,7 @@ export class UpdateCustomerComponent {
     });
   }
 
+  hasSalesPerson(): boolean {
+    return this.updateForm.get('salesPerson')?.value === null;
+  }
 }

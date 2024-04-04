@@ -79,6 +79,12 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Payment: </span>
+                            <input type="email" class="from-control" formControlName="signupPayment" placeholder=" Enter Employee Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Role: </span>
                             <select class="form-select" formControlName="signupRole" aria-label="Default select example"
                                 [ngClass]="{error:getControls('signupRole')?.errors && getControls('signupRole')?.touched}">
@@ -88,9 +94,24 @@
                                 <option value="Sales Team"> Sales Team </option>
                                 <option value="Graphic Designer"> Graphic Designer </option>
                                 <option value="Web Developer"> Web Developer </option>
+                                <option value="Editor"> Editor </option>
+                                <option value="Script Writer"> Script Writer </option>
+                                <option value="VO Artist"> VO Artist </option>
                             </select>
                             <div *ngIf="getControls('signupRole')?.errors && getControls('signupRole')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupRole')?.errors?.['required']"> Role is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Sales Team: </span>
+                            <input type="text" class="from-control" formControlName="salesTeam"
+                                [ngClass]="{error:getControls('salesTeam')?.errors && getControls('salesTeam')?.touched}"
+                                placeholder="Enter Sales Team">
+                            <div
+                                *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
+                                <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>
                             </div>
                         </div>
                     </div>

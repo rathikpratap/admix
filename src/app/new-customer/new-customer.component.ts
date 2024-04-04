@@ -18,7 +18,7 @@ export class NewCustomerComponent {
   tok!:any;
   dataLength!:any;
   countries: any;
-  states: any;
+  states: any; 
   cities: any;
   Category: any;
 
@@ -37,11 +37,14 @@ export class NewCustomerComponent {
  
   constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef){
 
+    this.customerForm.get('restAmount')!.setValue('0');
+
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data; 
 
       if(this.tok) {
         this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
+        this.customerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
       }else{
         alert("Please Login Again")
         this.router.navigate(['/login']);
@@ -87,13 +90,15 @@ export class NewCustomerComponent {
     closingCateg : new FormControl("null", [Validators.required]),
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
+    restAmount : new FormControl(""),
     custCountry : new FormControl("null", [Validators.required]),
     custCity : new FormControl("null", [Validators.required]),
     custState : new FormControl("null", [Validators.required]),
     projectStatus : new FormControl("null",[Validators.required]),
     salesPerson : new FormControl("",[Validators.required]),
     youtubeLink : new FormControl(""),
-    remark  : new FormControl("",[Validators.required])
+    remark  : new FormControl("",[Validators.required]),
+    salesTeam : new FormControl("")
     
   })
  

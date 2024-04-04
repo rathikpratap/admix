@@ -62,6 +62,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col">No.</th>
                             <th scope="col"> Campaign Name </th>
                             <th scope="col"> Ad Name </th>
                             <th scope="col"> Created Time </th>
@@ -70,11 +71,12 @@
                             <th scope="col"> Email </th>
                             <th scope="col"> State Name </th>
                             <th scope="col"> Company Name </th>
-                            <th scope="col"> Select Salesperson </th>
+                            <!-- <th scope="col"> Select Salesperson </th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of rangeData">
+                        <tr *ngFor="let list of rangeData; let i = index">
+                            <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.ad_Name}}</td>
                             <td>{{list.created_time}}</td>
@@ -83,13 +85,13 @@
                             <td>{{list.email}}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.company_name}}</td>
-                            <td>
+                            <!-- <td>
                                 <select [(ngModel)]="list.salesperson">
                                     <option *ngFor="let employee of emp" [value]="employee.signupUsername">
                                         {{employee.signupUsername}}
                                     </option>
                                 </select>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -98,6 +100,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">No.</th>
                     <th scope="col"> Campaign Name </th>
                     <th scope="col"> Ad Name </th>
                     <th scope="col"> Created Time </th>
@@ -109,7 +112,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let list of data">
+                <tr *ngFor="let list of data; let i = index">
+                    <td>{{i+1}}</td>
                     <td>{{list.campaign_Name}}</td>
                     <td>{{list.ad_Name}}</td>
                     <td>{{list.created_time}}</td>

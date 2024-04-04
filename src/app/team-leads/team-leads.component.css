@@ -1,0 +1,45 @@
+.nameCard{
+    font-style: italic;
+    font-family:'Segoe UI';
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.title-heading{
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    font-family: 'poppins';
+    width: fit-content;
+    background-color: white;
+}
+.table{
+    box-shadow: 10px 10px 10px;
+    margin-top: 40px;
+    border-radius: 20px;
+    width: 100%;
+}
+.mat-elevation-z8{
+    background-color: white;
+    box-shadow: 10px 10px 10px;
+    margin-top: 40px;
+    border-radius: 20px;
+}
+.searchData{
+    display: flex;
+    justify-content: flex-end;
+}
+.searchData .details{
+    margin-right: 15px;
+    
+}
+.searchData .details input{
+    margin-left: 10px;
+    padding: 5px;
+}
+.searchData .details label{
+    font-weight: 500;
+}
+.searchData2 input{
+    margin-right: 20px;
+    margin-left: 30px;
+}

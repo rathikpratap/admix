@@ -10,13 +10,21 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class NewCategoryComponent {
  
   message:string ='';
-  isProcess:boolean = false;
+  isProcess:boolean = false; 
   className = 'd-none'
+
+  message1:string ='';
+  isProcess1:boolean = false; 
+  className1 = 'd-none'
 
   constructor(private auth:AuthService) {}
   
   categoryForm = new FormGroup({
     categoryName : new FormControl("")
+  });
+
+  salesTeamForm = new FormGroup({
+    salesTeamName : new FormControl("")
   })
 
   categ(){
@@ -38,6 +46,28 @@ export class NewCategoryComponent {
         this.isProcess = false;
         this.message = "Server Error";
         this.className = 'alert alert-danger';
+    })
+  }
+
+  salesTeam(){
+    this.isProcess = true;
+    console.warn(this.salesTeamForm.value);
+    const data = this.salesTeamForm.value;
+    this.auth.newSalesTeam(data).subscribe( res=>{
+      if(res.success){
+        this.isProcess1 = false;
+        this.message1 = "Sales Team has been Created!!";
+        this.className1 = 'alert alert-success';
+        this.salesTeamForm.reset();
+      }else {
+        this.isProcess1 = false;
+        this.message1 = res.message;
+        this.className1 = 'alert alert-danger';
+      }
+      },err =>{
+        this.isProcess1 = false;
+        this.message1 = "Server Error";
+        this.className1 = 'alert alert-danger';
     })
   }
 }

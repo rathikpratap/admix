@@ -20,7 +20,9 @@ export class UpdateEmployeeComponent {
     signupGender : new FormControl("",[Validators.required]),
     signupPassword : new FormControl("", [Validators.required]),
     signupAddress : new FormControl("",[Validators.required]),
-    signupRole : new FormControl("",[Validators.required])
+    signupRole : new FormControl("",[Validators.required]),
+    signupPayment: new FormControl(""),
+    salesTeam : new FormControl("", [Validators.required])
   })
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -36,7 +38,9 @@ export class UpdateEmployeeComponent {
         signupGender : res['signupGender'],
         signupPassword : res['signupPassword'],
         signupAddress : res['signupAddress'],
-        signupRole : res['signupRole']
+        signupRole : res['signupRole'],
+        signupPayment: res['signupPayment'],
+        salesTeam: res['salesTeam']
       })
     });
   }

@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box"> 
                         <div class="form-group">
                             <span class="details"> Closing Category: </span>
                             <select class="form-select" formControlName="closingCateg"
@@ -119,6 +119,14 @@
                             </div>
                         </div>
                     </div> 
+                    <div class="input-box hidden-input">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment: </span>
+                            <input type="number" class="form-control" formControlName="restAmount"
+                        [ngClass]="{error:getControls('restAmount')?.errors && getControls('restAmount')?.touched}"
+                        placeholder="Rest Amount">
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Country: </span>
@@ -155,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box"> 
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
                                 <select class="form-select" formControlName="projectStatus"
@@ -185,6 +193,17 @@
                                 placeholder="Enter your Username">
                             <div *ngIf="getControls('salesPerson')?.errors && getControls('salesPerson')?.touched">
                                 <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']"> Username is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box hidden-input">
+                        <div class="form-group">
+                            <span class="details"> Sales Team : </span>
+                            <input type="text" class="form-control" formControlName="salesTeam"
+                                [ngClass]="{error:getControls('salesTeam')?.errors && getControls('salesTeam')?.touched}"
+                                placeholder="Enter your Username">
+                            <div *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
+                                <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>
                             </div>
                         </div>
                     </div>
