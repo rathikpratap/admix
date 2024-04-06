@@ -35,7 +35,7 @@ export class FacebookLeadsComponent {
       this.emp = res;
     })
   }
-
+ 
   getLeads(){
     this.auth.getLeads().subscribe((list : any)=>{
       console.log("list==>",list)

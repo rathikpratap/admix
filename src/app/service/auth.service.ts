@@ -16,8 +16,24 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/register`, data);
   }
 
-  signin(loginData:any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/login`, loginData);
+  //  signin(loginData:any):Observable<any>{
+  //    return this.http.post(`${appConfig.apiUrl}/auth/login`, loginData);
+  //  }
+
+   signin(credentials: {loginUsername: string, loginPswd: string}):Observable<any>{
+     return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
+   }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   addcustomer(customerData:any):Observable<any>{
@@ -29,7 +45,7 @@ export class AuthService {
   } 
 
   getLeads(){
-    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);
+    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`); 
   }
   fetchLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
@@ -245,6 +261,14 @@ export class AuthService {
 
   scriptProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptProjects`);
+  }
+
+  editorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
+  }
+
+  voProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/voProjects`);
   }
 
   handleError(error: HttpErrorResponse) {

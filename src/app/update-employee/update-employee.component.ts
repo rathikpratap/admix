@@ -11,6 +11,7 @@ import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/fo
 export class UpdateEmployeeComponent {
 
   getId:any;
+  team:any;
 
   empUpdateForm = new FormGroup({
     signupName: new FormControl("",[Validators.required]),
@@ -22,7 +23,7 @@ export class UpdateEmployeeComponent {
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("",[Validators.required]),
     signupPayment: new FormControl(""),
-    salesTeam : new FormControl("", [Validators.required])
+    salesTeam : new FormControl("") 
   })
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -43,6 +44,9 @@ export class UpdateEmployeeComponent {
         salesTeam: res['salesTeam']
       })
     });
+    this.auth.getSalesTeam().subscribe((res:any)=>{
+      this.team = res;
+    })
   }
 
   getControls(name: any) : AbstractControl | null{

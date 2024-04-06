@@ -36,6 +36,7 @@ import { ScriptUpdateComponent } from './script-update/script-update.component';
 import { EditorUpdateComponent } from './editor-update/editor-update.component';
 import { VoUpdateComponent } from './vo-update/vo-update.component';
 import { TeamLeadsComponent } from './team-leads/team-leads.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'navbar',
@@ -96,10 +98,11 @@ const routes: Routes = [
   {
     path: 'salesHome',
     component: SalesHomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'salesDashboard',
-        component: SalesDashboardComponent
+        component: SalesDashboardComponent,
       },
       {
         path: 'salesNavbar',
@@ -134,6 +137,7 @@ const routes: Routes = [
   {
     path: 'editor-home',
     component: EditorHomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'editor-dashboard',
@@ -156,6 +160,7 @@ const routes: Routes = [
   {
     path: 'script-home',
     component: ScriptHomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'script-dashboard',
@@ -178,6 +183,7 @@ const routes: Routes = [
   {
     path: 'vo-home',
     component: VoHomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'vo-dashboard',

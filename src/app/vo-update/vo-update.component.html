@@ -1,1 +1,73 @@
-<p>vo-update works!</p>
+<div class="new-customer">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2> Enter Project Details </h2>
+            </div>
+            <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Client Code: </span>
+                            <input type="text" class="form-control" formControlName="custCode"
+                                [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
+                                placeholder="Enter Client Code">
+                            <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Words Count: </span>
+                            <input type="text" class="form-control" formControlName="wordsCount"
+                                [ngClass]="{error:getControls('wordsCount')?.errors && getControls('wordsCount')?.touched}"
+                                placeholder="Enter Words Count">
+                            <div *ngIf="getControls('wordsCount')?.errors && getControls('wordsCount')?.touched">
+                                <label class="text-danger" *ngIf="getControls('wordsCount')?.errors?.['required']"> Words Count is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Delivery Date: </span>
+                            <input type="datetime-local" class="form-control" formControlName="scriptDeliveryDate" placeholder="Enter Delivery Date">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script: </span>
+                            
+                            <textarea type="text" class="form-control" formControlName="script" placeholder="Enter Script"></textarea>
+                        </div>
+                    </div>
+                    <div class="input-box hidden-input">
+                        <div class="form-group">
+                            <span class="details"> Payment: </span>
+                            <input type="text" class="form-control" formControlName="payment" placeholder="Enter Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Status: </span>
+                            <select class="form-select" formControlName="scriptStatus"
+                            aria-label="Default select example"
+                            [ngClass]="{error:getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched}">
+                            <option value="null">Select Project Status</option>
+                            <option value="Not Complete">Not Completed</option>
+                            <option value="Complete">Completed</option>
+                        </select>
+                    <div *ngIf="getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched">
+                        <label class="text-danger" *ngIf="getControls('scriptStatus')?.errors?.['required']"> Project Status is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>

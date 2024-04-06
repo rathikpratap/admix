@@ -1,1 +1,45 @@
-<p>editor-dashboard works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="allCustomers">
+            <div class="nameCard2">
+                <div class="ProjectCard">
+                    <h5> All Projects </h5>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="table-scroll">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Client Code</th>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Words Count</th>
+                        <th scope="col">Delivery Date</th>
+                        <th scope="col">Script</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of data; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{user.custCode}}</td>
+                        <td>{{user.custBussiness}}</td>
+                        <td>{{user.wordsCount}}</td>
+                        <td>{{user.scriptDeliveryDate}}</td>
+                        <td>{{user.script}}</td>
+                        <td>{{user.scriptStatus}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" routerLink="/editor-home/editor-update/{{user._id}}"> Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

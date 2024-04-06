@@ -18,8 +18,14 @@ export class NewEmployeeComponent {
   message:string ='';
   isProcess:boolean = false;
   className = 'd-none'
+  team: any;
+ 
+  constructor(private auth:AuthService) {
 
-  constructor(private auth:AuthService) {}
+    this.auth.getSalesTeam().subscribe((res:any)=>{
+      this.team = res;
+    })
+  }
 
   registrationForm = new FormGroup({
     signupName : new FormControl("", [Validators.required]),
@@ -31,7 +37,7 @@ export class NewEmployeeComponent {
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("Select Role",[Validators.required]),
     signupPayment : new FormControl(""),
-    salesTeam : new FormControl("",[Validators.required])
+    salesTeam : new FormControl("null")
     //signupID: new FormControl("",[Validators.required])
   })
   getControls(name: any) : AbstractControl | null{

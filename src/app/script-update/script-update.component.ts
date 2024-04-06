@@ -21,7 +21,7 @@ export class ScriptUpdateComponent {
     script: new FormControl(""),
     scriptStatus: new FormControl("null", [Validators.required]),
     payment: new FormControl("")
-  })
+  }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');

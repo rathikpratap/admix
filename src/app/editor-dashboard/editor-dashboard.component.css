@@ -1,0 +1,12 @@
+.ProjectCard{
+    font-style: italic;
+    font-family: 'poppins';
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    width: fit-content;
+    background-color: white;
+} 
+.table-scroll{
+    margin-top: 15px;
+}

@@ -106,9 +106,10 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Sales Team: </span>
-                            <input type="text" class="from-control" formControlName="salesTeam"
-                                [ngClass]="{error:getControls('salesTeam')?.errors && getControls('salesTeam')?.touched}"
-                                placeholder="Enter Sales Team">
+                            <select class="form-select" formControlName="salesTeam" aria-label="Default select example">
+                                <option value="null">Select Sales Team</option>
+                                <option *ngFor="let teams of team" value="{{teams.salesTeamName}}">{{teams.salesTeamName}}</option>
+                            </select> 
                             <div
                                 *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
                                 <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>

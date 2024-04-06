@@ -1,1 +1,101 @@
-<p>editor-update works!</p>
+<div class="new-customer">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2> Enter Project Details </h2>
+            </div>
+            <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Client Code: </span>
+                            <input type="text" class="form-control" formControlName="custCode"
+                                [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
+                                placeholder="Enter Client Code">
+                            <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box"> 
+                        <div class="form-group">
+                            <span class="details"> Duration: </span>
+                            <input type="text" class="form-control" formControlName="Duration"
+                                [ngClass]="{error:getControls('Duration')?.errors && getControls('Duration')?.touched}"
+                                placeholder="Enter Video Duration">
+                            <div *ngIf="getControls('Duration')?.errors && getControls('Duration')?.touched">
+                                <label class="text-danger" *ngIf="getControls('Duration')?.errors?.['required']"> Video Duration is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Delivery Date: </span>
+                            <input type="datetime-local" class="form-control" formControlName="videoDeliveryDate" placeholder="Enter Delivery Date">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Type: </span>
+                            <select class="form-control" formControlName="videoType">
+                                <option value="null">Select Graphics Type</option>
+                                <option value="Normal Graphics">Normal Graphics</option>
+                                <option value="Motion Graphics">Motion Graphics</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-box hidden-input">
+                        <div class="form-group">
+                            <span class="details"> Editor Payment: </span>
+                            <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Status: </span>
+                            <select class="form-select" formControlName="scriptStatus"
+                            aria-label="Default select example"
+                            [ngClass]="{error:getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched}">
+                            <option value="null">Select Project Status</option>
+                            <option value="Not Complete">Not Completed</option>
+                            <option value="Complete">Completed</option>
+                        </select>
+                    <div *ngIf="getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched">
+                        <label class="text-danger" *ngIf="getControls('scriptStatus')?.errors?.['required']"> Project Status is Required </label>
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="input-box1">
+                        <div class="form-group">
+                            <span class="details"> Any Other Changes: </span>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="otherChanges" id="inlineRadio1" value="Yes" [ngClass]="{error:getControls('otherChanges')?.errors && getControls('otherChanges')?.touched}">
+                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="otherChanges" id="inlineRadio2" value="No" [ngClass]="{error:getControls('otherChanges')?.errors && getControls('otherChanges')?.touched}">
+                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            </div>
+                            <div *ngIf="getControls('otherChanges')?.errors && getControls('otherChanges')?.touched">
+                                <label class="text-danger" *ngIf="getControls('otherChanges')?.errors?.['required']"> Project Status is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box"*ngIf="getControls('onChanges')?.value === 'Yes'">
+                        <div class="form-group">
+                            <span class="details"> Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Changes Payment">
+                        </div>
+                    </div>
+
+                   
+                </div>
+                <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>
