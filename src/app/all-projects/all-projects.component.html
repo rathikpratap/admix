@@ -216,6 +216,9 @@
                             <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
                                 {{user.voiceOverStatus}}
                             </td>
+                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                {{user.projectStatus}}
+                            </td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" routerLink="/update-panel/{{user._id}}"> View</button>   
