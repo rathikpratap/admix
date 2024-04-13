@@ -4,11 +4,11 @@ import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-new-employee',
-  templateUrl: './new-employee.component.html',
+  templateUrl: './new-employee.component.html', 
   styleUrls: ['./new-employee.component.css']
 })
 export class NewEmployeeComponent {
-  integerRegex = /^\d+$/;
+  integerRegex = '^((\\+91-?)|0)?[0-9]{10}$';
   emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 

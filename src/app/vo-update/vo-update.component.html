@@ -20,49 +20,65 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Words Count: </span>
-                            <input type="text" class="form-control" formControlName="wordsCount"
-                                [ngClass]="{error:getControls('wordsCount')?.errors && getControls('wordsCount')?.touched}"
-                                placeholder="Enter Words Count">
-                            <div *ngIf="getControls('wordsCount')?.errors && getControls('wordsCount')?.touched">
-                                <label class="text-danger" *ngIf="getControls('wordsCount')?.errors?.['required']"> Words Count is Required </label>
+                    <div class="input-box2">
+                        <div class="form-group2">
+                            <span class="details"> Duration: </span>
+                            <div class="input-flex">
+                                <input type="number" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Minutes </span>
+
+                                <input type="number" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Seconds </span>
                             </div>
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Delivery Date: </span>
-                            <input type="datetime-local" class="form-control" formControlName="scriptDeliveryDate" placeholder="Enter Delivery Date">
+                            <input type="datetime-local" class="form-control" formControlName="voiceDeliveryDate" placeholder="Enter Delivery Date">
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
-                            <span class="details"> Script: </span>
-                            
-                            <textarea type="text" class="form-control" formControlName="script" placeholder="Enter Script"></textarea>
+                            <span class="details"> Voice Over Type: </span>
+                            <select class="form-control" formControlName="voiceOverType">
+                                <option value="null">Select Voice Over Type</option>
+                                <option value="Single">Single</option>
+                                <option value="Double">Double</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="input-box hidden-input">
+                    <div class="input-box" *ngIf="showVoicePayment">
                         <div class="form-group">
                             <span class="details"> Payment: </span>
-                            <input type="text" class="form-control" formControlName="payment" placeholder="Enter Payment">
+                            <input type="text" class="form-control" formControlName="voicePayment" placeholder="Enter Payment">
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
-                            <select class="form-select" formControlName="scriptStatus"
-                            aria-label="Default select example"
-                            [ngClass]="{error:getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched}">
-                            <option value="null">Select Project Status</option>
-                            <option value="Not Complete">Not Completed</option>
-                            <option value="Complete">Completed</option>
-                        </select>
-                    <div *ngIf="getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched">
-                        <label class="text-danger" *ngIf="getControls('scriptStatus')?.errors?.['required']"> Project Status is Required </label>
+                            <select class="form-select" formControlName="voiceOverStatus" aria-label="Default select example"
+                            [ngClass]="{error:getControls('voiceOverStatus')?.errors && getControls('voiceOverStatus')?.touched}">
+                                <option value="null">Select Project Status</option>
+                                <option value="Not Complete">Not Completed</option>
+                                <option value="Complete">Completed</option>
+                            </select>
+                            <div *ngIf="getControls('voiceOverStatus')?.errors && getControls('voiceOverStatus')?.touched">
+                                <label class="text-danger" *ngIf="getControls('voiceOverStatus')?.errors?.['required']"> Project Status is Required </label>
+                            </div>
+                        </div>
                     </div>
+                    <div class="input-box1">
+                        <div class="form-group">
+                            <span class="details">Any Other Changes?</span>
+                            <input class="form-check-input" type="radio" formControlName="voiceOtherChanges" value="yes" (change)="onChange($event)"> Yes
+                            <input class="form-check-input" type="radio" formControlName="voiceOtherChanges" value="no" (change)="onChange($event)"> No
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="voiceOtherChanges">
+                        <div class="form-group">
+                            <span class="details"> Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="voiceChangesPayment" placeholder="Enter Changes Payment">
                         </div>
                     </div>
                 </div>

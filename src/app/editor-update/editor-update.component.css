@@ -13,6 +13,10 @@ form{
     border: 0;
     padding: .375rem .75rem;
 }
+.form-group2{
+    border: 0;
+    padding: .375rem .75rem;
+}
 .new-heading{
     text-align: center;
     color: black;
@@ -27,6 +31,9 @@ form .user-details .input-box{
     margin-bottom: 15px;
 }
 form .user-details .input-box1{
+    margin-bottom: 15px;
+}
+form .user-details .input-box2{
     margin-bottom: 15px;
 }
 .user-details .input-box .details{
@@ -49,6 +56,34 @@ form .user-details .input-box1{
     transition: all 0.3s ease;
 }
 
+.user-details .input-box2 .details{
+    display: block;
+    font-weight: 500;
+}
+.user-details .input-box2 .input-flex .details{
+    margin-right: 15px;
+    margin-left: 10px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.user-details .input-box2 input{
+    height: 45px;
+    width: 30%;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-bottom-width: 3px;
+    transition: all 0.3s ease;
+}
+.user-details .input-box2 .input-flex{
+    display: flex;
+} 
+.user-details .input-box2 input:focus{
+    border-color: blueviolet;
+}
 
 .user-details .input-box input:focus{
     border-color: blueviolet;

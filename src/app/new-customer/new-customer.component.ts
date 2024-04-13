@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 
 
 @Component({
-  selector: 'app-new-customer',
+  selector: 'app-new-customer', 
   templateUrl: './new-customer.component.html',
   styleUrls: ['./new-customer.component.css']
 })
@@ -97,7 +97,7 @@ export class NewCustomerComponent {
     projectStatus : new FormControl("null",[Validators.required]),
     salesPerson : new FormControl("",[Validators.required]),
     youtubeLink : new FormControl(""),
-    remark  : new FormControl("",[Validators.required]),
+    remark  : new FormControl(""),
     salesTeam : new FormControl("")
     
   })

@@ -7,7 +7,7 @@ import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/fo
   selector: 'app-update-employee',
   templateUrl: './update-employee.component.html',
   styleUrls: ['./update-employee.component.css']
-})
+}) 
 export class UpdateEmployeeComponent {
 
   getId:any;

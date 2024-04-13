@@ -45,6 +45,9 @@ import { ScriptUpdateComponent } from './script-update/script-update.component';
 import { EditorUpdateComponent } from './editor-update/editor-update.component';
 import { VoUpdateComponent } from './vo-update/vo-update.component';
 import { TeamLeadsComponent } from './team-leads/team-leads.component';
+import { UpdatePanelComponent } from './update-panel/update-panel.component';
+import { PaymentComponent } from './payment/payment.component';
+import { UpdatePaymentComponent } from './update-payment/update-payment.component';
 
 
 
@@ -88,7 +91,10 @@ import { TeamLeadsComponent } from './team-leads/team-leads.component';
     ScriptUpdateComponent,
     EditorUpdateComponent,
     VoUpdateComponent,
-    TeamLeadsComponent
+    TeamLeadsComponent,
+    UpdatePanelComponent,
+    PaymentComponent,
+    UpdatePaymentComponent
   ],
   imports: [
     BrowserModule,

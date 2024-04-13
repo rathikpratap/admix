@@ -138,9 +138,9 @@
             <div class="downloadFile">
                 <button class="btn btn-sm btn-success" (click)="downloadFile()"> Download File </button>
             </div>
-            <div class="update-button">
+            <!-- <div class="update-button">
                 <button class="btn btn-sm btn-primary" (click)="updateEditors()">Update Editor</button>
-            </div>
+            </div> -->
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>
@@ -154,9 +154,11 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
                             <th scope="col">Sales Person</th>
+                            <th scope="col">Project Status</th>
                             <th scope="col">Select Editor</th>
+                            <th scope="col">Editor Status</th>
+                            <th scope="col">View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -170,6 +172,7 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
+                            <td>{{user.salesPerson}}</td>
                             <td>
                                 <select [(ngModel)]="user.projectStatus" (change)="updateEditorVisible = (user.projectStatus === 'closing')">
                                     <option value="Not Interested">Not Interested</option>
@@ -177,37 +180,51 @@
                                     <option value="Closing">Closing</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
-                                    <option value="Video Editing">Video Editing</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option> 
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td>{{user.salesPerson}}</td>
-                            
-                             <td>
-                                <select *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'" [(ngModel)]="user.scriptWriter">
-                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                            <td>
+                                <select *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'" [(ngModel)]="user.scriptWriter" (change)="updateEditors()">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')" [value]="employee.signupUsername">
                                         {{employee.signupUsername}}
                                     </option>
                                 </select>
-                                <select *ngIf="user.projectStatus === 'Video Editing' ||user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' " [(ngModel)]="user.editor">
-                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                                <select *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' " [(ngModel)]="user.editor" (change)="updateEditors()">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')" [value]="employee.signupUsername">
                                         {{employee.signupUsername}}
                                     </option>
                                 </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                    <option *ngFor="let employee of emp" [value]="employee.signupUsername">
+                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver" (change)="updateEditors()">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')" [value]="employee.signupUsername">
                                         {{employee.signupUsername}}
                                     </option>
                                 </select>
-                            </td> 
+                            </td>
+                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'" [(ngModel)]="user.scriptWriter">
+                                {{user.scriptStatus}}
+                            </td>
+                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' " [(ngModel)]="user.editor">
+                                {{user.editorStatus}}
+                            </td>
+                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                {{user.voiceOverStatus}}
+                            </td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" routerLink="/update-panel/{{user._id}}"> View</button>   
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
     </div>
  </div>

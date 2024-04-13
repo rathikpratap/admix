@@ -46,7 +46,7 @@ export class AllProjectsComponent {
   updateEditors(){
     this.auth.updateEditors(this.data).subscribe((res: any)=>{
       if(this.data){
-        alert("Editor Succesfully Assigned");
+        alert("Project Successfully Assigned ");
         console.log("Editor Updated List", this.data);
       }
       console.log("Successfully Assigned", res);
@@ -113,6 +113,21 @@ export class AllProjectsComponent {
 
     if(startDate && endDate){
       this.auth.downloadRangeFile(startDate, endDate);
+    }
+  }
+
+  filterEmployeesByRole(projectStatus: string): any[] {
+    switch (projectStatus) {
+        case 'Scripting': 
+            return this.emp.filter((employee:any) => employee.signupRole === 'Script Writer');
+        case 'Video Editing':
+        case 'Video Changes':
+        case 'Video Done':
+            return this.emp.filter((employee:any) => employee.signupRole === 'Editor');
+        case 'Voice Over':
+            return this.emp.filter((employee:any) => employee.signupRole === 'VO Artist');
+        default:
+            return []; // Return an empty array if no specific role is selected
     }
   }
 

@@ -13,14 +13,24 @@ export class ScriptUpdateComponent {
 
   getId: any;
   tok: any;
+  scriptOtherChanges: boolean = false;
+  emp: any;
+  totalSec: any;
+  showScriptPayment: boolean = false;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
     wordsCount: new FormControl(""),
+    scriptDuration: new FormControl(0),
     scriptDeliveryDate: new FormControl(""),
     script: new FormControl(""),
     scriptStatus: new FormControl("null", [Validators.required]),
-    payment: new FormControl("")
+    scriptPayment: new FormControl(),
+    scriptOtherChanges: new FormControl(""),
+    scriptChangesPayment: new FormControl(),
+    totalScriptPayment: new FormControl(0),
+    scriptDurationMinutes: new FormControl(0),
+    scriptDurationSeconds: new FormControl(0)
   }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
@@ -31,10 +41,16 @@ export class ScriptUpdateComponent {
       this.updateForm.patchValue({
         custCode: res['custCode'],
         wordsCount: res['wordsCount'],
+        scriptDuration: res['scriptDuration'],
         scriptDeliveryDate: res['scriptDeliveryDate'],
         script: res['script'],
-        payment: res['payment'],
-        scriptStatus: res['scriptStatus']
+        scriptPayment: res['scriptPayment'],
+        scriptStatus: res['scriptStatus'],
+        scriptOtherChanges: res['scriptOtherChanges'],
+        scriptChangesPayment: res['scriptChangesPayment'],
+        totalScriptPayment: res['totalScriptPayment'],
+        scriptDurationMinutes: res['scriptDurationMinutes'],
+        scriptDurationSeconds: res['scriptDurationSeconds']
       })
     })
  
@@ -44,13 +60,7 @@ export class ScriptUpdateComponent {
 
     this.auth.allEmployee().subscribe((res:any)=>{
       console.log("All Employees==>", res);
-      
-      res.forEach((employee: { signupUsername: string, signupPayment: string; }) => {
-        if(employee.signupUsername === this.tok.signupUsername){
-          console.log("Employee==>", employee.signupPayment)
-          this.updateForm.get('payment')!.setValue(employee.signupPayment);
-        }
-      });
+      this.emp = res;
     })
   }
 
@@ -59,6 +69,29 @@ export class ScriptUpdateComponent {
   }
 
   onUpdate(){
+    const scriptPayment1: number = parseFloat(this.updateForm.get('scriptPayment')?.value || '0');
+    const scriptChangesPayment1: number = parseFloat(this.updateForm.get('scriptChangesPayment')?.value || '0');
+    const totalScriptPayment1: number = scriptPayment1 + scriptChangesPayment1;
+    this.updateForm.get('totalScriptPayment')?.setValue(totalScriptPayment1);
+
+    this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
+      if(employee.signupUsername === this.tok.signupUsername){
+        console.log("Payment Of employee===>>", employee.payment60Sec);
+        if(this.totalSec > 0 && this.totalSec <= 60){
+          console.log("60Sec Payment",employee.payment60Sec);
+          this.updateForm.get('scriptPayment')?.setValue(employee.payment60Sec);
+        } else if(this.totalSec > 60 && this.totalSec <= 90){
+          this.updateForm.get('scriptPayment')?.setValue(employee.payment90Sec);
+        } else if(this.totalSec > 90 && this.totalSec <=120){
+          this.updateForm.get('scriptPayment')?.setValue(employee.payment120Sec);
+        } else if(this.totalSec > 120 && this.totalSec <=150){
+          this.updateForm.get('scriptPayment')?.setValue(employee.payment150Sec);
+        } else if(this.totalSec > 150 && this.totalSec <=180){
+          this.updateForm.get('scriptPayment')?.setValue(employee.payment180Sec);
+        }
+      }
+    })
+
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
       console.log("Data Updated Successfully", res);
       this.ngZone.run(()=> { this.router.navigateByUrl('/script-home/script-dashboard')})
@@ -66,4 +99,20 @@ export class ScriptUpdateComponent {
       console.log(err)
     })
   }
+  onChange(event: any) {
+    if (event.target.value === 'yes') {
+      this.scriptOtherChanges = true;
+    } else {
+      this.scriptOtherChanges = false; 
+    }
+  }
+  DurationChange(){
+    console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
+    const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
+    const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
+    this.totalSec = Minsec * 60 + sec;
+    this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
+    console.log("Total Sec==>", this.totalSec);
+    this.showScriptPayment = this.totalSec > 180;
+   }
 }

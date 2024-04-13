@@ -21,6 +21,7 @@
                         <th scope="col">Words Count</th>
                         <th scope="col">Delivery Date</th>
                         <th scope="col">Script</th>
+                        <th scope="col"> Duration </th>
                         <th scope="col">Status</th>
                         <th scope="col"> Action </th>
                     </tr>
@@ -28,9 +29,10 @@
                 <tbody>
                     <tr *ngFor="let user of data; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{user.custCode}}</td>
+                        <td>{{user.custCode}}</td> 
                         <td>{{user.custBussiness}}</td>
                         <td>{{user.wordsCount}}</td>
+                        <td>{{user.scriptDurationMinutes}}:{{user.scriptDurationSeconds}}</td>
                         <td>{{user.scriptDeliveryDate}}</td>
                         <td>{{user.script}}</td>
                         <td>{{user.scriptStatus}}</td>

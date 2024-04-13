@@ -29,24 +29,30 @@ export class SideNavComponent {
     },
     {
       number: '4',
+      name: 'Payment',
+      icon: 'bi bi-currency-rupee',
+      route: '/payment'
+    },
+    {
+      number: '5',
       name: 'All Projects',
       icon: 'bi bi-card-list',
       route: '/all-projects'
     },
     {
-      number: '5',
+      number: '6',
       name: 'Add New Category',
       icon: 'bi bi-file-earmark-plus-fill',
       route: '/new-category'
     },
     {
-      number: '6',
+      number: '7',
       name: 'Get Leads',
       icon: 'bi bi-arrow-down-circle',
       route: '/facebook-leads'
     },
     {
-      number: '7',
+      number: '8',
       name: 'Leads',
       icon: 'bi bi-box-arrow-in-up',
       route: '/Leads'

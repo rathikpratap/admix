@@ -1,0 +1,57 @@
+<div class="new-registration">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2> Update Employee Payment </h2>
+            </div>
+            <form [formGroup]="empUpdateForm" (ngSubmit)="empUpdateForm.status !== 'INVALID' && onUpdate()">
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Full Name: </span>
+                            <input type="text" class="from-control" formControlName="signupName" placeholder="Enter Your Name">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Upto 1 Min: </span>
+                            <input type="number" class="from-control" formControlName="payment60Sec" placeholder="Enter 60 Seconds Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> 1 Min to 1:30 Min: </span>
+                            <input type="number" class="from-control" formControlName="payment90Sec" placeholder=" Enter 90 Seconds Payment">
+                            
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> 1:30 Min to 2:00 Min: </span>
+                            <input type="number" class="from-control" formControlName="payment120Sec" placeholder=" Enter 120 Seconds Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> 2:00 Min to 2:30 Min: </span>
+                            <input type="number" class="from-control" formControlName="payment150Sec" placeholder=" Enter 150 Seconds Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> 2:30 Min to 3:00 Min: </span>
+                            <input type="number" class="from-control" formControlName="payment180Sec" placeholder=" Enter 180 Seconds Payment">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="empUpdateForm.status === 'INVALID'" class="btn btn-success">
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+    </div>
+</div>

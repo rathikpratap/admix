@@ -18,9 +18,9 @@
                         <th scope="col">No.</th>
                         <th scope="col">Client Code</th>
                         <th scope="col">Project Name</th>
-                        <th scope="col">Words Count</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Delivery Date</th>
-                        <th scope="col">Script</th>
+                        <th scope="col">Voice Over type</th>
                         <th scope="col">Status</th>
                         <th scope="col"> Action </th>
                     </tr>
@@ -30,12 +30,12 @@
                         <td>{{i+1}}</td>
                         <td>{{user.custCode}}</td>
                         <td>{{user.custBussiness}}</td>
-                        <td>{{user.wordsCount}}</td>
-                        <td>{{user.scriptDeliveryDate}}</td>
-                        <td>{{user.script}}</td>
-                        <td>{{user.scriptStatus}}</td>
+                        <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
+                        <td>{{user.voiceDeliveryDate}}</td>
+                        <td>{{user.voiceOvertype}}</td>
+                        <td>{{user.voiceOverStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{user._id}}"> Update</button>
+                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
                         </td>
                     </tr>
                 </tbody>

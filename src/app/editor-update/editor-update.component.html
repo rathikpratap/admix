@@ -20,14 +20,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box"> 
-                        <div class="form-group">
+                    <div class="input-box2"> 
+                        <div class="form-group2">
                             <span class="details"> Duration: </span>
-                            <input type="text" class="form-control" formControlName="Duration"
-                                [ngClass]="{error:getControls('Duration')?.errors && getControls('Duration')?.touched}"
-                                placeholder="Enter Video Duration">
-                            <div *ngIf="getControls('Duration')?.errors && getControls('Duration')?.touched">
-                                <label class="text-danger" *ngIf="getControls('Duration')?.errors?.['required']"> Video Duration is Required </label>
+                            <div class="input-flex">
+                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Minutes </span>
+
+                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Seconds </span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box hidden-input">
+                    <div class="input-box" *ngIf="showEditorPayment">
                         <div class="form-group">
                             <span class="details"> Editor Payment: </span>
                             <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Payment">
@@ -56,43 +57,45 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
-                            <select class="form-select" formControlName="scriptStatus"
-                            aria-label="Default select example"
-                            [ngClass]="{error:getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched}">
-                            <option value="null">Select Project Status</option>
+                            <select class="form-select" formControlName="editorStatus" aria-label="Default select example"
+                            [ngClass]="{error:getControls('editorStatus')?.errors && getControls('editorStatus')?.touched}">
+                            <option value="null">Select Project Status</option> 
                             <option value="Not Complete">Not Completed</option>
-                            <option value="Complete">Completed</option>
+                            <option value="Completed">Completed</option>
                         </select>
-                    <div *ngIf="getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched">
-                        <label class="text-danger" *ngIf="getControls('scriptStatus')?.errors?.['required']"> Project Status is Required </label>
+                    <div *ngIf="getControls('editorStatus')?.errors && getControls('editorStatus')?.touched">
+                        <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']"> Project Status is Required </label>
                     </div>
                         </div>
                     </div>
-
                     <div class="input-box1">
                         <div class="form-group">
-                            <span class="details"> Any Other Changes: </span>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" formControlName="otherChanges" id="inlineRadio1" value="Yes" [ngClass]="{error:getControls('otherChanges')?.errors && getControls('otherChanges')?.touched}">
-                                <label class="form-check-label" for="inlineRadio1">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" formControlName="otherChanges" id="inlineRadio2" value="No" [ngClass]="{error:getControls('otherChanges')?.errors && getControls('otherChanges')?.touched}">
-                                <label class="form-check-label" for="inlineRadio2">No</label>
-                            </div>
-                            <div *ngIf="getControls('otherChanges')?.errors && getControls('otherChanges')?.touched">
-                                <label class="text-danger" *ngIf="getControls('otherChanges')?.errors?.['required']"> Project Status is Required </label>
-                            </div>
+                            <span class="details">Any Other Changes?</span>
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)"> Yes
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)"> No
                         </div>
                     </div>
-                    <div class="input-box"*ngIf="getControls('onChanges')?.value === 'Yes'">
+                    <div class="input-box" *ngIf="editorOtherChanges">
                         <div class="form-group">
                             <span class="details"> Changes Payment: </span>
                             <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Changes Payment">
                         </div>
                     </div>
-
-                   
+                    <!-- <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Total Payment: </span>
+                            <input type="number" class="form-control" formControlName="totalEditorPayment" placeholder="Enter Changes Payment" [value]="updateForm.get('totalEditorPayment')!.value | number">
+                        </div>
+                    </div> -->
+                    <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
+                        <div class="form-group">
+                            <span class="details"> Youtube Video Link: </span>
+                            <textarea type="text" class="form-control" formControlName="youtubeLink" [ngClass]="{error:getControls('youtubeLink')?.errors && getControls('youtubeLink')?.touched}" placeholder="Enter youtubeLink"></textarea> 
+                            <div *ngIf="getControls('youtubeLink')?.errors && getControls('youtubeLink')?.touched">
+                                <label class="text-danger" *ngIf="getControls('youtubeLink')?.errors?.['required']"> Youtube Link is required</label>
+                            </div> 
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
             </form>

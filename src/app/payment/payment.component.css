@@ -1,0 +1,25 @@
+.nameCard{
+    
+    display: flex;
+    flex-direction: row;
+}
+.title-heading{ 
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    font-family: 'poppins';
+    width: fit-content;
+    background-color: white;
+}
+.nameCard2{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.table-scroll{
+    margin-top: 20px;
+}
+.table{
+    box-shadow: 10px 10px 10px;
+    text-align: center;
+}

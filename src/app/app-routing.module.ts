@@ -37,6 +37,9 @@ import { EditorUpdateComponent } from './editor-update/editor-update.component';
 import { VoUpdateComponent } from './vo-update/vo-update.component';
 import { TeamLeadsComponent } from './team-leads/team-leads.component';
 import { AuthGuard } from './auth.guard';
+import { UpdatePanelComponent } from './update-panel/update-panel.component';
+import { PaymentComponent } from './payment/payment.component';
+import { UpdatePaymentComponent } from './update-payment/update-payment.component';
 
 const routes: Routes = [
   {
@@ -92,6 +95,18 @@ const routes: Routes = [
       {
         path: 'Leads',
         component: LeadsComponent
+      },
+      {
+        path: 'update-panel/:id',
+        component: UpdatePanelComponent
+      },
+      {
+        path: 'payment',
+        component: PaymentComponent
+      },
+      {
+        path: 'update-payment/:id',
+        component: UpdatePaymentComponent
       }
     ]
   },

@@ -4,7 +4,7 @@
 
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-            <div class="new-heading">
+            <div class="new-heading"> 
                 <h2> Enter Project Details </h2>
             </div>
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
@@ -31,6 +31,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-box2">
+                        <div class="form-group2">
+                            <span class="details"> Duration: </span>
+                            <div class="input-flex">
+                                <input type="number" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Minutes </span>
+
+                                <input type="number" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <span class="details"> Seconds </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Delivery Date: </span>
@@ -44,10 +56,10 @@
                             <textarea type="text" class="form-control" formControlName="script" placeholder="Enter Script"></textarea>
                         </div>
                     </div>
-                    <div class="input-box hidden-input">
+                    <div class="input-box" *ngIf="showScriptPayment">
                         <div class="form-group">
                             <span class="details"> Payment: </span>
-                            <input type="text" class="form-control" formControlName="payment" placeholder="Enter Payment">
+                            <input type="text" class="form-control" formControlName="scriptPayment" placeholder="Enter Payment">
                         </div>
                     </div>
                     <div class="input-box">
@@ -63,6 +75,19 @@
                     <div *ngIf="getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched">
                         <label class="text-danger" *ngIf="getControls('scriptStatus')?.errors?.['required']"> Project Status is Required </label>
                     </div>
+                        </div>
+                    </div>
+                    <div class="input-box1">
+                        <div class="form-group">
+                            <span class="details">Any Other Changes?</span>
+                            <input class="form-check-input" type="radio" formControlName="scriptOtherChanges" value="yes" (change)="onChange($event)"> Yes
+                            <input class="form-check-input" type="radio" formControlName="scriptOtherChanges" value="no" (change)="onChange($event)"> No
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="scriptOtherChanges">
+                        <div class="form-group">
+                            <span class="details"> Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="scriptChangesPayment" placeholder="Enter Changes Payment">
                         </div>
                     </div>
                 </div>

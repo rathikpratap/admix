@@ -1,0 +1,350 @@
+<div class="new-customer">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2> Customer Details Update Form </h2>
+            </div>
+            <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !== 'INVALID' && onUpdate()">
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Client Code: </span>
+                            <input type="text" class="form-control" formControlName="custCode"
+                                [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
+                                placeholder="Enter Client Code" #codeInput readonly>
+                            <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Name: </span>
+                            <input type="text" class="form-control" formControlName="custName"
+                                [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}"
+                                placeholder="Enter Customer Name" readonly>
+                            <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Number: </span>
+                            <input type="text" class="form-control" formControlName="custNumb"
+                                [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
+                                placeholder="Enter Customer Number" readonly>
+                            <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Bussiness: </span>
+                            <input type="text" class="form-control" formControlName="custBussiness"
+                                [ngClass]="{error:getControls('custBussiness')?.errors && getControls('custBussiness')?.touched}"
+                                placeholder="Enter Customer Business" readonly>
+                            <div *ngIf="getControls('custBussiness')?.errors && getControls('custBussiness')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custBussiness')?.errors?.['required']"> Business Name is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Closing Date: </span>
+                            <input type="text" class="form-control" formControlName="closingDate"
+                        [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
+                        placeholder="Enter Closing Date" readonly>
+                    <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
+                        <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Closing Date is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Closing Price: </span>
+                            <input type="number" class="form-control" formControlName="closingPrice"
+                        [ngClass]="{error:getControls('closingPrice')?.errors && getControls('closingPrice')?.touched}"
+                        placeholder="Enter Closing Price" readonly>
+                    <div *ngIf="getControls('closingPrice')?.errors && getControls('closingPrice')?.touched">
+                        <label class="text-danger" *ngIf="getControls('closingPrice')?.errors?.['required']"> Closing Price is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Closing Category: </span>
+                            <input type="text" class="form-control" formControlName="closingCateg" placeholder="Enter Closing Category" readonly>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Advance Payment: </span>
+                            <input type="number" class="form-control" formControlName="AdvPay"
+                        [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
+                        placeholder="Enter Received Payment" readonly>
+                    <div *ngIf="getControls('AdvPay')?.errors && getControls('AdvPay')?.touched">
+                        <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received Payment is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment: </span>
+                            <input type="number" class="form-control" formControlName="restAmount"
+                        [ngClass]="{error:getControls('restAmount')?.errors && getControls('restAmount')?.touched}"
+                        placeholder="Rest Amount" readonly>
+                        </div>
+                    </div> 
+                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment Date: </span>
+                            <input [type]="updateForm.get('restPaymentDate')!.value ? 'text' : 'date'" class="form-control" formControlName="restPaymentDate"
+                        [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
+                        placeholder="Enter Closing Date" readonly>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Remaining Amount: </span>
+                            <input type="number" class="form-control" formControlName="remainingAmount"
+                        [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
+                        placeholder="Remaining Amount" readonly>
+                    <div *ngIf="getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched">
+                        <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']"> Received Payment is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Country: </span>
+                            <select formControlName="custCountry" (change)="onCountryChange()" [ngClass]="{error:getControls('custCountry')?.errors && getControls('custCountry')?.touched}">
+                                <option value="null">Select Country</option>
+                                <option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</option>
+                            </select>
+                    <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
+                        <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> Country is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer State: </span>
+                            <select formControlName="custState"(change)="onStateChange()" [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}">
+                                <option value="null">Select State</option>
+                                <option *ngFor="let state of states" [value]="state.isoCode">{{state.name}}</option>
+                            </select>
+                    <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
+                        <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> Country is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer City: </span>
+                            <select formControlName="custCity" [ngClass]="{error:getControls('custCity')?.errors && getControls('custCity')?.touched}">
+                                <option value="null">Select City</option>
+                                <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+                            </select>
+                    <div *ngIf="getControls('custCity')?.errors && getControls('custCity')?.touched">
+                        <label class="text-danger" *ngIf="getControls('custCity')?.errors?.['required']"> City is Required </label>
+                    </div>
+                        </div> 
+                    </div>
+                    
+                    
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Status: </span>
+                            <select class="form-select" formControlName="projectStatus"
+                            aria-label="Default select example"
+                            [ngClass]="{error:getControls('projectStatus')?.errors && getControls('projectStatus')?.touched}">
+                            <option value="null">Select Project Status</option>
+                            <option value="Not Interested">Not Interested</option>
+                            <option value="Closing">Closing</option>
+                            <option value="Scripting">Scripting</option>
+                            <option value="Script Correction">Script Correction</option>
+                            <option value="Voice Over">Voice Over</option>
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Video Changes">Video Changes</option>
+                            <option value="Video Done">Video Done</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
+                        <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']"> Project Status is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box hidden-input"> 
+                        <div class="form-group">
+                            <span class="details"> Sales Person : </span>
+                            <input type="text" class="form-control" formControlName="salesPerson"
+                                [ngClass]="{error:getControls('salesPerson')?.errors && getControls('salesPerson')?.touched}"
+                                placeholder="Enter your Username" readonly>
+                    <div *ngIf="getControls('salesPerson')?.errors && getControls('salesPerson')?.touched">
+                        <label class="text-danger" *ngIf="getControls('salesPerson')?.errors?.['required']"> Username is Required </label>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script Writer: </span>
+                            <input type="text" class="form-control" formControlName="scriptWriter" placeholder="Enter Script Writer" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Words Count: </span>
+                            <input type="text" class="form-control" formControlName="wordsCount" placeholder="Enter Words Count" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script Duration: </span> 
+                            <div class="minSec">
+                                <input type="text" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <span> Min </span>
+                                <input type="text" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <span> Sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script: </span>
+                            <input type="text" class="form-control" formControlName="script" placeholder="Enter Script" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script Writer Payment: </span>
+                            <input type="text" class="form-control" formControlName="scriptPayment" placeholder="Enter Script Writer" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script Writer Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="scriptChangesPayment" placeholder="Enter Script Writer">  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Script Writer Total Payment: </span>
+                            <input type="text" class="form-control total" formControlName="totalScriptPayment" placeholder="Enter Script Writer">  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Editor: </span>
+                            <input type="text" class="form-control" formControlName="editor" placeholder="Enter Video Editor" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Duration: </span> 
+                            <div class="minSec">
+                                <input type="text" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <span> Min </span>
+                                <input type="text" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <span> Sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Type: </span>
+                            <input type="text" class="form-control" formControlName="videoType" placeholder="Enter Video Editor" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Editor Payment: </span>
+                            <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Video Editor" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Editor Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Video Editor" readonly>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Editor Total Payment: </span>
+                            <input type="text" class="form-control total" formControlName="totalEditorPayment" placeholder="Enter Script Writer">  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Voice Over Artist: </span>
+                            <input type="text" class="form-control" formControlName="voiceOver" placeholder="Enter Voice Over Artist" readonly> 
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Duration: </span> 
+                            <div class="minSec">
+                                <input type="text" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <span> Min </span>
+                                <input type="text" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <span> Sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Voice Over Type: </span>
+                            <input type="text" class="form-control" formControlName="voiceOverType" placeholder="Enter Voice Over Artist" readonly> 
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Voice Over Payment: </span>
+                            <input type="text" class="form-control" formControlName="voicePayment" placeholder="Enter Voice Over Artist" readonly> 
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Voice Over Changes Payment: </span>
+                            <input type="text" class="form-control" formControlName="voiceChangesPayment" placeholder="Enter Voice Over Artist" readonly> 
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> VO Artist Total Payment: </span>
+                            <input type="text" class="form-control total" formControlName="totalVoicePayment" placeholder="Enter Script Writer">  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Youtube Video Link: </span>
+                            <textarea type="text" class="form-control" formControlName="youtubeLink" placeholder="Enter youtubeLink"></textarea>  
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Remark: </span>
+                            <textarea type="text" class="form-control" formControlName="remark"
+                                [ngClass]="{error:getControls('remark')?.errors && getControls('remark')?.touched}"
+                                placeholder="Enter Remark"></textarea>  
+                            <div *ngIf="getControls('remark')?.errors && getControls('reamrk')?.touched">
+                                <label class="text-danger" *ngIf="getControls('remark')?.errors?.['required']"> Remark is required</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
+                <div class="youtubeVideo" *ngIf="safeVideoUrl">
+                    <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+ 
+        </div>
+    </div>
+</div>

@@ -18,9 +18,9 @@
                         <th scope="col">No.</th>
                         <th scope="col">Client Code</th>
                         <th scope="col">Project Name</th>
-                        <th scope="col">Words Count</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Delivery Date</th>
-                        <th scope="col">Script</th>
+                        <th scope="col">Video Type</th>
                         <th scope="col">Status</th>
                         <th scope="col"> Action </th>
                     </tr>
@@ -30,10 +30,10 @@
                         <td>{{i+1}}</td>
                         <td>{{user.custCode}}</td>
                         <td>{{user.custBussiness}}</td>
-                        <td>{{user.wordsCount}}</td>
-                        <td>{{user.scriptDeliveryDate}}</td>
-                        <td>{{user.script}}</td>
-                        <td>{{user.scriptStatus}}</td>
+                        <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
+                        <td>{{user.videoDeliveryDate}}</td>
+                        <td>{{user.videoType}}</td>
+                        <td>{{user.editorStatus}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" routerLink="/editor-home/editor-update/{{user._id}}"> Update</button>
                         </td>

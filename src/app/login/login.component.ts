@@ -34,7 +34,7 @@ export class LoginComponent {
         localStorage.setItem('role', res.role);
         console.log("TOKEN===>>>>",res.token);
         console.log("TOKEN ROLE===>>>>",res.role);
-        if (res.role === 'Admin'){
+        if (res.role === 'Admin' || res.role === 'Manager'){
           this.router.navigateByUrl('/admin-dashboard');
         } else if(res.role === 'Sales Team'){
           this.router.navigateByUrl('/salesHome/salesDashboard');
