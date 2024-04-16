@@ -79,6 +79,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);
   }
 
+  salesPreviousMonthProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`);
+  }
+  salesPreviousTwoMonthProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
+  }
+
   allProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
   }
@@ -251,6 +258,30 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`);
   }
 
+  getYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads`);
+  }
+
+  getOneYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads`);
+  }
+
+  getTwoYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads`);
+  }
+
+  getThreeYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads`);
+  }
+
+  getFourYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads`);
+  }
+
+  getFiveYesterdayTeamLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads`);
+  }
+
   transferLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/transferLeads`);
   }
@@ -282,4 +313,36 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
+  getPreviousMonthName(): string{
+    const today = new Date();
+    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    return monthNames[previousMonth.getMonth()];
+  }
+  getPreviousTwoMonthName(): string{
+    const today = new Date();
+    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    return monthNames[previousMonth.getMonth()];
+  }
+  getCurrentMonthName(): string{
+    const today = new Date();
+    const previousMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    return monthNames[previousMonth.getMonth()];
+  }
+
+  // getTodayDate(): string{
+  //   const today = new Date();
+  //   return today.toDateString();
+  // }
+  getDate(offset: number = 0): string {
+    const today = new Date();
+    const date = new Date(today);
+    date.setDate(today.getDate() + offset);
+    return date.toDateString();
+  }
 }

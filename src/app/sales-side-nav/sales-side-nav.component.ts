@@ -29,7 +29,7 @@ export class SalesSideNavComponent {
     },
     {
       number: '4',
-      name: 'Leads',
+      name: 'Team Closing',
       icon: 'bi bi-arrow-down-circle',
       route: '/salesHome/sales-leads'
     },

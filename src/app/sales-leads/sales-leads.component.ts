@@ -10,12 +10,17 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class SalesLeadsComponent {
 
+
   data:any; 
   dataLength:any;
   rangeData: any;
   searchForm: FormGroup;
   customers :any[] = [];
   errorMessage: any;
+  previousMonthName: string;
+  previousTwoMonthName: string;
+  currentMonthName: string;
+  
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -36,8 +41,12 @@ export class SalesLeadsComponent {
 
     this.auth.dataLength().subscribe((res:any)=>{
       console.log("length==>", res);
-      this.dataLength = res;
+      this.dataLength = res; 
     })
+
+    this.previousMonthName = this.auth.getPreviousMonthName();
+    this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
+    this.currentMonthName = this.auth.getCurrentMonthName();
   }
 
   onDate(){

@@ -11,6 +11,12 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class TeamLeadsComponent {
  
   data:any; 
+  dataYesterday: any;
+  dataOneYesterday: any;
+  dataTwoYesterday: any;
+  dataThreeYesterday: any;
+  dataFourYesterday: any;
+  dataFiveYesterday: any;
   dataLength:any;
   rangeData: any;
   searchForm: FormGroup;
@@ -19,6 +25,13 @@ export class TeamLeadsComponent {
   tok: any;
   Category: any;
   emp: any;
+  todayDate: string;
+  yesterdayDate: string;
+  oneYesterdayDate: string;
+  twoYesterdayDate: string;
+  threeYesterdayDate: string;
+  fourYesterdayDate: string;
+  fiveYesterdayDate: string;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -43,6 +56,44 @@ export class TeamLeadsComponent {
       console.log("SalesLeads===>", res);
       this.data = res;
     });
+
+    this.auth.getYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataYesterday = res;
+    });
+
+    this.auth.getOneYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataOneYesterday = res;
+    });
+
+    this.auth.getTwoYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataTwoYesterday = res;
+    });
+
+    this.auth.getThreeYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataThreeYesterday = res;
+    });
+
+    this.auth.getFourYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFourYesterday = res;
+    });
+
+    this.auth.getFiveYesterdayTeamLeads().subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFiveYesterday = res;
+    });
+
+    this.todayDate = this.auth.getDate();
+    this.yesterdayDate = this.auth.getDate(-1);
+    this.oneYesterdayDate = this.auth.getDate(-2);
+    this.twoYesterdayDate = this.auth.getDate(-3);
+    this.threeYesterdayDate = this.auth.getDate(-4);
+    this.fourYesterdayDate = this.auth.getDate(-5);
+    this.fiveYesterdayDate = this.auth.getDate(-6);
 
     this.auth.dataLength().subscribe((res:any)=>{
       console.log("length==>", res);

@@ -14,8 +14,13 @@ export class AllCustomersComponent {
  
   data:any=[];
   searchForm: FormGroup;
-  customers :any[] = []; 
+  customers :any[] = [];  
   errorMessage: any;
+  previousMonthName: string;
+  previousTwoMonthName: string;
+  currentMonthName: string;
+  dataPreviousMonth: any=[];
+  dataTwoPreviousMonth:any=[];
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -32,6 +37,19 @@ export class AllCustomersComponent {
       console.log("list",list)
       this.data = list;
     })
+    this.auth.salesPreviousMonthProjects().subscribe((list : any)=>{
+      console.log("list",list)
+      this.dataPreviousMonth = list;
+    })
+    this.auth.salesPreviousTwoMonthProjects().subscribe((list : any)=>{
+      console.log("list",list)
+      this.dataTwoPreviousMonth = list;
+    })
+
+
+    this.previousMonthName = this.auth.getPreviousMonthName();
+    this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
+    this.currentMonthName = this.auth.getCurrentMonthName();
   }
 
   searchCustomer(){
