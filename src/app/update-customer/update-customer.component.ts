@@ -154,7 +154,7 @@ export class UpdateCustomerComponent {
   getControls(name: any): AbstractControl | null {
     return this.updateForm.get(name)
   }
-
+ 
   onUpdate() {
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");

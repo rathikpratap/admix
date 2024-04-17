@@ -46,6 +46,18 @@
                             <input type="number" class="from-control" formControlName="payment180Sec" placeholder=" Enter 180 Seconds Payment">
                         </div>
                     </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Two Videos: </span>
+                            <input type="number" class="from-control" formControlName="paymentTwoVideo" placeholder=" Enter Two Videos Payment">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Three Videos: </span>
+                            <input type="number" class="from-control" formControlName="paymentThreeVideo" placeholder=" Enter Three Videos Payment">
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" [disabled]="empUpdateForm.status === 'INVALID'" class="btn btn-success">
             </form>

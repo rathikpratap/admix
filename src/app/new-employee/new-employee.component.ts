@@ -36,7 +36,6 @@ export class NewEmployeeComponent {
     signupPassword : new FormControl("", [Validators.required, Validators.pattern(this.passwordRegex)]),
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("Select Role",[Validators.required]),
-    signupPayment : new FormControl(""),
     salesTeam : new FormControl("null")
     //signupID: new FormControl("",[Validators.required])
   })

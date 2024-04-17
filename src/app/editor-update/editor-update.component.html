@@ -48,10 +48,19 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="showEditorPayment">
+                    <div class="input-box1">
                         <div class="form-group">
-                            <span class="details"> Editor Payment: </span>
-                            <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Payment">
+                            <span class="details"> Select Number of Videos </span>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One"> One
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two"> Two
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three"> Three
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three"> More than three
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Payment: </span>
+                            <input type="text" class="form-control readonly" formControlName="editorPayment" placeholder="Enter Payment" readonly>
                         </div>
                     </div>
                     <div class="input-box">
@@ -60,8 +69,7 @@
                             <select class="form-select" formControlName="editorStatus" aria-label="Default select example"
                             [ngClass]="{error:getControls('editorStatus')?.errors && getControls('editorStatus')?.touched}">
                             <option value="null">Select Project Status</option> 
-                            <option value="Not Complete">Not Completed</option>
-                            <option value="Completed">Completed</option>
+                            <option value="Not Complete">Completed</option>
                         </select>
                     <div *ngIf="getControls('editorStatus')?.errors && getControls('editorStatus')?.touched">
                         <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']"> Project Status is Required </label>

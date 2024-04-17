@@ -19,6 +19,8 @@ export class UpdatePaymentComponent {
     payment120Sec: new FormControl(0),
     payment150Sec: new FormControl(0),
     payment180Sec: new FormControl(0), 
+    paymentTwoVideo: new FormControl(0),
+    paymentThreeVideo: new FormControl(0)
   })
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -32,7 +34,9 @@ export class UpdatePaymentComponent {
          payment90Sec: res['payment90Sec'],
          payment120Sec: res['payment120Sec'],
          payment150Sec: res['payment150Sec'],
-         payment180Sec: res['payment180Sec']
+         payment180Sec: res['payment180Sec'],
+         paymentTwoVideo: res['paymentTwoVideo'],
+         paymentThreeVideo: res['paymentThreeVideo']
       })
     });
   }

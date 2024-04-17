@@ -61,7 +61,7 @@ export class TeamLeadsComponent {
       console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
-
+ 
     this.auth.getOneYesterdayTeamLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;

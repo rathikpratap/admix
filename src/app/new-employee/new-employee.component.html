@@ -104,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box" *ngIf="registrationForm.get('signupRole')?.value === 'Sales Team'">
                         <div class="form-group">
                             <span class="details"> Sales Team: </span>
                             <select class="form-select" formControlName="salesTeam" aria-label="Default select example">
@@ -115,12 +115,6 @@
                                 *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
                                 <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>
                             </div> 
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Payment: </span>
-                            <input type="text" class="from-control" formControlName="signupPayment" placeholder="Enter Payment">
                         </div>
                     </div>
                     <div class="input-box">

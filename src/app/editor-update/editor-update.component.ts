@@ -15,7 +15,8 @@ export class EditorUpdateComponent implements OnInit {
   editorOtherChanges: boolean = false;
   emp: any;
   totalSec: any;
-  showEditorPayment : boolean = false;
+  numberOfVideos: any;
+  //showEditorPayment : boolean = true;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -29,7 +30,8 @@ export class EditorUpdateComponent implements OnInit {
     totalEditorPayment: new FormControl(0),
     youtubeLink: new FormControl(""),
     videoDurationMinutes: new FormControl(0),
-    videoDurationSeconds: new FormControl(0)
+    videoDurationSeconds: new FormControl(0),
+    numberOfVideos: new FormControl("")
   }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
@@ -49,7 +51,8 @@ export class EditorUpdateComponent implements OnInit {
         totalEditorPayment: res['totalEditorPayment'],
         youtubeLink: res['youtubeLink'],
         videoDurationMinutes: res['videoDurationMinutes'],
-        videoDurationSeconds: res['videoDurationSeconds']
+        videoDurationSeconds: res['videoDurationSeconds'],
+        numberOfVideos: res['numberOfVideos']
       })
     })
  
@@ -60,12 +63,6 @@ export class EditorUpdateComponent implements OnInit {
     this.auth.allEmployee().subscribe((res:any)=>{
       console.log("All Employees==>", res);
       this.emp = res;
-      // res.forEach((employee: { signupUsername: string, signupPayment: string; }) => {
-      //   if(employee.signupUsername === this.tok.signupUsername){
-      //     console.log("Employee==>", employee.signupPayment)
-      //     this.updateForm.get('editorPayment')!.setValue(employee.signupPayment);
-      //   }
-      // });
     })
   }
   
@@ -94,21 +91,35 @@ export class EditorUpdateComponent implements OnInit {
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
-    this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
+    this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number})=>{
       if(employee.signupUsername === this.tok.signupUsername){
-        console.log("Payment Of employee===>>", employee.payment60Sec);
-        if(this.totalSec > 0 && this.totalSec <= 60){
-          console.log("60Sec Payment",employee.payment60Sec);
-          this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec);
-        } else if(this.totalSec > 60 && this.totalSec <= 90){
-          this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec);
-        } else if(this.totalSec > 90 && this.totalSec <=120){
-          this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec);
-        } else if(this.totalSec > 120 && this.totalSec <=150){
-          this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec);
-        } else if(this.totalSec > 150 && this.totalSec <=180){
-          this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec);
-        }
+         if(this.totalSec > 0 && this.totalSec <= 60){
+           console.log("60Sec Payment",employee.payment60Sec);
+           this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec);
+         } else if(this.totalSec > 60 && this.totalSec <= 90){
+           this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec);
+         } else if(this.totalSec > 90 && this.totalSec <=120){
+           this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec);
+         } else if(this.totalSec > 120 && this.totalSec <=150){
+           this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec);
+         } else if(this.totalSec > 150 && this.totalSec <=180){
+           this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec);
+         }
+        // switch(this.numberOfVideos){
+        //   case ('One'):
+        //     if(this.totalSec > 0 && this.totalSec <= 60){
+        //          console.log("60Sec Payment",employee.payment60Sec);
+        //          this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec);
+        //        } else if(this.totalSec > 60 && this.totalSec <= 90){
+        //          this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec);
+        //        } else if(this.totalSec > 90 && this.totalSec <=120){
+        //          this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec);
+        //        } else if(this.totalSec > 120 && this.totalSec <=150){
+        //          this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec);
+        //        } else if(this.totalSec > 150 && this.totalSec <=180){
+        //          this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec);
+        //        }
+        // }
       }
     })
 
@@ -128,6 +139,12 @@ export class EditorUpdateComponent implements OnInit {
       this.editorOtherChanges = false;
     } 
   }
+
+  onChangeNumber(event: any){
+    if(event.target.value === 'One'){
+      this.numberOfVideos = true;
+    }
+  }
    
 
    DurationChange(){
@@ -137,6 +154,6 @@ export class EditorUpdateComponent implements OnInit {
     this.totalSec = Minsec * 60 + sec;
     this.updateForm.get('videoDuration')?.setValue(this.totalSec);
     console.log("Total Sec==>", this.totalSec);
-    this.showEditorPayment = this.totalSec > 180;
+    //this.showEditorPayment = this.totalSec > 180;
    }
 }

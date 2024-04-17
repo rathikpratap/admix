@@ -193,7 +193,7 @@ export class AuthService {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<any>(`${appConfig.apiUrl}/auth/uploadFile`, formData).toPromise();
-  }
+  } 
 
   downloadFile(){
     this.http.get(`${appConfig.apiUrl}/auth/downloadFile`,{responseType: 'blob'}).subscribe((res: any)=>{
