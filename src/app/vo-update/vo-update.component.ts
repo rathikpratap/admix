@@ -66,10 +66,12 @@ export class VoUpdateComponent {
   }
 
   onUpdate(){
-    const voicePayment1: number = parseFloat(this.updateForm.get('voicePayment')?.value || '0');
-    const voiceChangesPayment1: number = parseFloat(this.updateForm.get('voiceChangesPayment')?.value || '0');
-    const totalVoicePayment1: number = voicePayment1 + voiceChangesPayment1;
-    this.updateForm.get('totalVoicePayment')?.setValue(totalVoicePayment1);
+    console.log("duration==>",this.updateForm.get('voiceDurationSeconds')?.value);
+    const Minsec: number = this.updateForm.get('voiceDurationMinutes')?.value || 0;
+    const sec: number = this.updateForm.get('voiceDurationSeconds')?.value || 0;
+    this.totalSec = Minsec * 60 + sec;
+    this.updateForm.get('voiceDuration')?.setValue(this.totalSec);
+    console.log("Total Sec==>", this.totalSec);
 
     this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
       if(employee.signupUsername === this.tok.signupUsername){
@@ -85,6 +87,8 @@ export class VoUpdateComponent {
           this.updateForm.get('voicePayment')?.setValue(employee.payment150Sec);
         } else if(this.totalSec > 150 && this.totalSec <=180){
           this.updateForm.get('voicePayment')?.setValue(employee.payment180Sec);
+        } else{
+          this.updateForm.get('voicePayment')?.setValue(0);
         }
       }
     })
@@ -103,13 +107,4 @@ export class VoUpdateComponent {
       this.voiceOtherChanges = false;
     }
   }
-  DurationChange(){
-    console.log("duration==>",this.updateForm.get('voiceDurationSeconds')?.value);
-    const Minsec: number = this.updateForm.get('voiceDurationMinutes')?.value || 0;
-    const sec: number = this.updateForm.get('voiceDurationSeconds')?.value || 0;
-    this.totalSec = Minsec * 60 + sec;
-    this.updateForm.get('voiceDuration')?.setValue(this.totalSec);
-    console.log("Total Sec==>", this.totalSec);
-    this.showVoicePayment = this.totalSec > 180;
-   }
 }

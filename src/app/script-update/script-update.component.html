@@ -35,10 +35,10 @@
                         <div class="form-group2">
                             <span class="details"> Duration: </span>
                             <div class="input-flex">
-                                <input type="number" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter">
                                 <span class="details"> Minutes </span>
 
-                                <input type="number" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter">
                                 <span class="details"> Seconds </span>
                             </div>
                         </div>
@@ -56,17 +56,17 @@
                             <textarea type="text" class="form-control" formControlName="script" placeholder="Enter Script"></textarea>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="showScriptPayment">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Payment: </span>
-                            <input type="text" class="form-control" formControlName="scriptPayment" placeholder="Enter Payment">
+                            <input type="text" class="form-control readonly" formControlName="scriptPayment" placeholder="Enter Payment" readonly>
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
                             <select class="form-select" formControlName="scriptStatus"
-                            aria-label="Default select example"
+                            aria-label="Default select example" 
                             [ngClass]="{error:getControls('scriptStatus')?.errors && getControls('scriptStatus')?.touched}">
                             <option value="null">Select Project Status</option>
                             <option value="Complete">Completed</option>
@@ -86,7 +86,7 @@
                     <div class="input-box" *ngIf="scriptOtherChanges">
                         <div class="form-group">
                             <span class="details"> Changes Payment: </span>
-                            <input type="text" class="form-control" formControlName="scriptChangesPayment" placeholder="Enter Changes Payment">
+                            <input type="text" class="form-control readonly" formControlName="scriptChangesPayment" placeholder="Enter Changes Payment" readonly>
                         </div>
                     </div>
                 </div>

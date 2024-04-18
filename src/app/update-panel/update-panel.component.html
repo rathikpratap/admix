@@ -25,7 +25,7 @@
                             <span class="details"> Customer Name: </span>
                             <input type="text" class="form-control" formControlName="custName"
                                 [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}"
-                                placeholder="Enter Customer Name" readonly>
+                                placeholder="Enter Customer Name">
                             <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name is Required </label>
                             </div>
@@ -36,7 +36,7 @@
                             <span class="details"> Customer Number: </span>
                             <input type="text" class="form-control" formControlName="custNumb"
                                 [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
-                                placeholder="Enter Customer Number" readonly>
+                                placeholder="Enter Customer Number">
                             <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number is Required </label>
                             </div>
@@ -47,7 +47,7 @@
                             <span class="details"> Customer Bussiness: </span>
                             <input type="text" class="form-control" formControlName="custBussiness"
                                 [ngClass]="{error:getControls('custBussiness')?.errors && getControls('custBussiness')?.touched}"
-                                placeholder="Enter Customer Business" readonly>
+                                placeholder="Enter Customer Business">
                             <div *ngIf="getControls('custBussiness')?.errors && getControls('custBussiness')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custBussiness')?.errors?.['required']"> Business Name is Required </label>
                             </div>
@@ -58,7 +58,7 @@
                             <span class="details"> Closing Date: </span>
                             <input type="text" class="form-control" formControlName="closingDate"
                         [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
-                        placeholder="Enter Closing Date" readonly>
+                        placeholder="Enter Closing Date">
                     <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
                         <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Closing Date is Required </label>
                     </div>
@@ -69,7 +69,7 @@
                             <span class="details"> Closing Price: </span>
                             <input type="number" class="form-control" formControlName="closingPrice"
                         [ngClass]="{error:getControls('closingPrice')?.errors && getControls('closingPrice')?.touched}"
-                        placeholder="Enter Closing Price" readonly>
+                        placeholder="Enter Closing Price">
                     <div *ngIf="getControls('closingPrice')?.errors && getControls('closingPrice')?.touched">
                         <label class="text-danger" *ngIf="getControls('closingPrice')?.errors?.['required']"> Closing Price is Required </label>
                     </div>
@@ -78,7 +78,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Category: </span>
-                            <input type="text" class="form-control" formControlName="closingCateg" placeholder="Enter Closing Category" readonly>
+                            <input type="text" class="form-control" formControlName="closingCateg" placeholder="Enter Closing Category">
                         </div>
                     </div>
                     <div class="input-box">
@@ -86,7 +86,7 @@
                             <span class="details"> Advance Payment: </span>
                             <input type="number" class="form-control" formControlName="AdvPay"
                         [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
-                        placeholder="Enter Received Payment" readonly>
+                        placeholder="Enter Received Payment">
                     <div *ngIf="getControls('AdvPay')?.errors && getControls('AdvPay')?.touched">
                         <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received Payment is Required </label>
                     </div>
@@ -97,7 +97,7 @@
                             <span class="details"> Rest Payment: </span>
                             <input type="number" class="form-control" formControlName="restAmount"
                         [ngClass]="{error:getControls('restAmount')?.errors && getControls('restAmount')?.touched}"
-                        placeholder="Rest Amount" readonly>
+                        placeholder="Rest Amount">
                         </div>
                     </div> 
                     <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
@@ -105,7 +105,7 @@
                             <span class="details"> Rest Payment Date: </span>
                             <input [type]="updateForm.get('restPaymentDate')!.value ? 'text' : 'date'" class="form-control" formControlName="restPaymentDate"
                         [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
-                        placeholder="Enter Closing Date" readonly>
+                        placeholder="Enter Closing Date">
                         </div>
                     </div>
                     <div class="input-box">
@@ -113,7 +113,7 @@
                             <span class="details"> Remaining Amount: </span>
                             <input type="number" class="form-control" formControlName="remainingAmount"
                         [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
-                        placeholder="Remaining Amount" readonly>
+                        placeholder="Remaining Amount">
                     <div *ngIf="getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched">
                         <label class="text-danger" *ngIf="getControls('remainingAmount')?.errors?.['required']"> Received Payment is Required </label>
                     </div>
@@ -193,22 +193,22 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Script Writer: </span>
-                            <input type="text" class="form-control" formControlName="scriptWriter" placeholder="Enter Script Writer" readonly>  
+                            <input type="text" class="form-control" formControlName="scriptWriter" placeholder="Enter Script Writer">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Words Count: </span>
-                            <input type="text" class="form-control" formControlName="wordsCount" placeholder="Enter Words Count" readonly>  
+                            <input type="text" class="form-control" formControlName="wordsCount" placeholder="Enter Words Count">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Script Duration: </span> 
                             <div class="minSec">
-                                <input type="text" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="scriptDurationMinutes" placeholder="Enter Video Editor">
                                 <span> Min </span>
-                                <input type="text" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="scriptDurationSeconds" placeholder="Enter Video Editor">
                                 <span> Sec</span>
                             </div>
                         </div>
@@ -216,13 +216,13 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Script: </span>
-                            <input type="text" class="form-control" formControlName="script" placeholder="Enter Script" readonly>  
+                            <input type="text" class="form-control" formControlName="script" placeholder="Enter Script">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Script Writer Payment: </span>
-                            <input type="text" class="form-control" formControlName="scriptPayment" placeholder="Enter Script Writer" readonly>  
+                            <input type="text" class="form-control" formControlName="scriptPayment" placeholder="Enter Script Writer">  
                         </div>
                     </div>
                     <div class="input-box">
@@ -240,16 +240,16 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Editor: </span>
-                            <input type="text" class="form-control" formControlName="editor" placeholder="Enter Video Editor" readonly>  
+                            <input type="text" class="form-control" formControlName="editor" placeholder="Enter Video Editor">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Duration: </span> 
                             <div class="minSec">
-                                <input type="text" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter Video Editor">
                                 <span> Min </span>
-                                <input type="text" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter Video Editor">
                                 <span> Sec</span>
                             </div>
                         </div>
@@ -257,19 +257,19 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Type: </span>
-                            <input type="text" class="form-control" formControlName="videoType" placeholder="Enter Video Editor" readonly>  
+                            <input type="text" class="form-control" formControlName="videoType" placeholder="Enter Video Editor">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Editor Payment: </span>
-                            <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Video Editor" readonly>  
+                            <input type="text" class="form-control" formControlName="editorPayment" placeholder="Enter Video Editor">  
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Editor Changes Payment: </span>
-                            <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Video Editor" readonly>  
+                            <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Video Editor">  
                         </div>
                     </div>
                     <div class="input-box">
@@ -281,16 +281,16 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Voice Over Artist: </span>
-                            <input type="text" class="form-control" formControlName="voiceOver" placeholder="Enter Voice Over Artist" readonly> 
+                            <input type="text" class="form-control" formControlName="voiceOver" placeholder="Enter Voice Over Artist"> 
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Duration: </span> 
                             <div class="minSec">
-                                <input type="text" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter Video Editor">
                                 <span> Min </span>
-                                <input type="text" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter Video Editor" readonly>
+                                <input type="text" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter Video Editor">
                                 <span> Sec</span>
                             </div>
                         </div>
@@ -298,19 +298,19 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Voice Over Type: </span>
-                            <input type="text" class="form-control" formControlName="voiceOverType" placeholder="Enter Voice Over Artist" readonly> 
+                            <input type="text" class="form-control" formControlName="voiceOverType" placeholder="Enter Voice Over Artist"> 
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Voice Over Payment: </span>
-                            <input type="text" class="form-control" formControlName="voicePayment" placeholder="Enter Voice Over Artist" readonly> 
+                            <input type="text" class="form-control" formControlName="voicePayment" placeholder="Enter Voice Over Artist"> 
                         </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Voice Over Changes Payment: </span>
-                            <input type="text" class="form-control" formControlName="voiceChangesPayment" placeholder="Enter Voice Over Artist" readonly> 
+                            <input type="text" class="form-control" formControlName="voiceChangesPayment" placeholder="Enter Voice Over Artist"> 
                         </div>
                     </div>
                     <div class="input-box">

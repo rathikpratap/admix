@@ -200,6 +200,21 @@ export class UpdatePanelComponent {
   }
 
   onUpdate() {
+    const editorPayment1: number = parseFloat(this.updateForm.get('editorPayment')?.value || '0');
+    const editorChangesPayment1: number = parseFloat(this.updateForm.get('editorChangesPayment')?.value || '0');
+    const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
+    this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
+
+    const scriptPayment1: number = parseFloat(this.updateForm.get('scriptPayment')?.value || '0');
+    const scriptChangesPayment1: number = parseFloat(this.updateForm.get('scriptChangesPayment')?.value || '0');
+    const totalScriptPayment1: number = scriptPayment1 + scriptChangesPayment1;
+    this.updateForm.get('totalScriptPayment')?.setValue(totalScriptPayment1);
+
+    const voicePayment1: number = parseFloat(this.updateForm.get('voicePayment')?.value || '0');
+    const voiceChangesPayment1: number = parseFloat(this.updateForm.get('voiceChangesPayment')?.value || '0');
+    const totalVoicePayment1: number = voicePayment1 + voiceChangesPayment1;
+    this.updateForm.get('totalVoicePayment')?.setValue(totalVoicePayment1);
+
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");
       this.ngZone.run(() => { this.router.navigateByUrl('/all-projects') })

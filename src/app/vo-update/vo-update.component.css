@@ -127,3 +127,7 @@ form .user-details .input-box2{
 .user-details .input-box select:focus{
     border-color: blueviolet;
 }
+.readonly{
+    background-color: #E7E9EB;
+    cursor: not-allowed;
+}

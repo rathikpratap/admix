@@ -14,6 +14,7 @@ export class UpdatePaymentComponent {
 
   empUpdateForm = new FormGroup({
     signupName: new FormControl(""),
+    signupRole: new FormControl(""),
     payment60Sec: new FormControl(0),
     payment90Sec: new FormControl(0),
     payment120Sec: new FormControl(0),
@@ -30,6 +31,7 @@ export class UpdatePaymentComponent {
       console.log("res ==>", res);
       this.empUpdateForm.patchValue({
         signupName : res['signupName'],
+        signupRole: res['signupRole'],
         payment60Sec: res['payment60Sec'],
          payment90Sec: res['payment90Sec'],
          payment120Sec: res['payment120Sec'],
@@ -37,7 +39,7 @@ export class UpdatePaymentComponent {
          payment180Sec: res['payment180Sec'],
          paymentTwoVideo: res['paymentTwoVideo'],
          paymentThreeVideo: res['paymentThreeVideo']
-      })
+      }) 
     });
   }
 

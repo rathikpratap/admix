@@ -16,7 +16,6 @@ export class ScriptUpdateComponent {
   scriptOtherChanges: boolean = false;
   emp: any;
   totalSec: any;
-  showScriptPayment: boolean = false;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -69,10 +68,12 @@ export class ScriptUpdateComponent {
   }
 
   onUpdate(){
-    const scriptPayment1: number = parseFloat(this.updateForm.get('scriptPayment')?.value || '0');
-    const scriptChangesPayment1: number = parseFloat(this.updateForm.get('scriptChangesPayment')?.value || '0');
-    const totalScriptPayment1: number = scriptPayment1 + scriptChangesPayment1;
-    this.updateForm.get('totalScriptPayment')?.setValue(totalScriptPayment1);
+    console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
+    const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
+    const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
+    this.totalSec = Minsec * 60 + sec;
+    this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
+    console.log("Total Sec==>", this.totalSec);
 
     this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
       if(employee.signupUsername === this.tok.signupUsername){
@@ -88,8 +89,10 @@ export class ScriptUpdateComponent {
           this.updateForm.get('scriptPayment')?.setValue(employee.payment150Sec);
         } else if(this.totalSec > 150 && this.totalSec <=180){
           this.updateForm.get('scriptPayment')?.setValue(employee.payment180Sec);
+        } else {
+          this.updateForm.get('scriptPayment')?.setValue(0);
         }
-      }
+      } 
     })
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
@@ -106,13 +109,4 @@ export class ScriptUpdateComponent {
       this.scriptOtherChanges = false; 
     }
   }
-  DurationChange(){
-    console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
-    const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
-    const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
-    this.totalSec = Minsec * 60 + sec;
-    this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
-    console.log("Total Sec==>", this.totalSec);
-    this.showScriptPayment = this.totalSec > 180;
-   }
 }

@@ -24,10 +24,10 @@
                         <div class="form-group2">
                             <span class="details"> Duration: </span>
                             <div class="input-flex">
-                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter">
                                 <span class="details"> Minutes </span>
 
-                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter">
                                 <span class="details"> Seconds </span>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="input-box1">
                         <div class="form-group">
-                            <span class="details">Any Other Changes?</span>
+                            <span class="details">Any Other Changes?(Only If their is any unneccessary Changes)</span>
                             <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)"> Yes
                             <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)"> No
                         </div>
@@ -86,7 +86,7 @@
                     <div class="input-box" *ngIf="editorOtherChanges">
                         <div class="form-group">
                             <span class="details"> Changes Payment: </span>
-                            <input type="text" class="form-control" formControlName="editorChangesPayment" placeholder="Enter Changes Payment">
+                            <input type="text" class="form-control readonly" formControlName="editorChangesPayment" placeholder="Enter Changes Payment" readonly>
                         </div>
                     </div>
                     <!-- <div class="input-box">

@@ -24,10 +24,10 @@
                         <div class="form-group2">
                             <span class="details"> Duration: </span>
                             <div class="input-flex">
-                                <input type="number" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="voiceDurationMinutes" placeholder="Enter">
                                 <span class="details"> Minutes </span>
 
-                                <input type="number" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter" (change)="DurationChange()">
+                                <input type="number" class="form-control" formControlName="voiceDurationSeconds" placeholder="Enter">
                                 <span class="details"> Seconds </span>
                             </div>
                         </div>
@@ -48,10 +48,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="showVoicePayment">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Payment: </span>
-                            <input type="text" class="form-control" formControlName="voicePayment" placeholder="Enter Payment">
+                            <input type="text" class="form-control readonly" formControlName="voicePayment" placeholder="Enter Payment" readonly>
                         </div>
                     </div>
                     <div class="input-box">
@@ -77,7 +77,7 @@
                     <div class="input-box" *ngIf="voiceOtherChanges">
                         <div class="form-group">
                             <span class="details"> Changes Payment: </span>
-                            <input type="text" class="form-control" formControlName="voiceChangesPayment" placeholder="Enter Changes Payment">
+                            <input type="text" class="form-control readonly" formControlName="voiceChangesPayment" placeholder="Enter Changes Payment" readonly>
                         </div>
                     </div>
                 </div>
