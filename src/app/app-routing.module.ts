@@ -40,6 +40,7 @@ import { AuthGuard } from './auth.guard';
 import { UpdatePanelComponent } from './update-panel/update-panel.component';
 import { PaymentComponent } from './payment/payment.component';
 import { UpdatePaymentComponent } from './update-payment/update-payment.component';
+import { SalesWorkComponent } from './sales-work/sales-work.component';
 
 const routes: Routes = [
   {
@@ -107,6 +108,10 @@ const routes: Routes = [
       {
         path: 'update-payment/:id',
         component: UpdatePaymentComponent
+      },
+      {
+        path: 'sales-work',
+        component: SalesWorkComponent
       }
     ]
   },

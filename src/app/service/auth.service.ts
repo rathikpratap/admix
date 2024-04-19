@@ -221,6 +221,19 @@ export class AuthService {
     });
   }
 
+  downloadSalesRangeFile(startDate: Date, endDate: Date){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadSalesRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    });
+  }
+
   downloadDueFile(startDate: Date, endDate: Date){
     this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
       const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
@@ -335,10 +348,6 @@ export class AuthService {
     return monthNames[previousMonth.getMonth()];
   }
 
-  // getTodayDate(): string{
-  //   const today = new Date();
-  //   return today.toDateString();
-  // }
   getDate(offset: number = 0): string {
     const today = new Date();
     const date = new Date(today);

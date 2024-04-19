@@ -108,7 +108,7 @@ export class TeamLeadsComponent {
     this.auth.getSalesTeam().subscribe((res : any)=>{
       console.log("Sales Teams==>", res);
       this.emp = res;
-    })
+    }) 
   }
 
   onDate(){
@@ -139,6 +139,66 @@ export class TeamLeadsComponent {
     });
   }
 
+  updateYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataYesterday).subscribe(( res: any)=>{
+      if(this.dataYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+  updateOneYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataOneYesterday).subscribe(( res: any)=>{
+      if(this.dataOneYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataOneYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+  updateTwoYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataTwoYesterday).subscribe(( res: any)=>{
+      if(this.dataTwoYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataTwoYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+  updateThreeYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataThreeYesterday).subscribe(( res: any)=>{
+      if(this.dataThreeYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataThreeYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+  updateFourYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataFourYesterday).subscribe(( res: any)=>{
+      if(this.dataFourYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataFourYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
+  updateFiveYesProjectStatus(){ 
+    this.auth.updateProjectStatus(this.dataFiveYesterday).subscribe(( res: any)=>{
+      if(this.dataFiveYesterday){
+        alert("Data Project Status Successfully Transfered");
+        console.log("Project Status Updated Data", this.dataFiveYesterday);
+      }
+      
+      console.log("SalesPerson Updated Successfully", res);
+    })
+  }
   updateProjectStatus(){ 
     this.auth.updateProjectStatus(this.data).subscribe(( res: any)=>{
       if(this.data){
@@ -148,5 +208,17 @@ export class TeamLeadsComponent {
       
       console.log("SalesPerson Updated Successfully", res);
     })
+  }
+
+  downloadRangeFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadSalesRangeFile(startDate, endDate);
+    }
   }
 }

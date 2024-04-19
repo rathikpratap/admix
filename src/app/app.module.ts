@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +49,7 @@ import { TeamLeadsComponent } from './team-leads/team-leads.component';
 import { UpdatePanelComponent } from './update-panel/update-panel.component';
 import { PaymentComponent } from './payment/payment.component';
 import { UpdatePaymentComponent } from './update-payment/update-payment.component';
+import { SalesWorkComponent } from './sales-work/sales-work.component';
 
 
 
@@ -95,7 +96,8 @@ import { UpdatePaymentComponent } from './update-payment/update-payment.componen
     TeamLeadsComponent,
     UpdatePanelComponent,
     PaymentComponent,
-    UpdatePaymentComponent
+    UpdatePaymentComponent,
+    SalesWorkComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,7 @@ import { UpdatePaymentComponent } from './update-payment/update-payment.componen
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    //ToastrModule.forRoot()
+    ToastrModule.forRoot()
     
   ],
   providers: [],

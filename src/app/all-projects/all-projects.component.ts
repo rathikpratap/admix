@@ -71,7 +71,7 @@ export class AllProjectsComponent {
     //this.uploadFileToServer(file);
   }
   async selectFile(): Promise<void>{
-    if(this.selectedFile){
+    if(this.selectedFile){ 
       try{
         await this.auth.uploadFile(this.selectedFile);
         alert("File Upload Successful");
