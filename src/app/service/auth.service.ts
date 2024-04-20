@@ -45,10 +45,18 @@ export class AuthService {
   } 
 
   getLeads(){
-    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`); 
+    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);  
   }
   fetchLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
+  }
+
+  salesFacebookLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/salesFacebook-leads`);
+  }
+
+  getSalesFacebookLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesFacebook-leads`);
   }
 
   updateSalesperson(data: any):Observable<any>{

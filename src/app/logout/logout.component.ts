@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-logout',
@@ -8,9 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LogoutComponent {
 
-  constructor(private toastr: ToastrService) {}
+  // constructor(private toastr: ToastrService) {}
 
-   showSuccess() {
-     this.toastr.success('Employee Added Successfully', 'Successful',{closeButton: true});
-   }
+  //  showSuccess() {
+  //    this.toastr.success('Employee Added Successfully', 'Successful',{closeButton: true});
+  //  }
 }

@@ -28,7 +28,7 @@ export class FacebookLeadsComponent {
     this.auth.getLeads().subscribe((list : any)=>{
       console.log("list==>",list)
       this.data = list;
-    });
+    }); 
 
     this.auth.allEmployee().subscribe((res : any)=>{
       console.log("employee==>", res);

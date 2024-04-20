@@ -12,7 +12,7 @@
 
     </div>
     <div class="col-lg-1 col-md-12 col-sm-12 col-12">
-        <button class="btn btn-sm btn-success getButton"> Refresh </button>
+        <button class="btn btn-sm btn-success getButton" (click)="refreshPage()"> Refresh </button>
     </div>
 </div>
 <div class="row">
@@ -185,8 +185,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -210,11 +210,11 @@
                                     <option value="Closing">Closing</option>
                                 </select>
                             </td>
-                            <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea>
                             </td>
                             <td>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary" (click)="updateProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary" (click)="updateProjectStatus(data)"> Update</button> -->
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
                             </td>
                         </tr>
@@ -236,8 +236,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -262,13 +262,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -289,8 +289,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -315,13 +315,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataOneYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateOneYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataOneYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -342,8 +342,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -368,13 +368,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateTwoYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataTwoYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -395,8 +395,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -421,13 +421,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateThreeYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataThreeYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -448,8 +448,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -474,13 +474,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataFourYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateFourYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataFourYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
@@ -501,8 +501,8 @@
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> Action </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -527,13 +527,13 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea type="text" [(ngModel)]="list.remark"></textarea>
+                                <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
                             </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                     routerLink="/salesHome/updateCustomer/{{list._id}}"> Update Page</button>
-                                <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
-                                    (click)="updateFiveYesProjectStatus()"> Update</button>
+                                <!-- <button *ngIf="updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="updateProjectStatus(dataFiveYesterday)"> Update</button> -->
                             </td>
                         </tr>
                     </tbody>
