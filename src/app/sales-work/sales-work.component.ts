@@ -33,37 +33,37 @@ export class SalesWorkComponent {
       projectStatus: ['']
     });
 
-    this.auth.getTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.data = res;
     });
 
-    this.auth.getYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
-    this.auth.getOneYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesOneYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
-    this.auth.getTwoYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesTwoYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
-    this.auth.getThreeYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesThreeYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
-    this.auth.getFourYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesFourYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
-    this.auth.getFiveYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getSalesFiveYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });

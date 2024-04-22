@@ -39,6 +39,7 @@ export class UpdateCustomerComponent {
     custCode: new FormControl("", [Validators.required]),
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
+    custEmail: new FormControl(""),
     custBussiness: new FormControl("", [Validators.required]),
     closingDate: new FormControl("", [Validators.required]),
     closingPrice: new FormControl(""),
@@ -120,6 +121,7 @@ export class UpdateCustomerComponent {
         
         custName: res['custName'],
         custNumb: res['custNumb'],
+        custEmail: res['custEmail'],
         custBussiness: res['custBussiness'],
         closingDate: res['closingDate'],
         closingPrice: res['closingPrice'],

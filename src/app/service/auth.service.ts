@@ -279,28 +279,56 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`);
   }
 
+  getSalesTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeamWork`);
+  }
+
   getYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads`);
+  }
+
+  getSalesYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesYesterdayTeamWork`);
   }
 
   getOneYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads`);
   }
 
+  getSalesOneYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesOneYesterdayTeamWork`);
+  }
+
   getTwoYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads`);
+  }
+
+  getSalesTwoYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesTwoYesterdayTeamWork`);
   }
 
   getThreeYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads`);
   }
 
+  getSalesThreeYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesThreeYesterdayTeamWork`);
+  }
+
   getFourYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads`);
   }
 
+  getSalesFourYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesFourYesterdayTeamWork`);
+  }
+
   getFiveYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads`);
+  }
+
+  getSalesFiveYesterdayTeamWork():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSalesFiveYesterdayTeamWork`);
   }
 
   transferLeads():Observable<any>{
