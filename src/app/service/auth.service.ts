@@ -23,13 +23,14 @@ export class AuthService {
    signin(credentials: {loginUsername: string, loginPswd: string}):Observable<any>{
      return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
    }
-
+ 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   getToken(): string | null {
