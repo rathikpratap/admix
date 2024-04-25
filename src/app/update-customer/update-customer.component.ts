@@ -54,7 +54,8 @@ export class UpdateCustomerComponent {
     youtubeLink: new FormControl(""),
     remark: new FormControl(""),
     restAmount: new FormControl(""),
-    restPaymentDate: new FormControl("")
+    restPaymentDate: new FormControl(""),
+    leadsCreatedDate: new FormControl("")
   })
 
   updateEmbeddedVideoUrl() {
@@ -136,7 +137,8 @@ export class UpdateCustomerComponent {
         youtubeLink: res['youtubeLink'],
         remark: res['remark'],
         restAmount: res['restAmount'],
-        restPaymentDate: res['restPaymentDate']
+        restPaymentDate: res['restPaymentDate'],
+        leadsCreatedDate: res['leadsCreatedDate']
       })
       this.updateEmbeddedVideoUrl();
     });

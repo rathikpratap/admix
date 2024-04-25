@@ -62,7 +62,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Date: </span>
-                            <input type="text" class="form-control" formControlName="closingDate"
+                            <input type="Date" class="form-control" formControlName="closingDate"
                         [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
                         placeholder="Enter Closing Date">
                     <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
@@ -70,6 +70,7 @@
                     </div>
                         </div>
                     </div>
+                    
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Price: </span>
