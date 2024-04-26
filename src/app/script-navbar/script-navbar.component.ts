@@ -23,4 +23,7 @@ export class ScriptNavbarComponent {
     this.menuStatus = !this.menuStatus;
     this.scriptSideNavToggled.emit(this.menuStatus);
   }
+  logout(){
+    this.auth.logout();
+  }
 }

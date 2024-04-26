@@ -26,8 +26,16 @@ export class SalesWorkComponent {
   dataThreeYesterday: any;
   dataFourYesterday: any;
   dataFiveYesterday: any;
+  tok:any;
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
 
     this.searchForm = this.formBuilder.group({
       projectStatus: ['']

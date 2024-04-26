@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-sales-navbar',
@@ -14,9 +14,9 @@ export class SalesNavbarComponent {
   @Output() salesSideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
 
-  constructor(private auth:AuthService, private router: Router){
+  constructor(private auth:AuthService){
     this.auth.getProfile().subscribe((res:any)=>{
-      this.tok = res?.data;
+      this.tok = res?.data; 
     })
   }
 
@@ -26,7 +26,6 @@ export class SalesNavbarComponent {
   }
   logout(){
     this.auth.logout();
-    this.router.navigate(['/login']);
   }
  
 }

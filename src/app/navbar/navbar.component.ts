@@ -23,4 +23,7 @@ export class NavbarComponent {
     this.menuStatus = !this.menuStatus;
     this.sideNavToggled.emit(this.menuStatus);
   }
+  logout(){
+    this.auth.logout();
+  }
 }

@@ -82,6 +82,13 @@ export class UpdateCustomerComponent {
 
 
   constructor(private router: Router, private ngZone: NgZone,private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.updateForm.valueChanges.subscribe(values => {

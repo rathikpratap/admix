@@ -12,6 +12,7 @@ export class AllCustomersComponent {
  @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
  
+  tok:any;
   data:any=[];
   searchForm: FormGroup;
   customers :any[] = [];  
@@ -29,6 +30,13 @@ export class AllCustomersComponent {
   rangeData: any;
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });

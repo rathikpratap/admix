@@ -33,7 +33,7 @@ export class NewCustomerComponent {
       this.renderer.selectRootElement(inputElement).focus();
     }
     
-  }
+  } 
  
   constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef){
 
@@ -46,7 +46,7 @@ export class NewCustomerComponent {
         this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
         this.customerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
       }else{
-        alert("Please Login Again")
+        alert("Session Expired, Please Login Again")
         this.router.navigate(['/login']);
       }
     });

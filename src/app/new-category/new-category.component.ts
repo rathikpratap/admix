@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class NewCategoryComponent {
  
+  tok:any;
   message:string ='';
   isProcess:boolean = false; 
   className = 'd-none'
@@ -17,7 +18,15 @@ export class NewCategoryComponent {
   isProcess1:boolean = false; 
   className1 = 'd-none'
 
-  constructor(private auth:AuthService) {}
+  constructor(private auth:AuthService) {
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
+  }
   
   categoryForm = new FormGroup({
     categoryName : new FormControl("")

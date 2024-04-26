@@ -23,4 +23,7 @@ export class EditorNavbarComponent {
     this.menuStatus = !this.menuStatus;
     this.editorSideNavToggled.emit(this.menuStatus);
   }
+  logout(){
+    this.auth.logout();
+  }
 }

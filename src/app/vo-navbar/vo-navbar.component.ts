@@ -24,4 +24,7 @@ export class VoNavbarComponent {
     this.menuStatus = !this.menuStatus;
     this.voSideNavToggled.emit(this.menuStatus);
   }
+  logout(){
+    this.auth.logout();
+  }
 }

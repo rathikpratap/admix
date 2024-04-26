@@ -55,6 +55,10 @@ export class ScriptUpdateComponent {
  
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
     })
 
     this.auth.allEmployee().subscribe((res:any)=>{

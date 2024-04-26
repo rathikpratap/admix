@@ -10,7 +10,7 @@ import { range } from 'rxjs';
 })
 export class SalesDashboardComponent {
 
-  
+  tok:any;
   data:any;
   completeData: any;
   totalEntries: any;
@@ -28,6 +28,14 @@ export class SalesDashboardComponent {
   }); 
 
   constructor(private auth: AuthService){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
+
     this.auth.getCustData().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
@@ -111,4 +119,9 @@ export class SalesDashboardComponent {
     location.reload(); 
   }
 
+  // logout(){
+  //   this.auth.logout();
+  //   this.router.navigate(['/login']);
+  // }
 }
+

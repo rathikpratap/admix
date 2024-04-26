@@ -13,6 +13,7 @@ export class LeadsComponent {
   data2: any;
   emp: any;
   rangeData: any;
+  tok:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -20,6 +21,13 @@ export class LeadsComponent {
   });
 
   constructor(private auth: AuthService){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
 
      this.auth.getAdminLeads().subscribe((list : any)=>{
        console.log("list==>",list)

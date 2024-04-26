@@ -47,6 +47,10 @@ export class TeamLeadsComponent {
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data.salesTeam;
       console.log("USerDAta==>", this.tok)
+      if(!this.tok){
+        alert("Session Expired, Please Login Again");
+        this.auth.logout();
+      }
     })
 
     this.searchForm = this.formBuilder.group({

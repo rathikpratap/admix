@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { appConfig } from 'src/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   httpHeaders= new HttpHeaders().set('Content-Type','application/json')
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router: Router) { }
 
   signup(data:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/register`, data);
@@ -31,6 +32,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
 
   getToken(): string | null {

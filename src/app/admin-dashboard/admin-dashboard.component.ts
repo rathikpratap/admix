@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AdminDashboardComponent {
  
-
+  tok:any;
   data:any;
   allData:any;
   totalEntries: any;
@@ -26,6 +26,13 @@ export class AdminDashboardComponent {
   });
 
   constructor(private auth: AuthService) {
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
     this.auth.getAllProjects().subscribe((allList : any)=>{
       console.log("allList",allList)
       this.data = allList;

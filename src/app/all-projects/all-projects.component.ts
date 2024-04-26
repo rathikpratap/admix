@@ -20,6 +20,7 @@ export class AllProjectsComponent {
   dataLength: any; 
   emp: any;
   editors: any; 
+  tok:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -28,6 +29,13 @@ export class AllProjectsComponent {
   rangeData: any;
  
   constructor(private auth: AuthService, private formBuilder: FormBuilder){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });

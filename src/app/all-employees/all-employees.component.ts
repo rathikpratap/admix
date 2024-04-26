@@ -9,8 +9,16 @@ import { AuthService } from '../service/auth.service';
 export class AllEmployeesComponent {
  
   data: any=[];
+  tok:any;
 
   constructor(private auth: AuthService){
+    this.auth.getProfile().subscribe((res:any)=>{
+      this.tok = res?.data;
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
+      }
+    })
     this.auth.allEmployee().subscribe((list : any)=>{
       console.log("list", list)
       this.data = list;
