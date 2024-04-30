@@ -142,13 +142,14 @@
                 <button class="btn btn-sm btn-primary" (click)="updateEditors()">Update Editor</button>
             </div> -->
             <div class="table-scroll">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Mobile Number</th>
+                            <th scope="col">Client Business</th>
                             <th scope="col">Project Category</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
@@ -162,11 +163,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data; let i = index">
+                        <tr *ngFor="let user of data; let i = index" [class.highlighted]="selectedRowIndex === i">
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custNumb}}</td>
+                            <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate}}</td>
                             <td>{{user.closingPrice}}</td>
@@ -174,7 +176,7 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.salesPerson}}</td>
                             <td>
-                                <select [(ngModel)]="user.projectStatus" (change)="updateEditorVisible = (user.projectStatus === 'closing')">
+                                <select [(ngModel)]="user.projectStatus" (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(); highlightRow(i)">
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>

@@ -21,6 +21,7 @@ export class AllProjectsComponent {
   emp: any;
   editors: any; 
   tok:any;
+  selectedRowIndex: number = -1;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -49,6 +50,9 @@ export class AllProjectsComponent {
       console.log("employee==>", res);
       this.emp = res;
     })
+  }
+  highlightRow(index: number) {
+    this.selectedRowIndex = index;
   }
 
   updateEditors(){
@@ -138,5 +142,5 @@ export class AllProjectsComponent {
             return []; // Return an empty array if no specific role is selected
     }
   }
-
+  
 }

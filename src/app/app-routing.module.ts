@@ -41,6 +41,8 @@ import { UpdatePanelComponent } from './update-panel/update-panel.component';
 import { PaymentComponent } from './payment/payment.component';
 import { UpdatePaymentComponent } from './update-payment/update-payment.component';
 import { SalesWorkComponent } from './sales-work/sales-work.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,14 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+  },
+  {
+    path: 'terms&consitions',
+    component: TermsConditionComponent
   },
   {
     path: '',

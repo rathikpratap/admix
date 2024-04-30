@@ -50,6 +50,8 @@ import { UpdatePanelComponent } from './update-panel/update-panel.component';
 import { PaymentComponent } from './payment/payment.component';
 import { UpdatePaymentComponent } from './update-payment/update-payment.component';
 import { SalesWorkComponent } from './sales-work/sales-work.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 
 
@@ -97,7 +99,9 @@ import { SalesWorkComponent } from './sales-work/sales-work.component';
     UpdatePanelComponent,
     PaymentComponent,
     UpdatePaymentComponent,
-    SalesWorkComponent
+    SalesWorkComponent,
+    PrivacyPolicyComponent,
+    TermsConditionComponent
   ],
   imports: [
     BrowserModule,

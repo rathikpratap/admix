@@ -1,3 +1,6 @@
+tr.highlighted {
+    opacity: 0.8;
+  }
 .nameCard{
     
     display: flex;
@@ -36,6 +39,7 @@
  
 .table{
     box-shadow: 10px 10px 10px;
+    font-size: 14px
 }
 .title-heading{ 
     border-radius: 15px;
