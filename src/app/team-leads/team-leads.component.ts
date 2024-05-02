@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -33,6 +33,7 @@ export class TeamLeadsComponent {
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
   fbLeads: any;
+  isExpanded: boolean = false;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -42,7 +43,7 @@ export class TeamLeadsComponent {
   updateButtonVisible: boolean = true;
    
 
-  constructor(private auth: AuthService,private formBuilder: FormBuilder){
+  constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data.salesTeam;
@@ -121,6 +122,11 @@ export class TeamLeadsComponent {
     }) 
   }
 
+  toggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
+  }
+
   refreshPage(){
     window.location.reload();
   }
@@ -145,7 +151,7 @@ export class TeamLeadsComponent {
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
       console.log("customer",customers)
       this.customers = customers;
-      this.errorMessage = null;
+      this.errorMessage = null; 
     },
     error=>{
       this.customers = [];

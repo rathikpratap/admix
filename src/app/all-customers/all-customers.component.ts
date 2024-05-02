@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild,Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -22,6 +22,7 @@ export class AllCustomersComponent {
   currentMonthName: string;
   dataPreviousMonth: any=[];
   dataTwoPreviousMonth:any=[];
+  isExpanded: boolean = false;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -29,7 +30,7 @@ export class AllCustomersComponent {
   });
   rangeData: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -58,6 +59,11 @@ export class AllCustomersComponent {
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
+  }
+
+  oggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 
   searchCustomer(){

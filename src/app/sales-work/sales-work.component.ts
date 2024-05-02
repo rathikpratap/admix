@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -27,8 +27,9 @@ export class SalesWorkComponent {
   dataFourYesterday: any;
   dataFiveYesterday: any;
   tok:any;
+  isExpanded: boolean = false;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -83,6 +84,10 @@ export class SalesWorkComponent {
     this.threeYesterdayDate = this.auth.getDate(-4);
     this.fourYesterdayDate = this.auth.getDate(-5);
     this.fiveYesterdayDate = this.auth.getDate(-6);
+  }
+  toggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 
   searchCustomer(){

@@ -81,3 +81,6 @@
 .searchData .details label{
     font-weight: 500;
 }
+.btn[aria-expanded="true"] {
+    background-color: green;
+}

@@ -28,7 +28,7 @@ export class NewEmployeeComponent {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
-    })
+    }) 
 
     this.auth.getSalesTeam().subscribe((res:any)=>{
       this.team = res;

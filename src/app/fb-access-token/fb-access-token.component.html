@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="heading">
+            <h3>Facebook Leads Access Token</h3>
+        </div>
+        <form [formGroup]="accessTokenForm" (ngSubmit)="token()">
+            <div [ngClass]="className" role="alert">
+                {{message}}
+            </div>
+            <div class="user-details">
+                <div class="input-box">
+                    <div class="form-group">
+                        <div class="details"> Pervious Access Token</div>
+                        <input type="text" class="from-control readonly" formControlName="preAccessToken" [value]="fbToken?.newAccessToken" readonly>
+                        <div class="details"> New Access Token </div>
+                        <input type="text" class="from-control" formControlName="newAccessToken" placeholder="Enter New Access Token">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success">
+        </form>
+        <div class="steps">
+            <div class="heading2">
+                <h4>Steps to follow</h4>
+            </div>
+            <div class="content">
+                <ol>
+                    <li>Go to https://developers.facebook.com/ and login into your Facebook Account.</li>
+                    <li>CLick on <span class="highlight">My Apps</span> from Header.</li>
+                    <li>Select Graph API Explorer from Tools in Navigation Bar.</li>
+                    <li>Paste <span class="highlight"> me?fields=adaccounts &#123;id,campaigns&#123;id,name,ads&#123;name,leads&#125;&#125;&#125;</span> after "v19.0 / " and click on Submit.</li>
+                    <li>Now Copy the Access Token.</li>
+                    <li> Goto <span class="highlight"> Access Token Debugger </span>from Tools in Navigation Bar</li>
+                    <li>Paste Copied Access Token, then click on Debug.</li>
+                    <li>Now click on <span class="highlight"> Extend Access Token </span> and Enter your Password.</li>
+                    <li>Now copy the new Access Token provided to you below, and Paste it in New Access Token Field in your Form.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

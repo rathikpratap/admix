@@ -51,6 +51,7 @@ export class AllProjectsComponent {
       this.emp = res;
     })
   }
+
   highlightRow(index: number) {
     this.selectedRowIndex = index;
   }

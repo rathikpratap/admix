@@ -27,11 +27,21 @@
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
 
-    </div>
+    </div> 
     <div class="col-lg-3 col-md-12 col-sm-12 col-12">
         <div class="searchData2">
             <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
-                <input type="text" formControlName="projectStatus" placeholder="Enter Project Status">
+                <!-- <input type="text" formControlName="projectStatus" placeholder="Enter Project Status"> -->
+                <select formControlName="projectStatus">
+                    
+                    <option value="Null">Null</option>
+                    <option value="Not Interested">Not Interested</option>
+                    <option value="Not Pick">Not Pick</option>
+                    <option value="Switch Off">Switch Off</option>
+                    <option value="Busy">Busy</option>
+                    <option value="Interested">Interested</option>
+                    <option value="Closing">Closing</option>
+                </select>
                 <button class="btn btn-primary" type="submit"> Search</button>
             </form>
         </div>
@@ -143,7 +153,7 @@
     <div class="col-lg-12">
         <p class="d-inline-flex gap-1">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#today"
-                aria-expanded="false" aria-controls="collapseExample">
+             aria-controls="collapseExample" (click)="toggleExpanded()">
                 {{todayDate}}
             </button>
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#yesterday"

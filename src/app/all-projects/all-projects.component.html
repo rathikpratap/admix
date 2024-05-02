@@ -26,6 +26,7 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Sales Person</th>
+                            <th scope="col">View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +42,11 @@
                             <td>{{customer.remainingAmount}}</td>
                             <td>{{customer.projectStatus}}</td>
                             <td>{{customer.salesPerson}}</td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" routerLink="/update-panel/{{customer._id}}"> View</button>   
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -96,7 +102,7 @@
                                 <th scope="col">Amount Received</th>
                                 <th scope="col">Remaining Amount</th>
                                 <th scope="col">Project Status</th>
-                                
+                                <th scope="col">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +117,11 @@
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
                                 <td>{{user.projectStatus}}</td>
-                                
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" routerLink="/update-panel/{{user._id}}"> View</button>   
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -157,8 +167,8 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Sales Person</th>
                             <th scope="col">Project Status</th>
-                            <th scope="col">Select Editor</th>
-                            <th scope="col">Editor Status</th>
+                            <th scope="col">Select T.M</th>
+                            <th scope="col">T.M Status</th>
                             <th scope="col">View</th>
                         </tr>
                     </thead>

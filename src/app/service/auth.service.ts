@@ -274,6 +274,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeam`)
   }
 
+  newfbToken(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/fbToken`, data);
+  }
+  getfbToken():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getFbToken`);
+  }
+
   getSalesLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
   }

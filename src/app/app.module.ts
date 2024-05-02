@@ -52,6 +52,7 @@ import { UpdatePaymentComponent } from './update-payment/update-payment.componen
 import { SalesWorkComponent } from './sales-work/sales-work.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
+import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
 
 
 
@@ -101,7 +102,8 @@ import { TermsConditionComponent } from './terms-condition/terms-condition.compo
     UpdatePaymentComponent,
     SalesWorkComponent,
     PrivacyPolicyComponent,
-    TermsConditionComponent
+    TermsConditionComponent,
+    FbAccessTokenComponent
   ],
   imports: [
     BrowserModule,

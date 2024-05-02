@@ -19,6 +19,8 @@
 .getButton{
     padding: 10px 15px 15px 15px;
     border-radius: 15px;
+    display: inline-block;
+    margin-right: 5px;
 }
 .update-button{
     display: flex;
