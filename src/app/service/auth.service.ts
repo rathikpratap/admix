@@ -280,6 +280,12 @@ export class AuthService {
   getfbToken():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getFbToken`);
   }
+  addCompany(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/addCompany`, data);
+  }
+  getCompany():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getCompany`);
+  }
 
   getSalesLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);

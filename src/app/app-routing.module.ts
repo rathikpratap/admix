@@ -44,6 +44,7 @@ import { SalesWorkComponent } from './sales-work/sales-work.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
+import { AddCompanyComponent } from './add-company/add-company.component';
 
 const routes: Routes = [
   {
@@ -127,6 +128,10 @@ const routes: Routes = [
       {
         path: 'fb-accessToken',
         component: FbAccessTokenComponent
+      },
+      {
+        path: 'add-company',
+        component: AddCompanyComponent
       }
     ]
   },
