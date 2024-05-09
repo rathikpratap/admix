@@ -11,12 +11,17 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   
   userRole:any;
-  tok:any
+  tok:any;
+  quote:any;
   constructor(private auth:AuthService, private router:Router) {
 
     this.auth.getProfile().subscribe((res:any)=>{
       console.log("Token===>", res)
       this.tok = res?.data
+    });
+    this.auth.quotes().subscribe((res:any)=>{
+      console.log("QUOTES===> ", res);
+      this.quote = res;
     })
     
   } 

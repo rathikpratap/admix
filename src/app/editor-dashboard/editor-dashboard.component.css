@@ -6,7 +6,11 @@
     box-shadow: 10px 10px 10px;
     width: fit-content;
     background-color: white;
+    margin-bottom: 35px;
 } 
 .table-scroll{
     margin-top: 15px;
+}
+.btn[aria-expanded="true"] {
+    background-color: green;
 }

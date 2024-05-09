@@ -1,5 +1,4 @@
-
-<div class="container-fluid">
+<!-- <div class="container-fluid">
 	<div class="login-bg">
 		<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
 			<div class="login__field">
@@ -15,6 +14,36 @@
 				<i class="button__icon fas fa-chevron-right"></i>
 			</button>				
 		</form>
+	</div>
+</div> -->
+
+<div class="container-fluid">
+	<div class="new-login-bg">
+		<div class="box">
+			<div class="shape"></div>
+			<div class="shape"></div>
+		</div>
+		<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+			<img src="assets/Images/logo.png" alt="LOGo" class="Image">
+			<h2>Login</h2>
+			<p>Welcome back please login to your account </p>
+			<div class="login__field">
+				<i class="login__icon fas fa-user"></i>
+				<input type="text" class="login__input" placeholder="Username" formControlName="loginUsername">
+			
+				<i class="login__icon fas fa-lock"></i>
+				<input type="password" class="login__input" placeholder="Password" formControlName="loginPswd">
+			</div>
+			<button class="button login__submit">
+				<span class="button__text">Log In Now</span>
+				<i class="button__icon fas fa-chevron-right"></i>
+			</button>
+			<div class="quotes" *ngIf="quote">
+				<h5>Quote of the Day </h5>
+				<p id="quote">{{quote.content}}</p>
+				<p id="author">- {{quote.author}}</p>
+			</div>
+		</form>	
 	</div>
 </div>
  

@@ -2,7 +2,6 @@ import { Component, NgZone } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-script-update',
@@ -15,7 +14,8 @@ export class ScriptUpdateComponent {
   tok: any;
   scriptOtherChanges: boolean = false;
   emp: any;
-  totalSec: any;
+  count: any;
+  company: any;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -29,10 +29,11 @@ export class ScriptUpdateComponent {
     scriptChangesPayment: new FormControl(),
     totalScriptPayment: new FormControl(0),
     scriptDurationMinutes: new FormControl(0),
-    scriptDurationSeconds: new FormControl(0)
+    scriptDurationSeconds: new FormControl(0),
+    companyName: new FormControl("")
   }) 
 
-  constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
+  constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService){
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.auth.getCustomer(this.getId).subscribe((res: any)=>{
@@ -49,7 +50,8 @@ export class ScriptUpdateComponent {
         scriptChangesPayment: res['scriptChangesPayment'],
         totalScriptPayment: res['totalScriptPayment'],
         scriptDurationMinutes: res['scriptDurationMinutes'],
-        scriptDurationSeconds: res['scriptDurationSeconds']
+        scriptDurationSeconds: res['scriptDurationSeconds'],
+        companyName: res['companyName']
       })
     })
  
@@ -64,7 +66,10 @@ export class ScriptUpdateComponent {
     this.auth.allEmployee().subscribe((res:any)=>{
       console.log("All Employees==>", res);
       this.emp = res;
-    })
+    });
+    this.auth.getCompany().subscribe((res:any)=>{
+      this.company = res;
+    });
   }
 
   getControls(name: any): AbstractControl | null {
@@ -72,27 +77,27 @@ export class ScriptUpdateComponent {
   }
 
   onUpdate(){
-    console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
-    const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
-    const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
-    this.totalSec = Minsec * 60 + sec;
-    this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
-    console.log("Total Sec==>", this.totalSec);
+    // console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
+    // const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
+    // const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
+    // this.totalSec = Minsec * 60 + sec;
+    // this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
+    // console.log("Total Sec==>", this.totalSec);
 
-    this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
-      if(employee.signupUsername === this.tok.signupUsername){
-        console.log("Payment Of employee===>>", employee.payment60Sec);
-        if(this.totalSec > 0 && this.totalSec <= 60){
-          console.log("60Sec Payment",employee.payment60Sec);
-          this.updateForm.get('scriptPayment')?.setValue(employee.payment60Sec);
-        } else if(this.totalSec > 60 && this.totalSec <= 90){
-          this.updateForm.get('scriptPayment')?.setValue(employee.payment90Sec);
-        } else if(this.totalSec > 90 && this.totalSec <=120){
-          this.updateForm.get('scriptPayment')?.setValue(employee.payment120Sec);
-        } else if(this.totalSec > 120 && this.totalSec <=150){
-          this.updateForm.get('scriptPayment')?.setValue(employee.payment150Sec);
-        } else if(this.totalSec > 150 && this.totalSec <=180){
-          this.updateForm.get('scriptPayment')?.setValue(employee.payment180Sec);
+    const CompName = this.updateForm.get('companyName')?.value;
+    console.log("CompanyNAme==>", CompName);
+    this.count = this.updateForm.get('wordsCount')?.value;
+
+    this.company.forEach((comp: {companyName: string, signupName: string, payment150words: number, payment200words: number, payment300words: number, payment500words: number})=>{
+      if(comp.companyName === 'AdmixMedia' && comp.signupName === this.tok.signupUsername){
+        if(this.count > 0 && this.count <= 150){
+          this.updateForm.get('scriptPayment')?.setValue(comp.payment150words);
+        } else if(this.count > 150 && this.count <= 200){
+          this.updateForm.get('scriptPayment')?.setValue(comp.payment200words);
+        } else if(this.count > 200 && this.count <=300){
+          this.updateForm.get('scriptPayment')?.setValue(comp.payment300words);
+        } else if(this.count > 300 && this.count <=500){
+          this.updateForm.get('scriptPayment')?.setValue(comp.payment500words);
         } else {
           this.updateForm.get('scriptPayment')?.setValue(0);
         }

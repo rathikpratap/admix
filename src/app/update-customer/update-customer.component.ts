@@ -14,11 +14,12 @@ export class UpdateCustomerComponent {
 
   getId: any;
   Category: any;
-  countries: any;
+  countries: any; 
   states: any;
   cities: any;
   tok:any;
   emp:any;
+  companies: any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   
@@ -55,7 +56,8 @@ export class UpdateCustomerComponent {
     remark: new FormControl(""),
     restAmount: new FormControl(""),
     restPaymentDate: new FormControl(""),
-    leadsCreatedDate: new FormControl("")
+    leadsCreatedDate: new FormControl(""),
+    companyName: new FormControl("")
   })
 
   updateEmbeddedVideoUrl() {
@@ -82,6 +84,7 @@ export class UpdateCustomerComponent {
 
 
   constructor(private router: Router, private ngZone: NgZone,private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
+    
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -145,7 +148,8 @@ export class UpdateCustomerComponent {
         remark: res['remark'],
         restAmount: res['restAmount'],
         restPaymentDate: res['restPaymentDate'],
-        leadsCreatedDate: res['leadsCreatedDate']
+        leadsCreatedDate: res['leadsCreatedDate'],
+        companyName: res['companyName']
       })
       this.updateEmbeddedVideoUrl();
     });
@@ -159,7 +163,15 @@ export class UpdateCustomerComponent {
       console.log("data==>", Countrydata);
       this.countries = Countrydata;
     });
-
+    this.auth.getCompany().subscribe((res:any)=>{
+      if(this.tok.salesTeam === 'Shiva Development') {
+        this.companies = res.filter((company: any, index: number, self: any[]) =>
+          index === self.findIndex((c: any) => c.companyName === company.companyName)
+        );
+      } else{
+        this.updateForm.get('companyName')?.setValue('AdmixMedia');
+      }
+    });
   }
 
   getControls(name: any): AbstractControl | null {

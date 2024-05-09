@@ -16,6 +16,7 @@ export class VoUpdateComponent {
   emp: any;
   totalSec: any;
   showVoicePayment: boolean = false;
+  company: any;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -28,7 +29,8 @@ export class VoUpdateComponent {
     voiceChangesPayment: new FormControl(),
     totalVoicePayment: new FormControl(0),
     voiceDurationMinutes: new FormControl(0),
-    voiceDurationSeconds: new FormControl(0)
+    voiceDurationSeconds: new FormControl(0),
+    companyName: new FormControl("")
   }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
@@ -47,7 +49,8 @@ export class VoUpdateComponent {
         voiceChangesPayment: res['voiceChangesPayment'],
         totalVoicePayment: res['totalVoicePayment'],
         voiceDurationMinutes: res['voiceDurationMinutes'],
-        voiceDurationSeconds: res['voiceDurationSeconds']
+        voiceDurationSeconds: res['voiceDurationSeconds'],
+        companyName: res['companyName']
       })
     })
 
@@ -62,6 +65,9 @@ export class VoUpdateComponent {
     this.auth.allEmployee().subscribe((res:any)=>{
       console.log("All Employees==>", res);
       this.emp = res;
+    });
+    this.auth.getCompany().subscribe((res:any)=>{
+      this.company = res;
     })
   }
 
@@ -76,21 +82,22 @@ export class VoUpdateComponent {
     this.totalSec = Minsec * 60 + sec;
     this.updateForm.get('voiceDuration')?.setValue(this.totalSec);
     console.log("Total Sec==>", this.totalSec);
+    const CompName = this.updateForm.get('companyName')?.value;
 
-    this.emp.forEach((employee: {signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
-      if(employee.signupUsername === this.tok.signupUsername){
-        console.log("Payment Of employee===>>", employee.payment60Sec);
+    this.company.forEach((comp: {companyName: string, signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
+      if(comp.companyName === 'AdmixMedia' && comp.signupUsername === this.tok.signupUsername){
+        console.log("Payment Of employee===>>", comp.payment60Sec);
         if(this.totalSec > 0 && this.totalSec <= 60){
-          console.log("60Sec Payment",employee.payment60Sec);
-          this.updateForm.get('voicePayment')?.setValue(employee.payment60Sec);
+          console.log("60Sec Payment",comp.payment60Sec);
+          this.updateForm.get('voicePayment')?.setValue(comp.payment60Sec);
         } else if(this.totalSec > 60 && this.totalSec <= 90){
-          this.updateForm.get('voicePayment')?.setValue(employee.payment90Sec);
+          this.updateForm.get('voicePayment')?.setValue(comp.payment90Sec);
         } else if(this.totalSec > 90 && this.totalSec <=120){
-          this.updateForm.get('voicePayment')?.setValue(employee.payment120Sec);
+          this.updateForm.get('voicePayment')?.setValue(comp.payment120Sec);
         } else if(this.totalSec > 120 && this.totalSec <=150){
-          this.updateForm.get('voicePayment')?.setValue(employee.payment150Sec);
+          this.updateForm.get('voicePayment')?.setValue(comp.payment150Sec);
         } else if(this.totalSec > 150 && this.totalSec <=180){
-          this.updateForm.get('voicePayment')?.setValue(employee.payment180Sec);
+          this.updateForm.get('voicePayment')?.setValue(comp.payment180Sec);
         } else{
           this.updateForm.get('voicePayment')?.setValue(0);
         }

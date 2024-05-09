@@ -11,11 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class EditorUpdateComponent implements OnInit {
   getId: any;
-  tok: any;
+  tok: any; 
   editorOtherChanges: boolean = false;
   emp: any;
   totalSec: any;
   numberOfVideos: any;
+  company: any;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -30,7 +31,8 @@ export class EditorUpdateComponent implements OnInit {
     youtubeLink: new FormControl(""),
     videoDurationMinutes: new FormControl(0),
     videoDurationSeconds: new FormControl(0),
-    numberOfVideos: new FormControl("")
+    numberOfVideos: new FormControl(""),
+    companyName: new FormControl("")
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
@@ -51,7 +53,8 @@ export class EditorUpdateComponent implements OnInit {
         youtubeLink: res['youtubeLink'],
         videoDurationMinutes: res['videoDurationMinutes'],
         videoDurationSeconds: res['videoDurationSeconds'],
-        numberOfVideos: res['numberOfVideos']
+        numberOfVideos: res['numberOfVideos'],
+        companyName: res['companyName']
       })
     })
 
@@ -66,6 +69,10 @@ export class EditorUpdateComponent implements OnInit {
     this.auth.allEmployee().subscribe((res: any) => {
       console.log("All Employees==>", res);
       this.emp = res;
+    });
+    this.auth.getCompany().subscribe((res:any)=>{
+      this.company = res;
+      console.log("Company Details===> ",this.company);
     })
   }
 
@@ -79,8 +86,6 @@ export class EditorUpdateComponent implements OnInit {
       }
       this.updateForm.get('youtubeLink')?.updateValueAndValidity();
     });
-
-
   }
 
   getControls(name: any): AbstractControl | null {
@@ -96,58 +101,61 @@ export class EditorUpdateComponent implements OnInit {
     this.updateForm.get('videoDuration')?.setValue(this.totalSec);
     console.log("Total Sec==>", this.totalSec);
 
-    this.emp.forEach((employee: { signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
-      if (employee.signupUsername === this.tok.signupUsername) {
+    const CompName = this.updateForm.get('companyName')?.value;
+    console.log("COMP NAme====>>", CompName);
+
+    this.company.forEach((comp: { companyName: string, signupName: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number})=>{
+       if(comp.companyName === CompName && comp.signupName === this.tok.signupUsername){
         switch (this.updateForm.get('numberOfVideos')?.value) {
           case 'One':
-            if (this.totalSec > 0 && this.totalSec <= 60) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec);
-            } else if (this.totalSec > 60 && this.totalSec <= 90) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec);
-            } else if (this.totalSec > 90 && this.totalSec <= 120) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec);
-            } else if (this.totalSec > 120 && this.totalSec <= 150) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec);
-            } else if (this.totalSec > 150 && this.totalSec <= 180) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec);
-            } else {
+            if(this.totalSec > 0 && this.totalSec <= 60){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+            } else if( this.totalSec > 60 && this.totalSec <= 90){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+            } else if(this.totalSec > 90 && this.totalSec <=120){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+            } else if(this.totalSec > 120 && this.totalSec <=150){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+            } else if(this.totalSec > 150 && this.totalSec <= 180){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+            } else{
               this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
           case 'Two':
-            if (this.totalSec > 0 && this.totalSec <= 60) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec + employee.paymentTwoVideo);
-            } else if (this.totalSec > 60 && this.totalSec <= 90) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec + employee.paymentTwoVideo);
-            } else if (this.totalSec > 90 && this.totalSec <= 120) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec + employee.paymentTwoVideo);
-            } else if (this.totalSec > 120 && this.totalSec <= 150) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec + employee.paymentTwoVideo);
-            } else if (this.totalSec > 150 && this.totalSec <= 180) {
-              this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec + employee.paymentTwoVideo);
-            } else{
+            if(this.totalSec > 0 && this.totalSec <= 60){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+            } else if( this.totalSec > 60 && this.totalSec <= 90){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+            } else if(this.totalSec > 90 && this.totalSec <=120){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+            } else if(this.totalSec > 120 && this.totalSec <=150){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+            } else if(this.totalSec > 150 && this.totalSec <=180){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+            } else {
               this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
           case 'Three':
-            if (this.totalSec > 0 && this.totalSec <= 60){
-              this.updateForm.get('editorPayment')?.setValue(employee.payment60Sec + employee.paymentThreeVideo);
-            } else if (this.totalSec > 60 && this.totalSec <=90){
-              this.updateForm.get('editorPayment')?.setValue(employee.payment90Sec + employee.paymentThreeVideo);
-            } else if (this.totalSec > 90 && this.totalSec <=120){
-              this.updateForm.get('editorPayment')?.setValue(employee.payment120Sec + employee.paymentThreeVideo);
+            if(this.totalSec > 0 && this.totalSec <= 60){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+            } else if(this.totalSec > 60 && this.totalSec <=90){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+            } else if(this.totalSec > 90 && this.totalSec <=120){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
             } else if(this.totalSec > 120 && this.totalSec <=150){
-              this.updateForm.get('editorPayment')?.setValue(employee.payment150Sec + employee.paymentThreeVideo);
-            } else if(this.totalSec > 150 && this.totalSec <=180){
-              this.updateForm.get('editorPayment')?.setValue(employee.payment180Sec + employee.paymentThreeVideo);
-            } else{
+              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+            }else if(this.totalSec > 150 && this.totalSec <= 180){
+              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+            }else{
               this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
           default:
             this.updateForm.get('editorPayment')?.setValue(0);
         }
-      }
+       }
     })
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
@@ -157,7 +165,6 @@ export class EditorUpdateComponent implements OnInit {
       console.log(err)
     })
   }
-
 
   onChange(event: any) {
     if (event.target.value === 'yes') {

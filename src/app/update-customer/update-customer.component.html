@@ -94,7 +94,7 @@
                     <div *ngIf="getControls('closingCateg')?.errors && getControls('closingCateg')?.touched">
                         <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']"> Closing Category is Required </label>
                     </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="input-box">
                         <div class="form-group">
@@ -209,6 +209,15 @@
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>
                             <textarea type="text" class="form-control" formControlName="youtubeLink" placeholder="Enter youtubeLink"></textarea>  
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('salesTeam')?.value === 'Shiva Development'">
+                        <div class="form-group">
+                            <span class="details"> Company Name: </span>
+                            <select class="form-select" formControlName="companyName" aria-label="Default select example">
+                                <option value="null">Select Company</option>
+                                <option *ngFor="let company of companies" value="{{company.companyName}}">{{company.companyName}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="input-box">

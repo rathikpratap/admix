@@ -61,7 +61,7 @@ export class AllCustomersComponent {
     this.currentMonthName = this.auth.getCurrentMonthName();
   }
 
-  oggleExpanded() {
+  ToggleExpanded() {
     this.isExpanded = !this.isExpanded;
     this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }

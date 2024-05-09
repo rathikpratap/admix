@@ -38,3 +38,9 @@ a{
     text-decoration: none;
     color: white;
 }
+.active {
+    background-color: #dae7ff; /* Change this to your desired highlight color */
+}
+.active a{
+    color: black;
+}

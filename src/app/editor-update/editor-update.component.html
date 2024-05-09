@@ -24,10 +24,10 @@
                         <div class="form-group2">
                             <span class="details"> Duration: </span>
                             <div class="input-flex">
-                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter">
+                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter" min="0">
                                 <span class="details"> Minutes </span>
 
-                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter">
+                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter" min="0" max="59">
                                 <span class="details"> Seconds </span>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                         <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']"> Project Status is Required </label>
                     </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box1">
                         <div class="form-group">
                             <span class="details">Any Other Changes?(Only If their is any unneccessary Changes)</span>
@@ -89,12 +89,12 @@
                             <input type="text" class="form-control readonly" formControlName="editorChangesPayment" placeholder="Enter Changes Payment" readonly>
                         </div>
                     </div>
-                    <!-- <div class="input-box">
+                    <div class="input-box hidden">
                         <div class="form-group">
-                            <span class="details"> Total Payment: </span>
-                            <input type="number" class="form-control" formControlName="totalEditorPayment" placeholder="Enter Changes Payment" [value]="updateForm.get('totalEditorPayment')!.value | number">
+                            <span class="details"> Company Name: </span>
+                            <input type="text" class="form-control" formControlName="companyName" placeholder="Company Name">
                         </div>
-                    </div> -->
+                    </div>
                     <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>

@@ -21,6 +21,7 @@ export class NewCustomerComponent {
   states: any; 
   cities: any;
   Category: any;
+  companies: any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   
@@ -45,6 +46,9 @@ export class NewCustomerComponent {
       if(this.tok) {
         this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
         this.customerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
+        if(this.tok.salesTeam !== 'Shiva Development'){
+          this.customerForm.get('companyName')!.setValue('AdmixMedia');
+        }
       }else{
         alert("Session Expired, Please Login Again")
         this.router.navigate(['/login']);
@@ -77,6 +81,15 @@ export class NewCustomerComponent {
       console.log("Categories===>>", category);
       this.Category = category;
     })
+    this.auth.getCompany().subscribe((res:any)=>{
+      if(this.tok.salesTeam === 'Shiva Development') {
+        this.companies = res.filter((company: any, index: number, self: any[]) =>
+          index === self.findIndex((c: any) => c.companyName === company.companyName)
+        );
+      } else{
+        this.customerForm.get('companyName')?.setValue('AdmixMedia');
+      }
+    })
     
   }
 
@@ -90,7 +103,7 @@ export class NewCustomerComponent {
     closingCateg : new FormControl("null", [Validators.required]),
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
-    restAmount : new FormControl(""),
+    restAmount : new FormControl(""), 
     custCountry : new FormControl("null", [Validators.required]),
     custCity : new FormControl("null", [Validators.required]),
     custState : new FormControl("null", [Validators.required]),
@@ -98,7 +111,8 @@ export class NewCustomerComponent {
     salesPerson : new FormControl("",[Validators.required]),
     youtubeLink : new FormControl(""),
     remark  : new FormControl(""),
-    salesTeam : new FormControl("")
+    salesTeam : new FormControl(""),
+    companyName : new FormControl("")
     
   })
  

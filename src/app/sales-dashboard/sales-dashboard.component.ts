@@ -20,6 +20,7 @@ export class SalesDashboardComponent {
   totalDue: any;
   rangeData : any;
   dataLength : any;
+  allProjects: any;
 
 
   dateRangeForm = new FormGroup({
@@ -69,6 +70,9 @@ export class SalesDashboardComponent {
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
+    this.auth.allProjectsSales().subscribe((res:any)=>{
+      this.allProjects = res.length;
+    })
   }
   
   onDate(){

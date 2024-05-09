@@ -19,6 +19,8 @@ export class AdminDashboardComponent {
   totalRecv: any;
   totalDue: any;
   dataLength: any;
+  allProjects:any;
+  monthRestAmount: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -38,7 +40,6 @@ export class AdminDashboardComponent {
       this.data = allList;
       this.dataLength = allList.length;
       console.log('loag ==>', this.data);
-      
     })
 
     this.auth.getAllCompleteProjects().subscribe((allProject : any)=>{
@@ -62,11 +63,15 @@ export class AdminDashboardComponent {
       }else{
         this.todayEntries = 0;
       }
-      
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
-
+    this.auth.allProjectsAdmin().subscribe((res:any)=>{
+      this.allProjects = res.length;
+    });
+    this.auth.monthRestAmount().subscribe((res:any)=>{
+      this.monthRestAmount = res;
+    })
   }
 
   onSubmit(){
@@ -86,7 +91,6 @@ export class AdminDashboardComponent {
     }else{
       console.error("Start date and End Date is not Valid");
     }
-    
   }
 
   downloadRangeFile(){

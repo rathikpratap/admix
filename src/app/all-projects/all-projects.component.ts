@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -22,6 +22,13 @@ export class AllProjectsComponent {
   editors: any; 
   tok:any;
   selectedRowIndex: number = -1;
+  scriptPassDate: any;
+  previousMonthName: string;
+  previousTwoMonthName: string;
+  currentMonthName: string;
+  Previousdata:any;
+  TwoPreviousdata:any;
+  isExpanded: boolean = false;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -29,7 +36,7 @@ export class AllProjectsComponent {
   });
   rangeData: any;
  
-  constructor(private auth: AuthService, private formBuilder: FormBuilder){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -45,25 +52,49 @@ export class AllProjectsComponent {
       console.log("list",list)
       this.data = list;
     });
+    this.auth.allPreviousProjects().subscribe((list : any)=>{
+      console.log("list",list)
+      this.Previousdata = list;
+    });
+    this.auth.allTwoPreviousProjects().subscribe((list : any)=>{
+      console.log("list",list)
+      this.TwoPreviousdata = list;
+    });
 
     this.auth.allEmployee().subscribe((res : any)=>{
       console.log("employee==>", res);
       this.emp = res;
     })
+    this.previousMonthName = this.auth.getPreviousMonthName();
+    this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
+    this.currentMonthName = this.auth.getCurrentMonthName();
+  }
+  ToggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 
   highlightRow(index: number) {
     this.selectedRowIndex = index;
   }
 
-  updateEditors(){
-    this.auth.updateEditors(this.data).subscribe((res: any)=>{
-      if(this.data){
-        alert("Project Successfully Assigned ");
-        console.log("Editor Updated List", this.data);
+  updateEditors(user:any){
+    const currentDate = new Date().toISOString().split('T')[0];
+    if (user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction') {
+      // Update the scriptPassDate for the specific user
+      user.scriptPassDate = currentDate;
+    }else if(user.projectStatus === 'Voice Over'){
+      user.voicePassDate = currentDate;
+    }else if(user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done'){
+      user.editorPassDate = currentDate;
+    }
+    this.auth.updateEditors([user]).subscribe((res: any) => {
+      if (res) {
+          alert("Project Successfully Assigned");
+          console.log("Editor Updated List", res);
       }
       console.log("Successfully Assigned", res);
-    })
+  });
   }
 
   searchCustomer(){
@@ -143,5 +174,6 @@ export class AllProjectsComponent {
             return []; // Return an empty array if no specific role is selected
     }
   }
+  
   
 }

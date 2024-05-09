@@ -207,6 +207,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="customerForm.get('salesTeam')?.value === 'Shiva Development'">
+                        <div class="form-group">
+                            <span class="details"> Company Name: </span>
+                            <select class="form-select" formControlName="companyName" aria-label="Default select example">
+                                <option value="null">Select Company</option>
+                                <option *ngFor="let company of companies" value="{{company.companyName}}">{{company.companyName}}</option>
+                            </select>
+                        </div>
+                    </div> 
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>

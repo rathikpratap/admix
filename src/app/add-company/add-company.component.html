@@ -24,7 +24,6 @@
                         <tr>
                             <th>Sr. No.</th>
                             <th>Company Name</th>
-                            <th>Edit Name</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -32,7 +31,6 @@
                         <tr *ngFor="let list of companies; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.companyName}}</td>
-                            <td><button class="btn btn-sm btn-primary" > Update</button></td>
                             <td><button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button></td>
                         </tr>
                     </tbody>

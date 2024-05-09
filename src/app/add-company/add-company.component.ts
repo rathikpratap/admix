@@ -50,12 +50,9 @@ export class AddCompanyComponent {
   delete(id:any, i:any){
     console.log(id);
     if(window.confirm("Are you Sure want to Delete?")){
-      this.auth.deleteCust(id).subscribe((res : any)=>{
+      this.auth.deleteCompany(id).subscribe((res : any)=>{
         this.companies.splice(i,1);
       })
     }
   }
-  // update(){
-
-  // }
 }

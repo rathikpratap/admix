@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -9,9 +9,11 @@ import { AuthService } from '../service/auth.service';
 export class EditorDashboardComponent {
   data: any;
   tok:any;
+  otherData: any;
+  isExpanded: boolean = false;
 
-  constructor(private auth: AuthService){
-    this.auth.getProfile().subscribe((res:any)=>{
+  constructor(private auth: AuthService,private renderer: Renderer2){
+    this.auth.getProfile().subscribe((res:any)=>{ 
       this.tok = res?.data;
       if(!this.tok){
         alert("Session Expired, PLease Login Again");
@@ -21,6 +23,13 @@ export class EditorDashboardComponent {
     this.auth.editorProjects().subscribe((res:any)=>{
       this.data = res;
       console.log("Data===>", res);
+    });
+    this.auth.editorOtherProjects().subscribe((res:any)=>{
+      this.otherData = res;
     })
+  }
+  ToggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 }

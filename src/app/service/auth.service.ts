@@ -45,6 +45,12 @@ export class AuthService {
 
   getCustData(){
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
+  }
+  allProjectsSales(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allList`);
+  } 
+  allProjectsAdmin(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allListAdmin`);
   } 
 
   getLeads(){
@@ -100,6 +106,15 @@ export class AuthService {
   allProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
   }
+  allPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjectsAdmin`);
+  }
+  allTwoPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjectsAdmin`);
+  }
+  monthRestAmount(){
+    return this.http.get(`${appConfig.apiUrl}/auth/totalRecvAmount`);
+  }
 
   dataLength(){
     return this.http.get(`${appConfig.apiUrl}/auth/dataLength`);
@@ -144,6 +159,10 @@ export class AuthService {
 
   updateEmployee(id:any, data:any):Observable<any>{
     return this.http.put(`${appConfig.apiUrl}/auth/updateEmp/${id}`, data, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
+  }
+
+  updatePayment(companyName:any, signupName:any, data:any):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/updatePay/${companyName}/${signupName}`,data);
   }
 
   getEmployee(id:any):Observable<any>{
@@ -286,6 +305,15 @@ export class AuthService {
   getCompany():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getCompany`);
   }
+  getCompanyPay(id:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getCompanyPay/${id}`, {headers:this.httpHeaders}).pipe(map((res:any)=>{
+      return res || {}
+    }), catchError(this.handleError))
+  }
+
+  deleteCompany(id:any):Observable<any>{
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-comp/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  }
 
   getSalesLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
@@ -363,8 +391,16 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
   }
 
+  editorOtherProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorProjectsOther`);
+  }
+
   voProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/voProjects`);
+  }
+
+  quotes():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/quotes`);
   }
 
   handleError(error: HttpErrorResponse) {

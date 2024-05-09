@@ -7,6 +7,7 @@
 }
 .card1{
     background-image: url("/assets/Images/Green.png");
+    /* background-color: #7da0fa; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,6 +19,7 @@
 }
 .card2{
     background-image: url("/assets/Images/Purple.png");
+    /* background-color: #4747a1; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -29,6 +31,7 @@
 }
 .card3{
     background-image: url("/assets/Images/Blue.png");
+    /* background-color: #7978e9; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -40,6 +43,7 @@
 }
 .card4{
     background-image: url("/assets/Images/Red.png");
+    /* background-color: #E9ECF2; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -51,6 +55,7 @@
 }
 .card5{
     background-image: url("/assets/Images/Purple2.png");
+    /* background-color: #7da0fa; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

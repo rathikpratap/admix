@@ -11,8 +11,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
+</div> 
+<!-- <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="searchCustomer">
             <div class="nameCard2">
@@ -42,7 +42,7 @@
                             <td>{{user.signupName}}</td>
                             <td>Rs. {{user.payment60Sec}}</td>
                             <td>Rs. {{user.payment90Sec}}</td>
-                            <td>Rs. {{user.payment120Sec}}</td>
+                            <td>Rs. {{user.payment120Sec}}</td> 
                             <td>Rs. {{user.payment150Sec}}</td>
                             <td>Rs. {{user.payment180Sec}}</td>
                             <td>Rs. {{user.paymentTwoVideo}}</td>
@@ -136,6 +136,102 @@
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" routerLink="/update-payment/{{user._id}}"> Update</button>   
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="searchCustomer">
+            <div class="nameCard2">
+                <div class="title-heading">
+                    <h5> Script Writer</h5>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">150 Words Charge</th>
+                            <th scope="col">200 Words Charge</th>
+                            <th scope="col">300 Words Charge</th>
+                            <th scope="col">500 Words Charge</th>
+                            <th scope="col">Update Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of filterEmployeesByRole('Script Writer'); let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{user.companyName}}</td>
+                            <td>{{user.signupName}}</td>
+                            <td>{{user.signupRole}}</td>
+                            <td>{{user.payment150words}}</td>
+                            <td>{{user.payment200words}}</td>
+                            <td>{{user.payment300words}}</td>
+                            <td>{{user.payment500words}}</td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" routerLink="/update-payment/{{user._id}}"> Update</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="searchCustomer">
+            <div class="nameCard2">
+                <div class="title-heading">
+                    <h5> Editor and Voice Over Artist</h5>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">1 Min Charge</th>
+                            <th scope="col">1 Min 30 Seconds Charge</th>
+                            <th scope="col">2 Min Charge</th>
+                            <th scope="col">2 Min 30 Seconds Charge</th>
+                            <th scope="col">3 Min Charge</th>
+                            <th scope="col">Two Video Charges</th>
+                            <th scope="col">Three Video Charges</th>
+                            <th scope="col">Update Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of filterEmployeesByRole('EditorAndVo'); let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{user.companyName}}</td>
+                            <td>{{user.signupName}}</td>
+                            <td>{{user.signupRole}}</td>
+                            <td>{{user.payment60Sec}}</td>
+                            <td>{{user.payment90Sec}}</td>
+                            <td>{{user.payment120Sec}}</td>
+                            <td>{{user.payment150Sec}}</td>
+                            <td>{{user.payment180Sec}}</td>
+                            <td>{{user.paymentTwoVideo}}</td>
+                            <td>{{user.paymentThreeVideo}}</td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" routerLink="/update-payment/{{user._id}}"> Update</button>
                                 </div>
                             </td>
                         </tr>
