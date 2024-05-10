@@ -1,3 +1,6 @@
+* {
+    font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .card-details{
     display: flex;
     overflow: hidden;
@@ -8,12 +11,16 @@
     margin-right: 15px;
 }
 .card-details button{
-    margin-right: 100px;
+    margin-right: 100px; 
 }
 .card{
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 25px;
-    margin-top: 30px;
-    box-shadow: 10px 10px 10px;
+    margin-top: 15px;
+    color: #fff;
 }
 .card .image img{
     width: 100%;
@@ -33,10 +40,12 @@
     overflow: hidden;
 }
 .Employees{
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border-radius: 15px;
-    padding: 10px;
-    box-shadow: 10px 10px 10px;
-    font-family: 'poppins';
+    padding: 5px;
     width: fit-content;
-    background-color: white;
+    color: #fff;
 } 

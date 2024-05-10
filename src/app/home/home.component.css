@@ -33,7 +33,10 @@ app-side-nav {
     left: 60px;
     width: calc(100% - 60px);
     /* background: #6A7AA8; */
-    background: linear-gradient(135deg, #71b1e6, #9b59b6);
+    background-image: url("/assets/Images/star.jpg");
+    background-size:cover;
+    background-position: center;
+    
     transition: left 250ms ease-in, width 250ms ease-in;
     
 }

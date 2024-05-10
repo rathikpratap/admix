@@ -1,25 +1,25 @@
 <div class="row">
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt"> 
                         <div class="card-bg">
-                            <h5> Today's Sale </h5>
+                            <h6> Today's Sale </h6>
                         </div>
                         <h2> {{todayEntries}} </h2>    
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>  
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h5> Monthly Sale </h5>
+                            <h6> Monthly Sale </h6>
                         </div>
                         <h2> {{totalEntries}} </h2>
                     </div>
@@ -27,13 +27,13 @@
             </div>
         </div>
     </div> 
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card2">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt"> 
                         <div class="card-bg">
-                            <h5> Month Active Projects </h5>
+                            <h6> Month Active Projects </h6>
                         </div>
                         <h2> {{dataLength}} </h2>    
                     </div>
@@ -41,13 +41,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h5> Total Active Projects </h5>
+                            <h6> Total Active Projects </h6>
                         </div>
                         <h2>{{allProjects}} </h2>
                     </div>
@@ -55,74 +55,39 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card3">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
-                        <div class="card-bg">
-                            <h5> Monthly Closing Amount</h5>
+                        <div class="card-bg2">
+                            <h6> Monthly Closing &#8377;</h6>
                         </div>
-                        <h1 *ngIf="rangeData; else elseBlock">
+                        <h2 *ngIf="rangeData; else elseBlock">
                             {{ rangeData.rangeTotalAmount }}
-                          </h1>
+                          </h2>
                           <ng-template #elseBlock>
-                            <h1>{{totalAmount}}</h1>
+                            <h2>{{totalAmount}}</h2>
                           </ng-template>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card3">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
-                        <div class="card-bg">
-                            <h5> Monthly Received Amount</h5>
+                        <div class="card-bg2">
+                            <h6> Monthly Received &#8377;</h6>
                         </div>
-                        <h1 *ngIf="rangeData; else elseBlock2">
+                        <h2 *ngIf="rangeData; else elseBlock2">
                             {{ rangeData.rangeTotalRecv }}
-                          </h1>
+                          </h2>
                           <ng-template #elseBlock2>
-                            <h1>{{totalRecv}}</h1>
+                            <h2>{{totalRecv}}</h2>
                           </ng-template>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-        <div class="card4">
-            <div class="card-body">
-                <div class="form-container2">
-                    <div class="card-txt">
-                        <div class="card-bg">
-                            <h5> Monthly Due Amount</h5>
-                        </div>
-                        <h1 *ngIf="rangeData; else elseBlock3">
-                            {{ rangeData.rangeTotalDue }}
-                          </h1>
-                          <ng-template #elseBlock3>
-                            <h1>{{totalDue}}</h1>
-                          </ng-template>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-        <div class="card4">
-            <div class="card-body">
-                <div class="form-container2">
-                    <div class="card-txt">
-                        <div class="card-bg">
-                            <h5> Monthly Rest Amount Received </h5>
-                        </div>
-                        <h1>{{monthRestAmount}} </h1>
                     </div>
                 </div>
             </div>
@@ -130,13 +95,46 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6> Monthly Due &#8377;</h6>
+                        </div>
+                        <h2 *ngIf="rangeData; else elseBlock3">
+                            {{ rangeData.rangeTotalDue }}
+                          </h2>
+                          <ng-template #elseBlock3>
+                            <h2>{{totalDue}}</h2>
+                          </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Monthly Received Rest &#8377; </h6>
+                        </div>
+                        <h2>{{monthRestAmount}} </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="card5">
             <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
                 <div class="form-container">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h4>Search Data</h4>
+                            <h6>Search Data</h6>
                         </div>
                     </div> 
                     <div class="details">
@@ -147,18 +145,20 @@
                         <label for="endDate"> End Date</label>
                         <input type="date" formControlName="endDate" id="endDate">
                     </div>
-                    <button type="submit" class="btn btn-primary"> Submit</button>
                 </div>
-                <div class="rangeButton" *ngIf="rangeData">
-                    <div class="downloadButton" >
-                        <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
-                    </div>
-                    <div class="downloadButton" >
-                        <button class="btn btn-success" (click)="resetData()"> Reset Data </button>
-                    </div>
-                    <div class="downloadButton" >
-                        <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File </button>
-                    </div>
+                <div class="rangeButton">
+                    <button type="submit" class="btn btn-primary"> Submit</button>
+                    <div class="rangeButton1" *ngIf="rangeData">
+                        <div class="downloadButton">
+                            <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
+                        </div>
+                        <div class="downloadButton" >
+                            <button class="btn btn-success" (click)="resetData()"> Reset Data </button>
+                        </div>
+                        <div class="downloadButton" >
+                            <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File </button>
+                        </div>
+                    </div> 
                 </div>
             </form>
         </div>
@@ -169,8 +169,8 @@
         <div class="card ongoing">
             <div class="card-heading">
                 <h4>Ongoing Projects</h4>
-                <hr>
             </div>
+            <hr>
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>
@@ -211,8 +211,8 @@
         <div class="card">
             <div class="card-heading">
                 <h4>Completed Projects</h4>
-                <hr>
             </div>
+            <hr>
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>

@@ -117,7 +117,7 @@ form img{
 }
 /* @media(max-height: 600px)
 {
-	form{
+	form{ 
 		height: auto;
 	}
 	.shape:last-child{
@@ -162,10 +162,10 @@ form img{
 		left: 60%;
 	}
 }
-@media(min-width: 414px) and (max-width: 444px){
+@media (min-width: 414px) and (max-width: 444px){
 	.container-fluid{
 		min-height: 112vh;
-		min-width: 55vh;
+		min-width: 57vh;
 	}
 	form{
 		left: 55%;
@@ -177,7 +177,7 @@ form img{
 		right: -40px;
 	}
 }
-@media(min-width: 444px) and (max-width: 560px){
+@media (min-width: 444px) and (max-width: 560px){
 	.container-fluid{
 		min-height: 107vh;
 		min-width: 55vh;
