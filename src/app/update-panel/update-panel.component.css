@@ -1,14 +1,18 @@
-
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .new-customer{
     margin-top: 20px;
 }
 form{
-    background-color: white;
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 20px 20px 50px 20px;
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px ;
 }
 .form-group{
     border: 0;
@@ -16,13 +20,13 @@ form{
 }
 .new-heading{
     text-align: center;
-    color: black;
-    font-style: italic;
-    font-family:'poppins';
-    background-color: white;
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border-radius: 15px;
     padding: 1px;
-    box-shadow: 10px 10px 10px;
 }
 .new-customer form .user-details{
     display: flex;
@@ -37,30 +41,38 @@ form .user-details .input-box{
 .user-details .input-box .details{
     display: block;
     font-weight: 500;
+    color: #fff
 }
 .user-details .input-box input{
-    height: 45px;
+    height: 35px;
     width: 100%;
+    background: rgba(255,255, 255, 0);
+    color: #fff;
     padding: 10px;
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    border-bottom-width: 3px;
+    border: none;
+    font-size: 14px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
+}
+::placeholder{
+    color: #867b7b;
 }
 .user-details .input-box input:focus{
     border-color: blueviolet;
 }
 .user-details .input-box textarea{
-    height: 45px;
+    height: 35px;
+    background: rgba(255,255, 255, 0);
+    color: #fff;
     width: 100%;
     padding: 10px;
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    border-bottom-width: 3px;
+    border: none;
+    font-size: 14px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
 }
 .user-details .input-box textarea:focus{
@@ -80,24 +92,30 @@ form .user-details .input-box{
     display: none;
 }
 .user-details .input-box select{
-    height: 45px;
+    height: 40px;
     width: 100%;
     padding: 10px;
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    border-bottom-width: 3px;
+    border: none;
+    font-size: 14px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
+    background: rgba(255,255, 255, 0);
+    color: #fff;
 }
 .user-details .input-box select:focus{
     border-color: blueviolet;
+}
+.user-details .input-box select option{
+    color: black;
 }
 .youtubeVideo{
     margin-top: 20px;
 }
 .minSec{
     display: flex;
+    color: #fff;
 }
 .input-box .form-group .minSec input{
     width: 30%;
@@ -112,4 +130,16 @@ form .user-details .input-box{
 .total{
     font-weight: 700;
     background-color: bisque;
+}
+@media only screen and (max-width: 550px){
+    .new-customer form .user-details{
+        display: block;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 5px 0 5px 0;
+    }
+    form .user-details .input-box{
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }

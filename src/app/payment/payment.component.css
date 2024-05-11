@@ -27,9 +27,14 @@
 .table-scroll{
     margin-top: 20px;
     overflow: scroll;
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 25px;
+    padding-bottom: 5px;
 }
 .table{
-    box-shadow: 10px 10px 10px;
     text-align: center;
 }
 th{
@@ -43,6 +48,24 @@ td{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border: none;
     color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 @media only screen and (max-width: 500px){
     .title-heading{

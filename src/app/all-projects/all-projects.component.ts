@@ -87,6 +87,8 @@ export class AllProjectsComponent {
       user.voicePassDate = currentDate;
     }else if(user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done'){
       user.editorPassDate = currentDate;
+    }else if(user.projectStatus === 'Graphic Designing'){
+      user.graphicPassDate = currentDate;
     }
     this.auth.updateEditors([user]).subscribe((res: any) => {
       if (res) {
@@ -99,7 +101,8 @@ export class AllProjectsComponent {
 
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
+    console.log("NUMBER===>", mobile);
+    this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any)=>{
       console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
@@ -170,6 +173,8 @@ export class AllProjectsComponent {
             return this.emp.filter((employee:any) => employee.signupRole === 'Editor');
         case 'Voice Over':
             return this.emp.filter((employee:any) => employee.signupRole === 'VO Artist');
+          case 'Graphic Designing':
+            return this.emp.filter((employee:any) => employee.signupRole === 'Graphic Designer')
         default:
             return []; // Return an empty array if no specific role is selected
     }

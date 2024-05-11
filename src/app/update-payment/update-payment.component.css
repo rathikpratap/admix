@@ -1,14 +1,21 @@
-
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .new-registration{
-    margin-top: 30px;
+    margin-top: 15px;
 }
 form{
-    background-color: white;
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 20px 20px 50px 20px;
-    margin-top: 50px;
+    margin-top: 25px;
     margin-bottom: 79px;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px ;
 }
 .form-group{
     border: 0;
@@ -16,13 +23,15 @@ form{
 }
 .new-heading{
     text-align: center;
-    color: black;
-    font-style: italic;
-    font-family:'poppins';
-    background-color: white;
+    color: #fff;
+    /* font-style: italic; */
+    /* font-family:'poppins'; */
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border-radius: 15px;
     padding: 1px;
-    box-shadow: 10px 10px 10px;
 } 
 .new-registration form .user-details{
     display: flex;
@@ -44,16 +53,19 @@ form .user-details .input-box{
 .user-details .input-box .details{
     display: block;
     font-weight: 500;
+    color: #fff;
 }
 .user-details .input-box input{
     
     width: 100%;
-    padding: 10px;
+    background: rgba(255,255, 255, 0);
+    color: #fff;
+    padding: 10px; 
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
     font-size: 16px;
-    border-bottom-width: 3px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
 }
 .user-details .input-box input:focus{
@@ -71,13 +83,14 @@ form .user-details .input-box{
 }
 .user-details .input-box textarea{
     
+    background: rgba(255,255, 255, 0);
+    color: #fff;
     width: 100%;
-    padding: 10px;
     outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
     font-size: 16px;
-    border-bottom-width: 3px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
 }
 .user-details .input-box textarea:focus{
@@ -87,13 +100,33 @@ form .user-details .input-box{
     height: 45px;
     width: 100%;
     padding: 10px;
-    outline: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
     font-size: 16px;
-    border-bottom-width: 3px;
+    border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
+    background: rgba(255,255, 255, 0);
+    color: #fff;
+}
+.user-details .input-box select option{
+    color: black;
 }
 .user-details .input-box select:focus{
     border-color: blueviolet;
+}
+@media only screen and (max-width:550px){
+    .new-registration form .user-details{
+        display: block;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 5px 0 5px 0;
+    }
+    .form-check-inline{
+        display: block;
+        margin-right: 25px;
+    }
+    form .user-details .input-box{
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }

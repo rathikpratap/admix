@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
-                <h2> Update Employee Payment </h2>
+                <h4> Update Employee Payment </h4>
             </div>
             <form [formGroup]="empUpdateForm" (ngSubmit)="empUpdateForm.status !== 'INVALID' && onUpdate()">
                 <div class="user-details">
@@ -18,7 +18,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box"> 
                         <div class="form-group">
                             <span class="details"> Full Name: </span>
                             <select class="form-select" formControlName="signupName" (change)="onChange($event)">

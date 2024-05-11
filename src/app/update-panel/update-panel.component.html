@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
-                <h2> Customer Details Update Form </h2>
+                <h3> Customer Details Update Form </h3>
             </div>
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !== 'INVALID' && onUpdate()">
                 <div class="user-details">
@@ -91,7 +91,7 @@
                         <label class="text-danger" *ngIf="getControls('AdvPay')?.errors?.['required']"> Received Payment is Required </label>
                     </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment: </span>

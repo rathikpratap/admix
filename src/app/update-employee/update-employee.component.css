@@ -24,8 +24,6 @@ form{
 .new-heading{ 
     text-align: center;
     color: #fff;
-    /* font-style: italic; */
-    /* font-family:'poppins'; */
     background-color: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);
 	border: 2px solid rgba(255,255,255,0.1);
@@ -77,6 +75,9 @@ form .user-details .input-box{
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 1px;
+}
+::placeholder{
+    color: #ccc;
 }
 .error{
     border: 1px solid red;

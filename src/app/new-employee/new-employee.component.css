@@ -26,8 +26,6 @@ form{
 .new-heading{
     text-align: center;
     color: #fff;
-    /* font-style: italic; */
-    /* font-family:'poppins'; */
     background-color: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);
 	border: 2px solid rgba(255,255,255,0.1);
@@ -62,7 +60,7 @@ form .user-details .input-box{
     width: 100%;
     background: rgba(255,255, 255, 0);
     color: #fff;
-    padding: 10px;
+    padding: 10px; 
     outline: none;
     border-radius: 5px;
     border: none;
