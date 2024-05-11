@@ -36,7 +36,7 @@ app-side-nav {
     background-image: url("/assets/Images/star.jpg");
     background-size:cover;
     background-position: center;
-    
+    background-repeat: no-repeat;
     transition: left 250ms ease-in, width 250ms ease-in;
     
 }
