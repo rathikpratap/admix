@@ -92,7 +92,7 @@
                     </div>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment: </span>
                             <input type="number" class="form-control" formControlName="restAmount"
@@ -100,7 +100,7 @@
                         placeholder="Rest Amount">
                         </div>
                     </div> 
-                    <div class="input-box" *ngIf="getControls('remainingAmount')?.value > 0">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment Date: </span>
                             <input [type]="updateForm.get('restPaymentDate')!.value ? 'text' : 'date'" class="form-control" formControlName="restPaymentDate"
