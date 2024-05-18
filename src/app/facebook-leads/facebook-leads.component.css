@@ -1,26 +1,27 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .nameCard{
-    font-style: italic;
-    font-family:'Segoe UI';
     font-weight: 700;
     margin-bottom: 25px;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 .title-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border-radius: 15px;
     padding: 10px;
-    box-shadow: 10px 10px 10px;
-    font-family: 'poppins';
     width: fit-content;
-    background-color: white;
 } 
-.table{
-    box-shadow: 10px 10px 10px;
-    margin-top: 40px;
-}
+
 .getButton{
-    padding: 10px 15px 15px 15px;
     border-radius: 15px;
-    display: inline-block;
-    margin-right: 5px;
+    margin-right: 15px;
+    padding: 8px;
 }
 .update-button{
     display: flex;
@@ -34,16 +35,87 @@
 
 .searchData{
     display: flex;
-    justify-content: flex-end;
 }
 .searchData .details{
-    margin-right: 15px;
-    
+    color: #fff;
 }
 .searchData .details input{
-    margin-left: 10px;
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
     padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
 }
 .searchData .details label{
     font-weight: 500;
+    margin-right: 25px;
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 25px;
+    overflow: scroll;
+}
+@media only screen and (max-width: 490px){
+    .searchData{
+        display: block;
+    }
+    .searchData .details{
+        margin-top: 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 490px) and (max-width: 990px) { /* Medium and Small screens */
+    
+    .getButton{
+        margin-top: 10px;
+    }
+    .searchData .details{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 990px) and (max-width: 1134px){
+    .move-to-new-row {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
 }

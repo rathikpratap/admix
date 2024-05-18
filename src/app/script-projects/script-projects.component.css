@@ -2,10 +2,10 @@
 	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .nameCard{
-    font-weight: 700;
-    margin-bottom: 25px;
+    flex-direction: row;
+    justify-content: flex-end;
 }
-.title-heading{
+.ProjectCard{
     color: #fff;
     background-color: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);
@@ -15,43 +15,6 @@
     padding: 10px;
     width: fit-content;
 } 
-.getButton{
-    border-radius: 15px;
-    margin-right: 15px;
-    padding: 8px;
-}
-.update-button{
-    display: flex;
-    justify-content: right;
-    margin-top: 15px;
-}
-.update-button button{
-    padding: 10px;
-    border-radius: 15px;
-}
-
-.searchData{
-    display: flex;
-    justify-content: flex-end;
-}
-.searchData .details{
-    margin-right: 15px;
-    color: #fff;
-}
-.searchData .details input{
-    background: rgba(255,255, 255, 0.2);
-    color: #fff;
-    margin-right: 25px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    border-bottom: 2px solid #D1D1D4;
-    transition: all 0.3s ease;
-}
-.searchData .details label{
-    font-weight: 500;
-    margin-right: 25px;
-}
 th{
     background-color: rgba(255,255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
@@ -88,22 +51,5 @@ td{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border: 2px solid rgba(255,255,255,0.1);
     border-radius: 25px;
-    margin-top: 25px;
     overflow: scroll;
-}
-@media only screen and (max-width: 550px){
-    .searchData{
-        display: block;
-    }
-    .searchData .details{
-        margin-top: 10px;
-    }
-    .getButton{
-        margin-top: 10px;
-    }
-}
-@media only screen and (min-width: 550px) and (max-width:740px){
-    .searchData{
-        display: flex;
-    }
-}
+} 

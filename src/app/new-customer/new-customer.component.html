@@ -8,7 +8,7 @@
                 <h2> Customer Closing Form </h2>
             </div>
             <form [formGroup]="customerForm" (ngSubmit)="customerForm.status !== 'INVALID' && addCust()">
-                <div [ngClass]="className" role="alert">
+                <div [ngClass]="className" role="alert"> 
                     {{message}}
                 </div>
                 <div class="user-details">

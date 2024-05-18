@@ -40,6 +40,7 @@ a{
 }
 .active {
     background-color: #dae7ff; /* Change this to your desired highlight color */
+    border-radius: 25px;
 }
 .active a{
     color: black;

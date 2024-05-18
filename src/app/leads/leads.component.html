@@ -1,11 +1,11 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-3 col-md-12 col-sm-12 col-12">
         <div class="leads">
             <div class="nameCard">
                 <div class="title-heading">
                     <h5> Transfer Leads Here</h5>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
     <div class="col-lg-8 col-md-12 col-sm-12 col-12">
@@ -48,17 +48,10 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <!-- <div class="update-button">
-            <button class="btn btn-sm btn-primary" (click)="updateSalesperson()">Update Salesperson</button>
-        </div> -->
         <div class="update-button">
             <button class="btn btn-sm btn-primary" routerLink="/sales-work">See Sales Work</button>
         </div>
-         
         <div class="rangeData">
-            <!--<div class="downloadButton" *ngIf="rangeData">
-                <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
-            </div>-->
             <div class="table-scroll" *ngIf="rangeData">
                 <table class="table table-striped">
                     <thead>
@@ -130,4 +123,114 @@
         </table>
     </div>
 </div>
-
+ -->
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Transfer Leads Here</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-9 col-sm-12 col-12">
+        <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()" class="search-Form">
+            <div class="searchData">
+                <div class="details">
+                    <label for="startDate"> Start Date</label>
+                    <input type="date" formControlName="startDate" id="startDate">
+                </div>
+                <div class="details">
+                    <label for="endDate"> End Date</label>
+                    <input type="date" formControlName="endDate" id="endDate">
+                </div>
+                <div class="details">
+                    <button type="submit" class="btn btn-sm btn-primary getButton"> Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12 move-to-new-row">
+        <button class="btn btn-sm btn-success getButton" (click)="getLeads()"> Referesh </button>
+        <button class="btn btn-sm btn-primary getButton" routerLink="/sales-work">See Sales Work</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="rangeData">
+            <div class="table-scroll" *ngIf="rangeData">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Ad Name </th>
+                            <th scope="col"> Created Time </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Mobile Number </th>
+                            <th scope="col"> Email </th>
+                            <th scope="col"> State Name </th>
+                            <th scope="col"> Company Name </th>
+                            <th scope="col"> Select Sales Team </th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr *ngFor="let list of rangeData; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.ad_Name}}</td>
+                            <td>{{list.created_time}}</td>
+                            <td>{{list.name}}</td> 
+                            <td>{{list.phone}}</td> 
+                            <td>{{list.email}}</td>
+                            <td>{{list.state}}</td> 
+                            <td>{{list.company_name}}</td>
+                            <td>
+                                <select [(ngModel)]="list.salesTeam">
+                                    <option *ngFor="let employee of emp" [value]="employee.salesTeamName">
+                                        {{employee.salesTeamName}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr. No.</th>
+                        <th scope="col"> Campaign Name </th>
+                        <th scope="col"> Ad Name </th>
+                        <th scope="col"> Created Time </th>
+                        <th scope="col"> Customer Name </th>
+                        <th scope="col"> Mobile Number </th>
+                        <th scope="col"> Email </th>
+                        <th scope="col"> State Name </th>
+                        <th scope="col"> Company Name </th>
+                        <th scope="col">Sales Team</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of data; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.campaign_Name}}</td>
+                        <td>{{list.ad_Name}}</td>
+                        <td>{{list.created_time}}</td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.phone}}</td>
+                        <td>{{list.email}}</td>
+                        <td>{{list.state}}</td>
+                        <td>{{list.company_name}}</td>
+                        <td>{{list.salesTeam}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

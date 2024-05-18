@@ -8,7 +8,7 @@ tr.highlighted {
     border: 2px solid rgba(255,255,255,0.1); 
   }
 .nameCard{
-    
+     
     /* display: flex; */
     flex-direction: row;
     justify-content: flex-end;
@@ -159,6 +159,7 @@ td{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border: 2px solid rgba(255,255,255,0.1);
     border-radius: 25px;
+    overflow: scroll;
 }
 @media only screen and (max-width: 534px){
     .move-to-new-row {

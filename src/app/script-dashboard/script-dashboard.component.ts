@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 
-@Component({
+@Component({ 
   selector: 'app-script-dashboard',
   templateUrl: './script-dashboard.component.html',
   styleUrls: ['./script-dashboard.component.css']

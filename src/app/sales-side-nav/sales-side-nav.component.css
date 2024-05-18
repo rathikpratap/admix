@@ -6,7 +6,7 @@
     margin-top: 10px;
 }
 
-.nav-list{
+.nav-list{ 
     height: 100%;
     padding: 0%;
     margin-bottom: 0%;
@@ -39,7 +39,9 @@ a{
     color: white;
 }
 .active {
-    background-color: #007bff; /* Change this to your desired highlight color */
-    color: #fff; /* Change this to your desired text color */
-    /* Add any other styles you want for the active state */
+    background-color: #dae7ff; /* Change this to your desired highlight color */
+    border-radius: 25px;
+}
+.active a{
+    color: black;
 }

@@ -1,13 +1,14 @@
 import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-projects',
   templateUrl: './all-projects.component.html',
   styleUrls: ['./all-projects.component.css']
 })
-export class AllProjectsComponent {
+export class AllProjectsComponent { 
 
   @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
@@ -36,7 +37,7 @@ export class AllProjectsComponent {
   });
   rangeData: any;
  
-  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private router: Router){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -97,6 +98,10 @@ export class AllProjectsComponent {
       }
       console.log("Successfully Assigned", res);
   });
+  }
+  openUpdatePanel(userId: string) {
+    const url = `/update-panel/${userId}`;
+    window.open(url, '_blank');
   }
 
   searchCustomer(){

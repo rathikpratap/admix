@@ -45,6 +45,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
 import { AddCompanyComponent } from './add-company/add-company.component';
+import { ScriptProjectsComponent } from './script-projects/script-projects.component';
 
 const routes: Routes = [
   {
@@ -217,6 +218,10 @@ const routes: Routes = [
       {
         path: 'script-update/:id',
         component: ScriptUpdateComponent
+      },
+      {
+        path: 'script-projects',
+        component: ScriptProjectsComponent
       }
     ]
   },

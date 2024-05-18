@@ -54,6 +54,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
 import { AddCompanyComponent } from './add-company/add-company.component';
+import { ScriptProjectsComponent } from './script-projects/script-projects.component';
 
 
 
@@ -105,7 +106,8 @@ import { AddCompanyComponent } from './add-company/add-company.component';
     PrivacyPolicyComponent,
     TermsConditionComponent,
     FbAccessTokenComponent,
-    AddCompanyComponent
+    AddCompanyComponent,
+    ScriptProjectsComponent
   ],
   imports: [
     BrowserModule,

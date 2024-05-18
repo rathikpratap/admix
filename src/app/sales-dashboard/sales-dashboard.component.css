@@ -1,102 +1,144 @@
+* {
+    font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .card{
-    background-color: white;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
     padding: 15px;
     border-radius: 25px;
-    border: 2px solid grey;
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+}
+.card .card-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 25px;
+}
+.table-scroll{
+    overflow: scroll;
+    height: 250px;  
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.card1, .card2, .card3, .card4, .card5 {
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    padding: 5px;
+    border-radius: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.card1{
-    background-image: url("/assets/Images/Green.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid grey;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.card2{
-    background-image: url("/assets/Images/Purple.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid grey;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.card3{
-    background-image: url("/assets/Images/Blue.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid grey;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.card4{
-    background-image: url("/assets/Images/Red.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid grey;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.card5{
-    background-image: url("/assets/Images/Purple2.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
-    border-radius: 25px;
-    border: 2px solid grey;
-    margin-top: 20px;
-    margin-bottom: 20px;
+hr{
+    color: #fff;
 }
 .form-container2{
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
 .card-bg{
-    background-color: #fff;
-    padding: 2px 50px 0px 50px;
-    border-radius: 10px;
-    border: 2px solid black;
-    color: black;
-}
-.card-bg2{
-    background-color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
     padding: 2px 10px 0px 10px;
     border-radius: 10px;
-    border: 2px solid black;
-    color: black;
-    width: fit-content;
+    font-size: 12px;
+    color: #fff;
 }
+.card-bg2{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    padding: 2px 5px 0px 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #fff;
+}
+.card-txt{
+    text-align: center;
+    color: #fff;
+}
+.card-heading h4{
+    font-family: 'poppins';
+}
+.card:hover, .card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover{
+    box-shadow: 10px 10px 10px; 
+}
+.completed:hover{
+    background-color: rgba(171, 52, 52, 0.4);
+    color: white;
+}
+
+
 .form-container{
-    display: flex;
+    display: flex; 
+    margin-top: 3px;
+}
+.form-container .card-bg{
+    margin-left: 15px;
 }
 .form-container .details{
-    margin-left: 30px;
+    margin-left: 10px;
     color: #fff;
 }
 .form-container .details label{
     font-weight: 600;
     margin-bottom: 10px;
-    margin-right: 30px;
+    margin-right: 10px;
+}
+.rangeButton{
+    display: flex;
+    margin-left: 15px;
+}
+.rangeButton1{
+    display: flex;
+}
+.downloadButton {
+    padding: 0px 15px 0px 15px;
 }
 .form-container .details input{
     margin-bottom: 10px;
-    height: 35px;
-    padding: 10px;
+    height: 30px;
+    padding: 5px;
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -104,81 +146,44 @@
     border-bottom-width: 3px;
     transition: all 0.3s ease;
 }
-.form-container button{
-    margin-left: 25px;
-    padding: 0px 10px 0px 10px;
+.form-container .details input:focus{
+    border-color: blueviolet;
 }
-.rangeButton{
+.card-txt2{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.downloadButton{
-    margin-left: 20px;
-    margin-top: 20px;
-} 
-
-.card-heading{
-    font-family: 'poppins';
-    font-style: italic;
+.card-txt2 h5{
+    margin-left: 45px;
 }
-.card-txt{
-    text-align: center;
-    color: #fff;
-} 
-.card-txt1 h5{
-    margin-top: 15px;
-}
-.card-txt1 h4{
-    margin-top: 10px;
-}
-.card:hover{
-    box-shadow: 10px 10px 10px;
-}
-.card1:hover{
-    box-shadow: 10px 10px 10px; 
-}
-.card2:hover{
-    box-shadow: 10px 10px 10px; 
-}
-.card3:hover{
-    box-shadow: 10px 10px 10px; 
-}
-.card4:hover{
-    box-shadow: 10px 10px 10px; 
-}
-.card5:hover{
-    box-shadow: 10px 10px 10px; 
-}
-.completed:hover{
-    background-color: rgb(171, 52, 52);
-    color: white;
-}
-.card-img img{
-    float: right;
-    margin-right: 50px;
-    width: 80%;
-}
-.progress{
-    width: 90%;
-    margin-bottom: 40px;
-}
-.accordion{
-    width: 95%;
-}
-.accordion-button{
-    font-size: 22px;
-    font-weight: 700;
-    color: blueviolet;
-}
-.accordion-body p{
-    font-size: 40px;
-}
-
-.table-scroll{
-    overflow: scroll;
-    height: 250px;
-}
-
-
-.card-form input{
-    padding: 5px;
+@media (max-width: 500px){
+    .form-container{
+        display: block;
+        margin-top: 3px;
+    }
+    .form-container .details{
+        color: #fff;
+        margin-top: 15px;
+    }
+    .form-container .card-bg{
+        margin-left: 15px;
+    }
+    .form-container .details label{
+        font-weight: 600;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+    .rangeButton{
+        display: block;
+        margin-left: 15px;
+    }
+    .rangeButton1{
+        display: block;
+        margin-top: 10px;
+    }
+    .downloadButton {
+        margin-top: 10px;
+        padding: 0px 15px 0px 15px;
+    }
 }

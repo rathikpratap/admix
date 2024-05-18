@@ -132,6 +132,10 @@ export class AuthService {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/customerProject/${projectStatus}`);
   }
 
+  searchCustomerbyProjectName(projectName:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/customerProjectName/${projectName}`);
+  }
+
   getProfile(){
     let headers = {
       'Authorization': "Bearer " + localStorage.getItem('token')

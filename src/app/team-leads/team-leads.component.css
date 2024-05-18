@@ -1,28 +1,19 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .nameCard{
-    font-style: italic;
-    font-family:'Segoe UI';
     font-weight: 700;
     margin-bottom: 25px;
 }
 .title-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
     border-radius: 15px;
     padding: 10px;
-    box-shadow: 10px 10px 10px;
-    font-family: 'poppins';
     width: fit-content;
-    background-color: white;
-}
-.table-responsive{
-    box-shadow: 10px 10px 10px;
-    margin-top: 40px;
-    border-radius: 20px;
-    width: 100%;
-}
-.mat-elevation-z8{
-    background-color: white;
-    box-shadow: 10px 10px 10px;
-    margin-top: 40px;
-    border-radius: 20px;
 }
 .searchData{
     display: flex;
@@ -33,27 +24,153 @@
     
 }
 .searchData .details input{
-    margin-left: 10px;
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
     padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
 }
 .searchData .details label{
     font-weight: 500;
+    color: #fff;
+    margin-right: 10px;
 }
-.searchData2 input{
-    margin-right: 20px;
-    margin-left: 30px;
+.searchData2 select{
+    background: rgba(255,255, 255, 0.2);
+    color: black;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 65%;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
 }
 .downloadButton{
     text-align: right;
     margin-bottom: 15px;
 }
-.searchData2 select{
-    width: 65%;
-    padding: 5px;
-}
-.searchData2 button{
-    margin-left: 20px;
-}
+
 .btn[aria-expanded="true"] {
     background-color: green;
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 25px;
+    overflow: scroll;
+}
+tr select{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+}
+tr select option{
+    color: black;
+}
+tr textarea{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+}
+.dateBlock{
+    margin-top: 15px;
+}
+@media only screen and (max-width: 500px){
+    .searchData2 select{
+        width: 59%;
+    }
+    .searchData{
+        display: block;
+    }
+    .searchData .details{
+        margin-right: 5px;
+        margin-top: 10px;
+    }
+    .searchData .details input{
+        margin-right: 10px;
+    }
+    .move-to-new-row {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+    .getButton{
+        margin-top: 15px;
+    }
+    .dateBlock{
+        display: block !important;
+        margin-top: 10px;
+    }
+    .dateBlock button{
+        margin: 0px 10px 10px 10px;
+    }
+}
+@media only screen and (min-width: 501px) and (max-width: 590px){
+    .searchData2{
+        margin-left: -50px;
+    }
+    .move-to-new-row2 {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+    .searchData .details input{
+        margin-right: 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+    .dateBlock{
+        display: block !important;
+        margin-top: 10px;
+    }
+    .dateBlock button{
+        margin: 0px 10px 10px 10px;
+    }
+}
+@media only screen and (min-width: 590px) and (max-width: 960px){
+    .getButton{
+        margin-left: -15px;
+    }
+    .searchData .details input {
+        margin-right: 5px;
+    }
+    .dateBlock{
+        margin-top: 15px;
+    }
 }

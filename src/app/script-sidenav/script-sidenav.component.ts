@@ -14,6 +14,12 @@ export class ScriptSidenavComponent {
       name: 'Writer Dashboard',
       icon: 'bi bi-house',
       route: '/script-home/script-dashboard'
+    },
+    {
+      number: '2',
+      name: 'All Projects',
+      icon: 'bi bi-card-list',
+      route: '/script-home/script-projects'
     }
   ]
 }
