@@ -106,7 +106,7 @@ export class VoUpdateComponent {
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
       console.log("Data Updated Successfully", res);
-      this.ngZone.run(()=> { this.router.navigateByUrl('/vo-home/vo-dashboard')})
+      this.ngZone.run(()=> { this.router.navigateByUrl('/vo-home/vo-projects')})
     }, (err)=>{
       console.log(err)
     })

@@ -97,9 +97,6 @@ hr{
     text-align: center;
     color: #fff;
 }
-.card-heading h4{
-    font-family: 'poppins';
-}
 .card:hover, .card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover{
     box-shadow: 10px 10px 10px; 
 }

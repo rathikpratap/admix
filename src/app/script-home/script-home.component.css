@@ -10,7 +10,7 @@ main{
     width: 100%;
     top: 4rem; 
     z-index: 1;
-} 
+}  
 app-script-sidenav {
     position: fixed;
     left: 0rem;

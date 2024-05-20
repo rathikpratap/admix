@@ -46,6 +46,8 @@ import { TermsConditionComponent } from './terms-condition/terms-condition.compo
 import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
 import { AddCompanyComponent } from './add-company/add-company.component';
 import { ScriptProjectsComponent } from './script-projects/script-projects.component';
+import { VoProjectsComponent } from './vo-projects/vo-projects.component';
+import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
 
 const routes: Routes = [
   {
@@ -195,6 +197,10 @@ const routes: Routes = [
       {
         path: 'editor-update/:id',
         component: EditorUpdateComponent
+      },
+      {
+        path: 'editor-projects',
+        component: EditorProjectsComponent
       }
     ]
   },
@@ -245,6 +251,10 @@ const routes: Routes = [
       {
         path: 'vo-update/:id',
         component: VoUpdateComponent
+      },
+      {
+        path: 'vo-projects',
+        component: VoProjectsComponent
       }
     ]
   }

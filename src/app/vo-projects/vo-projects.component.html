@@ -3,7 +3,7 @@
         <div class="nameCard">
             <div class="ProjectCard">
                 <h6> All Projects </h6>
-            </div>
+            </div> 
         </div>  
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-6">
@@ -42,8 +42,8 @@
                         <th scope="col">Client Code</th>
                         <th scope="col">Project Name</th>
                         <th scope="col">Assigned Date</th>
-                        <th scope="col">Words Count</th>
-                        <th scope="col">Script</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Voice Over Type</th>
                         <th scope="col">Delivery Date</th>
                         <th scope="col">Status</th>
                         <th scope="col"> Action </th>
@@ -54,13 +54,13 @@
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode}}</td> 
                         <td>{{customer.custBussiness}}</td>
-                        <td>{{customer.scriptPassDate}}</td>
-                        <td>{{customer.wordsCount}}</td>
-                        <td>{{customer.script}}</td>
-                        <td>{{customer.scriptDeliveryDate}}</td>
-                        <td>{{customer.scriptStatus}}</td>
+                        <td>{{customer.voicePassDate}}</td>
+                        <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
+                        <td>{{customer.voiceOverType}}</td>
+                        <td>{{customer.voiceDeliveryDate}}</td>
+                        <td>{{customer.voiceOverStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{customer._id}}"> Update</button>
+                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{customer._id}}"> Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -74,8 +74,8 @@
                         <th scope="col">Client Code</th>
                         <th scope="col">Project Name</th>
                         <th scope="col">Assigned Date</th>
-                        <th scope="col">Words Count</th>
-                        <th scope="col">Script</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Voice Over Type</th>
                         <th scope="col">Delivery Date</th>
                         <th scope="col">Status</th>
                         <th scope="col"> Action </th>
@@ -86,13 +86,13 @@
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode}}</td> 
                         <td>{{customer.custBussiness}}</td>
-                        <td>{{customer.scriptPassDate}}</td>
-                        <td>{{customer.wordsCount}}</td>
-                        <td>{{customer.script}}</td>
-                        <td>{{customer.scriptDeliveryDate}}</td>
-                        <td>{{customer.scriptStatus}}</td>
+                        <td>{{customer.voicePassDate}}</td>
+                        <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
+                        <td>{{customer.voiceOverType}}</td>
+                        <td>{{customer.voiceDeliveryDate}}</td>
+                        <td>{{customer.voiceOverStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{customer._id}}"> Update</button>
+                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{customer._id}}"> Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -125,8 +125,8 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Words Count</th>
-                            <th scope="col">Script</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
                             <th scope="col"> Action </th>
@@ -137,13 +137,13 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.scriptPassDate}}</td>
-                            <td>{{user.wordsCount}}</td>
-                            <td>{{user.script}}</td>
-                            <td>{{user.scriptDeliveryDate}}</td>
-                            <td>{{user.scriptStatus}}</td>
+                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
+                            <td>{{user.voiceOverType}}</td>
+                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -159,8 +159,8 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Words Count</th>
-                            <th scope="col">Script</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
                             <th scope="col"> Action </th>
@@ -171,13 +171,13 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.scriptPassDate}}</td>
-                            <td>{{user.wordsCount}}</td>
-                            <td>{{user.script}}</td>
-                            <td>{{user.scriptDeliveryDate}}</td>
-                            <td>{{user.scriptStatus}}</td>
+                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
+                            <td>{{user.voiceOverType}}</td>
+                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -193,8 +193,8 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Words Count</th>
-                            <th scope="col">Script</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
                             <th scope="col"> Action </th>
@@ -205,13 +205,13 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.scriptPassDate}}</td>
-                            <td>{{user.wordsCount}}</td>
-                            <td>{{user.script}}</td>
-                            <td>{{user.scriptDeliveryDate}}</td>
-                            <td>{{user.scriptStatus}}</td>
+                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
+                            <td>{{user.voiceOverType}}</td>
+                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -227,8 +227,8 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Words Count</th>
-                            <th scope="col">Script</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
                             <th scope="col"> Action </th>
@@ -239,13 +239,13 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.scriptPassDate}}</td>
-                            <td>{{user.wordsCount}}</td>
-                            <td>{{user.script}}</td>
-                            <td>{{user.scriptDeliveryDate}}</td>
-                            <td>{{user.scriptStatus}}</td>
+                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
+                            <td>{{user.voiceOverType}}</td>
+                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/script-home/script-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
                             </td>
                         </tr>
                     </tbody>

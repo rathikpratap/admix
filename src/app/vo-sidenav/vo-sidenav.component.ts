@@ -11,9 +11,15 @@ export class VoSidenavComponent {
   list = [
     {
       number: '1',
-      name: 'Artist Dashboard',
+      name: 'Dashboard',
       icon: 'bi bi-house',
       route: '/vo-home/vo-dashboard'
+    },
+    {
+      number: '2',
+      name: 'All Projects',
+      icon: 'bi bi-card-list',
+      route: '/vo-home/vo-projects' 
     }
   ]
 }

@@ -55,6 +55,8 @@ import { TermsConditionComponent } from './terms-condition/terms-condition.compo
 import { FbAccessTokenComponent } from './fb-access-token/fb-access-token.component';
 import { AddCompanyComponent } from './add-company/add-company.component';
 import { ScriptProjectsComponent } from './script-projects/script-projects.component';
+import { VoProjectsComponent } from './vo-projects/vo-projects.component';
+import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
 
 
 
@@ -107,7 +109,9 @@ import { ScriptProjectsComponent } from './script-projects/script-projects.compo
     TermsConditionComponent,
     FbAccessTokenComponent,
     AddCompanyComponent,
-    ScriptProjectsComponent
+    ScriptProjectsComponent,
+    VoProjectsComponent,
+    EditorProjectsComponent
   ],
   imports: [
     BrowserModule,

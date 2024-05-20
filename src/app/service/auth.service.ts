@@ -46,6 +46,12 @@ export class AuthService {
   getCustData(){
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
   }
+  getScriptData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptActiveList`);
+  }
+  getCompleteScriptData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptCompleteList`);
+  }
   allProjectsSales(){
     return this.http.get(`${appConfig.apiUrl}/auth/allList`);
   } 
@@ -210,9 +216,18 @@ export class AuthService {
   getTodayEntriesEmp(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`);
   }
+  getTodayEntriesScript():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesScript`);
+  }
 
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getDatabyDatePassRange(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getDatabyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeVo/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
   getLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
@@ -390,6 +405,15 @@ export class AuthService {
   scriptProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptProjects`);
   }
+  scriptPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptPreviousProjects`)
+  }
+  scriptTwoPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptTwoPreviousProjects`)
+  }
+  allscriptProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allScriptProjects`)
+  }
 
   editorProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
@@ -401,6 +425,15 @@ export class AuthService {
 
   voProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/voProjects`);
+  }
+  voPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/voPreviousProjects`)
+  }
+  voTwoPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/voTwoPreviousProjects`)
+  }
+  allVoProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allVoProjects`)
   }
 
   quotes():Observable<any>{

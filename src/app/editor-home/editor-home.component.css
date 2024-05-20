@@ -32,7 +32,10 @@ app-editor-sidenav {
     left: 60px;
     width: calc(100% - 60px);
     transition: left 250ms ease-in, width 250ms ease-in;
-    background: linear-gradient(135deg, #71b1e6, #9b59b6);
+    background-image: url("/assets/Images/star.jpg");
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .display-area-shrink{
     width: calc(100% - 250px);

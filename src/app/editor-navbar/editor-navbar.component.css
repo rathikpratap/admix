@@ -25,3 +25,18 @@ nav {
 .profile-logo button:hover{
     background-color: black;
 }
+@media only screen and (max-width: 500px){
+    .navbar-brand img{
+        width: 80px;
+    }
+    .side-nav-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .nav-link{
+        font-size: 12px;
+    }
+}

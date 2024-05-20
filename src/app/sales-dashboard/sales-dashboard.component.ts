@@ -11,7 +11,7 @@ import { range } from 'rxjs';
 export class SalesDashboardComponent {
 
   tok:any;
-  data:any;
+  data:any; 
   completeData: any;
   totalEntries: any;
   todayEntries : any;

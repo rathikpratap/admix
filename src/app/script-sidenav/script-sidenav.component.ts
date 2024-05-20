@@ -11,7 +11,7 @@ export class ScriptSidenavComponent {
   list = [
     {
       number: '1',
-      name: 'Writer Dashboard',
+      name: 'Dashboard',
       icon: 'bi bi-house',
       route: '/script-home/script-dashboard'
     },
