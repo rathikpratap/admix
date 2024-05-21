@@ -45,7 +45,6 @@ export class NewEmployeeComponent {
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("Select Role",[Validators.required]),
     salesTeam : new FormControl("null")
-    //signupID: new FormControl("",[Validators.required])
   })
   getControls(name: any) : AbstractControl | null{
     return this.registrationForm.get(name)

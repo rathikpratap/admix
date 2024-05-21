@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -21,7 +21,6 @@ export class SalesLeadsComponent {
   previousTwoMonthName: string;
   currentMonthName: string;
   
-
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
@@ -83,4 +82,9 @@ export class SalesLeadsComponent {
       this.errorMessage = error.message;
     });
   }
+  openUpdatePanel(userId: string) {
+    const url = `/salesHome/updateCustomer/${userId}`;
+    window.open(url, '_blank');
+  }
+  
 }

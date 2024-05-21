@@ -74,15 +74,6 @@ export class UpdatePaymentComponent {
     
   }
 
-  // onUpdate(){
-  //   this.auth.updateEmployee(this.getId, this.empUpdateForm.value).subscribe((res:any)=>{
-  //     console.log("Payment Updated Successfully");
-  //     this.ngZone.run(()=>{this.router.navigateByUrl('/payment')})
-  //   },(err)=>{
-  //     console.log(err)
-  //   }) 
-  // }
-
   onUpdate(){
     const companyName = this.empUpdateForm.get('companyName')?.value; // Accessing companyName using get method
     const signupName = this.empUpdateForm.get('signupName')?.value;

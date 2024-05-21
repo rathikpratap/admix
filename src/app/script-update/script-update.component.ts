@@ -77,12 +77,6 @@ export class ScriptUpdateComponent {
   }
 
   onUpdate(){
-    // console.log("duration==>",this.updateForm.get('scriptDurationSeconds')?.value);
-    // const Minsec: number = this.updateForm.get('scriptDurationMinutes')?.value || 0;
-    // const sec: number = this.updateForm.get('scriptDurationSeconds')?.value || 0;
-    // this.totalSec = Minsec * 60 + sec;
-    // this.updateForm.get('scriptDuration')?.setValue(this.totalSec);
-    // console.log("Total Sec==>", this.totalSec);
 
     const CompName = this.updateForm.get('companyName')?.value;
     console.log("CompanyNAme==>", CompName);

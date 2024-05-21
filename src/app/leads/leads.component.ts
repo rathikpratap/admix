@@ -49,7 +49,6 @@ export class LeadsComponent {
     })
   }
  
-
   updateSalesperson(){ 
 
     this.auth.updateSalesperson(this.rangeData).subscribe(( res: any)=>{
@@ -82,8 +81,4 @@ export class LeadsComponent {
       })
     }
   }
-
-
-  
-  
 }

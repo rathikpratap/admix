@@ -15,8 +15,14 @@
     padding: 10px;
     width: fit-content;
 }
-
-.searchData2 input{
+.searchData{
+    display: flex;
+}
+.searchData .details{
+    margin-right: 15px;
+    
+}
+.searchData .details input{
     background: rgba(255,255, 255, 0.2);
     color: #fff;
     margin-right: 25px;
@@ -25,6 +31,24 @@
     border: none;
     border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
+}
+.searchData .details label{
+    font-weight: 500;
+    color: #fff;
+    margin-right: 10px;
+}
+.searchData2 select{
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData2 select option{
+    color: black;
 }
 .searchData2 label{
     font-weight: 500;
@@ -102,5 +126,15 @@ td{
 @media only screen and (min-width: 660px) and (max-width: 768px){
     .getButton{
         margin-bottom: 10px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 960px){
+    .getButton{
+        margin-bottom: 10px;
+    }
+    .move-to-new-row2 {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
     }
 }

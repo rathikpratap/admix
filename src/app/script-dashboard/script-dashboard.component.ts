@@ -8,7 +8,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class ScriptDashboardComponent {
 
-  data: any;
+  data: any; 
   tok:any;
   todayEntries : any;
   dataLength : any;
@@ -28,7 +28,7 @@ export class ScriptDashboardComponent {
       this.data = res;
       console.log("Data===>", res);
     });
-    this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
+    this.auth.getTodayEntriesScript().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
@@ -52,5 +52,9 @@ export class ScriptDashboardComponent {
     this.auth.allscriptProjects().subscribe((res:any)=>{
       this.allProjects = res.length;
     })
+  }
+  openUpdatePanel(userId: string) {
+    const url = `/script-home/script-update/${userId}`;
+    window.open(url, '_blank');
   }
 }

@@ -180,13 +180,13 @@
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td>
+                            <td>{{user.closingDate}}</td> 
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -232,7 +232,7 @@
                             <td>{{users.remainingAmount}}</td>
                             <td>{{users.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/salesHome/updateCustomer/{{users._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(users._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>

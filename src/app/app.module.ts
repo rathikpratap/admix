@@ -57,6 +57,8 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { ScriptProjectsComponent } from './script-projects/script-projects.component';
 import { VoProjectsComponent } from './vo-projects/vo-projects.component';
 import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
+import { EditorOtherComponent } from './editor-other/editor-other.component';
+import { EditorOtherProjectsComponent } from './editor-other-projects/editor-other-projects.component';
 
 
 
@@ -111,7 +113,9 @@ import { EditorProjectsComponent } from './editor-projects/editor-projects.compo
     AddCompanyComponent,
     ScriptProjectsComponent,
     VoProjectsComponent,
-    EditorProjectsComponent
+    EditorProjectsComponent,
+    EditorOtherComponent,
+    EditorOtherProjectsComponent
   ],
   imports: [
     BrowserModule,

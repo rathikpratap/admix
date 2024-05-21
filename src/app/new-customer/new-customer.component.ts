@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { AuthService } from '../service/auth.service';
 import {Router} from '@angular/router';
 
-
 @Component({
   selector: 'app-new-customer', 
   templateUrl: './new-customer.component.html',
@@ -25,15 +24,12 @@ export class NewCustomerComponent {
 
   codeInput!: ElementRef<HTMLInputElement>;
   
-  
-
   ngAfterViewInit() {
     console.log("Its Called");
     const inputElement = this.el.nativeElement.querySelector('input[type=text]');
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
     }
-    
   } 
  
   constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef){
@@ -90,7 +86,6 @@ export class NewCustomerComponent {
         this.customerForm.get('companyName')?.setValue('AdmixMedia');
       }
     })
-    
   }
 
   customerForm = new FormGroup({
@@ -113,7 +108,6 @@ export class NewCustomerComponent {
     remark  : new FormControl(""),
     salesTeam : new FormControl(""),
     companyName : new FormControl("")
-    
   })
  
   getControls(name: any) : AbstractControl | null{
@@ -160,7 +154,4 @@ export class NewCustomerComponent {
       this.className = 'alert alert-danger';
     })
   }
-
-  
-
 }

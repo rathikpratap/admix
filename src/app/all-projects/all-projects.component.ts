@@ -102,7 +102,7 @@ export class AllProjectsComponent {
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
     window.open(url, '_blank');
-  }
+  } 
 
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;

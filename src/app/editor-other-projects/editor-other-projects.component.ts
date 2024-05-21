@@ -3,11 +3,11 @@ import { AuthService } from '../service/auth.service';
 import { FormBuilder,FormControl,FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-script-projects',
-  templateUrl: './script-projects.component.html',
-  styleUrls: ['./script-projects.component.css']
+  selector: 'app-editor-other-projects',
+  templateUrl: './editor-other-projects.component.html',
+  styleUrls: ['./editor-other-projects.component.css']
 })
-export class ScriptProjectsComponent {
+export class EditorOtherProjectsComponent {
   data: any; 
   tok:any;
   searchForm: FormGroup;
@@ -33,17 +33,17 @@ export class ScriptProjectsComponent {
         this.auth.logout();
       }
     });
-    this.auth.scriptProjects().subscribe((res:any)=>{
+    this.auth.editorOtherProjects().subscribe((res:any)=>{
       this.data = res;
       console.log("Data===>", res);
     });
-    this.auth.scriptPreviousProjects().subscribe((res:any)=>{
+    this.auth.editorPreviousOtherProjects().subscribe((res:any)=>{
       this.previousData = res;
     });
-    this.auth.scriptTwoPreviousProjects().subscribe((res:any)=>{
+    this.auth.editorTwoPreviousOtherProjects().subscribe((res:any)=>{
       this.twoPreviousData = res;
     });
-    this.auth.allscriptProjects().subscribe((res:any)=>{
+    this.auth.allEditorOtherProjects().subscribe((res:any)=>{
       this.allData = res;
     });
     this.searchForm = this.formBuilder.group({
@@ -74,14 +74,18 @@ export class ScriptProjectsComponent {
     const endDate = endDateValue? new Date(endDateValue) : null;
 
     if(startDate && endDate){
-      this.auth.getDatabyDatePassRange(startDate, endDate).subscribe((rangeData:any)=>{
+      this.auth.getDatabyDatePassRangeEditorOther(startDate, endDate).subscribe((rangeData:any)=>{
         console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }
   }
+  otherProjects(){
+    const url = `/editor-home/editor-projects`;
+    window.open(url, '_blank');
+  }
   openUpdatePanel(userId: string) {
-    const url = `/script-home/script-update/${userId}`;
+    const url = `/editor-home/editor-update/${userId}`;
     window.open(url, '_blank');
   }
 }

@@ -1,45 +1,130 @@
 <div class="row">
-    <div class="col-12">
-        <div class="allCustomers">
-            <div class="nameCard2">
-                <div class="ProjectCard">
-                    <h5> All Projects </h5>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="form-container">
+                <div class="card-txt">
+                    <div class="card-bg">
+                        <h6>Today's Project</h6>
+                    </div>
+                    <h2>{{todayEntries}}</h2>
                 </div>
-            </div> 
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="form-container">
+                <div class="card-txt">
+                    <div class="card-bg">
+                        <h6>Active Projects</h6>
+                    </div>
+                    <h2>{{dataLength}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="form-container">
+                <div class="card-txt">
+                    <div class="card-bg">
+                        <h6>Completed Projects</h6>
+                    </div>
+                    <h2>{{completeLength}}</h2>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="form-container">
+                <div class="card-txt">
+                    <div class="card-bg">
+                        <h6>All Projects</h6>
+                    </div>
+                    <h2>{{allProjects}}</h2>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="table-scroll">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Client Code</th>
-                        <th scope="col">Project Name</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Delivery Date</th>
-                        <th scope="col">Voice Over type</th>
-                        <th scope="col">Status</th>
-                        <th scope="col"> Action </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of data; let i = index">
-                        <td>{{i+1}}</td>
-                        <td>{{user.custCode}}</td>
-                        <td>{{user.custBussiness}}</td>
-                        <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
-                        <td>{{user.voiceDeliveryDate}}</td>
-                        <td>{{user.voiceOvertype}}</td>
-                        <td>{{user.voiceOverStatus}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card ongoing">
+            <div class="card-heading">
+                <h4>Ongoing Projects</h4>
+            </div>
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Assigned Date</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let customer of data; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{customer.custCode}}</td>
+                            <td>{{customer.custBussiness}}</td>
+                            <td>{{customer.voicePassDate}}</td>
+                            <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
+                            <td>{{customer.voiceOverType}}</td>
+                            <td>{{customer.voiceDeliveryDate}}</td>
+                            <td>{{customer.voiceOverStatus}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+        <div class="card ongoing">
+            <div class="card-heading">
+                <h4>Complete Projects</h4>
+            </div>
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Assigned Date</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Voice Over Type</th>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let customer of completed; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{customer.custCode}}</td>
+                            <td>{{customer.custBussiness}}</td>
+                            <td>{{customer.voicePassDate}}</td>
+                            <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
+                            <td>{{customer.voiceOverType}}</td>
+                            <td>{{customer.voiceDeliveryDate}}</td>
+                            <td>{{customer.voiceOverStatus}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

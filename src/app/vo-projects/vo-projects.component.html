@@ -60,7 +60,7 @@
                         <td>{{customer.voiceDeliveryDate}}</td>
                         <td>{{customer.voiceOverStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{customer._id}}"> Update</button>
+                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -92,7 +92,7 @@
                         <td>{{customer.voiceDeliveryDate}}</td>
                         <td>{{customer.voiceOverStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{customer._id}}"> Update</button>
+                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -109,7 +109,7 @@
             <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#previousMonth" aria-controls="collapseExample">
                 {{previousMonthName}}
             </button>
-            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#currentMonth" aria-controls="collapseExample">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#currentMonth" aria-expanded="true" aria-controls="collapseExample">
                 {{currentMonthName}}
             </button>
             <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#allProjects" aria-controls="collapseExample">
@@ -143,7 +143,7 @@
                             <td>{{user.voiceDeliveryDate}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -177,7 +177,7 @@
                             <td>{{user.voiceDeliveryDate}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -211,7 +211,7 @@
                             <td>{{user.voiceDeliveryDate}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -245,7 +245,7 @@
                             <td>{{user.voiceDeliveryDate}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" routerLink="/vo-home/vo-update/{{user._id}}"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>

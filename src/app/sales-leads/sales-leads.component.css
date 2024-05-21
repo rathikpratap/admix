@@ -15,7 +15,9 @@
     padding: 10px;
     width: fit-content;
 }
-
+.btn[aria-expanded="true"] {
+    background-color: green;
+}
 .searchData{
     display: flex;
     justify-content: flex-end;

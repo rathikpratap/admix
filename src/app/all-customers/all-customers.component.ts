@@ -118,5 +118,9 @@ export class AllCustomersComponent {
       })
     }
   }
+  openUpdatePanel(userId: string) {
+    const url = `/salesHome/updateCustomer/${userId}`;
+    window.open(url, '_blank');
+  }
  
 }

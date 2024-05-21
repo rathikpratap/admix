@@ -33,7 +33,6 @@ export class TeamLeadsComponent {
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
   fbLeads: any;
-  isExpanded: boolean = false;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -41,7 +40,6 @@ export class TeamLeadsComponent {
   });
 
   updateButtonVisible: boolean = true;
-   
 
   constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2){
 
@@ -57,11 +55,6 @@ export class TeamLeadsComponent {
     this.searchForm = this.formBuilder.group({
       projectStatus: ['']
     });
-
-    this.auth.salesFacebookLeads().subscribe((res:any)=>{
-      console.log("Fetched Facebook Leads===>>", res);
-      this.fbLeads = res;
-    })
 
     this.auth.getTeamLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
@@ -122,11 +115,6 @@ export class TeamLeadsComponent {
     }) 
   }
 
-  toggleExpanded() {
-    this.isExpanded = !this.isExpanded;
-    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
-  }
-
   refreshPage(){
     window.location.reload();
   }
@@ -158,67 +146,11 @@ export class TeamLeadsComponent {
       this.errorMessage = error.message;
     });
   }
+  openUpdatePanel(userId: string) {
+    const url = `/salesHome/updateCustomer/${userId}`;
+    window.open(url, '_blank');
+  }
 
-  // updateYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataYesterday).subscribe(( res: any)=>{
-  //     if(this.dataYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   }) 
-  // }
-  // updateOneYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataOneYesterday).subscribe(( res: any)=>{
-  //     if(this.dataOneYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataOneYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   })
-  // }
-  // updateTwoYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataTwoYesterday).subscribe(( res: any)=>{
-  //     if(this.dataTwoYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataTwoYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   })
-  // }
-  // updateThreeYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataThreeYesterday).subscribe(( res: any)=>{
-  //     if(this.dataThreeYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataThreeYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   })
-  // }
-  // updateFourYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataFourYesterday).subscribe(( res: any)=>{
-  //     if(this.dataFourYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataFourYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   })
-  // }
-  // updateFiveYesProjectStatus(){ 
-  //   this.auth.updateProjectStatus(this.dataFiveYesterday).subscribe(( res: any)=>{
-  //     if(this.dataFiveYesterday){
-  //       alert("Data Project Status Successfully Transfered");
-  //       console.log("Project Status Updated Data", this.dataFiveYesterday);
-  //     }
-      
-  //     console.log("SalesPerson Updated Successfully", res);
-  //   })
-  // }
   updateProjectStatus(dataa: any){ 
     this.auth.updateProjectStatus(dataa).subscribe(( res: any)=>{
       if(dataa){

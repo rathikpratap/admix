@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-editor-navbar',
   templateUrl: './editor-navbar.component.html',
-  styleUrls: ['./editor-navbar.component.css']
+  styleUrls: ['./editor-navbar.component.css'],
 })
 export class EditorNavbarComponent {
  
   tok:any;
-
+  
   @Output() editorSideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
 

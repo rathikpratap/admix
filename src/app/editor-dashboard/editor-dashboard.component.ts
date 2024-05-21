@@ -7,10 +7,13 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./editor-dashboard.component.css']
 })
 export class EditorDashboardComponent {
-  data: any;
+  data: any; 
   tok:any;
-  otherData: any;
-  isExpanded: boolean = false;
+  todayEntries : any;
+  dataLength : any;
+  completed:any;
+  completeLength:any;
+  allProjects:any;
 
   constructor(private auth: AuthService,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{ 
@@ -24,12 +27,37 @@ export class EditorDashboardComponent {
       this.data = res;
       console.log("Data===>", res);
     });
-    this.auth.editorOtherProjects().subscribe((res:any)=>{
-      this.otherData = res;
+    this.auth.getTodayEntriesEditor().subscribe((todayRes:any)=>{
+      console.log('Response Data:', todayRes);
+      const totalDayEntry = todayRes.totalDayEntry;
+      if(Array.isArray(totalDayEntry)){
+        this.todayEntries = totalDayEntry.length;
+      }else{
+        this.todayEntries = 0;
+      }
+      
+    },(error)=>{
+      console.error('Error Fetching today Entreis', error);
+    });
+    this.auth.getEditorData().subscribe((list : any)=>{ 
+      console.log("list",list)
+      this.data = list;
+      this.dataLength = list.length;
+    });
+    this.auth.getCompleteEditorData().subscribe((list:any)=>{
+      this.completed = list;
+      this.completeLength = list.length;
+    });
+    this.auth.allEditorProjects().subscribe((res:any)=>{
+      this.allProjects = res.length;
     })
   }
-  ToggleExpanded() {
-    this.isExpanded = !this.isExpanded;
-    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
+  otherProjects(){
+    const url = `/editor-home/editor-other`;
+    window.open(url, '_blank');
+  }
+  openUpdatePanel(userId: string) {
+    const url = `/editor-home/editor-update/${userId}`;
+    window.open(url, '_blank');
   }
 }

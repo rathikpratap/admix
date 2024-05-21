@@ -49,8 +49,27 @@ export class AuthService {
   getScriptData(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptActiveList`);
   }
+  getVoData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/voActiveList`);
+  }
+  getEditorData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorActiveList`);
+  }
   getCompleteScriptData(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptCompleteList`);
+  }
+
+  getEditorOtherData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorOtherActiveList`);
+  }
+  getCompleteEditorOtherData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorOtherCompleteList`);
+  }
+  getCompleteVoData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/voCompleteList`);
+  }
+  getCompleteEditorData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorCompleteList`);
   }
   allProjectsSales(){
     return this.http.get(`${appConfig.apiUrl}/auth/allList`);
@@ -211,13 +230,22 @@ export class AuthService {
 
   getTodayEntries(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntries`);
-  }
+  } 
 
   getTodayEntriesEmp(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`);
   }
   getTodayEntriesScript():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesScript`);
+  }
+  getTodayEntriesVo():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesVo`);
+  }
+  getTodayEntriesEditor():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEditor`);
+  }
+  getTodayEntriesEditorOther():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEditorOther`);
   }
 
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
@@ -229,6 +257,12 @@ export class AuthService {
   getDatabyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeVo/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
+  getDatabyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditor/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getDatabyDatePassRangeEditorOther(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditorOther/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
 
   getLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/leadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
@@ -236,6 +270,9 @@ export class AuthService {
 
   getSalesLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getSalesLeadbyRangeAdmin(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeAdmin/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
   uploadFile(file: File): Promise<any>{
@@ -414,13 +451,34 @@ export class AuthService {
   allscriptProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allScriptProjects`)
   }
+  
 
   editorProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
   }
 
+  editorPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorPreviousProjects`)
+  }
+  editorTwoPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorTwoPreviousProjects`)
+  }
+  allEditorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allEditorProjects`)
+  }
+
+
   editorOtherProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjectsOther`);
+  }
+  editorPreviousOtherProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorPreviousOtherProjects`)
+  }
+  editorTwoPreviousOtherProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/editorTwoPreviousOtherProjects`)
+  }
+  allEditorOtherProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allEditorOtherProjects`)
   }
 
   voProjects(){

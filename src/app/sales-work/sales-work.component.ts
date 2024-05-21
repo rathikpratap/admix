@@ -28,6 +28,11 @@ export class SalesWorkComponent {
   dataFiveYesterday: any;
   tok:any;
   isExpanded: boolean = false;
+  rangeData: any;
+  dateRangeForm = new FormGroup({
+    startDate : new FormControl(""),
+    endDate: new FormControl("")
+  });
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{
@@ -102,6 +107,33 @@ export class SalesWorkComponent {
       this.errorMessage = error.message;
     });
   }
+  onDate(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
 
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.getSalesLeadbyRangeAdmin(startDate, endDate).subscribe((rangeData:any)=>{
+        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
+        this.rangeData = rangeData.rangeTotalData;
+      })
+    }
+  }
+  refreshPage(){
+    window.location.reload();
+  }
+  downloadRangeFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.downloadSalesRangeFile(startDate, endDate);
+    }
+  }
 }
  

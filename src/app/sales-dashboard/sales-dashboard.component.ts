@@ -122,10 +122,9 @@ export class SalesDashboardComponent {
   resetData(){
     location.reload(); 
   }
-
-  // logout(){
-  //   this.auth.logout();
-  //   this.router.navigate(['/login']);
-  // }
+  openUpdatePanel(userId: string) {
+    const url = `/salesHome/updateCustomer/${userId}`;
+    window.open(url, '_blank');
+  }
 }
 

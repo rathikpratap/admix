@@ -48,6 +48,8 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { ScriptProjectsComponent } from './script-projects/script-projects.component';
 import { VoProjectsComponent } from './vo-projects/vo-projects.component';
 import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
+import { EditorOtherComponent } from './editor-other/editor-other.component';
+import { EditorOtherProjectsComponent } from './editor-other-projects/editor-other-projects.component';
 
 const routes: Routes = [
   {
@@ -201,6 +203,14 @@ const routes: Routes = [
       {
         path: 'editor-projects',
         component: EditorProjectsComponent
+      },
+      {
+        path: 'editor-other',
+        component: EditorOtherComponent
+      },
+      {
+        path: 'editor-otherProjects',
+        component: EditorOtherProjectsComponent
       }
     ]
   },

@@ -80,5 +80,9 @@ export class VoProjectsComponent {
       })
     }
   }
+  openUpdatePanel(userId: string) {
+    const url = `/vo-home/vo-update/${userId}`;
+    window.open(url, '_blank');
+  }
 }
  
