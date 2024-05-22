@@ -55,11 +55,14 @@ export class TeamLeadsComponent {
     this.searchForm = this.formBuilder.group({
       projectStatus: ['']
     });
-
+    this.auth.salesFacebookLeads().subscribe((res:any)=>{
+      console.log("Fetched Facebook Leads===>>", res);
+      this.fbLeads = res;
+    })
     this.auth.getTeamLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.data = res;
-    });
+    }); 
 
     this.auth.getYesterdayTeamLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);

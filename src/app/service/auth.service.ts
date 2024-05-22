@@ -84,7 +84,7 @@ export class AuthService {
   fetchLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
   }
-
+  
   salesFacebookLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/salesFacebook-leads`);
   }
