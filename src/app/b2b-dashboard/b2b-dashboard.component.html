@@ -1,0 +1,199 @@
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Monthly Projects</h6>
+                        </div>
+                        <h2>{{totalEntries}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Monthly Active Projects</h6>
+                        </div>
+                        <h2>{{dataLength}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Monthly Done Projects</h6>
+                        </div>
+                        <h2>{{completeProjects}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>All Projects</h6>
+                        </div>
+                        <h2>{{allTotalEntries}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>All Active Projects</h6>
+                        </div>
+                        <h2>{{allActive}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>All Completed Projects</h6>
+                        </div>
+                        <h2>{{allComplete}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Monthly Closing Price</h6>
+                        </div>
+                        <h2>{{MonthlyAmount}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Total Closing Price</h6>
+                        </div>
+                        <h2>{{allTotalAmount}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card ongoing">
+            <div class="card-heading">
+                <h4>Ongoing Projects</h4>
+            </div> 
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project Code</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Video Type</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Editor</th>
+                            <th scope="col">Project Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of data">
+                            <td>{{user.b2bProjectCode}}</td>
+                            <td>{{user.companyName}}</td>
+                            <td>{{user.b2bProjectName}}</td>
+                            <td>{{user.b2bCategory}}</td>
+                            <td>{{user.b2bVideoType}}</td>
+                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
+                            <td>{{user.b2bEditor}}</td>
+                            <td>{{user.projectStatus}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-heading">
+                <h4>Completed Projects</h4>
+            </div>
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project Code</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Editor</th>
+                            <th scope="col">Project Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of completeData">
+                            <td>{{user.b2bProjectCode}}</td>
+                            <td>{{user.companyName}}</td>
+                            <td>{{user.b2bProjectName}}</td>
+                            <td>{{user.b2bCategory}}</td>
+                            <td>{{user.b2bVideoType}}</td>
+                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
+                            <td>{{user.b2bEditor}}</td>
+                            <td>{{user.projectStatus}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

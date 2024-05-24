@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
 
-        </div>
+        </div> 
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
                 <h2> Enter Project Details </h2>
@@ -51,10 +51,14 @@
                     <div class="input-box1">
                         <div class="form-group">
                             <span class="details"> Select Number of Videos </span>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One"> One
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two"> Two
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three"> Three
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three"> More than three
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One" id="one">
+                            <label for="one">One</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two" id="two">
+                            <label for="one">Two</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three" id="three">
+                            <label for="one">Three</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three" id="more">
+                            <label for="one">More than three</label>
                         </div>
                     </div>
                     <div class="input-box">
@@ -79,8 +83,10 @@
                     <div class="input-box1">
                         <div class="form-group">
                             <span class="details">Any Other Changes?(Only If their is any unneccessary Changes)</span>
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)"> Yes
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)"> No
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)" id="yes">
+                            <label for="yes">Yes</label>
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)" id="no">
+                            <label for="no">No</label>
                         </div>
                     </div>
                     <div class="input-box" *ngIf="editorOtherChanges">

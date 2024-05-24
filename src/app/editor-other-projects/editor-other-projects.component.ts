@@ -56,9 +56,9 @@ export class EditorOtherProjectsComponent {
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
     console.log("NUMBER===>", projectName);
-    this.auth.searchCustomerbyProjectName(projectName).subscribe((customers: any)=>{
+    this.auth.searchB2bByProjectName(projectName).subscribe((customers: any)=>{
       console.log("customer",customers)
-      this.customers = customers;
+      this.customers = customers; 
       this.errorMessage = null;
     },
     error=>{
@@ -85,7 +85,7 @@ export class EditorOtherProjectsComponent {
     window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
-    const url = `/editor-home/editor-update/${userId}`;
+    const url = `/editor-home/editor-b2b-update/${userId}`;
     window.open(url, '_blank');
   }
 }

@@ -111,6 +111,12 @@ td{
     .getButton{
         margin-top: 10px;
     }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
 }
 @media only screen and (min-width: 538px) and (max-width: 768px){
     .searchData{
@@ -118,6 +124,12 @@ td{
     }
     .getButton{
         margin-top: 10px;
+    }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 870px){
@@ -129,10 +141,16 @@ td{
     .getButton{
         margin-top: 10px;
     }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
 }
 @media only screen and (min-width: 870px) and (max-width: 884px){
     .table-scroll{
-        width: auto ;
+        width: auto;
     }
     .table{
         overflow: scroll !important;

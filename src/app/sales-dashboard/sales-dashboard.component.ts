@@ -47,7 +47,7 @@ export class SalesDashboardComponent {
     this.auth.getCompleteProjects().subscribe((completeList: any)=>{
       console.log("completeList",completeList)
       this.completeData = completeList;
-    })
+    }) 
  
     this.auth.getMonthEntriesEmp().subscribe((res : any)=>{
       this.totalEntries = res.totalEntries.length;
@@ -56,7 +56,7 @@ export class SalesDashboardComponent {
       this.totalDue = res.totalDue;
     },(error)=>{
       console.error('Error fetching total Entries', error);
-    });
+    }); 
 
     this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);

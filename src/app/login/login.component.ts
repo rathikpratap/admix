@@ -40,8 +40,10 @@ export class LoginComponent {
         
         if (res.role === 'Admin' || res.role === 'Manager'){
           this.router.navigateByUrl('/admin-dashboard');
-        } else if(res.role === 'Sales Team'){
+        } else if(res.role === 'Sales Team' && res.team !== 'Shiva Development'){
           this.router.navigateByUrl('/salesHome/salesDashboard');
+        }else if(res.role === 'Sales Team' && res.team === 'Shiva Development'){
+          this.router.navigateByUrl('/salesHome/b2b-dashboard');
         }else if(res.role === 'Script Writer'){
           this.router.navigateByUrl('/script-home/script-dashboard');
         }else if(res.role === 'Editor'){

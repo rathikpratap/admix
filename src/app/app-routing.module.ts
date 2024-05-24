@@ -50,6 +50,10 @@ import { VoProjectsComponent } from './vo-projects/vo-projects.component';
 import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
 import { EditorOtherComponent } from './editor-other/editor-other.component';
 import { EditorOtherProjectsComponent } from './editor-other-projects/editor-other-projects.component';
+import { B2bDashboardComponent } from './b2b-dashboard/b2b-dashboard.component';
+import { B2bProjectsComponent } from './b2b-projects/b2b-projects.component';
+import { UpdateB2bComponent } from './update-b2b/update-b2b.component';
+import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.component';
 
 const routes: Routes = [
   {
@@ -176,6 +180,18 @@ const routes: Routes = [
       {
         path: 'team-leads',
         component: TeamLeadsComponent
+      },
+      {
+        path: 'b2b-dashboard',
+        component: B2bDashboardComponent
+      },
+      {
+        path: 'b2b-projects',
+        component: B2bProjectsComponent
+      },
+      {
+        path: 'update-b2b/:id',
+        component: UpdateB2bComponent
       }
     ]
   },
@@ -211,6 +227,10 @@ const routes: Routes = [
       {
         path: 'editor-otherProjects',
         component: EditorOtherProjectsComponent
+      },
+      {
+        path: 'editor-b2b-update/:id',
+        component: EditorB2bUpdateComponent
       }
     ]
   },

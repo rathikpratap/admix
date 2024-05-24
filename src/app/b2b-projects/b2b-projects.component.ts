@@ -3,13 +3,13 @@ import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-all-customers',
-  templateUrl: './all-customers.component.html',
-  styleUrls: ['./all-customers.component.css']
+  selector: 'app-b2b-projects',
+  templateUrl: './b2b-projects.component.html',
+  styleUrls: ['./b2b-projects.component.css']
 })
-export class AllCustomersComponent {
- 
- @ViewChild('fileInput') fileInput:any;
+export class B2bProjectsComponent { 
+
+  @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
  
   tok:any;
@@ -42,15 +42,15 @@ export class AllCustomersComponent {
       mobile: ['']
     });
  
-    this.auth.salesAllProjects().subscribe((list : any)=>{
+    this.auth.getMonthEntriesB2b().subscribe((list : any)=>{
       console.log("list",list)
-      this.data = list;
+      this.data = list.totalEntries;
     })
-    this.auth.salesPreviousMonthProjects().subscribe((list : any)=>{
+    this.auth.getPreviousMonthEntriesB2b().subscribe((list : any)=>{
       console.log("list",list)
       this.dataPreviousMonth = list;
     })
-    this.auth.salesPreviousTwoMonthProjects().subscribe((list : any)=>{
+    this.auth.getTwoPreviousMonthEntriesB2b().subscribe((list : any)=>{
       console.log("list",list)
       this.dataTwoPreviousMonth = list;
     })
@@ -68,7 +68,7 @@ export class AllCustomersComponent {
 
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
+    this.auth.searchB2bByProjectName(mobile).subscribe((customers)=>{
       console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
@@ -80,7 +80,7 @@ export class AllCustomersComponent {
   }
 
   downloadFile(){
-    this.auth.downloadFile();
+    this.auth.downloadFileB2b();
   }
 
   onDate(){
@@ -91,9 +91,9 @@ export class AllCustomersComponent {
     const endDate = endDateValue? new Date(endDateValue) : null;
 
     if(startDate && endDate){
-      this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
-        this.rangeData = rangeData.rangeTotalData;
+      this.auth.getDatabyRangeB2b(startDate, endDate).subscribe((rangeData:any)=>{
+        console.log("Data by Date Range===>>", rangeData);
+        this.rangeData = rangeData;
       })
     }
   }
@@ -106,21 +106,20 @@ export class AllCustomersComponent {
     const endDate = endDateValue? new Date(endDateValue) : null;
 
     if(startDate && endDate){
-      this.auth.downloadRangeFile(startDate, endDate);
+      this.auth.downloadRangeFileB2b(startDate, endDate);
     }
   }
 
   delete(id:any, i:any){
     console.log(id);
     if(window.confirm("Are you Sure want to Delete?")){
-      this.auth.deleteCust(id).subscribe((res : any)=>{
+      this.auth.deleteB2b(id).subscribe((res : any)=>{
         this.data.splice(i,1);
       })
     }
   }
   openUpdatePanel(userId: string) {
-    const url = `/salesHome/updateCustomer/${userId}`;
+    const url = `/salesHome/update-b2b/${userId}`;
     window.open(url, '_blank');
   }
- 
 }

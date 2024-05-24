@@ -59,6 +59,10 @@ import { VoProjectsComponent } from './vo-projects/vo-projects.component';
 import { EditorProjectsComponent } from './editor-projects/editor-projects.component';
 import { EditorOtherComponent } from './editor-other/editor-other.component';
 import { EditorOtherProjectsComponent } from './editor-other-projects/editor-other-projects.component';
+import { B2bDashboardComponent } from './b2b-dashboard/b2b-dashboard.component';
+import { B2bProjectsComponent } from './b2b-projects/b2b-projects.component';
+import { UpdateB2bComponent } from './update-b2b/update-b2b.component';
+import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.component';
 
 
 
@@ -115,7 +119,11 @@ import { EditorOtherProjectsComponent } from './editor-other-projects/editor-oth
     VoProjectsComponent,
     EditorProjectsComponent,
     EditorOtherComponent,
-    EditorOtherProjectsComponent
+    EditorOtherProjectsComponent,
+    B2bDashboardComponent,
+    B2bProjectsComponent,
+    UpdateB2bComponent,
+    EditorB2bUpdateComponent
   ],
   imports: [
     BrowserModule,

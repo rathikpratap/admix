@@ -42,9 +42,18 @@ export class AuthService {
   addcustomer(customerData:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/customer`, customerData)
   }
+  addB2b(customerData:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/b2bProject`, customerData);
+  }
 
   getCustData(){
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
+  }
+  getCustDataB2b(){
+    return this.http.get(`${appConfig.apiUrl}/auth/listB2b`);
+  }
+  getAllCustDataB2b(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allListB2b`);
   }
   getScriptData(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptActiveList`);
@@ -109,6 +118,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
   }
 
+  getCompleteProjectsB2b(){
+    return this.http.get(`${appConfig.apiUrl}/auth/completeProjectB2b`);
+  }
+  getAllCompleteProjectsB2b(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjectB2b`);
+  }
+
   getAllProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjects`);
   }
@@ -143,6 +159,9 @@ export class AuthService {
 
   dataLength(){
     return this.http.get(`${appConfig.apiUrl}/auth/dataLength`);
+  };
+  b2bDataLength(){
+    return this.http.get(`${appConfig.apiUrl}/auth/b2bDataLength`);
   }
 
   allEmployee(){
@@ -160,6 +179,9 @@ export class AuthService {
   searchCustomerbyProjectName(projectName:string):Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/customerProjectName/${projectName}`);
   }
+  searchB2bByProjectName(projectName:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/B2bProjectName/${projectName}`);
+  }
 
   getProfile(){
     let headers = {
@@ -173,6 +195,11 @@ export class AuthService {
       catchError(this.handleError)
     )
   }
+  updateB2b(id:any, data:any):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/updateB2b/${id}`, data, {headers:this.httpHeaders}).pipe(
+      catchError(this.handleError)
+    )
+  }
 
   updateCustomerbyEditor(id:any, data:any):Observable<any>{
     return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
@@ -182,6 +209,11 @@ export class AuthService {
 
   getCustomer(id:any) :Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/read-cust/${id}`,{headers:this.httpHeaders}).pipe(map((res:any)=>{
+      return res || {}
+    }), catchError(this.handleError)
+  )}
+  getB2b(id:any) :Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/read-b2b/${id}`,{headers:this.httpHeaders}).pipe(map((res:any)=>{
       return res || {}
     }), catchError(this.handleError)
   )}
@@ -207,6 +239,9 @@ export class AuthService {
   deleteCust(id:any):Observable<any>{
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-cust/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
   }
+  deleteB2b(id:any):Observable<any>{
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-B2b/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  }
 
   getCountries(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/countries`);
@@ -226,6 +261,19 @@ export class AuthService {
 
   getMonthEntriesEmp(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`);
+  }
+
+  getMonthEntriesB2b(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesB2b`);
+  }
+  getPreviousMonthEntriesB2b(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalPreviousEntriesB2b`);
+  }
+  getTwoPreviousMonthEntriesB2b(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalTwoPreviousEntriesB2b`);
+  }
+  getAllEntriesB2b(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allTotalEntriesB2b`);
   }
 
   getTodayEntries(): Observable<any>{
@@ -250,6 +298,9 @@ export class AuthService {
 
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getDatabyRangeB2b(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByDateB2b/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
   getDatabyDatePassRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRange/${startDate.toISOString()}/${endDate.toISOString()}`);
@@ -294,8 +345,34 @@ export class AuthService {
     });
   }
 
+  downloadFileB2b(){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadFileB2b`,{responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log('Download Complete')
+    }, error => {
+      console.error('Error Downloading File', error);
+    });
+  };
+
   downloadRangeFile(startDate: Date, endDate: Date){
     this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    });
+  }
+
+  downloadRangeFileB2b(startDate: Date, endDate: Date){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFileB2b/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
       const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);

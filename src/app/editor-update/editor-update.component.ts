@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+ 
 @Component({
   selector: 'app-editor-update',
   templateUrl: './editor-update.component.html',

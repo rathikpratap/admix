@@ -21,8 +21,10 @@ export class NewCustomerComponent {
   cities: any;
   Category: any;
   companies: any;
+  employee: any;
 
   codeInput!: ElementRef<HTMLInputElement>;
+  codeInput2!: ElementRef<HTMLInputElement>;
   
   ngAfterViewInit() {
     console.log("Its Called");
@@ -38,7 +40,8 @@ export class NewCustomerComponent {
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data; 
-
+      this.b2bCustomerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
+      this.b2bCustomerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
       if(this.tok) {
         this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
         this.customerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
@@ -55,6 +58,13 @@ export class NewCustomerComponent {
       this.dataLength = list + 1; 
       if(this.dataLength){
         this.customerForm.get('custCode')!.setValue(this.dataLength);
+      }
+    });
+
+    this.auth.b2bDataLength().subscribe((list : any)=>{
+      this.dataLength = list + 1; 
+      if(this.dataLength){
+        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength);
       }
     })
 
@@ -85,6 +95,10 @@ export class NewCustomerComponent {
       } else{
         this.customerForm.get('companyName')?.setValue('AdmixMedia');
       }
+    });
+    this.auth.allEmployee().subscribe((res:any)=>{
+      this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor')
+      console.log("Editorss===>", this.employee);
     })
   }
 
@@ -108,11 +122,33 @@ export class NewCustomerComponent {
     remark  : new FormControl(""),
     salesTeam : new FormControl(""),
     companyName : new FormControl("")
-  })
+  });
+
+  b2bCustomerForm = new FormGroup({
+    b2bProjectCode: new FormControl("", [Validators.required]),
+    companyName: new FormControl("", [Validators.required]),
+    b2bProjectName: new FormControl("",[Validators.required]),
+    b2bCategory: new FormControl("null",[Validators.required]),
+    b2bVideoType: new FormControl("null", [Validators.required]),
+    b2bProjectDate: new FormControl(""),
+    b2bProjectPrice: new FormControl(""),
+    b2bVideoDurationMinutes: new FormControl(""),
+    b2bVideoDurationSeconds: new FormControl(""),
+    b2bEditor: new FormControl(""),
+    youtubeLink: new FormControl(""),
+    b2bRemark: new FormControl(""),
+    salesPerson: new FormControl(""),
+    salesTeam: new FormControl(""),
+    projectStatus: new FormControl("")
+  });
  
   getControls(name: any) : AbstractControl | null{
     return this.customerForm.get(name)
   }
+  getB2bCustomerFormControl(b2bName: any) : AbstractControl | null{
+    return this.b2bCustomerForm.get(b2bName);
+  }
+  
 
   onCountryChange(): void{
     const countryCode = this.customerForm.get('custCountry')?.value;
@@ -143,6 +179,32 @@ export class NewCustomerComponent {
         this.className = 'alert alert-success';
         this.customerForm.reset();
         this.customerForm.get('custCode')!.setValue(this.dataLength + 1);
+      }else{
+        this.isProcess = false;
+        this.message = res.message;
+        this.className = 'alert alert-danger';
+      }
+    },err =>{
+      this.isProcess = false;
+      this.message = "Server Error";
+      this.className = 'alert alert-danger';
+    })
+  }
+  addb2bCust(){
+
+    this.isProcess = true;
+    console.warn(this.b2bCustomerForm.value);
+    const custData = this.b2bCustomerForm.value;
+    this.auth.addB2b(custData).subscribe(res =>{
+      if(res.success){
+        this.isProcess = false;
+        this.message = "Customer Added";
+        this.className = 'alert alert-success';
+        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength + 1);
+        this.router.navigate([this.router.url])
+    .then(() => {
+      window.location.reload();
+    });
       }else{
         this.isProcess = false;
         this.message = res.message;

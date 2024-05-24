@@ -17,6 +17,20 @@ form{
     margin-bottom: 79px;
     border-radius: 10px;
 }
+.minSec{
+    display: flex;
+    color: #fff;
+}
+.input-box .form-group .minSec input{
+    width: 30%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.minSec span{
+    display: block;
+    font-weight: 500;
+    margin-top: 15px;
+}
 .form-group{
     border: 0;
     padding: .375rem .75rem;
@@ -87,6 +101,9 @@ form .user-details .input-box{
     transition: all 0.3s ease;
     background: rgba(255,255, 255, 0);
     color: #fff;
+}
+.user-details .input-box select option{
+    color: black;
 }
 .user-details .input-box select:focus{
     border-color: blueviolet;
