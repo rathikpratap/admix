@@ -48,7 +48,9 @@ export class CustomLeadsComponent {
     salesTeam: new FormControl(""),
     leadsCreatedDate: new FormControl(""),
     salesPerson: new FormControl(""),
-    companyName: new FormControl("")
+    companyName: new FormControl(""),
+    projectStatus: new FormControl("null"),
+    remark: new FormControl("")
   })
   getControls(name: any) : AbstractControl | null{
     return this.leadForm.get(name)

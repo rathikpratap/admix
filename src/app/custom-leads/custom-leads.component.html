@@ -66,6 +66,25 @@
                             <input type="text" class="form-control" formControlName="state" placeholder="Enter Customer State">
                         </div>
                     </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Status: </span>
+                            <select class="form-select" formControlName="projectStatus" aria-label="Default select example">
+                                <option value="null">Select Project Status</option>
+                                <option value="Not Interested">Not Interested</option>
+                                <option value="Not Pick">Not Pick</option>
+                                <option value="Switch Off">Switch Off</option>
+                                <option value="Busy">Busy</option>
+                                <option value="Interested">Interested</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> remark </span>
+                            <textarea type="text" class="form-control" formControlName="remark" placeholder="Enter Remark"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" [disabled]="leadForm.status === 'INVALID'" class="btn btn-success">
             </form>
