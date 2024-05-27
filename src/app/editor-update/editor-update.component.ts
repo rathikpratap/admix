@@ -32,7 +32,7 @@ export class EditorUpdateComponent implements OnInit {
     videoDurationMinutes: new FormControl(0),
     videoDurationSeconds: new FormControl(0),
     numberOfVideos: new FormControl(""),
-    companyName: new FormControl("")
+    companyName: new FormControl("") 
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {

@@ -63,6 +63,7 @@ import { B2bDashboardComponent } from './b2b-dashboard/b2b-dashboard.component';
 import { B2bProjectsComponent } from './b2b-projects/b2b-projects.component';
 import { UpdateB2bComponent } from './update-b2b/update-b2b.component';
 import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.component';
+import { CustomLeadsComponent } from './custom-leads/custom-leads.component';
 
 
 
@@ -123,7 +124,8 @@ import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.
     B2bDashboardComponent,
     B2bProjectsComponent,
     UpdateB2bComponent,
-    EditorB2bUpdateComponent
+    EditorB2bUpdateComponent,
+    CustomLeadsComponent
   ],
   imports: [
     BrowserModule,

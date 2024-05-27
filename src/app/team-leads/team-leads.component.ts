@@ -176,4 +176,8 @@ export class TeamLeadsComponent {
       this.auth.downloadSalesRangeFile(startDate, endDate);
     }
   }
+  customLeads(){
+    const url = `/salesHome/custom-leads`;
+    window.open(url, '_blank');
+  }
 }

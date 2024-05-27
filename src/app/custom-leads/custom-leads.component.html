@@ -1,0 +1,74 @@
+<div class="new-customer">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2>New Lead Form</h2>
+            </div>
+            <form [formGroup]="leadForm" (ngSubmit)="leadForm.status !== 'INVALID' && addLead()">
+                <div [ngClass]="className" role="alert">
+                    {{message}}
+                </div>
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Campaign Name: </span>
+                            <input type="text" class="form-control" formControlName="campaign_Name" [ngClass]="{error:getControls('campaign_Name')?.errors && getControls('campaign_Name')?.touched}" placeholder="Enter Campaign Name">
+                            <div *ngIf="getControls('campaign_Name')?.errors && getControls('campaign_Name')?.touched">
+                                <label class="text-danger" *ngIf="getControls('campaign_Name')?.errors?.['required']"> Campaign Name is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Closing Date: </span>
+                            <input type="datetime-local" class="form-control" formControlName="closingDate" [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}" placeholder="Enter Date">
+                            <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
+                                <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Date is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Name: </span>
+                            <input type="text" class="form-control" formControlName="custName" [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}" placeholder="Enter Customer Name">
+                            <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Customer Name is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Mobile Number: </span>
+                            <input type="number" class="form-control" formControlName="custNumb" [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}" placeholder="Enter Contact Number">
+                            <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
+                                <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Mobile Number is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Email: </span>
+                            <input type="text" class="form-control" formControlName="custEmail" placeholder="Enter Customer Email">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Customer Bussiness: </span>
+                            <input type="text" class="form-control" formControlName="custBussiness" placeholder="Enter Customer Bussiness">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> State: </span>
+                            <input type="text" class="form-control" formControlName="state" placeholder="Enter Customer State">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="leadForm.status === 'INVALID'" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>

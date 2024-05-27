@@ -47,7 +47,7 @@
                                 <option value="Motion Graphics">Motion Graphics</option>
                             </select>
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box1">
                         <div class="form-group">
                             <span class="details"> Select Number of Videos </span>
@@ -72,8 +72,9 @@
                             <span class="details"> Project Status: </span>
                             <select class="form-select" formControlName="editorStatus" aria-label="Default select example"
                             [ngClass]="{error:getControls('editorStatus')?.errors && getControls('editorStatus')?.touched}">
-                            <option value="null">Select Project Status</option> 
-                            <option value="Not Complete">Completed</option>
+                            <option value="null">Select Project Status</option>
+                            <option value="Not Complete">Not Complete</option> 
+                            <option value="Completed">Completed</option>
                         </select>
                     <div *ngIf="getControls('editorStatus')?.errors && getControls('editorStatus')?.touched">
                         <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']"> Project Status is Required </label>

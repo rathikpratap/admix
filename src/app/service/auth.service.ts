@@ -45,6 +45,9 @@ export class AuthService {
   addB2b(customerData:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/b2bProject`, customerData);
   }
+  addLead(customerData:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/customLead`, customerData)
+  }
 
   getCustData(){
     return this.http.get(`${appConfig.apiUrl}/auth/list`);
@@ -203,6 +206,12 @@ export class AuthService {
 
   updateCustomerbyEditor(id:any, data:any):Observable<any>{
     return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  updateB2bbyEditor(id:any, data:any):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/updateB2bEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
       catchError(this.handleError)
     )
   }

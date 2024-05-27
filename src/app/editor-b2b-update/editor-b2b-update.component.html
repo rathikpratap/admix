@@ -1,4 +1,4 @@
-<!-- <div class="new-customer">
+<div class="new-customer">
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
 
@@ -98,9 +98,9 @@
                         <div class="form-group">
                             <span class="details"> Video Duration: </span> 
                             <div class="minSec">
-                                <input type="text" class="form-control" formControlName="b2bVideoDurationMinutes" placeholder="Enter Minutes">
+                                <input type="number" class="form-control" formControlName="b2bVideoDurationMinutes" placeholder="Enter Minutes">
                                 <span> Min </span>
-                                <input type="text" class="form-control" formControlName="b2bVideoDurationSeconds" placeholder="Enter Seconds">
+                                <input type="number" class="form-control" formControlName="b2bVideoDurationSeconds" placeholder="Enter Seconds">
                                 <span> Sec</span>
                             </div>
                         </div>
@@ -114,6 +114,40 @@
                             </select>
                         </div>
                     </div>
+                    <div class="input-box1">
+                        <div class="form-group">
+                            <span class="details"> Select Number of Videos </span>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One" id="one">
+                            <label for="one">One</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two" id="two">
+                            <label for="one">Two</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three" id="three">
+                            <label for="one">Three</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three" id="more">
+                            <label for="one">More than three</label>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Project Payment: </span>
+                            <input type="text" class="form-control readonly" formControlName="editorPayment" placeholder="Enter Payment" readonly>
+                        </div>
+                    </div>
+                    <div class="input-box1">
+                        <div class="form-group">
+                            <span class="details">Any Other Changes?(Only If their is any unneccessary Changes)</span>
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)" id="yes">
+                            <label for="yes">Yes</label>
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)" id="no">
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="editorOtherChanges">
+                        <div class="form-group">
+                            <span class="details"> Changes Payment: </span>
+                            <input type="text" class="form-control readonly" formControlName="editorChangesPayment" placeholder="Enter Changes Payment" readonly>
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
@@ -124,7 +158,7 @@
                                 <option value="Completed">Completed</option>
                             </select>  
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>
@@ -142,4 +176,4 @@
             </form>
         </div>
     </div>
-</div> -->
+</div>

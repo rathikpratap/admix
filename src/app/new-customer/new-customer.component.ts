@@ -155,7 +155,7 @@ export class NewCustomerComponent {
     this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
       console.log("States==>", Statedata)
       this.states = Statedata;
-    });
+    }); 
   }
 
   onStateChange(): void{
