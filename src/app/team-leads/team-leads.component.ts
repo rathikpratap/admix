@@ -33,6 +33,7 @@ export class TeamLeadsComponent {
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
   fbLeads: any;
+  modifyCount:any
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -179,5 +180,10 @@ export class TeamLeadsComponent {
   customLeads(){
     const url = `/salesHome/custom-leads`;
     window.open(url, '_blank');
+  }
+  updateLeads(){
+    this.auth.updateLead().subscribe((res:any)=>{
+      this.modifyCount = res;
+    });
   }
 }

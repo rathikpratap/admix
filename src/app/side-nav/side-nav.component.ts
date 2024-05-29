@@ -56,6 +56,12 @@ export class SideNavComponent {
       name: 'Leads',
       icon: 'bi bi-box-arrow-in-up',
       route: '/Leads'
+    },
+    {
+      number:'9',
+      name:'Payroll',
+      icon: 'bi bi-cash',
+      route:  '/payroll'
     }
   ]
 }

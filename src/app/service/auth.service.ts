@@ -584,6 +584,10 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/quotes`);
   }
 
+  updateLead():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/updateSalesTeam`);
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){
