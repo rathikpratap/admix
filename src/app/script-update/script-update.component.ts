@@ -80,7 +80,7 @@ export class ScriptUpdateComponent {
 
     const CompName = this.updateForm.get('companyName')?.value;
     console.log("CompanyNAme==>", CompName);
-    this.count = this.updateForm.get('wordsCount')?.value;
+    this.count = this.updateForm.get('wordsCount')?.value; 
 
     this.company.forEach((comp: {companyName: string, signupName: string, payment150words: number, payment200words: number, payment300words: number, payment500words: number})=>{
       if(comp.companyName === 'AdmixMedia' && comp.signupName === this.tok.signupUsername){
@@ -97,9 +97,14 @@ export class ScriptUpdateComponent {
         }
       } 
     })
+      const scriptPayment1: number = this.updateForm.get('scriptPayment')?.value;
+      const scriptChangesPayment1: number = this.updateForm.get('scriptChangesPayment')?.value;
+      const totalScriptPayment1: number = scriptPayment1 + scriptChangesPayment1;
+      this.updateForm.get('totalScriptPayment')?.setValue(totalScriptPayment1);
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
       console.log("Data Updated Successfully", res);
+      
       this.ngZone.run(()=> { this.router.navigateByUrl('/script-home/script-dashboard')})
     }, (err)=>{
       console.log(err)
@@ -110,6 +115,8 @@ export class ScriptUpdateComponent {
       this.scriptOtherChanges = true;
     } else {
       this.scriptOtherChanges = false; 
+      this.updateForm.get('scriptChangesPayment')?.setValue(0);
+      
     }
   }
 }

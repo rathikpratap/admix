@@ -84,8 +84,8 @@ export class VoUpdateComponent {
     console.log("Total Sec==>", this.totalSec);
     const CompName = this.updateForm.get('companyName')?.value;
 
-    this.company.forEach((comp: {companyName: string, signupUsername: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
-      if(comp.companyName === 'AdmixMedia' && comp.signupUsername === this.tok.signupUsername){
+    this.company.forEach((comp: {companyName: string, signupName: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
+      if(comp.companyName === CompName && comp.signupName === this.tok.signupUsername){
         console.log("Payment Of employee===>>", comp.payment60Sec);
         if(this.totalSec > 0 && this.totalSec <= 60){
           console.log("60Sec Payment",comp.payment60Sec);
@@ -99,10 +99,15 @@ export class VoUpdateComponent {
         } else if(this.totalSec > 150 && this.totalSec <=180){
           this.updateForm.get('voicePayment')?.setValue(comp.payment180Sec);
         } else{
-          this.updateForm.get('voicePayment')?.setValue(0);
+          this.updateForm.get('voicePayment')?.setValue(0); 
         }
       }
     })
+
+    const voicePayment1: number = this.updateForm.get('voicePayment')?.value;
+    const voiceChangesPayment1: number = this.updateForm.get('voiceChangesPayment')?.value;
+    const totalVoicePayment1: number = voicePayment1 + voiceChangesPayment1;
+    this.updateForm.get('totalVoicePayment')?.setValue(totalVoicePayment1);
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
       console.log("Data Updated Successfully", res);
@@ -116,6 +121,7 @@ export class VoUpdateComponent {
       this.voiceOtherChanges = true;
     } else {
       this.voiceOtherChanges = false;
+      this.updateForm.get('voiceChangesPayment')?.setValue(0);
     }
   }
 }

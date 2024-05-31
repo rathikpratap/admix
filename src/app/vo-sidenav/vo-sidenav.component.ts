@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./vo-sidenav.component.css']
 })
 export class VoSidenavComponent {
- 
-  @Input() voSideNavStatus: boolean = false; 
+
+  @Input() voSideNavStatus: boolean = false;
   list = [
     {
       number: '1',
@@ -19,7 +19,13 @@ export class VoSidenavComponent {
       number: '2',
       name: 'All Projects',
       icon: 'bi bi-card-list',
-      route: '/vo-home/vo-projects' 
+      route: '/vo-home/vo-projects'
+    },
+    {
+      number: '3',
+      name: 'Payroll',
+      icon: 'bi bi-cash',
+      route: '/vo-home/vo-payroll'
     }
   ]
 }

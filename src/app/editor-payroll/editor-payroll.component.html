@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+        <div class="nameCard">
+            <div class="ProjectCard">
+                <h6>All Payment</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+        <div class="searchCard">
+            <form [formGroup]="searchForm" (ngSubmit)="searchPayment()">
+                <input type="text" formControlName="EditorCNR" placeholder="Enter CNR Number">
+                <button class="btn btn-sm btn-primary" type="submit"> Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-6 col-6 move-to-new-row">
+        <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()" class="search-Form">
+            <div class="searchData">
+                <div class="details">
+                    <label for="startDate"> Start Date</label>
+                    <input type="date" formControlName="startDate" id="startDate">
+                </div>
+                <div class="details">
+                    <label for="endDate"> End Date</label>
+                    <input type="date" formControlName="endDate" id="endDate">
+                </div>
+                <div class="details">
+                    <button type="submit" class="btn btn-sm btn-primary"> Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll" *ngIf="customers.length > 0">
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">CNR Number</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of customers; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{customer.tmName}}</td>
+                        <td>{{customer.startDate}}</td>
+                        <td>{{customer.endDate}}</td>
+                        <td>{{customer.EditorCNR}}</td>
+                        <td>{{customer.editorPaymentDate}}</td>
+                        <td>{{customer.PaybalAmount}}</td>
+                        <td>{{customer.companyName}}</td>
+                        <td>{{customer.EditorPaymentStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-scroll" *ngIf="rangeData">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">CNR Number</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of rangeData; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{customer.tmName}}</td>
+                        <td>{{customer.startDate}}</td>
+                        <td>{{customer.endDate}}</td>
+                        <td>{{customer.EditorCNR}}</td>
+                        <td>{{customer.editorPaymentDate}}</td>
+                        <td>{{customer.PaybalAmount}}</td>
+                        <td>{{customer.companyName}}</td>
+                        <td>{{customer.EditorPaymentStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">CNR Number</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of data; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{customer.tmName}}</td>
+                        <td>{{customer.startDate}}</td>
+                        <td>{{customer.endDate}}</td>
+                        <td>{{customer.EditorCNR}}</td>
+                        <td>{{customer.editorPaymentDate}}</td>
+                        <td>{{customer.PaybalAmount}}</td>
+                        <td>{{customer.companyName}}</td>
+                        <td>{{customer.EditorPaymentStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

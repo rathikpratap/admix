@@ -206,7 +206,7 @@ export class UpdatePanelComponent {
     return this.updateForm.get(name)
   }
 
-  onUpdate() {
+  onUpdate() { 
     const editorPayment1: number = parseFloat(this.updateForm.get('editorPayment')?.value || '0');
     const editorChangesPayment1: number = parseFloat(this.updateForm.get('editorChangesPayment')?.value || '0');
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;

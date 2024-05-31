@@ -38,6 +38,7 @@ export class EditorB2bUpdateComponent implements OnInit {
     editorPayment: new FormControl(),
     editorOtherChanges: new FormControl(""),
     editorChangesPayment: new FormControl(),
+    totalEditorPayment: new FormControl(0),
     numberOfVideos: new FormControl(""),
     videoDuration: new FormControl(0)
   });
@@ -68,7 +69,8 @@ export class EditorB2bUpdateComponent implements OnInit {
         editorOtherChanges: res['editorOtherChanges'],
         editorChangesPayment: res['editorChangesPayment'],
         numberOfVideos: res['numberOfVideos'],
-        videoDuration: res['videoDuration']
+        videoDuration: res['videoDuration'],
+        totalEditorPayment: res['totalEditorPayment']
       })
     });
     this.auth.getProfile().subscribe((res: any) => {
@@ -76,7 +78,7 @@ export class EditorB2bUpdateComponent implements OnInit {
       if (!this.tok) {
         alert("Session Ecpired, Please Login Again");
         this.auth.logout();
-      }
+      } 
     });
     this.auth.allEmployee().subscribe((res: any) => {
       this.employee = res.filter((emp: any) => emp.signupRole === 'Editor')
@@ -97,6 +99,7 @@ export class EditorB2bUpdateComponent implements OnInit {
       this.editorOtherChanges = true;
     } else {
       this.editorOtherChanges = false;
+      this.b2bUpdateForm.get('editorChangesPayment')?.setValue(0);
     }
   }
   ngOnInit(): void {
@@ -171,6 +174,11 @@ export class EditorB2bUpdateComponent implements OnInit {
         }
       }
     })
+    const editorPayment1: number = this.b2bUpdateForm.get('editorPayment')?.value;
+    const editorChangesPayment1: number = this.b2bUpdateForm.get('editorChangesPayment')?.value;
+    const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
+    this.b2bUpdateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
+
     this.auth.updateB2bbyEditor(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully", res);
       this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-other') })

@@ -56,6 +56,11 @@ import { UpdateB2bComponent } from './update-b2b/update-b2b.component';
 import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.component';
 import { CustomLeadsComponent } from './custom-leads/custom-leads.component';
 import { PayrollComponent } from './payroll/payroll.component';
+import { EditorPayrollComponent } from './editor-payroll/editor-payroll.component';
+import { ScriptPayrollComponent } from './script-payroll/script-payroll.component';
+import { VoPayrollComponent } from './vo-payroll/vo-payroll.component';
+import { B2bPayrollComponent } from './b2b-payroll/b2b-payroll.component';
+import { AllPayrollComponent } from './all-payroll/all-payroll.component';
 
 const routes: Routes = [
   {
@@ -147,6 +152,14 @@ const routes: Routes = [
       {
         path: 'payroll',
         component: PayrollComponent
+      },
+      {
+        path: 'b2b-payroll',
+        component: B2bPayrollComponent
+      },
+      {
+        path: 'all-payroll',
+        component: AllPayrollComponent
       }
     ]
   },
@@ -241,6 +254,10 @@ const routes: Routes = [
       {
         path: 'editor-b2b-update/:id',
         component: EditorB2bUpdateComponent
+      },
+      {
+        path: 'editor-payroll',
+        component: EditorPayrollComponent
       }
     ]
   },
@@ -268,6 +285,10 @@ const routes: Routes = [
       {
         path: 'script-projects',
         component: ScriptProjectsComponent
+      },
+      {
+        path: 'script-payroll',
+        component: ScriptPayrollComponent
       }
     ]
   },
@@ -295,6 +316,10 @@ const routes: Routes = [
       {
         path: 'vo-projects',
         component: VoProjectsComponent
+      },
+      {
+        path: 'vo-payroll',
+        component: VoPayrollComponent
       }
     ]
   }

@@ -156,7 +156,11 @@ export class EditorUpdateComponent implements OnInit {
             this.updateForm.get('editorPayment')?.setValue(0);
         }
        }
-    })
+    }) 
+    const editorPayment1: number = this.updateForm.get('editorPayment')?.value;
+    const editorChangesPayment1: number = this.updateForm.get('editorChangesPayment')?.value;
+    const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
+    this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully", res);
@@ -171,6 +175,7 @@ export class EditorUpdateComponent implements OnInit {
       this.editorOtherChanges = true;
     } else {
       this.editorOtherChanges = false;
+      this.updateForm.get('editorChangesPayment')?.setValue(0);
     }
   }
 }

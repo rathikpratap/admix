@@ -29,12 +29,6 @@
             </div>
         </form>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
-        <button class="btn btn-sm btn-outline-warning getButton" (click)="allPayroll()">See History</button>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
-        <button class="btn btn-sm btn-outline-warning getButton" (click)="b2bPayroll()">B2b Payroll</button>
-    </div>
 </div>
 <div class="new-customer">
     <div class="row">
@@ -80,43 +74,19 @@
                             <input type="text" class="form-control" formControlName="inCompleteProjects" placeholder="Incomplete Projects">
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Editor'">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Total Editor Paybal Payment:</span>
                             <input type="text" class="form-control" formControlName="EditorPaybalPayment" placeholder="Editor Payment">
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Script Writer'">
-                        <div class="form-group">
-                            <span class="details"> Total Writer Paybal Payment:</span>
-                            <input type="text" class="form-control" formControlName="ScriptPaybalPayment" placeholder="Writer Payment">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'VO Artist'">
-                        <div class="form-group">
-                            <span class="details"> Total Vo Artist Paybal Payment:</span>
-                            <input type="text" class="form-control" formControlName="VoPaybalPayment" placeholder="Vo Artist Payment">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Editor'">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Total Editor Payment Date:</span>
                             <input type="datetime-local" class="form-control" formControlName="editorPaymentDate" placeholder="Editor Payment Date">
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Script Writer'">
-                        <div class="form-group">
-                            <span class="details"> Total Writer Payment Date:</span>
-                            <input type="datetime-local" class="form-control" formControlName="scriptPaymentDate" placeholder="Writer Payment Date">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'VO Artist'">
-                        <div class="form-group">
-                            <span class="details"> Total Vo Artist Payment Date:</span>
-                            <input type="datetime-local" class="form-control" formControlName="voiceOverPaymentDate" placeholder="Vo Artist Payment">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Editor'">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Editor Payment Status:</span>
                             <select class="form-select" formControlName="EditorPaymentStatus" aria-label="Default select example">
@@ -126,42 +96,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Script Writer'">
-                        <div class="form-group">
-                            <span class="details"> Writer Payment Status:</span>
-                            <select class="form-select" formControlName="ScriptPaymentStatus" aria-label="Default select example">
-                                <option value="null">Select Payment Status</option>
-                                <option value="Not Transfered">Not Transfered</option>
-                                <option value="Transfered">Transfered</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'VO Artist'">
-                        <div class="form-group">
-                            <span class="details"> Vo Artist Payment Status:</span>
-                            <select class="form-select" formControlName="VoiceOverPaymentStatus" aria-label="Default select example">
-                                <option value="null">Select Payment Status</option>
-                                <option value="Not Transfered">Not Transfered</option>
-                                <option value="Transfered">Transfered</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Editor'">
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> CNR No. Of Editor Payment:</span>
                             <input type="text" class="form-control" formControlName="EditorCNR" placeholder="Payment CNR Number">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'Script Writer'">
-                        <div class="form-group">
-                            <span class="details"> CNR No. Of Script Writer Payment:</span>
-                            <input type="text" class="form-control" formControlName="ScriptCNR" placeholder="Payment CNR Number">
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="payrollForm.get('payrollRole')?.value === 'VO Artist'">
-                        <div class="form-group">
-                            <span class="details"> CNR No. Of Vo Artist Payment:</span>
-                            <input type="text" class="form-control" formControlName="VoCNR" placeholder="Payment CNR Number">
                         </div>
                     </div>
                     <div class="input-box hidden-input">

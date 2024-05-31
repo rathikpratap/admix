@@ -12,7 +12,7 @@ export class AllProjectsComponent {
 
   @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
- 
+  
  updateEditorVisible: boolean = true;
   data:any=[];
   searchForm: FormGroup;

@@ -59,7 +59,7 @@ export class NewCustomerComponent {
       if(this.dataLength){
         this.customerForm.get('custCode')!.setValue(this.dataLength);
       }
-    });
+    }); 
 
     this.auth.b2bDataLength().subscribe((list : any)=>{
       this.dataLength = list + 1; 

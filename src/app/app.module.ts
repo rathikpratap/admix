@@ -65,6 +65,11 @@ import { UpdateB2bComponent } from './update-b2b/update-b2b.component';
 import { EditorB2bUpdateComponent } from './editor-b2b-update/editor-b2b-update.component';
 import { CustomLeadsComponent } from './custom-leads/custom-leads.component';
 import { PayrollComponent } from './payroll/payroll.component';
+import { EditorPayrollComponent } from './editor-payroll/editor-payroll.component';
+import { ScriptPayrollComponent } from './script-payroll/script-payroll.component';
+import { VoPayrollComponent } from './vo-payroll/vo-payroll.component';
+import { B2bPayrollComponent } from './b2b-payroll/b2b-payroll.component';
+import { AllPayrollComponent } from './all-payroll/all-payroll.component';
 
 
 
@@ -127,7 +132,12 @@ import { PayrollComponent } from './payroll/payroll.component';
     UpdateB2bComponent,
     EditorB2bUpdateComponent,
     CustomLeadsComponent,
-    PayrollComponent
+    PayrollComponent,
+    EditorPayrollComponent,
+    ScriptPayrollComponent,
+    VoPayrollComponent,
+    B2bPayrollComponent,
+    AllPayrollComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,180 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.nameCard{
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.ProjectCard{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+} 
+.btn[aria-expanded="true"] {
+    background-color: green;
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 15px;
+    width: fit-content;
+}
+
+.searchCard form input{
+    background: rgba(255,255, 255, 0);
+    width: 60%;
+    color: #fff;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.dateButton{
+    margin: 10px 0px 0px 0px;
+}
+.dateButton button{
+    margin: 0px 10px 0px 0px;
+}
+.searchData{
+    display: flex;
+}
+.searchData .details{
+    color: #fff; 
+    display: flex;
+}
+.searchData .details input{
+    background: rgba(255,255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid #D1D1D4;
+    color: #fff;
+    padding: 5px;
+}
+.searchData .details label{
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 300;
+    font-size: 14px;
+}
+.searchData button{
+    margin-left: 10px;
+}
+@media only screen and (max-width: 538px){
+    .searchData{
+        display: block;
+        margin-top: 15px;
+    }
+    .searchData .details{
+        margin-top: 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
+}
+@media only screen and (min-width: 538px) and (max-width: 768px){
+    .searchData{
+        margin-top: 15px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 870px){
+    .move-to-new-row {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
+}
+@media only screen and (min-width: 870px) and (max-width: 884px){
+    .table-scroll{
+        width: auto;
+    }
+    .table{
+        overflow: scroll !important;
+    }
+    .dateButton button{
+        margin-top: 10px;
+    }
+    .searchData{
+        margin-top: 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 884px) and (max-width: 1190px){
+    .searchData{
+        margin-top: 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+    .move-to-new-row2 {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+}

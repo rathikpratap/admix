@@ -79,7 +79,7 @@ export class EditorProjectsComponent {
         this.rangeData = rangeData;
       })
     }
-  }
+  } 
   otherProjects(){
     const url = `/editor-home/editor-otherProjects`;
     window.open(url, '_blank');

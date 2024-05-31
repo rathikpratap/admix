@@ -185,6 +185,18 @@ export class AuthService {
   searchB2bByProjectName(projectName:string):Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/B2bProjectName/${projectName}`);
   }
+  searchPayment(editorCNR:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/editorPayroll/${editorCNR}`);
+  }
+  searchPaymentAll(editorCNR:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/payrollAll/${editorCNR}`);
+  }
+  searchPaymentScript(editorCNR:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptPayroll/${editorCNR}`);
+  }
+  searchPaymentVo(editorCNR:string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/voPayroll/${editorCNR}`);
+  }
 
   getProfile(){
     let headers = {
@@ -320,8 +332,63 @@ export class AuthService {
   getDatabyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditor/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
+  getPayrollbyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeEditor/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getPayrollbyDatePassRangeEditorAll(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeEditorAll/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getPayrollbyDatePassRangeScript(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeScript/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getPayrollbyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeVo/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
   getDatabyDatePassRangeEditorOther(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditorOther/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  getTmPay(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByTm/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  getTmPayB2b(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByTmB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  getEditorDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByEditorPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  getEditorDetailsB2b(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByEditorPaymentB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  getScriptDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByScriptPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  getVoDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByVoPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
+  }
+  updatePayrollDetails(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdate/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
+  }
+  updatePayrollDetailsB2b(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
+  }
+  updatePayrollDetailsScript(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateScript/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
+  }
+  updatePayrollDetailsVo(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateVo/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
+  }
+  payrollData():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/editorPayroll`);
+  }
+  allPayrollData():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allPayroll`);
+  }
+  payrollDataScript():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/scriptPayroll`);
+  }
+  payrollDataVo():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/voPayroll`);
   }
 
   getLeadbyRange(startDate: Date, endDate: Date): Observable<any>{

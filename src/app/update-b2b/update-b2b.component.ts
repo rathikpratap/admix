@@ -91,7 +91,7 @@ export class UpdateB2bComponent {
       editorChangesPayment: res['editorChangesPayment'],
       numberOfVideos: res['numberOfVideos']
     }) 
-  })
+  }) 
 
   }
 

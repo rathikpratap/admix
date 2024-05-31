@@ -20,6 +20,12 @@ export class ScriptSidenavComponent {
       name: 'All Projects',
       icon: 'bi bi-card-list',
       route: '/script-home/script-projects'
+    },
+    {
+      number: '3',
+      name: 'Payroll',
+      icon: 'bi bi-cash',
+      route: '/script-home/script-payroll'
     }
   ]
 }

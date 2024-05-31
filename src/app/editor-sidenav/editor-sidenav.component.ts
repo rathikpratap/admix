@@ -21,17 +21,23 @@ export class EditorSidenavComponent {
       name: 'All Projects',
       icon: 'bi bi-card-list',
       route: '/editor-home/editor-projects' 
+    },
+    {
+      number: '3',
+      name: 'Payroll',
+      icon: 'bi bi-cash',
+      route: '/editor-home/editor-payroll'
     }
   ];
   list2 = [
     {
-      number: '3',
+      number: '4',
       name: 'Company Dashboard',
       icon: 'bi bi-house',
       route: '/editor-home/editor-other'
     },
     {
-      number: '4',
+      number: '5',
       name: 'Other Company Projects ',
       icon: 'bi bi-card-list',
       route: '/editor-home/editor-otherProjects'
