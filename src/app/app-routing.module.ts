@@ -61,6 +61,7 @@ import { ScriptPayrollComponent } from './script-payroll/script-payroll.componen
 import { VoPayrollComponent } from './vo-payroll/vo-payroll.component';
 import { B2bPayrollComponent } from './b2b-payroll/b2b-payroll.component';
 import { AllPayrollComponent } from './all-payroll/all-payroll.component';
+import { AddPaymentComponent } from './add-payment/add-payment.component';
 
 const routes: Routes = [
   {
@@ -160,6 +161,10 @@ const routes: Routes = [
       {
         path: 'all-payroll',
         component: AllPayrollComponent
+      },
+      {
+        path: 'add-payment',
+        component: AddPaymentComponent
       }
     ]
   },

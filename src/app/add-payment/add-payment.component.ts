@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  selector: 'app-add-payment',
+  templateUrl: './add-payment.component.html',
+  styleUrls: ['./add-payment.component.css']
 })
-export class PaymentComponent {
-
+export class AddPaymentComponent {
   emp: any[]=[];
   tok:any;
   companies:any;
@@ -32,9 +31,9 @@ export class PaymentComponent {
   filterEmployeesByRole(role: string): any[] {
     switch (role) {
         case 'Script Writer': 
-            return this.companies.filter((employee:any) => employee.signupRole === 'Script Writer');
+            return this.emp.filter((employee:any) => employee.signupRole === 'Script Writer');
         case 'EditorAndVo':
-            return this.companies.filter((employee:any) => employee.signupRole === 'Editor' || employee.signupRole === 'VO Artist');
+            return this.emp.filter((employee:any) => employee.signupRole === 'Editor' || employee.signupRole === 'VO Artist');
         default:
             return []; // Return an empty array if no specific role is selected
     }

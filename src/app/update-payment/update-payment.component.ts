@@ -1,6 +1,6 @@
-import { Component} from '@angular/core';
+import { Component,NgZone} from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute,Router} from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class UpdatePaymentComponent {
     payment500words: new FormControl(0),
   })
 
-  constructor(private activatedRoute: ActivatedRoute, private auth: AuthService){
+  constructor(private activatedRoute: ActivatedRoute, private auth: AuthService,private router: Router, private ngZone: NgZone){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -79,6 +79,8 @@ export class UpdatePaymentComponent {
     const signupName = this.empUpdateForm.get('signupName')?.value;
     this.auth.updatePayment(companyName, signupName, this.empUpdateForm.value).subscribe((res:any)=>{
       console.log("Payment Update Successfully", this.empUpdateForm.value);
+      alert("Payment Updated Successfully!!");
+      this.ngZone.run(()=> {this.router.navigateByUrl('/payment')})
     },(err)=>{
       console.log(err)
     })

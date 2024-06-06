@@ -85,6 +85,9 @@ form .user-details .input-box{
 ::placeholder{
     color: #ccc;
 }
+.user-details .input-box select option{
+    color: black;
+}
 .user-details .input-box textarea:focus{
     border-color: blueviolet;
 }

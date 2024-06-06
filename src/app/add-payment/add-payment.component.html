@@ -6,7 +6,6 @@
                     <h6> Update Payment </h6>
                 </div>
                 <div class="company">
-                    <button class="btn btn-sm btn-primary getButton" routerLink="/add-payment">Add Payment</button>
                     <button class="btn btn-sm btn-primary" routerLink="/add-company">Add New Company</button>
                 </div>
             </div>
@@ -29,11 +28,11 @@
                             <th scope="col">Company Name</th>
                             <th scope="col">Name</th>
                             <th scope="col">Position</th>
-                            <th scope="col">150 Words Charge</th>
+                            <!-- <th scope="col">150 Words Charge</th>
                             <th scope="col">200 Words Charge</th>
                             <th scope="col">300 Words Charge</th>
-                            <th scope="col">500 Words Charge</th>
-                            <th scope="col">Update Payment</th>
+                            <th scope="col">500 Words Charge</th>-->
+                            <th scope="col">Update Payment</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -42,10 +41,10 @@
                             <td>{{user.companyName}}</td>
                             <td>{{user.signupName}}</td>
                             <td>{{user.signupRole}}</td>
-                            <td>{{user.payment150words}}</td>
+                            <!-- <td>{{user.payment150words}}</td>
                             <td>{{user.payment200words}}</td>
                             <td>{{user.payment300words}}</td>
-                            <td>{{user.payment500words}}</td>
+                            <td>{{user.payment500words}}</td> -->
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" routerLink="/update-payment/{{user._id}}"> Update</button>
@@ -74,13 +73,13 @@
                             <th scope="col">Company Name</th>
                             <th scope="col">Name</th>
                             <th scope="col">Position</th>
-                            <th scope="col">1 Min Charge</th>
+                            <!-- <th scope="col">1 Min Charge</th>
                             <th scope="col">1 Min 30 Seconds Charge</th>
                             <th scope="col">2 Min Charge</th>
                             <th scope="col">2 Min 30 Seconds Charge</th> 
                             <th scope="col">3 Min Charge</th>
                             <th scope="col">Two Video Charges</th>
-                            <th scope="col">Three Video Charges</th>
+                            <th scope="col">Three Video Charges</th> -->
                             <th scope="col">Update Payment</th>
                         </tr>
                     </thead>
@@ -90,13 +89,13 @@
                             <td>{{user.companyName}}</td>
                             <td>{{user.signupName}}</td>
                             <td>{{user.signupRole}}</td>
-                            <td>{{user.payment60Sec}}</td>
+                            <!-- <td>{{user.payment60Sec}}</td>
                             <td>{{user.payment90Sec}}</td>
                             <td>{{user.payment120Sec}}</td>
                             <td>{{user.payment150Sec}}</td>
                             <td>{{user.payment180Sec}}</td>
                             <td>{{user.paymentTwoVideo}}</td>
-                            <td>{{user.paymentThreeVideo}}</td>
+                            <td>{{user.paymentThreeVideo}}</td> -->
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" routerLink="/update-payment/{{user._id}}"> Update</button>
