@@ -17,9 +17,12 @@ export class UpdatePaymentComponent {
   selectedEmployee:any  = null; // To store the selected employee
 
   empUpdateForm = new FormGroup({
-    companyName: new FormControl(null),
+    companyName: new FormControl("null"),
     signupName: new FormControl(""),
     signupRole: new FormControl(""),
+    videoType: new FormControl("null"),
+    payment30Sec: new FormControl(0),
+    payment45Sec: new FormControl(0),
     payment60Sec: new FormControl(0),
     payment90Sec: new FormControl(0),
     payment120Sec: new FormControl(0),
@@ -58,6 +61,9 @@ export class UpdatePaymentComponent {
         companyName : res['companyName'],
         signupName : res['signupName'],
         signupRole : res['signupRole'],
+        videoType: res['videoType'],
+        payment30Sec: res['payment30Sec'],
+        payment45Sec: res['payment45Sec'],
         payment60Sec: res['payment60Sec'],
         payment90Sec: res['payment90Sec'],
         payment120Sec: res['payment120Sec'],
@@ -77,7 +83,9 @@ export class UpdatePaymentComponent {
   onUpdate(){
     const companyName = this.empUpdateForm.get('companyName')?.value; // Accessing companyName using get method
     const signupName = this.empUpdateForm.get('signupName')?.value;
-    this.auth.updatePayment(companyName, signupName, this.empUpdateForm.value).subscribe((res:any)=>{
+    const signupRole = this.empUpdateForm.get('signupRole')?.value;
+    const videoType = this.empUpdateForm.get('videoType')?.value;
+    this.auth.updatePayment(companyName, signupName,signupRole,videoType, this.empUpdateForm.value).subscribe((res:any)=>{
       console.log("Payment Update Successfully", this.empUpdateForm.value);
       alert("Payment Updated Successfully!!");
       this.ngZone.run(()=> {this.router.navigateByUrl('/payment')})

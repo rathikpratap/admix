@@ -243,8 +243,8 @@ export class AuthService {
     return this.http.put(`${appConfig.apiUrl}/auth/updateEmp/${id}`, data, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
   }
 
-  updatePayment(companyName:any, signupName:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updatePay/${companyName}/${signupName}`,data);
+  updatePayment(companyName:any, signupName:any,signupRole:any, videoType:any, data:any):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/updatePay/${companyName}/${signupName}/${signupRole}/${videoType}`,data);
   }
 
   getEmployee(id:any):Observable<any>{

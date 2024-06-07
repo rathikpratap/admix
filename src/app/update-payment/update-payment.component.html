@@ -33,6 +33,30 @@
                             <input type="text" class="from-control" formControlName="signupRole">
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="selectedEmployee?.signupRole === 'Editor'">
+                        <div class="form-group">
+                            <span class="details"> Video Type: </span>
+                            <select class="form-select" formControlName="videoType">
+                                <option value="null"> Select Video type</option>
+                                <option value="Normal Graphics">Normal Graphics</option>
+                                <option value="Motion Graphics">Motion Graphics</option>
+                                <option value="Green Screen">Green Screen</option>
+                                <option value="Voice Over Edit">Voice Over Edit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="selectedEmployee?.signupRole !== 'Script Writer'">
+                        <div class="form-group">
+                            <span class="details"> Upto 30 Sec: </span>
+                            <input type="number" class="from-control" formControlName="payment30Sec" placeholder="Enter 30 Seconds Payment">
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="selectedEmployee?.signupRole !== 'Script Writer'">
+                        <div class="form-group">
+                            <span class="details"> Upto 45 Sec: </span>
+                            <input type="number" class="from-control" formControlName="payment45Sec" placeholder="Enter 45 Seconds Payment">
+                        </div>
+                    </div>
                     <div class="input-box" *ngIf="selectedEmployee?.signupRole !== 'Script Writer'">
                         <div class="form-group">
                             <span class="details"> Upto 1 Min: </span>

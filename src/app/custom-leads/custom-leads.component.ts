@@ -38,8 +38,8 @@ export class CustomLeadsComponent {
 
   }
   leadForm = new FormGroup({
-    campaign_Name: new FormControl("",[Validators.required]),
-    closingDate: new FormControl("",[Validators.required]),
+    campaign_Name: new FormControl("WhatsApp",[Validators.required]),
+    closingDate: new FormControl(""),
     custName: new FormControl("",[Validators.required]),
     custEmail: new FormControl(""),
     custBussiness: new FormControl(""),
@@ -57,7 +57,8 @@ export class CustomLeadsComponent {
   }
 
   addLead(){
-
+    const currentDate = new Date().toISOString();
+    this.leadForm.get('closingDate')?.setValue(currentDate);
     this.isProcess = true;
     console.warn(this.leadForm.value);
     const custData = this.leadForm.value;

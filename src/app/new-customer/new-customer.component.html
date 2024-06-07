@@ -98,6 +98,19 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Bill Type: </span>
+                            <select class="form-select" formControlName="billType" aria-label="Default select example" [ngClass]="{error:getControls('billType')?.errors && getControls('billType')?.touched}">
+                                <option value="null">Select Bill Type</option>
+                                <option value="GST Bill">GST Bill</option>
+                                <option value="Non-GST Bill">Non-GST Bill</option>
+                            </select>
+                            <div *ngIf="getControls('billType')?.errors && getControls('billType')?.touched">
+                                <label class="text-danger" *ngIf="getControls('billType')?.errors?.['required']"> Bill Type is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Advance Payment: </span>
                             <input type="number" class="form-control" formControlName="AdvPay"
                                 [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
@@ -323,6 +336,19 @@
                                 placeholder="Enter Project Price">
                             <div *ngIf="getB2bCustomerFormControl('b2bProjectPrice')?.errors && getB2bCustomerFormControl('b2bProjectPrice')?.touched">
                                 <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bProjectPrice')?.errors?.['required']"> Project Price is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Bill Type: </span>
+                            <select class="form-select" formControlName="b2bBillType" aria-label="Default select example" [ngClass]="{error:getControls('b2bBillType')?.errors && getControls('b2bBillType')?.touched}">
+                                <option value="null">Select Bill Type</option>
+                                <option value="GST Bill">GST Bill</option>
+                                <option value="Non-GST Bill">Non-GST Bill</option>
+                            </select>
+                            <div *ngIf="getControls('b2bBillType')?.errors && getControls('b2bBillType')?.touched">
+                                <label class="text-danger" *ngIf="getControls('b2bBillType')?.errors?.['required']"> Bill Type is Required </label>
                             </div>
                         </div>
                     </div>

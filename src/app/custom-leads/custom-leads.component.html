@@ -15,18 +15,12 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Campaign Name: </span>
-                            <input type="text" class="form-control" formControlName="campaign_Name" [ngClass]="{error:getControls('campaign_Name')?.errors && getControls('campaign_Name')?.touched}" placeholder="Enter Campaign Name">
+                            <select class="form-select" formControlName="campaign_Name" aria-label="Default select example" [ngClass]="{error:getControls('campaign_Name')?.errors && getControls('campaign_Name')?.touched}">
+                                <option value="null">Select Campaign</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                            </select>
                             <div *ngIf="getControls('campaign_Name')?.errors && getControls('campaign_Name')?.touched">
                                 <label class="text-danger" *ngIf="getControls('campaign_Name')?.errors?.['required']"> Campaign Name is Required </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Closing Date: </span>
-                            <input type="datetime-local" class="form-control" formControlName="closingDate" [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}" placeholder="Enter Date">
-                            <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
-                                <label class="text-danger" *ngIf="getControls('closingDate')?.errors?.['required']"> Date is Required </label>
                             </div>
                         </div>
                     </div>
@@ -48,25 +42,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Email: </span>
                             <input type="text" class="form-control" formControlName="custEmail" placeholder="Enter Customer Email">
                         </div>
-                    </div>
+                    </div>  -->
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Bussiness: </span>
                             <input type="text" class="form-control" formControlName="custBussiness" placeholder="Enter Customer Bussiness">
                         </div>
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <div class="form-group">
                             <span class="details"> State: </span>
                             <input type="text" class="form-control" formControlName="state" placeholder="Enter Customer State">
                         </div>
-                    </div>
-                    <div class="input-box">
+                    </div> -->
+                    <!-- <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
                             <select class="form-select" formControlName="projectStatus" aria-label="Default select example">
@@ -78,7 +72,7 @@
                                 <option value="Interested">Interested</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> remark </span>

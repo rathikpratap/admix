@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
- 
+
 @Component({
   selector: 'app-editor-update',
   templateUrl: './editor-update.component.html',
@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class EditorUpdateComponent implements OnInit {
   getId: any;
-  tok: any; 
+  tok: any;
   editorOtherChanges: boolean = false;
   emp: any;
   totalSec: any;
@@ -32,7 +32,7 @@ export class EditorUpdateComponent implements OnInit {
     videoDurationMinutes: new FormControl(0),
     videoDurationSeconds: new FormControl(0),
     numberOfVideos: new FormControl(""),
-    companyName: new FormControl("") 
+    companyName: new FormControl("")
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
@@ -58,9 +58,9 @@ export class EditorUpdateComponent implements OnInit {
       })
     })
 
-    this.auth.getProfile().subscribe((res:any)=>{
+    this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
-      if(!this.tok){
+      if (!this.tok) {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
@@ -70,9 +70,9 @@ export class EditorUpdateComponent implements OnInit {
       console.log("All Employees==>", res);
       this.emp = res;
     });
-    this.auth.getCompany().subscribe((res:any)=>{
+    this.auth.getCompany().subscribe((res: any) => {
       this.company = res;
-      console.log("Company Details===> ",this.company);
+      console.log("Company Details===> ", this.company);
     })
   }
 
@@ -104,59 +104,265 @@ export class EditorUpdateComponent implements OnInit {
     const CompName = this.updateForm.get('companyName')?.value;
     console.log("COMP NAme====>>", CompName);
 
-    this.company.forEach((comp: { companyName: string, signupName: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number})=>{
-       if(comp.companyName === CompName && comp.signupName === this.tok.signupUsername){
-        switch (this.updateForm.get('numberOfVideos')?.value) {
-          case 'One':
-            if(this.totalSec > 0 && this.totalSec <= 60){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
-            } else if( this.totalSec > 60 && this.totalSec <= 90){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
-            } else if(this.totalSec > 90 && this.totalSec <=120){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
-            } else if(this.totalSec > 120 && this.totalSec <=150){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
-            } else if(this.totalSec > 150 && this.totalSec <= 180){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
-            } else{
-              this.updateForm.get('editorPayment')?.setValue(0);
+    this.company.forEach((comp: { companyName: string, signupName: string,payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
+      if (comp.companyName === CompName && comp.signupName === this.tok.signupUsername) {
+        switch (this.updateForm.get('videoType')?.value) {
+          case 'Normal Graphics':
+            switch (this.updateForm.get('numberOfVideos')?.value) {
+              case 'One':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Two':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Three':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              default:
+                this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
-          case 'Two':
-            if(this.totalSec > 0 && this.totalSec <= 60){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
-            } else if( this.totalSec > 60 && this.totalSec <= 90){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
-            } else if(this.totalSec > 90 && this.totalSec <=120){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
-            } else if(this.totalSec > 120 && this.totalSec <=150){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
-            } else if(this.totalSec > 150 && this.totalSec <=180){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
-            } else {
-              this.updateForm.get('editorPayment')?.setValue(0);
+          case 'Motion Graphics':
+            switch (this.updateForm.get('numberOfVideos')?.value) {
+              case 'One':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Two':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Three':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              default:
+                this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
-          case 'Three':
-            if(this.totalSec > 0 && this.totalSec <= 60){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
-            } else if(this.totalSec > 60 && this.totalSec <=90){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
-            } else if(this.totalSec > 90 && this.totalSec <=120){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
-            } else if(this.totalSec > 120 && this.totalSec <=150){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
-            }else if(this.totalSec > 150 && this.totalSec <= 180){
-              this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
-            }else{
-              this.updateForm.get('editorPayment')?.setValue(0);
+          case 'Green Screen':
+            switch (this.updateForm.get('numberOfVideos')?.value) {
+              case 'One':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Two':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Three':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              default:
+                this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
-          default:
-            this.updateForm.get('editorPayment')?.setValue(0);
+            case 'Voice Over Edit':
+            switch (this.updateForm.get('numberOfVideos')?.value) {
+              case 'One':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Two':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Three':
+                if (this.totalSec > 0 && this.totalSec <= 30){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.updateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+                } else {
+                  this.updateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              default:
+                this.updateForm.get('editorPayment')?.setValue(0);
+            }
+            break;
         }
-       }
-    }) 
+
+      }
+    })
     const editorPayment1: number = this.updateForm.get('editorPayment')?.value;
     const editorChangesPayment1: number = this.updateForm.get('editorChangesPayment')?.value;
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;

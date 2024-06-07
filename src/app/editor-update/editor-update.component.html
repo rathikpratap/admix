@@ -6,7 +6,7 @@
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
                 <h2> Enter Project Details </h2>
-            </div>
+            </div> 
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
                 <div class="user-details">
                     <div class="input-box">
@@ -45,6 +45,8 @@
                                 <option value="null">Select Graphics Type</option>
                                 <option value="Normal Graphics">Normal Graphics</option>
                                 <option value="Motion Graphics">Motion Graphics</option>
+                                <option value="Green Screen">Green Screen</option>
+                                <option value="Voice Over Edit">Voice Over Edit</option>
                             </select>
                         </div>
                     </div> 
