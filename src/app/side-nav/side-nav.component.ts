@@ -66,7 +66,7 @@ export class SideNavComponent {
     {
       number:'10',
       name: 'Invoice',
-      icon:'bi bi-cash',
+      icon:'bi bi-receipt',
       route: '/est-invoice'
     }
   ]

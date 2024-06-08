@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./custom-leads.component.css']
 })
 export class CustomLeadsComponent {
- 
+  
   message:string='';
   isProcess:boolean = false;
   className = 'd-none';
@@ -39,7 +39,7 @@ export class CustomLeadsComponent {
   }
   leadForm = new FormGroup({
     campaign_Name: new FormControl("WhatsApp",[Validators.required]),
-    closingDate: new FormControl(""),
+    closingDate: new FormControl(),
     custName: new FormControl("",[Validators.required]),
     custEmail: new FormControl(""),
     custBussiness: new FormControl(""),
@@ -57,8 +57,9 @@ export class CustomLeadsComponent {
   }
 
   addLead(){
-    const currentDate = new Date().toISOString();
-    this.leadForm.get('closingDate')?.setValue(currentDate);
+    const currentDate = new Date();
+    const modifiedDate = new Date(currentDate.getTime() + 5.5 * 60 * 60 * 1000).toISOString();
+    this.leadForm.get('closingDate')?.setValue(modifiedDate);
     this.isProcess = true;
     console.warn(this.leadForm.value);
     const custData = this.leadForm.value;
@@ -68,7 +69,7 @@ export class CustomLeadsComponent {
         this.message = "New Lead Added";
         this.className = 'alert alert-success';
         this.leadForm.get('leadsCreatedDate')?.setValue(this.leadForm.get('closingDate')?.value || null);
-        this.leadForm.reset();
+        window.location.reload();
       }else{
         this.isProcess = false;
         this.message = res.message;
