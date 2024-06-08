@@ -529,7 +529,10 @@ export class AuthService {
   }
 
   getTeamLeads():Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`);
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`); 
+  }
+  getWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads`); 
   }
 
   getSalesTeamWork():Observable<any>{
@@ -539,11 +542,17 @@ export class AuthService {
   getYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads`);
   }
+  getYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads`);
+  }
 
   getSalesYesterdayTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesYesterdayTeamWork`);
   }
 
+  getOneYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayWhatsApp-leads`);
+  }
   getOneYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads`);
   }
@@ -555,6 +564,9 @@ export class AuthService {
   getTwoYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads`);
   }
+  getTwoYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads`);
+  }
 
   getSalesTwoYesterdayTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTwoYesterdayTeamWork`);
@@ -562,6 +574,9 @@ export class AuthService {
 
   getThreeYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads`);
+  }
+  getThreeYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads`);
   }
 
   getSalesThreeYesterdayTeamWork():Observable<any>{
@@ -571,6 +586,9 @@ export class AuthService {
   getFourYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads`);
   }
+  getFourYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads`);
+  }
 
   getSalesFourYesterdayTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFourYesterdayTeamWork`);
@@ -578,6 +596,9 @@ export class AuthService {
 
   getFiveYesterdayTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads`);
+  }
+  getFiveYesterdayWhatsAppLeads():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads`);
   }
 
   getSalesFiveYesterdayTeamWork():Observable<any>{

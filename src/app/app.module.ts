@@ -71,6 +71,8 @@ import { VoPayrollComponent } from './vo-payroll/vo-payroll.component';
 import { B2bPayrollComponent } from './b2b-payroll/b2b-payroll.component';
 import { AllPayrollComponent } from './all-payroll/all-payroll.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { EstInvoiceComponent } from './est-invoice/est-invoice.component';
+import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.component';
 
 
 
@@ -139,7 +141,9 @@ import { AddPaymentComponent } from './add-payment/add-payment.component';
     VoPayrollComponent,
     B2bPayrollComponent,
     AllPayrollComponent,
-    AddPaymentComponent
+    AddPaymentComponent,
+    EstInvoiceComponent,
+    WhatsAppLeadsComponent
   ],
   imports: [
     BrowserModule,

@@ -62,6 +62,8 @@ import { VoPayrollComponent } from './vo-payroll/vo-payroll.component';
 import { B2bPayrollComponent } from './b2b-payroll/b2b-payroll.component';
 import { AllPayrollComponent } from './all-payroll/all-payroll.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { EstInvoiceComponent } from './est-invoice/est-invoice.component';
+import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.component';
 
 const routes: Routes = [
   {
@@ -165,6 +167,10 @@ const routes: Routes = [
       {
         path: 'add-payment',
         component: AddPaymentComponent
+      },
+      {
+        path: 'est-invoice',
+        component: EstInvoiceComponent
       }
     ]
   },
@@ -220,6 +226,10 @@ const routes: Routes = [
       {
         path: 'custom-leads',
         component: CustomLeadsComponent
+      },
+      {
+        path: 'whatsApp-leads',
+        component: WhatsAppLeadsComponent
       }
     ]
   },

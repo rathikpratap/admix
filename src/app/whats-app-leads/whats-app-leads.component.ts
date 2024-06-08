@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-team-leads',
-  templateUrl: './team-leads.component.html',
-  styleUrls: ['./team-leads.component.css']
+  selector: 'app-whats-app-leads',
+  templateUrl: './whats-app-leads.component.html',
+  styleUrls: ['./whats-app-leads.component.css']
 })
-export class TeamLeadsComponent {
- 
+export class WhatsAppLeadsComponent {
   data:any; 
   dataYesterday: any;
   dataOneYesterday: any;
@@ -60,37 +59,37 @@ export class TeamLeadsComponent {
       console.log("Fetched Facebook Leads===>>", res);
       this.fbLeads = res;
     })
-    this.auth.getTeamLeads().subscribe((res:any)=>{
+    this.auth.getWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.data = res; 
     }); 
 
-    this.auth.getYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
-    this.auth.getOneYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getOneYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
-    this.auth.getTwoYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getTwoYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
-    this.auth.getThreeYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getThreeYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
-    this.auth.getFourYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getFourYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
-    this.auth.getFiveYesterdayTeamLeads().subscribe((res:any)=>{
+    this.auth.getFiveYesterdayWhatsAppLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
@@ -186,8 +185,9 @@ export class TeamLeadsComponent {
       this.modifyCount = res;
     });
   }
-  whatsAppLeads(){
-    const url = `/salesHome/whatsApp-leads`;
+  facebookLeads(){
+    const url = `/salesHome/team-leads`;
     window.open(url, '_blank');
   }
 }
+ 

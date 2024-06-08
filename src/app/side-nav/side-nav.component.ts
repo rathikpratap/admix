@@ -62,6 +62,12 @@ export class SideNavComponent {
       name:'Payroll',
       icon: 'bi bi-cash',
       route:  '/payroll'
+    },
+    {
+      number:'10',
+      name: 'Invoice',
+      icon:'bi bi-cash',
+      route: '/est-invoice'
     }
   ]
 }
