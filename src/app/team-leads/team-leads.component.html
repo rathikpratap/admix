@@ -98,7 +98,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col">Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,6 +129,7 @@
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -194,7 +195,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -225,6 +226,7 @@
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -247,7 +249,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -279,6 +281,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -301,7 +304,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -333,6 +336,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -355,7 +359,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -387,6 +391,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -409,7 +414,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -441,6 +446,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -463,7 +469,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -495,6 +501,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>
@@ -517,7 +524,7 @@
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
                             <th scope="col"> Create Invoice</th>
-                            <th scope="col" *ngIf="!updateButtonVisible"> Action </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -549,6 +556,7 @@
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
                                 (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
                             </td>
                         </tr>
                     </tbody>

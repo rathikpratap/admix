@@ -263,6 +263,9 @@ export class AuthService {
   deleteCust(id:any):Observable<any>{
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-cust/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
   }
+  deleteSalesLead(id:any):Observable<any>{
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-sales/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  }
   deleteB2b(id:any):Observable<any>{
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-B2b/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
   }

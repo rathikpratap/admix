@@ -209,5 +209,19 @@ export class WhatsAppLeadsComponent implements OnInit {
     const url = `/salesHome/team-leads`;
     window.open(url, '_blank');
   }
+  invoice(userId: string){
+    const url = `/salesHome/est-invoice/${userId}`;
+    window.open(url,'_blank');
+  }
+  delete(id:any, i:any){
+    console.log(id);
+    if(window.confirm("Are you Sure want to Delete?")){
+      this.auth.deleteSalesLead(id).subscribe((res : any)=>{
+        this.data.splice(i,1);
+        alert("Data Delete Successfully");
+        window.location.reload();
+      })
+    }
+  }
 }
  
