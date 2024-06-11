@@ -17,6 +17,10 @@ export class NewCategoryComponent {
   message1:string ='';
   isProcess1:boolean = false; 
   className1 = 'd-none'
+  
+  message2:string ='';
+  isProcess2:boolean = false; 
+  className2 = 'd-none'
 
   constructor(private auth:AuthService) {
     this.auth.getProfile().subscribe((res:any)=>{
@@ -32,9 +36,13 @@ export class NewCategoryComponent {
     categoryName : new FormControl("")
   });
 
+  whatsAppCategoryForm = new FormGroup({
+    whatsAppCategoryName: new FormControl("")
+  });
+
   salesTeamForm = new FormGroup({
     salesTeamName : new FormControl("")
-  })
+  });
 
   categ(){
     this.isProcess = true;
@@ -55,6 +63,28 @@ export class NewCategoryComponent {
         this.isProcess = false;
         this.message = "Server Error";
         this.className = 'alert alert-danger';
+    })
+  }
+
+  whatsAppCateg(){
+    this.isProcess = true;
+    console.warn(this.whatsAppCategoryForm.value);
+    const data = this.whatsAppCategoryForm.value;
+    this.auth.newWhatsAppCategory(data).subscribe( res=>{
+      if(res.success){
+        this.isProcess2 = false;
+        this.message2 = "Category has been Created!!";
+        this.className2 = 'alert alert-success';
+        this.whatsAppCategoryForm.reset();
+      }else {
+        this.isProcess2 = false;
+        this.message2 = res.message;
+        this.className2 = 'alert alert-danger';
+      }
+      },err =>{
+        this.isProcess2 = false;
+        this.message2 = "Server Error";
+        this.className2 = 'alert alert-danger';
     })
   }
 

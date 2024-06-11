@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="est-text">
-                    <h3>ESTIMATE INVOICE</h3>
+                    <h3>INVOICE</h3>
                 </div>
             </div>
         </div>
@@ -70,21 +70,9 @@
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>
-                                        <select class="form-select" formControlName="invoiceCateg" aria-label="Default select example">
-                                        <option value="null">Select Category</option>
-                                        <option *ngFor="let category of Category" [value]="category.categoryName">{{category.categoryName}}</option>
-                                        <option value="Other">Other</option>
-                                        </select>
-                                        <div *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
-                                            <input type="text" formControlName="customCateg" class="form-control" placeholder="Enter Custom Category">
-                                        </div>
-                                    </td>
+                                    <td>{{categ}}</td>
                                     <td><input type="number" class="form-control" formControlName="numOfVideos" placeholder="Enter Number of Videos"></td>
-                                    <td class="inline-elements">
-                                            &#8377;
-                                            <input type="number" class="form-control" formControlName="priceOfVideos" placeholder="Enter Price of Videos">
-                                    </td>
+                                    <td>&#8377; {{priceOfVideo}}</td>
                                     <td>&#8377;{{gstAmount}} (18%)</td>
                                     <td>&#8377; {{totalAmount}}</td>
                                 </tr>
@@ -93,7 +81,7 @@
                                 <tr class="table-group-divider">
                                     <td><b>Total</b></td>
                                     <td></td>
-                                    <td><b>{{numOfVideo}}</b></td>
+                                    <td><b>{{numOfVideos}}</b></td>
                                     <td></td>
                                     <td><b>&#8377;{{gstAmount}}</b></td>
                                     <td><b>&#8377;{{totalAmount}}</b></td>
@@ -112,7 +100,6 @@
                     <p>{{wordsAmt | uppercase}} ONLY</p>
                     <p><strong>Terms and Condition</strong></p>
                     <p *ngIf="invoiceForm.get('invoiceCateg')?.value !== 'Other'">For {{categ}} 50% advance payment needed.</p>
-                    <p *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'">For {{customCateg}} 50% advance payment needed.</p>
                 </div>
                 <div class="sub-total">
                     <div class="sub-total-title">

@@ -122,5 +122,9 @@ export class AllCustomersComponent {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.open(url, '_blank');
   }
+  invoice(userId: string){
+    const url = `/salesHome/main-invoice/${userId}`;
+    window.open(url,'_blank');
+  }
  
 }

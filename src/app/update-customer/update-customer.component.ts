@@ -108,7 +108,7 @@ export class UpdateCustomerComponent {
       this.emp = res;
       console.log("Emp===>", this.emp)
     })
-
+ 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
       console.log("res ==>", res);
  
@@ -124,7 +124,7 @@ export class UpdateCustomerComponent {
           console.log("new Code==>", res['custCode']);
           this.updateForm.patchValue({
             custCode: res['custCode']
-          });
+          }); 
         })
       }
 

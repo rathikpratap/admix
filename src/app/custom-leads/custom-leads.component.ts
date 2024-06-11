@@ -15,6 +15,7 @@ export class CustomLeadsComponent {
   className = 'd-none';
   tok:any;
   integerRegex = '^((\\+91-?)|0)?[0-9]{10}$';
+  Category:any;
 
   constructor(private auth: AuthService, private router: Router){
 
@@ -34,7 +35,11 @@ export class CustomLeadsComponent {
     this.leadForm.valueChanges.subscribe(values=>{
       const dates= values.closingDate;
       this.leadForm.get('leadsCreatedDate')!.setValue(dates || null)
-    })
+    });
+    this.auth.getWhatsAppCategory().subscribe((category:any)=>{
+      console.log("Categories===>>", category);
+      this.Category = category;
+    });
 
   }
   leadForm = new FormGroup({

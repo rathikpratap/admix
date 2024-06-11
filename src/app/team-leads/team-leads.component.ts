@@ -154,6 +154,10 @@ export class TeamLeadsComponent {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.open(url, '_blank');
   }
+  invoice(userId: string){
+    const url = `/salesHome/est-invoice/${userId}`;
+    window.open(url,'_blank');
+  }
 
   updateProjectStatus(dataa: any){ 
     this.auth.updateProjectStatus(dataa).subscribe(( res: any)=>{

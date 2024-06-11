@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './whats-app-leads.component.html',
   styleUrls: ['./whats-app-leads.component.css']
 })
-export class WhatsAppLeadsComponent {
+export class WhatsAppLeadsComponent implements OnInit {
   data:any; 
   dataYesterday: any;
   dataOneYesterday: any;
@@ -32,14 +32,26 @@ export class WhatsAppLeadsComponent {
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
   fbLeads: any;
-  modifyCount:any
+  modifyCount:any;
+  campaign_Name: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
+  categForm = new FormGroup({
+    campaign_Name: new FormControl("null")
+  })
 
   updateButtonVisible: boolean = true;
+
+  ngOnInit(): void {
+    this.categForm.get('campaign_Name')?.valueChanges.subscribe(value=>{
+      this.campaign_Name = this.categForm.get('campaign_Name')?.value;
+      console.log("Campaign Name===>", this.campaign_Name);
+      this.getgetData();
+    });    
+  }
 
   constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2){
 
@@ -58,41 +70,12 @@ export class WhatsAppLeadsComponent {
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
       console.log("Fetched Facebook Leads===>>", res);
       this.fbLeads = res;
-    })
-    this.auth.getWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.data = res; 
-    }); 
+    });
+    
 
-    this.auth.getYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataYesterday = res;
-    });
- 
-    this.auth.getOneYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataOneYesterday = res;
-    });
 
-    this.auth.getTwoYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataTwoYesterday = res;
-    });
 
-    this.auth.getThreeYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataThreeYesterday = res;
-    });
-
-    this.auth.getFourYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataFourYesterday = res;
-    });
-
-    this.auth.getFiveYesterdayWhatsAppLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataFiveYesterday = res;
-    });
+    
 
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
@@ -107,7 +90,7 @@ export class WhatsAppLeadsComponent {
       this.dataLength = res;
     });
 
-    this.auth.getCategory().subscribe((category:any)=>{
+    this.auth.getWhatsAppCategory().subscribe((category:any)=>{
       console.log("Categories===>>", category);
       this.Category = category;
     });
@@ -116,6 +99,43 @@ export class WhatsAppLeadsComponent {
       console.log("Sales Teams==>", res);
       this.emp = res;
     }) 
+  }
+
+  getgetData(){
+    this.auth.getWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.data = res; 
+    }); 
+
+    this.auth.getYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataYesterday = res;
+    });
+ 
+    this.auth.getOneYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataOneYesterday = res;
+    });
+
+    this.auth.getTwoYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataTwoYesterday = res; 
+    });
+
+    this.auth.getThreeYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataThreeYesterday = res;
+    });
+
+    this.auth.getFourYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFourYesterday = res;
+    });
+
+    this.auth.getFiveYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFiveYesterday = res;
+    });
   }
 
   refreshPage(){

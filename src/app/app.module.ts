@@ -73,6 +73,7 @@ import { AllPayrollComponent } from './all-payroll/all-payroll.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { EstInvoiceComponent } from './est-invoice/est-invoice.component';
 import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.component';
+import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
 
 
 
@@ -143,7 +144,8 @@ import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.compon
     AllPayrollComponent,
     AddPaymentComponent,
     EstInvoiceComponent,
-    WhatsAppLeadsComponent
+    WhatsAppLeadsComponent,
+    MainInvoiceComponent
   ],
   imports: [
     BrowserModule,
