@@ -68,6 +68,7 @@
                         <th scope="col">Project Status</th>
                         <th scope="col">Sales Person</th>
                         <th scope="col">View</th>
+                        <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,7 @@
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> View</button>   
                             </div>
                         </td>
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
                 </tbody>
             </table>
@@ -108,6 +110,7 @@
                         <th scope="col">Remaining Amount</th>
                         <th scope="col">Project Status</th>
                         <th scope="col">View</th>
+                        <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,6 +131,7 @@
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
                             </div>
                         </td>
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                     </tr>
                 </tbody>
             </table>
@@ -167,6 +171,7 @@
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
                             <th scope="col">View</th>
+                            <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -243,6 +248,7 @@
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
                                 </div>
                             </td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -268,6 +274,7 @@
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
                             <th scope="col">View</th>
+                            <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -335,6 +342,7 @@
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
                                 </div>
                             </td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                         </tr>
                     </tbody>
                 </div>
@@ -360,6 +368,7 @@
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
                             <th scope="col">View</th>
+                            <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -427,6 +436,7 @@
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
                                 </div>
                             </td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                         </tr>
                     </tbody>
                 </div>

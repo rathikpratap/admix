@@ -71,7 +71,7 @@ export class MainInvoiceComponent implements OnInit {
   
   constructor(private auth:AuthService,private activatedRoute: ActivatedRoute){
     this.auth.getProfile().subscribe((res:any)=>{
-      this.tok = res?.data.salesTeam;
+      this.tok = res?.data;
       if(!this.tok){
         alert("Session Expired, Please Login Again");
         this.auth.logout();

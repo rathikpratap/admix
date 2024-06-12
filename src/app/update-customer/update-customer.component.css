@@ -109,6 +109,9 @@ form .user-details .input-box{
 .youtubeVideo{
     margin-top: 20px;
 }
+::placeholder{
+    color: #D1D1D4;
+}
 @media only screen and (max-width:550px){
     .new-customer form .user-details{
         display: block;

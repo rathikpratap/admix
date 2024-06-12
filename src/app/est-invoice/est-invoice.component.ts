@@ -91,7 +91,7 @@ export class EstInvoiceComponent implements OnInit {
   
   constructor(private auth:AuthService,private activatedRoute: ActivatedRoute){
     this.auth.getProfile().subscribe((res:any)=>{
-      this.tok = res?.data.salesTeam;
+      this.tok = res?.data;
       console.log("USerDAta==>", this.tok)
       if(!this.tok){
         alert("Session Expired, Please Login Again");

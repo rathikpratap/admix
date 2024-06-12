@@ -99,7 +99,7 @@ export class NewCustomerComponent {
     this.auth.allEmployee().subscribe((res:any)=>{
       this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor')
       console.log("Editorss===>", this.employee);
-    })
+    });
   }
 
   customerForm = new FormGroup({

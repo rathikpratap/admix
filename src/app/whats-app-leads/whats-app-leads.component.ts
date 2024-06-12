@@ -105,7 +105,7 @@ export class WhatsAppLeadsComponent implements OnInit {
     this.auth.getWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.data = res; 
-    }); 
+    });  
 
     this.auth.getYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
       console.log("SalesLeads===>", res);

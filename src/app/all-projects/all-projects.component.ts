@@ -184,6 +184,9 @@ export class AllProjectsComponent {
             return []; // Return an empty array if no specific role is selected
     }
   }
-  
+  invoice(userId: string){
+    const url = `/main-invoice/${userId}`;
+    window.open(url,'_blank');
+  }
   
 }

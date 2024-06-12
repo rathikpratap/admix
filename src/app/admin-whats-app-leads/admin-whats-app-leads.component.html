@@ -122,6 +122,15 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="categ">
+            <form [formGroup]="categForm">
+                <span class="categ-left"> Campaign Name: </span>
+                <select class="form-select categ-right" formControlName="campaign_Name" aria-label="Default select example">
+                    <option value="null">Select Campaign</option>
+                    <option *ngFor="let category of Category" value="{{category.whatsAppCategoryName}}">{{category.whatsAppCategoryName}}</option>
+                </select>
+            </form>
+        </div>
         <p class="d-inline-flex gap-1 dateBlock">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#today" aria-expanded="true"
                  aria-controls="collapseExample">

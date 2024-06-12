@@ -65,6 +65,7 @@ import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { EstInvoiceComponent } from './est-invoice/est-invoice.component';
 import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.component';
 import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
+import { AdminWhatsAppLeadsComponent } from './admin-whats-app-leads/admin-whats-app-leads.component';
 
 const routes: Routes = [
   {
@@ -168,7 +169,20 @@ const routes: Routes = [
       {
         path: 'add-payment',
         component: AddPaymentComponent
+      },
+      {
+        path: 'est-invoice/:id',
+        component: EstInvoiceComponent
+      },
+      {
+        path: 'main-invoice/:id',
+        component: MainInvoiceComponent
+      },
+      {
+        path: 'admin-WhatsAppLeads',
+        component: AdminWhatsAppLeadsComponent
       }
+      
     ]
   },
   {

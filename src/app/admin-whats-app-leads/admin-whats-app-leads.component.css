@@ -1,0 +1,166 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.nameCard{
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.title-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+}
+.searchData{
+    display: flex;
+}
+.searchData .details{
+    margin-right: 15px;
+    
+}
+.searchData .details input{
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData .details label{
+    font-weight: 500;
+    color: #fff;
+    margin-right: 10px;
+}
+.searchData2 select{
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData2 select option{
+    color: black;
+}
+.searchData2 label{
+    font-weight: 500;
+    margin-right: 25px;
+    color: #fff;
+}
+.btn[aria-expanded="true"] {
+    background-color: green;
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 25px;
+    overflow: scroll;
+}
+.categ form{
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 15px;
+}
+
+.categ-left {
+    margin-right: 10px; /* Space between the label and the select box */
+    color: #fff;
+}
+
+.categ-right {
+    width: 15%; /* Make the select box take the remaining space */
+    
+    background: rgba(255,255, 255, 0);
+    color: #fff;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.categ form select option{
+    color: black;
+}
+@media only screen and (max-width: 530px){
+    .dateBlock{
+        display: block !important;
+        margin-top: 10px;
+    }
+    .dateBlock button{
+        margin: 0px 10px 10px 10px;
+    }
+    .getButton{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 530px) and (max-width: 660px){
+    .dateBlock{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 828px){
+    .searchData2 label{
+        margin-right: 15px;
+    }
+    .searchData2 input{
+        width: 40%;
+        margin-right: 15px;
+    }
+}
+@media only screen and (min-width: 660px) and (max-width: 768px){
+    .getButton{
+        margin-bottom: 10px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 960px){
+    .getButton{
+        margin-bottom: 10px;
+    }
+    .move-to-new-row2 {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+}

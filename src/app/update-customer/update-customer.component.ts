@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, Renderer2 } from '@angular/core';
+import { Component, ElementRef, NgZone, Renderer2, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
@@ -10,7 +10,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   templateUrl: './update-customer.component.html',
   styleUrls: ['./update-customer.component.css']
 })
-export class UpdateCustomerComponent {
+export class UpdateCustomerComponent implements OnInit{
 
   getId: any;
   Category: any;
@@ -23,7 +23,12 @@ export class UpdateCustomerComponent {
 
   codeInput!: ElementRef<HTMLInputElement>;
   
-  
+  ngOnInit(): void {
+    this.updateForm.get('AdvPay')?.valueChanges.subscribe(value=>{
+      this.updateForm.get('restAmount')!.setValue('0');
+    })
+    
+  }
 
   ngAfterViewInit() {
     console.log("Its Called");
@@ -102,7 +107,9 @@ export class UpdateCustomerComponent {
       const remainingAmount = closingPriceValue - AdvPayValue - restAmountValue;
 
       this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());
+      
     });
+    
 
     this.auth.allEmployee().subscribe((res: any)=>{
       this.emp = res;
