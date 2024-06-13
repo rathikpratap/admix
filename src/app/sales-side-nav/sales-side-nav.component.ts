@@ -42,6 +42,12 @@ export class SalesSideNavComponent {
       name: 'Team Leads',
       icon: 'bi bi-chat-square-text',
       route: '/salesHome/team-leads'
+    },
+    {
+      number: '6',
+      name: 'Custom Leads',
+      icon: 'bi bi-whatsapp',
+      route: '/salesHome/whatsApp-leads'
     }
   ];
   list2 = [

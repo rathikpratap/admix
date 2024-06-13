@@ -209,9 +209,12 @@ export class AuthService {
   }
 
   updateCustomer(id:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/update/${id}`, data, {headers:this.httpHeaders}).pipe(
-      catchError(this.handleError)
-    )
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`${appConfig.apiUrl}/auth/update/${id}`, data, {headers});
   }
   updateB2b(id:any, data:any):Observable<any>{
     return this.http.put(`${appConfig.apiUrl}/auth/updateB2b/${id}`, data, {headers:this.httpHeaders}).pipe(

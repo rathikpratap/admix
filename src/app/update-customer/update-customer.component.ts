@@ -46,7 +46,7 @@ export class UpdateCustomerComponent implements OnInit{
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
     custEmail: new FormControl(""),
-    custBussiness: new FormControl("", [Validators.required]),
+    custBussiness: new FormControl(""),
     closingDate: new FormControl("", [Validators.required]),
     closingPrice: new FormControl(""),
     closingCateg: new FormControl(""),
@@ -194,7 +194,7 @@ export class UpdateCustomerComponent implements OnInit{
     }, (err) => {
       console.log(err)
     })
-  }
+  } 
 
   onCountryChange(): void{
     const countryCode = this.updateForm.get('custCountry')?.value;
