@@ -51,6 +51,7 @@ export class EstInvoiceComponent implements OnInit {
 
     this.invoiceForm.get('priceOfVideos')?.valueChanges.subscribe(value => {
       this.calculateAmount();
+      // alert("Please Select Bill Type");
     });
 
     this.invoiceForm.get('numOfVideos')?.valueChanges.subscribe(value => {

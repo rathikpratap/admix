@@ -1,15 +1,18 @@
 
 .invoice-container {
-    max-width: 1300px;
+    max-width: 1700px;
     margin: 20px auto;
     padding: 50px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
+.down-margin{
+    margin-top: 280px;
+}
 .top-left-text p{
     margin-bottom: 0px;
-    font-size: 18px;
+    font-size: 20px;
 }
 hr{
     border-width: 0;
@@ -50,7 +53,7 @@ hr{
     color: #5d11b5;
 }
 .name-txt p{
-    font-size: 18px;
+    font-size: 20px;
 }
 .bill-number h4{
     color: #5d11b5;
@@ -58,14 +61,14 @@ hr{
 }
 .bill-number p{
     margin-bottom: 0px;
-    font-size: 18px;
+    font-size: 20px;
 }
 table th{
     background-color: #5d11b5;
     color: #fff;
 }
 table{
-    font-size: 18px;
+    font-size: 20px;
 }
 .inline-elements {
     display: flex;
@@ -75,7 +78,7 @@ table{
     justify-content: space-between;
 }
 .est-amt p{
-    font-size: 18px;
+    font-size: 20px;
 }
 .sub-total{
     display: flex;
@@ -107,7 +110,7 @@ table{
 }
 .details p{
     margin-bottom: 0px;
-    font-size: 18px;
+    font-size: 20px;
 }
 .est-text h4{
     font-weight: 700;
@@ -120,7 +123,7 @@ table{
     margin-left: 20px;
 }
 .signature p{
-    font-size: 18px;
+    font-size: 20px;
 }
 td input, select{
     border: none;
@@ -132,7 +135,7 @@ td input, select{
     resize: both;
     min-height: 40px;
     line-height: 20px;
-    font-size: 18px;
+    font-size: 20px;
   }
   .textarea[contenteditable]:empty::before {
     content: "Enter here";
