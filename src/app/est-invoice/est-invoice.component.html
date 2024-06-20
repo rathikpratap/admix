@@ -78,7 +78,7 @@
                                             <option value="Other">Other</option>
                                             </select>
                                             <div *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
-                                                <span class="textarea form form-control" role="textbox" formControlName="customCateg" contenteditable></span>
+                                                <span class="textarea form-control" role="textbox" formControlName="customCateg" contenteditable  (input)="onSpanInput($event)"></span>
                                                 <!-- <textarea id="autoresizing" (input)="autoResize($event)" style="overflow:hidden; resize:none;"></textarea> -->
                                                 <!-- <textarea type="text" class="form-control" formControlName="customCateg" placeholder="Enter Custom Category"></textarea> -->
                                             </div>

@@ -161,4 +161,8 @@ export class EstInvoiceComponent implements OnInit {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
   }
+  onSpanInput(event: Event): void {
+    const inputText = (event.target as HTMLSpanElement).innerText;
+    this.invoiceForm.get('customCateg')?.setValue(inputText);
+  }
 }
