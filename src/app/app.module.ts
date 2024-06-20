@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //import { ToastrModule } from 'ngx-toastr';
+import { initializeApp} from 'firebase/app';
+initializeApp(appConfig.firebase);
+import { MessagingService } from './service/messaging-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -75,6 +78,7 @@ import { EstInvoiceComponent } from './est-invoice/est-invoice.component';
 import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.component';
 import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
 import { AdminWhatsAppLeadsComponent } from './admin-whats-app-leads/admin-whats-app-leads.component';
+import { appConfig } from 'src/environment';
 
 
  
