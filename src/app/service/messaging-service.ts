@@ -29,9 +29,9 @@ export class MessagingService {
         }
       }
     )
-    onBackgroundMessage(messaging,(payload)=>{
-      console.log("Background Message===>",payload);
-    })
+    // onBackgroundMessage(messaging,(payload)=>{
+    //   console.log("Background Message===>",payload);
+    // })
   }
 
 }

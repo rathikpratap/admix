@@ -20,7 +20,7 @@
                     <h2>Admix Media Pvt. Ltd.</h2>
                     <p>PDN Wali Gali, Basant View, Hathras</p>
                     <p>Uttar Pradesh - 204101</p>
-                    <p>Phone No.: +91-9084607774</p>
+                    <p>Phone No.: +91-7906222929</p>
                     <p>Email Id: admixmediaindia&#64;gmail.com</p>
                     <p>GSTIN: 09AAZCA3162F1ZC</p>
                 </div>
@@ -50,7 +50,7 @@
                 
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <p><strong>Invoice No.</strong> {{count}}</p>
+                        <p><strong>Invoice No.</strong> {{100+count}}</p>
                         <p><strong>Date:</strong> {{currentDate}}</p>
                     </div>
                 </div>
@@ -71,13 +71,15 @@
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <select class="form-select" formControlName="invoiceCateg" aria-label="Default select example">
+                                        <select class="form-select" formControlName="invoiceCateg" aria-label="Default select example" *ngIf="invoiceForm.get('invoiceCateg')?.value !== 'Other'">
                                         <option value="null">Select Category</option>
                                         <option *ngFor="let category of Category" [value]="category.categoryName">{{category.categoryName}}</option>
                                         <option value="Other">Other</option>
                                         </select>
                                         <div *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
-                                            <input type="text" formControlName="customCateg" class="form-control" placeholder="Enter Custom Category">
+                                            <span class="textarea form form-control" role="textbox" formControlName="customCateg" contenteditable></span>
+                                            <!-- <textarea id="autoresizing" (input)="autoResize($event)" style="overflow:hidden; resize:none;"></textarea> -->
+                                            <!-- <textarea type="text" class="form-control" formControlName="customCateg" placeholder="Enter Custom Category"></textarea> -->
                                         </div>
                                     </td>
                                     <td><input type="number" class="form-control" formControlName="numOfVideos" placeholder="Enter Number of Videos"></td>
@@ -111,8 +113,7 @@
                     <p><strong>Invoice Amount in Words</strong></p>
                     <p>{{wordsAmt | uppercase}} ONLY</p>
                     <p><strong>Terms and Condition</strong></p>
-                    <p *ngIf="invoiceForm.get('invoiceCateg')?.value !== 'Other'">For {{categ}} 50% advance payment needed.</p>
-                    <p *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'">For {{customCateg}} 50% advance payment needed.</p>
+                    <p>50% advance payment needed.</p>
                 </div>
                 <div class="sub-total">
                     <div class="sub-total-title">

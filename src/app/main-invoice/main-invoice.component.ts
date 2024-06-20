@@ -28,12 +28,13 @@ export class MainInvoiceComponent implements OnInit {
   currentDate:any;
   Bill:any;
   count:any;
+  date:any;
 
   invoiceForm = new FormGroup({
     billType: new FormControl("null"),
     invoiceCateg: new FormControl("null"),
     custName: new FormControl(""),
-    invoiceDate: new FormControl(""),
+    invoiceDate: new FormControl(),
     numOfVideos: new FormControl(1),
     priceOfVideos: new FormControl(0),
     GSTAmount: new FormControl(0),
@@ -47,8 +48,8 @@ export class MainInvoiceComponent implements OnInit {
     this.invoiceForm.get('numOfVideos')?.valueChanges.subscribe(value => {
       this.calculateAmount();
     });
-    const date = new Date();
-    this.currentDate = this.formatDate(date);
+    this.date = new Date();
+    this.currentDate = this.formatDate(this.date);
     this.invoiceForm.get('billType')?.valueChanges.subscribe(value=>{
       this.Bill = this.invoiceForm.get('billType')?.value;
       this.calculateAmount();
@@ -111,7 +112,7 @@ export class MainInvoiceComponent implements OnInit {
       });
     }
     this.invoiceForm.get('custName')?.setValue(this.name);
-    this.invoiceForm.get('invoiceDate')?.setValue(this.currentDate);
+    this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount);
     this.invoiceForm.get('custNumb')?.setValue(this.number);

@@ -30,6 +30,7 @@ export class EstInvoiceComponent implements OnInit {
   currentDate:any;
   Bill:any;
   count:any;
+  date:any;
 
   invoiceForm = new FormGroup({
     billType: new FormControl("null"),
@@ -37,7 +38,7 @@ export class EstInvoiceComponent implements OnInit {
     customCateg: new FormControl(""),
     custName: new FormControl(""),
     billFormat: new FormControl(""),
-    invoiceDate: new FormControl(""),
+    invoiceDate: new FormControl(),
     numOfVideos: new FormControl(0),
     priceOfVideos: new FormControl(0),
     GSTAmount: new FormControl(0),
@@ -61,8 +62,8 @@ export class EstInvoiceComponent implements OnInit {
     this.invoiceForm.get('customCateg')?.valueChanges.subscribe(value=>{
       this.customCateg=this.invoiceForm.get('customCateg')?.value;
     });
-    const date = new Date();
-    this.currentDate = this.formatDate(date);
+    this.date = new Date();
+    this.currentDate = this.formatDate(this.date);
     this.invoiceForm.get('billType')?.valueChanges.subscribe(value=>{
       this.Bill = this.invoiceForm.get('billType')?.value;
     });
@@ -136,7 +137,7 @@ export class EstInvoiceComponent implements OnInit {
       });
     }
     this.invoiceForm.get('custName')?.setValue(this.name);
-    this.invoiceForm.get('invoiceDate')?.setValue(this.currentDate);
+    this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount);
     this.invoiceForm.get('custNumb')?.setValue(this.number);
@@ -153,5 +154,10 @@ export class EstInvoiceComponent implements OnInit {
     const year = date.getFullYear();
 
     return `${day}-${month}-${year}`;
+  }
+  autoResize(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
   }
 }
