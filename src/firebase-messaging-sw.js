@@ -10,3 +10,15 @@ firebase.initializeApp({
     measurementId: "G-STKETZDSF0"
 });
 const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage((payload) => {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    console.log('[firebase-messaging-sw.js] Received background message BOdy ', payload.notification.notificationOptions);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+      body: payload.notification.body,
+      icon: '/firebase-logo.png'
+    };
+  
+    self.registration.showNotification(notificationTitle, notificationOptions);
+  });

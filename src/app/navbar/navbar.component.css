@@ -24,6 +24,29 @@ nav {
 .profile-logo button:hover{
     background-color: black;
 }
+.dropdown .notif{
+    margin-right: 100px;
+}
+.dropdown i{
+    font-size: 22px;
+    color: white;
+}
+.dropdown .badge{
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+.dropdown .notif .dropdown-menu .unRead{
+    background-color: #a28ac8;
+}
+.dropdown .dropdown-menu{
+    max-width: 80%;
+    overflow: auto;
+    height: auto;
+}
 @media only screen and (max-width: 500px){
     .navbar-brand img{
         width: 80px;

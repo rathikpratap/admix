@@ -188,8 +188,29 @@ export class UpdateCustomerComponent implements OnInit{
   }
  
   onUpdate() {
+    const currentDate = new Date().toISOString();
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");
+      const projectStatusControl = this.updateForm.get('projectStatus');
+        projectStatusControl?.valueChanges.subscribe(value => {
+          if (value === 'Closing') {
+            let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
+            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let msgTitle = "New Closing";
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
+            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+              if (res) {
+                alert("Notification Sent");
+              } else {
+                alert("Error Sending Notification");
+              }
+            });
+          }
+        });
+
+        // Manually trigger the value change logic for projectStatus
+        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+
       this.ngZone.run(() => { this.router.navigateByUrl('/salesHome/salesDashboard') })
     }, (err) => {
       console.log(err)

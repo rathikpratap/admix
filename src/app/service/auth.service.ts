@@ -758,4 +758,43 @@ export class AuthService {
     date.setDate(today.getDate() + offset);
     return date.toDateString();
   }
+
+  getAccessToken():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getAccessToken`);
+  };
+  // saveToken(token1: any): Observable<any> {
+  //   return this.http.post(`${appConfig.apiUrl}/auth/save-Token`, { token: token1 });
+  // }
+
+  saveToken(token1: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.put(`${appConfig.apiUrl}/auth/save-Token/${token1}`, {}, { headers }).pipe(
+      catchError((error) => {
+        console.error('HTTP error occurred:', error);
+        throw error; // Rethrow or handle as needed
+      })
+    );
+  }
+
+  sendNotification(data: any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+    const body = {
+      items: data,
+      msgTitle: msgTitle,
+      msgBody: msgBody,
+      currentDate: currentDate
+    };
+    return this.http.post(`${appConfig.apiUrl}/auth/bell`, body);
+  }
+
+  getNotif():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getNotification`);
+  }
+  
+  
+
 }

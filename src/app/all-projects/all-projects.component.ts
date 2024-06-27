@@ -8,39 +8,39 @@ import { Router } from '@angular/router';
   templateUrl: './all-projects.component.html',
   styleUrls: ['./all-projects.component.css']
 })
-export class AllProjectsComponent { 
+export class AllProjectsComponent {
 
-  @ViewChild('fileInput') fileInput:any;
- selectedFile: File | null =null;
-  
- updateEditorVisible: boolean = true;
-  data:any=[];
+  @ViewChild('fileInput') fileInput: any;
+  selectedFile: File | null = null;
+
+  updateEditorVisible: boolean = true;
+  data: any = [];
   searchForm: FormGroup;
-  customers :any[] = [];
+  customers: any[] = [];
   errorMessage: any;
-  dataLength: any; 
+  dataLength: any;
   emp: any;
-  editors: any; 
-  tok:any;
+  editors: any;
+  tok: any;
   selectedRowIndex: number = -1;
   scriptPassDate: any;
   previousMonthName: string;
   previousTwoMonthName: string;
   currentMonthName: string;
-  Previousdata:any;
-  TwoPreviousdata:any;
+  Previousdata: any;
+  TwoPreviousdata: any;
   isExpanded: boolean = false;
 
   dateRangeForm = new FormGroup({
-    startDate : new FormControl(""),
+    startDate: new FormControl(""),
     endDate: new FormControl("")
   });
   rangeData: any;
- 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private router: Router){
-    this.auth.getProfile().subscribe((res:any)=>{
+
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private renderer: Renderer2, private router: Router) {
+    this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
-      if(!this.tok){
+      if (!this.tok) {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
@@ -49,20 +49,20 @@ export class AllProjectsComponent {
       mobile: ['']
     });
 
-    this.auth.allProjects().subscribe((list : any)=>{
-      console.log("list",list)
+    this.auth.allProjects().subscribe((list: any) => {
+      console.log("list", list)
       this.data = list;
     });
-    this.auth.allPreviousProjects().subscribe((list : any)=>{
-      console.log("list",list)
+    this.auth.allPreviousProjects().subscribe((list: any) => {
+      console.log("list", list)
       this.Previousdata = list;
     });
-    this.auth.allTwoPreviousProjects().subscribe((list : any)=>{
-      console.log("list",list)
+    this.auth.allTwoPreviousProjects().subscribe((list: any) => {
+      console.log("list", list)
       this.TwoPreviousdata = list;
     });
 
-    this.auth.allEmployee().subscribe((res : any)=>{
+    this.auth.allEmployee().subscribe((res: any) => {
       console.log("employee==>", res);
       this.emp = res;
     })
@@ -79,114 +79,136 @@ export class AllProjectsComponent {
     this.selectedRowIndex = index;
   }
 
-  updateEditors(user:any){
+  updateEditors(user: any) {
     const currentDate = new Date().toISOString().split('T')[0];
+    let selectedEmployee:any;
     if (user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction') {
       // Update the scriptPassDate for the specific user
       user.scriptPassDate = currentDate;
-    }else if(user.projectStatus === 'Voice Over'){
+      selectedEmployee = this.emp.find((employee:any)=> employee.signupUsername === user.scriptWriter);
+    } else if (user.projectStatus === 'Voice Over') {
       user.voicePassDate = currentDate;
-    }else if(user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done'){
+      selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.voiceOverArtist);
+    } else if (user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done') {
       user.editorPassDate = currentDate;
-    }else if(user.projectStatus === 'Graphic Designing'){
+      selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.editor);
+    } else if (user.projectStatus === 'Graphic Designing') {
       user.graphicPassDate = currentDate;
+      selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.graphicDesigner);
     }
     this.auth.updateEditors([user]).subscribe((res: any) => {
       if (res) {
-          alert("Project Successfully Assigned");
-          console.log("Editor Updated List", res);
+        alert("Project Successfully Assigned");
+        console.log("Editor Updated List", res);
       }
       console.log("Successfully Assigned", res);
-  });
+    });
+    let msgTitle='';
+    let msgBody='';
+    if(user.projectStatus === 'Scripting' || user.projectStatus === 'voice Over' || user.projectStatus === 'Video Editing' || user.projectStatus === 'Graphic Design'){
+      msgTitle = 'Project Assigned';
+      msgBody = `Project number ${user.custCode} assigned`;
+    }else if(user.projectStatus === 'Script Correction' || user.projectStatus === 'Video Changes'){
+      msgTitle = 'Project Correction Assigned';
+      msgBody = `Project number ${user.custCode} Correction Assigned`;
+    }
+
+    this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
+      if(res){
+        alert("Notification Send");
+      }else{
+        alert("Error Sending Notification");
+      }
+    });
   }
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
     window.open(url, '_blank');
-  } 
+  }
 
-  searchCustomer(){
+  searchCustomer() {
     const mobile = this.searchForm.get('mobile')!.value;
     console.log("NUMBER===>", mobile);
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any)=>{
-      console.log("customer",customers)
+    this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any) => {
+      console.log("customer", customers)
       this.customers = customers;
       this.errorMessage = null;
     },
-    error=>{
-      this.customers = [];
-      this.errorMessage = error.message;
-    });
+      error => {
+        this.customers = [];
+        this.errorMessage = error.message;
+      });
   }
 
-  uploadFile(event:any){
+  uploadFile(event: any) {
     this.selectedFile = event.target.files[0];
     //this.uploadFileToServer(file);
   }
-  async selectFile(): Promise<void>{
-    if(this.selectedFile){ 
-      try{
+  async selectFile(): Promise<void> {
+    if (this.selectedFile) {
+      try {
         await this.auth.uploadFile(this.selectedFile);
         alert("File Upload Successful");
         console.log("Upload Successful");
-      } catch(error){
+      } catch (error) {
         console.log("Error Uploading File", error);
       }
-    } else{
+    } else {
       console.log("No File Selected")
     }
-    
+
   }
 
-  downloadFile(){
+  downloadFile() {
     this.auth.downloadFile();
   }
 
-  onDate(){
+  onDate() {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
 
-    const startDate = startDateValue? new Date(startDateValue) : null;
-    const endDate = endDateValue? new Date(endDateValue) : null;
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
 
-    if(startDate && endDate){
-      this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
+    if (startDate && endDate) {
+      this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData: any) => {
         console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
   }
 
-  downloadRangeFile(){
+  downloadRangeFile() {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
 
-    const startDate = startDateValue? new Date(startDateValue) : null;
-    const endDate = endDateValue? new Date(endDateValue) : null;
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
 
-    if(startDate && endDate){
+    if (startDate && endDate) {
       this.auth.downloadRangeFile(startDate, endDate);
     }
   }
 
   filterEmployeesByRole(projectStatus: string): any[] {
     switch (projectStatus) {
-        case 'Scripting': 
-            return this.emp.filter((employee:any) => employee.signupRole === 'Script Writer');
-        case 'Video Editing':
-        case 'Video Changes':
-        case 'Video Done':
-            return this.emp.filter((employee:any) => employee.signupRole === 'Editor');
-        case 'Voice Over':
-            return this.emp.filter((employee:any) => employee.signupRole === 'VO Artist');
-          case 'Graphic Designing':
-            return this.emp.filter((employee:any) => employee.signupRole === 'Graphic Designer')
-        default:
-            return []; // Return an empty array if no specific role is selected
+      case 'Scripting':
+        return this.emp.filter((employee: any) => employee.signupRole === 'Script Writer');
+      case 'Video Editing':
+      case 'Video Changes':
+      case 'Video Done':
+        return this.emp.filter((employee: any) => employee.signupRole === 'Editor');
+      case 'Voice Over':
+        return this.emp.filter((employee: any) => employee.signupRole === 'VO Artist');
+      case 'Graphic Designing':
+        return this.emp.filter((employee: any) => employee.signupRole === 'Graphic Designer')
+      default:
+        return []; // Return an empty array if no specific role is selected
     }
   }
-  invoice(userId: string){
+  invoice(userId: string) {
     const url = `/main-invoice/${userId}`;
-    window.open(url,'_blank');
+    window.open(url, '_blank');
   }
-  
+
 }

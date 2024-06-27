@@ -19,6 +19,7 @@ export class ScriptUpdateComponent {
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
+    custBussiness: new FormControl(""),
     wordsCount: new FormControl(""),
     scriptDuration: new FormControl(0),
     scriptDeliveryDate: new FormControl(""),
@@ -40,6 +41,7 @@ export class ScriptUpdateComponent {
 
       this.updateForm.patchValue({
         custCode: res['custCode'],
+        custBussiness: res['custBussiness'],
         wordsCount: res['wordsCount'],
         scriptDuration: res['scriptDuration'],
         scriptDeliveryDate: res['scriptDeliveryDate'],
@@ -102,8 +104,30 @@ export class ScriptUpdateComponent {
       const totalScriptPayment1: number = scriptPayment1 + scriptChangesPayment1;
       this.updateForm.get('totalScriptPayment')?.setValue(totalScriptPayment1);
 
+      const currentDate = new Date().toISOString();
+
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
       console.log("Data Updated Successfully", res);
+
+      const projectStatusControl = this.updateForm.get('scriptStatus');
+        projectStatusControl?.valueChanges.subscribe(value => {
+          if (value === 'Complete') {
+            let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
+            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let msgTitle = "Project Complete";
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
+            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+              if (res) {
+                alert("Notification Sent");
+              } else {
+                alert("Error Sending Notification");
+              }
+            });
+          }
+        });
+
+        // Manually trigger the value change logic for projectStatus
+        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
       
       this.ngZone.run(()=> { this.router.navigateByUrl('/script-home/script-dashboard')})
     }, (err)=>{

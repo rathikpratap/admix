@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { MessagingService } from '../service/messaging-service';
 
 @Component({
   selector: 'app-vo-dashboard',
@@ -14,8 +15,15 @@ export class VoDashboardComponent {
   completed:any;
   completeLength:any;
   allProjects:any;
+  accessToken:any;
 
-  constructor(private auth: AuthService){
+  constructor(private auth: AuthService,private messagingService: MessagingService){
+
+    this.auth.getAccessToken().subscribe((res:any)=>{
+      this.accessToken = res;
+    });
+    this.messagingService.requestPermission();
+
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data; 
       if(!this.tok){

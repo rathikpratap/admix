@@ -20,6 +20,7 @@ export class EditorUpdateComponent implements OnInit {
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
+    custBussiness : new FormControl(""),
     videoDuration: new FormControl(0),
     videoDeliveryDate: new FormControl(""),
     videoType: new FormControl("null"),
@@ -42,6 +43,7 @@ export class EditorUpdateComponent implements OnInit {
 
       this.updateForm.patchValue({
         custCode: res['custCode'],
+        custBussiness: res['custBussiness'],
         videoDuration: res['videoDuration'],
         videoDeliveryDate: res['videoDeliveryDate'],
         videoType: res['videoType'],
@@ -368,12 +370,32 @@ export class EditorUpdateComponent implements OnInit {
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
+    const currentDate = new Date().toISOString();
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully", res);
+      const projectStatusControl = this.updateForm.get('editorStatus');
+        projectStatusControl?.valueChanges.subscribe(value => {
+          if (value === 'Completed') {
+            let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
+            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let msgTitle = "Project Complete";
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
+            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+              if (res) {
+                alert("Notification Sent");
+              } else {
+                alert("Error Sending Notification");
+              }
+            });
+          }
+        });
+
+        // Manually trigger the value change logic for projectStatus
+        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
       this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-dashboard') })
     }, (err) => {
       console.log(err)
-    })
+    }) 
   }
 
   onChange(event: any) {

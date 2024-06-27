@@ -15,7 +15,7 @@ export class EditorB2bUpdateComponent implements OnInit {
   editorOtherChanges: boolean = false;
   totalSec: any;
   numberOfVideos: any;
-  companies: any;
+  companies: any; 
   employee: any;
   allCompany: any;
 
@@ -398,10 +398,31 @@ export class EditorB2bUpdateComponent implements OnInit {
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.b2bUpdateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
-    console.log("")
+    const currentDate = new Date().toISOString();
 
     this.auth.updateB2bbyEditor(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully", res);
+
+      const projectStatusControl = this.b2bUpdateForm.get('projectStatus');
+        projectStatusControl?.valueChanges.subscribe(value => {
+          if (value === 'Completed') {
+            let selectedEmployee = this.employee.find((emp: any) => emp.signupRole === 'Admin');
+            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let msgTitle = "B2b Project Complete";
+            let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by ${this.tok.signupUsername}`;
+            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+              if (res) {
+                alert("Notification Sent");
+              } else {
+                alert("Error Sending Notification");
+              }
+            });
+          }
+        });
+
+        // Manually trigger the value change logic for projectStatus
+        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+
       this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-other') })
     }, (err) => {
       console.log(err)

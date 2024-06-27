@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MessagingService } from '../service/messaging-service';
 import { range } from 'rxjs';
 
 @Component({
@@ -21,14 +22,22 @@ export class SalesDashboardComponent {
   rangeData : any;
   dataLength : any;
   allProjects: any;
-
+  accessToken:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   }); 
 
-  constructor(private auth: AuthService){
+
+  constructor(private auth: AuthService,private messagingService: MessagingService){
+
+    this.auth.getAccessToken().subscribe((res:any)=>{
+      this.accessToken = res;
+    });
+
+    this.messagingService.requestPermission();
+
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){

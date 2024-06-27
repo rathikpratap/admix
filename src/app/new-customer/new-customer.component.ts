@@ -22,6 +22,7 @@ export class NewCustomerComponent {
   Category: any;
   companies: any;
   employee: any;
+  allEmployee:any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   codeInput2!: ElementRef<HTMLInputElement>;
@@ -97,6 +98,7 @@ export class NewCustomerComponent {
       }
     });
     this.auth.allEmployee().subscribe((res:any)=>{
+      this.allEmployee = res;
       this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor')
       console.log("Editorss===>", this.employee);
     });
@@ -170,7 +172,7 @@ export class NewCustomerComponent {
   }
 
   addCust(){
-
+    const currentDate = new Date().toISOString();
     this.isProcess = true;
     console.warn(this.customerForm.value);
     const custData = this.customerForm.value;
@@ -181,6 +183,17 @@ export class NewCustomerComponent {
         this.className = 'alert alert-success';
         this.customerForm.reset();
         this.customerForm.get('custCode')!.setValue(this.dataLength + 1);
+        let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
+        console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+        let msgTitle = "New Closing";
+        let msgBody = `${custData.custBussiness} by ${this.tok.signupUsername}`;
+        this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
+          if(res){
+            alert("Notification Send");
+          }else{
+            alert("Error Sending Notification");
+          }
+        });
       }else{
         this.isProcess = false;
         this.message = res.message;
@@ -193,7 +206,7 @@ export class NewCustomerComponent {
     })
   }
   addb2bCust(){
-
+    const currentDate = new Date().toISOString();
     this.isProcess = true;
     console.warn(this.b2bCustomerForm.value);
     const custData = this.b2bCustomerForm.value;
@@ -204,9 +217,20 @@ export class NewCustomerComponent {
         this.className = 'alert alert-success';
         this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength + 1);
         this.router.navigate([this.router.url])
-    .then(() => {
-      window.location.reload();
-    });
+        .then(() => {
+          window.location.reload();
+        });
+        let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
+        console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+        let msgTitle = "New B2b Closing";
+        let msgBody = `${custData.b2bProjectName} by ${this.tok.signupUsername}`;
+        this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
+          if(res){
+            alert("Notification Send");
+          }else{
+            alert("Error Sending Notification");
+          }
+        })
       }else{
         this.isProcess = false;
         this.message = res.message;

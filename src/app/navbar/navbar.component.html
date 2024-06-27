@@ -2,7 +2,7 @@
     <div class="side-nav-button p-2 me-3 text-light" (click)="SideNavToggle()">
         <i class="bi bi-list"></i>
     </div>
-    <a class="navbar-brand px-4" routerLink="/admin-dashboard"> 
+    <a class="navbar-brand px-4" routerLink="/admin-dashboard">
         <img src="assets/Images/logo.png" alt="AdMix Media">
     </a>
 
@@ -10,13 +10,35 @@
         <ul class="navbar-nav me-auto">
             <a class="nav-link">
                 Welcome, {{tok?.signupUsername}}
-            </a>                
+            </a>
+            <!-- <div class="dropdown">
+                <i class="bi bi-bell-fill" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div> -->
         </ul>
+        
     </div>
-    
+
+    <div class="dropdown">
+        <div class="notif">
+            <i class="bi bi-bell-fill" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <span class="badge">{{notifCount}}</span>
+            <ul class="dropdown-menu">
+                <li *ngFor="let notif of unreadNotif"><a class="dropdown-item unRead" href="#">{{notif.msgBody}}<sub>{{notif.Date}}</sub></a></li>
+                <li *ngFor="let notif of readNotif"><a class="dropdown-item" href="#">{{notif.msgBody}}<sub>{{notif.Date}}</sub></a></li>
+            </ul>
+        </div>
+        
+        
+    </div>    
+
     <div class="profile-logo">
         <button class="btn btn-outline-light" (click)="logout()">Logout</button>
-    </div> 
+    </div>
 
-    
+
 </nav>

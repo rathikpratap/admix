@@ -9,11 +9,22 @@ import { AuthService } from '../service/auth.service';
 export class NavbarComponent {
  
   tok:any;
+  notifCount:any;
+  unreadNotif: any;
+  readNotif:any;
 
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
 
   constructor(private auth: AuthService){
+
+    this.auth.getNotif().subscribe((res:any)=>{
+      console.log("Notifications===>", res);
+      this.unreadNotif = res.unReadNotif;
+      this.readNotif = res.readNotif;
+      this.notifCount = res.unReadNotif.length;
+    })
+
     this.auth.getProfile().subscribe((res:any)=>{
       console.log("Token===>", res)
       this.tok = res?.data
