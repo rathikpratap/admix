@@ -17,7 +17,7 @@ export class MessagingService {
 
   requestPermission() {
     const messaging = getMessaging();
-    getToken(messaging, { vapidKey: 'BHmkgyfsHZamUGuX-0MNoZSc72gnOZKuzHVyOARqNnbIjqJWQCCy_vslmOOwqTWVJ1W0czMf4quFYarqU-TVq-A' })
+    getToken(messaging, { vapidKey: 'BNz3hwrt0ONYRSXKw7IkU1XKO39OnWnu0eIqy0oG_P_TtcXozlo2BgfceLAwvt2yQhfF4ruMeANY4mq93ryzwRk' })
       .then((currentToken) => {
         if (currentToken) {
           console.log("Yes, We have Token");

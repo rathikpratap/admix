@@ -786,13 +786,50 @@ export class AuthService {
       items: data,
       msgTitle: msgTitle,
       msgBody: msgBody,
-      currentDate: currentDate
+      currentDate: currentDate,
+      // sales: sales
     };
     return this.http.post(`${appConfig.apiUrl}/auth/bell`, body);
   }
 
+  sendNotifications(data: any,sales:any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+    const body = {
+      items: data,
+      sales: sales,
+      msgTitle: msgTitle,
+      msgBody: msgBody,
+      currentDate: currentDate
+    };
+    return this.http.post(`${appConfig.apiUrl}/auth/bells`, body);
+  }
+
+  sendNotificationsAdmin(data: any,sales:any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+    const body = {
+      items: data,
+      sales: sales,
+      msgTitle: msgTitle,
+      msgBody: msgBody,
+      currentDate: currentDate
+    };
+    return this.http.post(`${appConfig.apiUrl}/auth/bellsAdmin`, body);
+  }
+
+  // getNotif():Observable<any>{
+  //   return this.http.get(`${appConfig.apiUrl}/auth/getNotification`);
+  // }
+
   getNotif():Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/getNotification`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${appConfig.apiUrl}/auth/getNotification`,{headers});
+  }
+
+  markRead(notifId:{id: string}):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/markRead`,notifId);
   }
   
   

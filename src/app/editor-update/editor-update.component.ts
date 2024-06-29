@@ -33,7 +33,8 @@ export class EditorUpdateComponent implements OnInit {
     videoDurationMinutes: new FormControl(0),
     videoDurationSeconds: new FormControl(0),
     numberOfVideos: new FormControl(""),
-    companyName: new FormControl("")
+    companyName: new FormControl(""),
+    salesPerson: new FormControl("")
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
@@ -56,7 +57,8 @@ export class EditorUpdateComponent implements OnInit {
         videoDurationMinutes: res['videoDurationMinutes'],
         videoDurationSeconds: res['videoDurationSeconds'],
         numberOfVideos: res['numberOfVideos'],
-        companyName: res['companyName']
+        companyName: res['companyName'],
+        salesPerson: res['salesPerson']
       })
     })
 
@@ -378,9 +380,10 @@ export class EditorUpdateComponent implements OnInit {
           if (value === 'Completed') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
             console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let sales = this.updateForm.get('salesPerson')?.value;
             let msgTitle = "Project Complete";
-            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
-            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by Editor`;
+            this.auth.sendNotificationsAdmin([selectedEmployee],sales,  msgTitle, msgBody, currentDate).subscribe((res: any) => {
               if (res) {
                 alert("Notification Sent");
               } else {

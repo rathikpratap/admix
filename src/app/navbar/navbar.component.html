@@ -11,14 +11,6 @@
             <a class="nav-link">
                 Welcome, {{tok?.signupUsername}}
             </a>
-            <!-- <div class="dropdown">
-                <i class="bi bi-bell-fill" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div> -->
         </ul>
         
     </div>
@@ -26,14 +18,12 @@
     <div class="dropdown">
         <div class="notif">
             <i class="bi bi-bell-fill" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <span class="badge">{{notifCount}}</span>
+            <span class="badge">{{unreadCount}}</span>
             <ul class="dropdown-menu">
-                <li *ngFor="let notif of unreadNotif"><a class="dropdown-item unRead" href="#">{{notif.msgBody}}<sub>{{notif.Date}}</sub></a></li>
-                <li *ngFor="let notif of readNotif"><a class="dropdown-item" href="#">{{notif.msgBody}}<sub>{{notif.Date}}</sub></a></li>
+                <li *ngFor="let notif of unreadNotif"><a class="dropdown-item unRead" (click)="markAsRead(notif._id)">{{notif.msgBody}}<sub>{{notif.Date | date:'dd-MM-yy'}}</sub></a></li>
+                <li *ngFor="let notif of readNotif"><a class="dropdown-item">{{notif.msgBody}}<sub>{{notif.Date | date:'dd-MM-yy'}}</sub></a></li>
             </ul>
-        </div>
-        
-        
+        </div>        
     </div>    
 
     <div class="profile-logo">

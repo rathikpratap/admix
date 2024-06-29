@@ -31,7 +31,8 @@ export class VoUpdateComponent {
     totalVoicePayment: new FormControl(0),
     voiceDurationMinutes: new FormControl(0),
     voiceDurationSeconds: new FormControl(0),
-    companyName: new FormControl("")
+    companyName: new FormControl(""),
+    salesPerson: new FormControl("")
   }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer){
@@ -52,7 +53,8 @@ export class VoUpdateComponent {
         totalVoicePayment: res['totalVoicePayment'],
         voiceDurationMinutes: res['voiceDurationMinutes'],
         voiceDurationSeconds: res['voiceDurationSeconds'],
-        companyName: res['companyName']
+        companyName: res['companyName'],
+        salesPerson: res['salesPerson']
       })
     })
 
@@ -121,9 +123,10 @@ export class VoUpdateComponent {
           if (value === 'Complete') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
             console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let sales = this.updateForm.get('salesPerson')?.value;
             let msgTitle = "Project Complete";
-            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
-            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by Voice Over Artist`;
+            this.auth.sendNotificationsAdmin([selectedEmployee],sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
               if (res) {
                 alert("Notification Sent");
               } else {

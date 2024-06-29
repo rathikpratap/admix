@@ -113,7 +113,7 @@ export class AllProjectsComponent {
       msgBody = `Project number ${user.custCode} Correction Assigned`;
     }
 
-    this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
+    this.auth.sendNotifications([selectedEmployee],[user], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
       if(res){
         alert("Notification Send");
       }else{

@@ -30,6 +30,7 @@ nav {
 .dropdown i{
     font-size: 22px;
     color: white;
+    cursor: pointer;
 }
 .dropdown .badge{
     position: absolute;
@@ -40,13 +41,25 @@ nav {
     color: white;
 }
 .dropdown .notif .dropdown-menu .unRead{
-    background-color: #a28ac8;
+    background-color: #d4c0f3;
 }
-.dropdown .dropdown-menu{
-    max-width: 80%;
-    overflow: auto;
-    height: auto;
+.dropdown .notif .dropdown-menu{
+    width: 150px; /* Set a fixed width if needed */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure long words are broken to fit */
+    max-height: 400px; /* Optional: Set a max height and make it scrollable if there are too many items */
+    overflow-y: auto; /* Scroll if content exceeds max height */
 }
+.dropdown-item {
+    white-space: normal;
+  }
+  .dropdown-item sub {
+    margin-left: 30px;
+    margin-top: 5px; /* Adjust the space between msgBody and date */
+    font-size: smaller; /* Optional: Make the date text smaller */
+    color: gray; /* Optional: Change the color of the date */
+  }
 @media only screen and (max-width: 500px){
     .navbar-brand img{
         width: 80px;

@@ -31,7 +31,8 @@ export class ScriptUpdateComponent {
     totalScriptPayment: new FormControl(0),
     scriptDurationMinutes: new FormControl(0),
     scriptDurationSeconds: new FormControl(0),
-    companyName: new FormControl("")
+    companyName: new FormControl(""),
+    salesPerson: new FormControl("")
   }) 
 
   constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -53,7 +54,8 @@ export class ScriptUpdateComponent {
         totalScriptPayment: res['totalScriptPayment'],
         scriptDurationMinutes: res['scriptDurationMinutes'],
         scriptDurationSeconds: res['scriptDurationSeconds'],
-        companyName: res['companyName']
+        companyName: res['companyName'],
+        salesPerson: res['salesPerson']
       })
     })
  
@@ -114,9 +116,10 @@ export class ScriptUpdateComponent {
           if (value === 'Complete') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
             console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            let sales = this.updateForm.get('salesPerson')?.value;
             let msgTitle = "Project Complete";
-            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
-            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+            let msgBody = `${this.updateForm.get('custBussiness')?.value} by Script Writer`;
+            this.auth.sendNotificationsAdmin([selectedEmployee],sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
               if (res) {
                 alert("Notification Sent");
               } else {
