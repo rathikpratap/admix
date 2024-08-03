@@ -46,11 +46,17 @@
                         <h4>Invoice To: </h4>
                         <h3>{{name}}</h3>
                         <p><strong>Contact No.:</strong> +{{number}}</p>
+                        <form [formGroup]="custForm">
+                            <p class="custForm-inline"><strong>GST number: </strong><input type="text" class="form-control inline-input" formControlName="custGST" placeholder="Enter customer GST"
+                                name="custGST"></p>
+                            <p class="custForm-inline"><strong>Customer Address: </strong>
+                                <textarea rows="3" cols="40" name="custADD" formControlName="custADD" placeholder="Enter customer Address"></textarea></p>
+                        </form>
                     </div>
                 
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <p><strong>Invoice No.</strong> {{count}}</p>
+                        <p><strong>Invoice No.</strong> {{110+count}}</p>
                         <p><strong>Date:</strong> {{currentDate}}</p>
                     </div>
                 </div>
@@ -59,7 +65,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col"><button class="btn btn-dark" (click)="addRow()">+</button></th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Price/Unit</th>
@@ -67,21 +73,39 @@
                                     <th scope="col">Amount</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{categ}}</td>
-                                    <td><input type="number" class="form-control" formControlName="numOfVideos" placeholder="Enter Number of Videos"></td>
-                                    <td>&#8377; {{priceOfVideo}}</td>
-                                    <td>&#8377;{{gstAmount}} (18%)</td>
-                                    <td>&#8377; {{totalAmount}}</td>
+                            <tbody formArrayName="rows">
+                                <tr *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <select class="form-select" formControlName="invoiceCateg"
+                                            aria-label="Default select example"
+                                            *ngIf="row.get('invoiceCateg')?.value !== 'Other'">
+                                            <option value="null">Select Category</option>
+                                            <option *ngFor="let category of Category"
+                                                [value]="category.categoryName">{{category.categoryName}}</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <div *ngIf="row.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
+                                            <textarea formControlName="customCateg" cols="50" placeholder="enter"></textarea>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="number" class="form-control" formControlName="numOfVideos"
+                                                placeholder="Enter Number of Videos" name="qty"></td>
+                                    <td class="inline-elements">
+                                        &#8377; <input type="number" class="form-control"
+                                            formControlName="priceOfVideos" placeholder="Enter Price of Videos"
+                                            name="rate">
+                                    </td>
+                                    <td>&#8377;{{row.get('gst')?.value}} (18%)</td>
+                                    <td>&#8377; {{row.get('amt')?.value}}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr class="table-group-divider">
                                     <td><b>Total</b></td>
                                     <td></td>
-                                    <td><b>{{numOfVideos}}</b></td>
+                                    <td><b>{{totalNumOfVideoss}}</b></td>
                                     <td></td>
                                     <td><b>&#8377;{{gstAmount}}</b></td>
                                     <td><b>&#8377;{{totalAmount}}</b></td>
@@ -98,8 +122,6 @@
                 <div class="est-amt">
                     <p><strong>Invoice Amount in Words</strong></p>
                     <p>{{wordsAmt | uppercase}} ONLY</p>
-                    <p><strong>Terms and Condition</strong></p>
-                    <p *ngIf="invoiceForm.get('invoiceCateg')?.value !== 'Other'">For {{categ}} 50% advance payment needed.</p>
                 </div>
                 <div class="sub-total">
                     <div class="sub-total-title">

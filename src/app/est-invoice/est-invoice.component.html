@@ -6,9 +6,9 @@
                 <option value="GST">GST</option>
                 <option value="Non-GST">Non-GST</option>
             </select>
-        </form>     
+        </form>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-6">     
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
         <button class="btn btn-sm btn-primary" (click)="downloadPdf()">Download Invoice PDF</button>
     </div>
 </div>
@@ -47,8 +47,16 @@
                             <h4>Invoice To: </h4>
                             <h3>{{name}}</h3>
                             <p><strong>Contact No.:</strong> +{{number}}</p>
+                            <form [formGroup]="custForm">
+                                <p class="custForm-inline"><strong>GST number: </strong><input type="text"
+                                        class="form-control inline-input" formControlName="custGST"
+                                        placeholder="Enter customer GST" name="custGST"></p>
+                                <p class="custForm-inline"><strong>Customer Address: </strong>
+                                    <textarea rows="3" cols="40" name="custADD" formControlName="custADD"
+                                        placeholder="Enter customer Address"></textarea>
+                                </p>
+                            </form>
                         </div>
-                    
                         <div class="bill-number">
                             <h4>Invoice Details</h4>
                             <p><strong>Invoice No.</strong> {{100+count}}</p>
@@ -60,7 +68,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col"><button class="btn btn-dark" (click)="addRow()">+</button></th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Price/Unit</th>
@@ -68,35 +76,38 @@
                                         <th scope="col">Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
+                                <tbody formArrayName="rows">
+                                    <tr *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                                        <td>{{i + 1}}</td>
                                         <td>
-                                            <select class="form-select" formControlName="invoiceCateg" aria-label="Default select example" *ngIf="invoiceForm.get('invoiceCateg')?.value !== 'Other'">
-                                            <option value="null">Select Category</option>
-                                            <option *ngFor="let category of Category" [value]="category.categoryName">{{category.categoryName}}</option>
-                                            <option value="Other">Other</option>
+                                            <select class="form-select" formControlName="invoiceCateg"
+                                                aria-label="Default select example"
+                                                *ngIf="row.get('invoiceCateg')?.value !== 'Other'">
+                                                <option value="null">Select Category</option>
+                                                <option *ngFor="let category of Category"
+                                                    [value]="category.categoryName">{{category.categoryName}}</option>
+                                                <option value="Other">Other</option>
                                             </select>
-                                            <div *ngIf="invoiceForm.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
-                                                <span class="textarea form-control" role="textbox" formControlName="customCateg" contenteditable  (input)="onSpanInput($event)"></span>
-                                                <!-- <textarea id="autoresizing" (input)="autoResize($event)" style="overflow:hidden; resize:none;"></textarea> -->
-                                                <!-- <textarea type="text" class="form-control" formControlName="customCateg" placeholder="Enter Custom Category"></textarea> -->
+                                            <div *ngIf="row.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
+                                                <textarea formControlName="customCateg" cols="50" placeholder="enter"></textarea>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control" formControlName="numOfVideos" placeholder="Enter Number of Videos"></td>
+                                        <td><input type="number" class="form-control" formControlName="numOfVideos"
+                                                placeholder="Enter Number of Videos" name="qty"></td>
                                         <td class="inline-elements">
-                                                &#8377;
-                                                <input type="number" class="form-control" formControlName="priceOfVideos" placeholder="Enter Price of Videos">
+                                            &#8377; <input type="number" class="form-control"
+                                                formControlName="priceOfVideos" placeholder="Enter Price of Videos"
+                                                name="rate">
                                         </td>
-                                        <td>&#8377;{{gstAmount}} (18%)</td>
-                                        <td>&#8377; {{totalAmount}}</td>
+                                        <td>&#8377;{{row.get('gst')?.value}} (18%)</td>
+                                        <td>&#8377; {{row.get('amt')?.value}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr class="table-group-divider">
                                         <td><b>Total</b></td>
                                         <td></td>
-                                        <td><b>{{numOfVideo}}</b></td>
+                                        <td><b>{{totalNumOfVideoss}}</b></td>
                                         <td></td>
                                         <td><b>&#8377;{{gstAmount}}</b></td>
                                         <td><b>&#8377;{{totalAmount}}</b></td>
@@ -105,7 +116,6 @@
                             </table>
                         </div>
                     </form>
-                    
                 </div>
             </div>
             <div class="col-lg-12">
@@ -120,14 +130,13 @@
                     <div class="sub-total">
                         <div class="sub-total-title">
                             <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
-                            <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount/2}} </p>
-                            <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount/2}} </p>
+                            <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                            <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
                             <p class="bottom-total"><strong>Total: </strong>₹ {{this.totalAmount}} </p>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-lg-4">
                     <div class="qr-code" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
@@ -157,7 +166,8 @@
                     <div class="footer">
                         <h6>Declaration</h6>
                         <ul>
-                            <li>We declare that this invoice shows the actual price of the goods described and that all perticulars are true and correct.</li>
+                            <li>We declare that this invoice shows the actual price of the goods described and that all
+                                particulars are true and correct.</li>
                             <li>This is a Computer Generated Invoice.</li>
                         </ul>
                     </div>

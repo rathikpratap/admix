@@ -44,12 +44,12 @@ export class AuthService {
   }
   addB2b(customerData:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/b2bProject`, customerData);
-  }
+  } 
   addLead(customerData:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/customLead`, customerData);
   }
-  addEstInvoice(invoiceData:any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, invoiceData);
+  addEstInvoice(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data);
   }
 
   getCustData(){
@@ -540,7 +540,7 @@ export class AuthService {
   }
 
   getSalesLeads(){
-    return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
+    return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`); 
   }
 
   getTeamLeads():Observable<any>{

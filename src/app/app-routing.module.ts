@@ -182,7 +182,6 @@ const routes: Routes = [
         path: 'admin-WhatsAppLeads',
         component: AdminWhatsAppLeadsComponent
       }
-      
     ]
   },
   {
@@ -357,9 +356,6 @@ const routes: Routes = [
       }
     ]
   }
-  
-  
-  
 ];
 
 @NgModule({

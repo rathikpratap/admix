@@ -51,7 +51,7 @@ export class UpdateCustomerComponent implements OnInit{
     closingPrice: new FormControl(""),
     closingCateg: new FormControl(""),
     billType: new FormControl("null"),
-    AdvPay: new FormControl(""),
+    AdvPay: new FormControl(),
     remainingAmount: new FormControl(""),
     custCity: new FormControl(""),
     custState: new FormControl(""),
@@ -189,6 +189,9 @@ export class UpdateCustomerComponent implements OnInit{
  
   onUpdate() {
     const currentDate = new Date().toISOString();
+    if(!this.updateForm.get('AdvPay')!.value){
+      this.updateForm.get('AdvPay')?.setValue(0);
+    }
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");
       const projectStatusControl = this.updateForm.get('projectStatus');
