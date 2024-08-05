@@ -292,6 +292,18 @@ export class AuthService {
   getMonthEntriesEmp(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`);
   }
+  getDueAmount():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDue`);
+  }
+  getRestAmount():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRest`);
+  }
+  getDueAmountAdmin():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueAdmin`);
+  }
+  getRestAmountAdmin():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestAdmin`);
+  }
 
   getMonthEntriesB2b(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesB2b`);
@@ -542,7 +554,7 @@ export class AuthService {
   getSalesLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`); 
   }
-
+ 
   getTeamLeads():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads`); 
   }

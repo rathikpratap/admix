@@ -14,7 +14,9 @@ export class SalesDashboardComponent {
   tok:any;
   data:any; 
   completeData: any;
+  totalEntry:any;
   totalEntries: any;
+  todayEntry:any;
   todayEntries : any;
   totalAmount:any;
   totalRecv: any;
@@ -22,7 +24,10 @@ export class SalesDashboardComponent {
   rangeData : any;
   dataLength : any;
   allProjects: any;
+  allActiveProjects:any;
   accessToken:any;
+  dueData:any;
+  restData: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -45,7 +50,7 @@ export class SalesDashboardComponent {
         this.auth.logout();
       }
     })
-
+ 
     this.auth.getCustData().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
@@ -59,6 +64,8 @@ export class SalesDashboardComponent {
     }) 
  
     this.auth.getMonthEntriesEmp().subscribe((res : any)=>{
+      this.totalEntry = res.totalEntries;
+      console.log("TOTALENTRY========>>", this.totalEntry);
       this.totalEntries = res.totalEntries.length;
       this.totalAmount = res.totalAmount;
       this.totalRecv = res.totalRecv;
@@ -66,11 +73,20 @@ export class SalesDashboardComponent {
     },(error)=>{
       console.error('Error fetching total Entries', error);
     }); 
+    this.auth.getDueAmount().subscribe((res:any)=>{
+      this.dueData = res;
+      console.log("DUEDATA==========>>", this.dueData);
+    });
+    this.auth.getRestAmount().subscribe((res:any)=>{
+      this.restData = res;
+      console.log("DUEDATA==========>>", this.restData);
+    });
 
     this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
+        this.todayEntry = totalDayEntry;
         this.todayEntries = totalDayEntry.length;
       }else{
         this.todayEntries = 0;
@@ -80,6 +96,7 @@ export class SalesDashboardComponent {
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.allProjectsSales().subscribe((res:any)=>{
+      this.allActiveProjects = res;
       this.allProjects = res.length;
     })
   }

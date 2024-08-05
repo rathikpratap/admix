@@ -1,6 +1,32 @@
 * {
     font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.modal{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+}
+.modal-content{
+    background-color: rgba(0,0, 0, 0.3);
+    color: white;
+}
+.modal-content th{
+    border: none;
+    color: white;
+}
+.modal-content td{
+    border: none;
+    color: white;
+}
+.modal-header .btn-close{
+    background-color: aliceblue;
+}
+.card-txt button{
+    background: none;
+    border: none;
+    font-size: 26px;
+}
 .card{
     background-color: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);

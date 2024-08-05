@@ -77,10 +77,7 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'logout',
-    component: LogoutComponent
-  },
+  
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
@@ -181,7 +178,7 @@ const routes: Routes = [
       {
         path: 'admin-WhatsAppLeads',
         component: AdminWhatsAppLeadsComponent
-      }
+      },
     ]
   },
   {
@@ -192,6 +189,10 @@ const routes: Routes = [
       {
         path: 'salesDashboard',
         component: SalesDashboardComponent,
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent
       },
       {
         path: 'salesNavbar',

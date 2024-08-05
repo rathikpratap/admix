@@ -3,6 +3,7 @@ import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
 
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -22,7 +23,12 @@ export class AdminDashboardComponent {
   dataLength: any;
   allProjects:any;
   monthRestAmount: any;
-  accessToken:any; 
+  accessToken:any;
+  totalDayEntry: any; 
+  totalEntry:any;
+  allActiveProjects:any;
+  dueData:any;
+  restData:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -55,6 +61,8 @@ export class AdminDashboardComponent {
       this.allData = allProject;
     })
     this.auth.getMonthEntries().subscribe((res : any)=>{
+      this.totalEntry = res.totalEntries;
+      console.log("TOTALENTRY========>>", this.totalEntry);
       this.totalEntries = res.totalEntries.length;
       this.totalAmount = res.totalAmount;
       this.totalRecv = res.totalRecv;
@@ -65,9 +73,9 @@ export class AdminDashboardComponent {
 
     this.auth.getTodayEntries().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
-      const totalDayEntry = todayRes.totalDayEntry;
-      if(Array.isArray(totalDayEntry)){
-        this.todayEntries = totalDayEntry.length;
+      this.totalDayEntry = todayRes.totalDayEntry;
+      if(Array.isArray(this.totalDayEntry)){
+        this.todayEntries = this.totalDayEntry.length;
       }else{
         this.todayEntries = 0;
       }
@@ -75,10 +83,17 @@ export class AdminDashboardComponent {
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.allProjectsAdmin().subscribe((res:any)=>{
+      this.allActiveProjects = res;
       this.allProjects = res.length;
     });
     this.auth.monthRestAmount().subscribe((res:any)=>{
       this.monthRestAmount = res;
+    });
+    this.auth.getDueAmountAdmin().subscribe((res:any)=>{
+      this.dueData = res;
+    });
+    this.auth.getRestAmountAdmin().subscribe((res:any)=>{
+      this.restData = res;
     })
   }
 
