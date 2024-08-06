@@ -29,6 +29,10 @@ export class AdminDashboardComponent {
   allActiveProjects:any;
   dueData:any;
   restData:any;
+  topPerformer:any;
+  topYearlyPerformer:any;
+  monthlyPerformer: { [key: string]: { [month: number]: number } } = {};
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November', 'December'];
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -94,6 +98,13 @@ export class AdminDashboardComponent {
     });
     this.auth.getRestAmountAdmin().subscribe((res:any)=>{
       this.restData = res;
+    });
+    this.auth.topPerformer().subscribe((res:any)=>{
+      this.topPerformer = res;
+      console.log("TOP=====>>", this.topPerformer);
+    });
+    this.auth.monthlyPerformer().subscribe((res:any)=>{
+      this.monthlyPerformer = res;
     })
   }
 

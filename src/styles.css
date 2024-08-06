@@ -7,5 +7,5 @@
     --bs-backdrop-zindex: 0 !important;
   }
   .modal{
-    --bs-modal-width: 800px !important;
+    --bs-modal-width: 1000px !important;
   }

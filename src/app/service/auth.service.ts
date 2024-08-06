@@ -843,7 +843,13 @@ export class AuthService {
   markRead(notifId:{id: string}):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/markRead`,notifId);
   }
-  
+
+  topPerformer():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/topPerformer`);
+  }
+  monthlyPerformer():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/monthlyPerformer`);
+  }
   
 
 }

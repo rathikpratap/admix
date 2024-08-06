@@ -25,7 +25,7 @@
                             <h6> Monthly Sale </h6>
                         </div>
                         <!-- <h2> {{totalEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayEntryModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                             {{totalEntries}}
                           </button>
                     </div>
@@ -180,6 +180,22 @@
                 </div>
             </form>
         </div> 
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Monthly Top Performer </h6>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer">
+                            {{topPerformer[0]._id}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -544,6 +560,77 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.projectStatus}}</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Top Performer -->
+  <div class="modal fade" id="topPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Top Performer</h1>
+          <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal" data-bs-target="#monthlyPerformer">
+            Month-wise Performance
+        </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total Closing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of topPerformer">
+                            <td>{{user._id}}</td>
+                            <td>{{user.numberOfClosings}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Monthly Performer -->
+  <div class="modal fade" id="monthlyPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Monthly Performer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>SalesPerson</th>
+                            <th *ngFor="let month of months">{{ month }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let salesperson of monthlyPerformer | keyvalue">
+                            <td>{{ salesperson.key }}</td>
+                            <td *ngFor="let month of months">{{ salesperson.value[months.indexOf(month) + 1] || 0 }}</td>
+                          </tr>
                     </tbody>
                 </table>
             </div>

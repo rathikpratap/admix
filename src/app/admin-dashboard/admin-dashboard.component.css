@@ -183,6 +183,9 @@ hr{
 .card-txt2 h5{
     margin-left: 45px;
 }
+.month-wise-performance{
+    margin-left: 50px;
+}
 @media (max-width: 500px){
     .form-container{
         display: block;

@@ -28,6 +28,7 @@ export class SalesDashboardComponent {
   accessToken:any;
   dueData:any;
   restData: any;
+  topPerformer:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -49,19 +50,19 @@ export class SalesDashboardComponent {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
-    })
+    });
  
     this.auth.getCustData().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
       this.dataLength = list.length;  
-    })
+    });
     
 
     this.auth.getCompleteProjects().subscribe((completeList: any)=>{
       console.log("completeList",completeList)
       this.completeData = completeList;
-    }) 
+    }); 
  
     this.auth.getMonthEntriesEmp().subscribe((res : any)=>{
       this.totalEntry = res.totalEntries;
@@ -80,6 +81,10 @@ export class SalesDashboardComponent {
     this.auth.getRestAmount().subscribe((res:any)=>{
       this.restData = res;
       console.log("DUEDATA==========>>", this.restData);
+    });
+    this.auth.topPerformer().subscribe((res:any)=>{
+      this.topPerformer = res;
+      console.log("TOP=====>>", this.topPerformer);
     });
 
     this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
