@@ -850,6 +850,9 @@ export class AuthService {
   monthlyPerformer():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/monthlyPerformer`);
   }
+  topCategory():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/topProduct`);
+  }
   
 
 }

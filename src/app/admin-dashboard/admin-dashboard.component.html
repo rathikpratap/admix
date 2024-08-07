@@ -79,7 +79,10 @@
                             {{ rangeData.rangeTotalAmount }}
                           </h2>
                           <ng-template #elseBlock>
-                            <h2>{{totalAmount}}</h2> 
+                            <!-- <h2>{{totalAmount}}</h2> -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
+                                {{totalAmount}}
+                              </button> 
                           </ng-template>
                     </div>
                 </div>
@@ -98,7 +101,10 @@
                             {{ rangeData.rangeTotalRecv }}
                           </h2>
                           <ng-template #elseBlock2>
-                            <h2>{{totalRecv}}</h2>
+                            <!-- <h2>{{totalRecv}}</h2> -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
+                                {{totalRecv}}
+                              </button>
                           </ng-template>
                     </div>
                 </div>
@@ -192,6 +198,28 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer">
                             {{topPerformer[0]._id}}
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Top Selling Category </h6>
+                        </div>
+                        <div class="chart-container">
+                            <canvas baseChart
+                            [data]="doughnutChartData"
+                            [options]="doughnutChartOptions"
+                            [type]="'doughnut'">
+                            </canvas>
+                          </div>
                     </div>
                 </div>
             </div>

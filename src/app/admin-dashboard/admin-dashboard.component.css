@@ -186,6 +186,15 @@ hr{
 .month-wise-performance{
     margin-left: 50px;
 }
+.chart-container {
+    width: 300px;  /* Set the desired width */
+    height: 300px; /* Set the desired height */
+    position: relative;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; 
+  }
 @media (max-width: 500px){
     .form-container{
         display: block;

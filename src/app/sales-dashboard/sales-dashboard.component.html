@@ -65,7 +65,11 @@
                             {{ rangeData.rangeTotalAmount }}
                         </h2>
                         <ng-template #elseBlock>
-                            <h2>{{totalAmount}}</h2>
+                            <!-- <h2>{{totalAmount}}</h2> -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#closingAmountModal">
+                                {{totalAmount}} 
+                            </button>
                         </ng-template>
                     </div>
                 </div>
@@ -87,7 +91,7 @@
                             <!-- <h2>{{totalRecv}}</h2> -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#restAmountModal">
-                                {{totalRecv}}
+                                {{totalRecv}} 
                             </button>
                         </ng-template>
                     </div>
@@ -565,12 +569,12 @@
     </div>
 </div>
 
-<!--Rest Amount Modal -->
+<!--Received Amount Modal -->
 <div class="modal fade" id="restAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Due Amount Projects</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Received Amount Projects</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -591,7 +595,60 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of restData">
+                            <tr *ngFor="let user of totalEntry">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                        Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Closing Amount Modal -->
+<div class="modal fade" id="closingAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Closing Amount Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of totalEntry">
                                 <td>{{user.custCode}}</td>
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>

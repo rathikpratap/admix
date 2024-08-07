@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //import { ToastrModule } from 'ngx-toastr';
 import { initializeApp} from 'firebase/app';
+import { BaseChartDirective } from 'ng2-charts';
 initializeApp(appConfig.firebase);
 import { MessagingService } from './service/messaging-service';
+//import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -159,6 +161,7 @@ import { appConfig } from 'src/environment';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    BaseChartDirective
     //ToastrModule.forRoot()
     
   ],
