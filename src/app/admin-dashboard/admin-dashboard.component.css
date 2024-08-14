@@ -195,6 +195,9 @@ hr{
   align-items: center;
   margin: 0 auto; 
   }
+  .chart-container2{
+    display: block;
+  }
 @media (max-width: 500px){
     .form-container{
         display: block;

@@ -162,6 +162,7 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
   }
   whatsAppLeads(){
     const url = `/admin-WhatsAppLeads`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
 }

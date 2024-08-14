@@ -82,10 +82,12 @@ export class EditorOtherProjectsComponent {
   }
   otherProjects(){
     const url = `/editor-home/editor-projects`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-b2b-update/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }

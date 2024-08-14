@@ -62,10 +62,12 @@ export class EditorDashboardComponent {
   }
   otherProjects(){
     const url = `/editor-home/editor-other`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-update/${userId}`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
 }

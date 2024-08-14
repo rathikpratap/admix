@@ -123,7 +123,8 @@ export class AllProjectsComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
 
   searchCustomer() {

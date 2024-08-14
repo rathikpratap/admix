@@ -120,7 +120,8 @@ export class AllCustomersComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
   invoice(userId: string){
     const url = `/salesHome/main-invoice/${userId}`;

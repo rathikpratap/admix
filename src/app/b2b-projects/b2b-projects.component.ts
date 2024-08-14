@@ -120,6 +120,7 @@ export class B2bProjectsComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/update-b2b/${userId}`;
-    window.open(url, '_blank');
+    //window.open(url, '_blank');
+    window.location.href = url;
   }
 }

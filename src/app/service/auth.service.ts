@@ -298,6 +298,106 @@ export class AuthService {
   getRestAmount():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRest`);
   }
+  getRestAmountDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'restAmountCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getDueAmountDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'restAmountCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+
+  getRestAmountDownload(){
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownload/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'restAmountCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getDueAmountDownload(){
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownload/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'restAmountCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getTodayEntryDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/todayEntriesDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'todayEntryCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getTotalEntryDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'totalEntryCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getTotalOngoingDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'ActiveCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  getAllActiveDownloadAdmin(){
+    this.http.get(`${appConfig.apiUrl}/auth/allActiveProjectsDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'AllActiveCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    }); 
+  }
+  // getRestAmountDownload():Observable<any>{
+  //   return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownload`,{responseType: 'blob'});
+  // }
   getDueAmountAdmin():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueAdmin`);
   }
@@ -853,6 +953,11 @@ export class AuthService {
   topCategory():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/topProduct`);
   }
-  
+  conversionRate():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/conversionRate`);
+  }
+  conversionRateMonthly():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/conversionRateMonthly`);
+  }
 
 }

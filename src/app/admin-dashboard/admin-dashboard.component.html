@@ -80,7 +80,7 @@
                           </h2>
                           <ng-template #elseBlock>
                             <!-- <h2>{{totalAmount}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                                 {{totalAmount}}
                               </button> 
                           </ng-template>
@@ -102,7 +102,7 @@
                           </h2>
                           <ng-template #elseBlock2>
                             <!-- <h2>{{totalRecv}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                                 {{totalRecv}}
                               </button>
                           </ng-template>
@@ -205,7 +205,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
                 <div class="form-container2">
@@ -220,6 +220,50 @@
                             [type]="'doughnut'">
                             </canvas>
                           </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Conversion Rate </h6>
+                        </div>
+                        <div class="chart-container">
+                            <canvas baseChart
+                                [data]="barChartData"
+                                [options]="barChartOptions"
+                                [type]="'bar'"
+                                width="400"
+                                height="385">
+                            </canvas>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Conversion Rate Monthly </h6>
+                        </div>
+                        <div class="chart-container2">
+                            <canvas baseChart
+                                [data]="lineChartData"
+                                [options]="lineChartOptions"
+                                chartType="line"
+                                width="400"
+                                height="385">
+                            </canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,7 +396,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary"(click)="downloadTotalDayEntryFile()">Download</button>
         </div>
       </div>
     </div>
@@ -363,7 +407,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Active Projects</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Total Projects</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -402,7 +446,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary"(click)="downloadTotalEntryFile()">Download</button>
         </div>
       </div>
     </div>
@@ -449,7 +493,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="downloadActiveEntryFile()">Download</button>
         </div>
       </div>
     </div>
@@ -498,7 +542,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="downloadAllActiveEntryFile()">Download</button>
         </div>
       </div>
     </div>
@@ -546,7 +590,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="downloadDueAmountFile()">Download</button>
         </div>
       </div>
     </div>
@@ -557,7 +601,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Due Amount Projects</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Rest Amount Projects</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -594,7 +638,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="downloadRestAmountFile()">Download</button>
         </div>
       </div>
     </div>
@@ -617,13 +661,13 @@
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Total Closing</th>
+                            <th scope="col">Total Closing Price</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of topPerformer">
                             <td>{{user._id}}</td>
-                            <td>{{user.numberOfClosings}}</td>
+                            <td>{{user.totalClosingPrice}}</td>
                         </tr>
                     </tbody>
                 </table>

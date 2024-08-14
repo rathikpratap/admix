@@ -171,7 +171,8 @@ export class WhatsAppLeadsComponent implements OnInit {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 
   updateProjectStatus(dataa: any){ 
@@ -198,7 +199,8 @@ export class WhatsAppLeadsComponent implements OnInit {
   }
   customLeads(){
     const url = `/salesHome/custom-leads`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   updateLeads(){
     this.auth.updateLead().subscribe((res:any)=>{
@@ -207,7 +209,8 @@ export class WhatsAppLeadsComponent implements OnInit {
   }
   facebookLeads(){
     const url = `/salesHome/team-leads`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   invoice(userId: string){
     const url = `/salesHome/est-invoice/${userId}`;

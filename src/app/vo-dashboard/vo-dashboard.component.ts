@@ -62,6 +62,7 @@ export class VoDashboardComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/vo-home/vo-update/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }

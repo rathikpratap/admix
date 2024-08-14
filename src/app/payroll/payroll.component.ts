@@ -192,11 +192,13 @@ export class PayrollComponent {
   }
   b2bPayroll(){
     const url = `/b2b-payroll`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   allPayroll(){
     const url = `/all-payroll`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }
  

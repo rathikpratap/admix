@@ -63,6 +63,7 @@ export class ScriptDashboardComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/script-home/script-update/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }

@@ -105,6 +105,15 @@ export class SalesDashboardComponent {
       this.allProjects = res.length;
     })
   }
+
+  downloadRestAmountFile(){
+    console.log("ITS RUNNING");
+    this.auth.getRestAmountDownload();
+  }
+  downloadDueAmountFile(){
+    console.log("ITS RUNNING");
+    this.auth.getDueAmountDownload();
+  }
   
   onDate(){
     const startDateValue = this.dateRangeForm.value.startDate;
@@ -155,7 +164,8 @@ export class SalesDashboardComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }
 

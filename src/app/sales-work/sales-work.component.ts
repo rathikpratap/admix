@@ -141,7 +141,8 @@ export class SalesWorkComponent {
   }
   whatsAppLeads(){
     const url = `/admin-WhatsAppLeads`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }
  

@@ -152,7 +152,8 @@ export class TeamLeadsComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   invoice(userId: string){
     const url = `/salesHome/est-invoice/${userId}`;
@@ -183,7 +184,8 @@ export class TeamLeadsComponent {
   }
   customLeads(){
     const url = `/salesHome/custom-leads`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   updateLeads(){
     this.auth.updateLead().subscribe((res:any)=>{
@@ -192,7 +194,8 @@ export class TeamLeadsComponent {
   }
   whatsAppLeads(){
     const url = `/salesHome/whatsApp-leads`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   delete(id:any, i:any){
     console.log(id);

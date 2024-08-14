@@ -54,10 +54,12 @@ export class EditorOtherComponent {
   }
   otherProjects(){
     const url = `/editor-home/editor-dashboard`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-b2b-update/${userId}`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
 }

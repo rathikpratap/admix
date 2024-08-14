@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
-import { Chart, DoughnutController, ArcElement,  Tooltip, Legend, ChartData, ChartOptions } from 'chart.js';
+import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale } from 'chart.js';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -41,6 +41,72 @@ export class AdminDashboardComponent implements OnInit {
       }
     }
   };
+
+  public barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      // {
+      //   data: [],
+      //   //label: 'Number of Closings',
+      //   backgroundColor: ['#FF6384', // Color for the first segment
+      //     '#36A2EB', // Color for the second segment
+      //     '#FFCE56', // Color for the third segment
+      //     ], // Example color
+      //   borderColor: ['#FF6384', // Border color for the first segment
+      //     '#36A2EB', // Border color for the second segment
+      //     '#FFCE56', // Border color for the third segment
+      //     ], // Example color
+      //   borderWidth: 1
+      // }
+    ]
+  };
+  public barChartOptions: ChartOptions<'bar'> = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Salesperson'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Conversion Rate (%)'
+        }
+      }
+    }
+  };
+
+  public lineChartData: ChartData<'line'> = {
+    labels: [], // This will hold the labels for the X-axis (e.g., months)
+    datasets: [
+      // {
+      //   data: [], // This will hold the conversion rate data
+      //   label: 'Conversion Rate',
+      //   borderColor: '#42A5F5',
+      //   fill: false,
+      //   tension: 0.1
+      // }
+    ]
+  };
+
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return value + "%";
+          }
+        }
+      }
+    }
+  };
+  
  
   tok:any;
   data:any;
@@ -70,13 +136,31 @@ export class AdminDashboardComponent implements OnInit {
     endDate: new FormControl("")
   });
 
+  // Array of predefined colors
+  private color: string[] = [
+    '#FF6384', // Red
+    '#36A2EB', // Blue
+    '#FFCE56', // Yellow
+    '#4BC0C0', // Teal
+    '#9966FF', // Purple
+    '#FF9F40', // Orange
+    '#E7E9ED', // Light Gray
+    '#7DCEA0', // Green
+    '#D4AC0D', // Gold
+    '#D98880'  // Salmon
+  ];
+
   ngOnInit(): void {
 
     Chart.register(
       DoughnutController,
       ArcElement,
       Tooltip,
-      Legend
+      Legend,
+      BarController,
+      BarElement,
+      CategoryScale,
+      LinearScale
     );
 
     this.auth.topCategory().subscribe((data: { _id: string, numberOfClosings: number }[]) => {
@@ -102,6 +186,61 @@ export class AdminDashboardComponent implements OnInit {
         ]
       };
     });
+
+    this.auth.conversionRate().subscribe((res:any)=>{
+      const data = res.data;
+      const labels = data.map((item: { salesPerson: string }) => item.salesPerson);
+      const conversionRate = data.map((item: { conversionRate: string }) => parseFloat(item.conversionRate));
+
+      this.barChartData = {
+        labels: labels,
+        datasets: [
+          {
+            data: conversionRate,
+            label: 'Conversion Rate(%)',
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      };
+    });
+
+    this.auth.conversionRateMonthly().subscribe((res:any)=>{
+      const conversionData = res.data;
+      const salesPeople = Array.from(new Set(conversionData.map((item: { salesPerson: string }) => item.salesPerson)));
+      const monthsYears = Array.from(new Set(conversionData.map((item: { month: number, year: number }) => `${item.month}/${item.year}`)));
+
+      this.lineChartData.labels = monthsYears;
+
+      this.lineChartData.datasets = salesPeople.map((salesPerson: any, index: number) => {
+        const salesPersonData = conversionData.filter((item: { salesPerson: string }) => item.salesPerson === salesPerson);
+        const data = monthsYears.map(monthYear => {
+          const item = salesPersonData.find((dataItem: { month: number, year: number }) => `${dataItem.month}/${dataItem.year}` === monthYear);
+          return item ? Number(item.conversionRate) : 0;
+        });
+
+        return {
+          data: data,
+          label: salesPerson,
+          borderColor: this.color[index % this.color.length], // Assign color from the predefined array
+          backgroundColor: this.color[index % this.color.length],
+          fill: false,
+          tension: 0.1
+        };
+      });
+
+    });
+
+  }
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
   constructor(private auth: AuthService,private messagingService: MessagingService) {
@@ -171,6 +310,25 @@ export class AdminDashboardComponent implements OnInit {
     this.auth.monthlyPerformer().subscribe((res:any)=>{
       this.monthlyPerformer = res;
     });
+  }
+
+  downloadRestAmountFile(){
+    this.auth.getRestAmountDownloadAdmin();
+  }
+  downloadDueAmountFile(){
+    this.auth.getDueAmountDownloadAdmin();
+  }
+  downloadTotalDayEntryFile(){
+    this.auth.getTodayEntryDownloadAdmin();
+  }
+  downloadTotalEntryFile(){
+    this.auth.getTotalEntryDownloadAdmin();
+  }
+  downloadActiveEntryFile(){
+    this.auth.getTotalOngoingDownloadAdmin();
+  }
+  downloadAllActiveEntryFile(){
+    this.auth.getAllActiveDownloadAdmin();
   }
 
   onSubmit(){

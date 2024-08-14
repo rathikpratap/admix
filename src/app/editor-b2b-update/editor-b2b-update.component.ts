@@ -15,7 +15,7 @@ export class EditorB2bUpdateComponent implements OnInit {
   editorOtherChanges: boolean = false;
   totalSec: any;
   numberOfVideos: any;
-  companies: any; 
+  companies: any;
   employee: any;
   allEmployee: any;
   allCompany: any;
@@ -44,7 +44,7 @@ export class EditorB2bUpdateComponent implements OnInit {
     videoDuration: new FormControl(0)
   });
 
-  handleSpecialCases(videoType: string):string {
+  handleSpecialCases(videoType: string): string {
     if (videoType === 'Background Music' || videoType === 'Refine') {
       return 'Voice Over Edit';
     }
@@ -103,7 +103,7 @@ export class EditorB2bUpdateComponent implements OnInit {
   getB2bCustomerFormControl(b2bName: any): AbstractControl | null {
     return this.b2bUpdateForm.get(b2bName);
   }
-  
+
   ngOnInit(): void {
     this.b2bUpdateForm.get('projectStatus')?.valueChanges.subscribe((value) => {
       if (value === 'Completed') {
@@ -123,15 +123,15 @@ export class EditorB2bUpdateComponent implements OnInit {
 
     const CompName = this.b2bUpdateForm.get('companyName')?.value;
 
-    this.allCompany.forEach((comp: { companyName: string, signupName: string,payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
+    this.allCompany.forEach((comp: { companyName: string, signupName: string, payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
       if (comp.companyName === CompName && comp.signupName === this.tok.signupUsername) {
         switch (this.b2bUpdateForm.get('b2bVideoType')?.value) {
           case 'Normal Graphics':
             switch (this.b2bUpdateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -148,9 +148,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -167,9 +167,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -192,9 +192,9 @@ export class EditorB2bUpdateComponent implements OnInit {
           case 'Motion Graphics':
             switch (this.b2bUpdateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -211,9 +211,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -230,9 +230,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -255,9 +255,9 @@ export class EditorB2bUpdateComponent implements OnInit {
           case 'Green Screen':
             switch (this.b2bUpdateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -274,9 +274,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -293,9 +293,9 @@ export class EditorB2bUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -314,85 +314,78 @@ export class EditorB2bUpdateComponent implements OnInit {
               default:
                 this.b2bUpdateForm.get('editorPayment')?.setValue(0);
             }
-
-            
-            
-            
         }
 
         const videoType = this.b2bUpdateForm.get('b2bVideoType')?.value || '';
-            const handledVideoType = this.handleSpecialCases(videoType);
-            
-            switch (handledVideoType) {
-              case 'Voice Over Edit':
-                switch (this.b2bUpdateForm.get('numberOfVideos')?.value) {
-                  case 'One':
-                    if (this.totalSec > 0 && this.totalSec <= 30){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                    } else if (this.totalSec > 30 && this.totalSec <= 45){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec);
-                    } else if (this.totalSec > 45 && this.totalSec <= 60) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec);
-                    } else if (this.totalSec > 60 && this.totalSec <= 90) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec);
-                    } else if (this.totalSec > 90 && this.totalSec <= 120) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec);
-                    } else if (this.totalSec > 120 && this.totalSec <= 150) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec);
-                    } else if (this.totalSec > 150 && this.totalSec <= 180) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec);
-                    } else {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(0);
-                    }
-                    break;
-                  case 'Two':
-                    if (this.totalSec > 0 && this.totalSec <= 30){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 30 && this.totalSec <= 45){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 45 && this.totalSec <= 60) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 60 && this.totalSec <= 90) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 90 && this.totalSec <= 120) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 120 && this.totalSec <= 150) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
-                    } else if (this.totalSec > 150 && this.totalSec <= 180) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
-                    } else {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(0);
-                    }
-                    break;
-                  case 'Three':
-                    if (this.totalSec > 0 && this.totalSec <= 30){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 30 && this.totalSec <= 45){
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 45 && this.totalSec <= 60) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 60 && this.totalSec <= 90) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 90 && this.totalSec <= 120) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 120 && this.totalSec <= 150) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
-                    } else if (this.totalSec > 150 && this.totalSec <= 180) {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
-                    } else {
-                      this.b2bUpdateForm.get('editorPayment')?.setValue(0);
-                    }
-                    break;
-                  default:
-                    this.b2bUpdateForm.get('editorPayment')?.setValue(0);
+        const handledVideoType = this.handleSpecialCases(videoType);
+
+        switch (handledVideoType) {
+          case 'Voice Over Edit':
+            switch (this.b2bUpdateForm.get('numberOfVideos')?.value) {
+              case 'One':
+                if (this.totalSec > 0 && this.totalSec <= 30) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec);
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec);
+                } else {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Two':
+                if (this.totalSec > 0 && this.totalSec <= 30) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentTwoVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentTwoVideo);
+                } else {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(0);
+                }
+                break;
+              case 'Three':
+                if (this.totalSec > 0 && this.totalSec <= 30) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 45 && this.totalSec <= 60) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 60 && this.totalSec <= 90) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment90Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 90 && this.totalSec <= 120) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment120Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 120 && this.totalSec <= 150) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment150Sec + comp.paymentThreeVideo);
+                } else if (this.totalSec > 150 && this.totalSec <= 180) {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(comp.payment180Sec + comp.paymentThreeVideo);
+                } else {
+                  this.b2bUpdateForm.get('editorPayment')?.setValue(0);
                 }
                 break;
               default:
                 this.b2bUpdateForm.get('editorPayment')?.setValue(0);
             }
-
-        
-
+            break;
+          default:
+            this.b2bUpdateForm.get('editorPayment')?.setValue(0);
+        }
       }
     })
     const editorPayment1: number = this.b2bUpdateForm.get('editorPayment')?.value;
@@ -406,25 +399,25 @@ export class EditorB2bUpdateComponent implements OnInit {
       console.log("Data Updated Successfully", res);
 
       const projectStatusControl = this.b2bUpdateForm.get('projectStatus');
-        projectStatusControl?.valueChanges.subscribe(value => {
-          if (value === 'Completed') {
-            let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
-            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
-            let sales = this.b2bUpdateForm.get('salesPerson')?.value;
-            let msgTitle = "B2b Project Complete";
-            let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by Editor`;
-            this.auth.sendNotificationsAdmin([selectedEmployee], sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
-              if (res) {
-                alert("Notification Sent");
-              } else {
-                alert("Error Sending Notification");
-              }
-            });
-          }
-        });
+      projectStatusControl?.valueChanges.subscribe(value => {
+        if (value === 'Completed') {
+          let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
+          console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+          let sales = this.b2bUpdateForm.get('salesPerson')?.value;
+          let msgTitle = "B2b Project Complete";
+          let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by Editor`;
+          this.auth.sendNotificationsAdmin([selectedEmployee], sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
+            if (res) {
+              alert("Notification Sent");
+            } else {
+              alert("Error Sending Notification");
+            }
+          });
+        }
+      });
 
-        // Manually trigger the value change logic for projectStatus
-        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+      // Manually trigger the value change logic for projectStatus
+      projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
 
       this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-other') })
     }, (err) => {
