@@ -29,8 +29,7 @@
                             <input type="text" class="from-control" formControlName="signupUsername"
                                 [ngClass]="{error:getControls('signupUsername')?.errors && getControls('signupUsername')?.touched}"
                                 placeholder="Enter Your Username">
-                            <div
-                                *ngIf="getControls('signupUsername')?.errors && getControls('signupUsername')?.touched">
+                            <div *ngIf="getControls('signupUsername')?.errors && getControls('signupUsername')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupUsername')?.errors?.['required']"> Username is Required </label>
                             </div>
                         </div>
@@ -111,8 +110,7 @@
                                 <option value="null">Select Sales Team</option>
                                 <option *ngFor="let teams of team" value="{{teams.salesTeamName}}">{{teams.salesTeamName}}</option>
                             </select>
-                            <div
-                                *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
+                            <div *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
                                 <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>
                             </div> 
                         </div>

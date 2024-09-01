@@ -16,6 +16,9 @@ export class EditorDashboardComponent {
   completeLength:any;
   allProjects:any;
   accessToken:any;
+  unreadNotif: any;
+  readNotif:any;
+  unreadCount: number = 0;
 
   constructor(private auth: AuthService,private renderer: Renderer2,private messagingService: MessagingService){
     
@@ -30,7 +33,7 @@ export class EditorDashboardComponent {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
-    })
+    });
     this.auth.editorProjects().subscribe((res:any)=>{
       this.data = res;
       console.log("Data===>", res);
@@ -43,7 +46,6 @@ export class EditorDashboardComponent {
       }else{
         this.todayEntries = 0;
       }
-      
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
@@ -58,7 +60,14 @@ export class EditorDashboardComponent {
     });
     this.auth.allEditorProjects().subscribe((res:any)=>{
       this.allProjects = res.length;
-    })
+    });
+    this.auth.getNotif().subscribe((res:any)=>{
+      console.log("Notifications===>", res);
+      this.unreadNotif = res.unReadNotif;
+      this.readNotif = res.readNotif;
+      this.unreadCount = res.unReadNotif.length;
+    });
+
   }
   otherProjects(){
     const url = `/editor-home/editor-other`;
@@ -69,5 +78,16 @@ export class EditorDashboardComponent {
     const url = `/editor-home/editor-update/${userId}`;
     //window.open(url, '_blank');
     window.location.href = url;
+  }
+  markAsRead(notifId:any){
+    this.auth.markRead({id: notifId}).subscribe((res:any)=>{
+      console.log("Notification Read");
+      const notif = this.unreadNotif.find((notif:any) => notif._id === notifId);
+      if (notif) {
+        this.readNotif.push(notif);
+        this.unreadNotif = this.unreadNotif.filter((notif:any) => notif._id !== notifId);
+        this.unreadCount = this.unreadNotif.length;
+      }
+    })
   }
 }

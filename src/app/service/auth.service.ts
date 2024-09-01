@@ -29,10 +29,49 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  // logout(): void {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('role');
+  //   this.router.navigate(['/login']);
+  // }
+
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    this.router.navigate(['/login']);
+    const token = localStorage.getItem('token'); // Get the JWT token from localStorage
+
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      // Call the backend API to save the logout time
+      this.http.post(`${appConfig.apiUrl}/auth/logout`, {}, { headers }).subscribe(
+        (response: any) => {
+          if (response.success) {
+            console.log('Logout time saved successfully.');
+          } else {
+            console.error('Failed to save logout time:', response.message);
+          }
+
+          // Remove the token and role from localStorage
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+
+          // Navigate to the login page
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.error('Error during logout API call:', error);
+
+          // Remove the token and role from localStorage even if the API call fails
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+
+          // Navigate to the login page
+          this.router.navigate(['/login']);
+        }
+      );
+    } else {
+      // If no token is found, simply redirect to login
+      this.router.navigate(['/login']);
+    }
   }
 
   getToken(): string | null {
