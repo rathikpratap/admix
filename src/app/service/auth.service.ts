@@ -998,5 +998,8 @@ export class AuthService {
   conversionRateMonthly():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/conversionRateMonthly`);
   }
+  getAttendance(year: number, month: number): Observable<any> {
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
+  }
 
 }

@@ -1,0 +1,83 @@
+* {
+    font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.Attendance{
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px;
+    width: fit-content;
+    color: #fff;
+} 
+.table-scroll {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    table-layout: auto;
+  }
+  
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+  }
+  
+  .present-day {
+    background-color: #e0ffe0; /* Light green for present days */
+    color: #2c662d;            /* Darker green text */
+  }
+  
+  .absent-day {
+    background-color: #ffe0e0; /* Light red for absent days */
+    color: #662c2c;            /* Darker red text */
+  }
+  
+  .logged-time {
+    font-size: 12px;  /* Smaller text for logged-in time */
+    color: #666;      /* Grey color for logged-in time */
+  }
+  
+  th {
+    background-color: #f4f4f4; /* Light grey header */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-weight: bold;
+  }
+  
+  thead th {
+    background-color: #ececec;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+    color: #fff;
+  }
+  
+  .month-navigation h2 {
+    margin: 0;
+  }
