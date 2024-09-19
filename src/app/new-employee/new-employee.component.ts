@@ -20,6 +20,7 @@ export class NewEmployeeComponent {
   className = 'd-none'
   team: any;
   tok:any;
+  subsidiary:any;
  
   constructor(private auth:AuthService) {
     this.auth.getProfile().subscribe((res:any)=>{
@@ -32,6 +33,9 @@ export class NewEmployeeComponent {
 
     this.auth.getSalesTeam().subscribe((res:any)=>{
       this.team = res;
+    });
+    this.auth.getSubsidiary().subscribe((res:any)=>{
+      this.subsidiary = res;
     })
   }
 
@@ -44,7 +48,8 @@ export class NewEmployeeComponent {
     signupPassword : new FormControl("", [Validators.required, Validators.pattern(this.passwordRegex)]),
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("Select Role",[Validators.required]),
-    salesTeam : new FormControl("null")
+    salesTeam : new FormControl("null"),
+    subsidiaryName : new FormControl("null",[Validators.required])
   })
   getControls(name: any) : AbstractControl | null{
     return this.registrationForm.get(name)

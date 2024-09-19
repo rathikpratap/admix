@@ -38,7 +38,7 @@
                 <h4> New WhatsApp Category Form </h4>
             </div> 
             <form [formGroup]="whatsAppCategoryForm" (ngSubmit)="whatsAppCateg()">
-                <div [ngClass]="className" role="alert">
+                <div [ngClass]="className2" role="alert">
                     {{message2}}
                 </div> 
                 <div class="user-details">
@@ -76,6 +76,36 @@
                         <div class="form-group">
                             <span class="details"> Sales Team Name: </span>
                             <input type="text" class="from-control" formControlName="salesTeamName" placeholder="Enter Sales Team">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success">
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+    </div>
+</div>
+
+<div class="new-registration">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h4> New Subsidiary Form</h4>
+            </div>
+            <form [formGroup]="subsidiaryForm" (ngSubmit)="subsidiarySubmit()">
+                <div [ngClass]="className3" role="alert">
+                    {{message3}}
+                </div>
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Subsidiary Name: </span>
+                            <input type="text" class="from-control" formControlName="subsidiaryName" placeholder="Enter Subsidiary Name">
                         </div>
                     </div>
                 </div>

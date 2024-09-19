@@ -4,6 +4,19 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { appConfig } from 'src/environment';
 import { Router } from '@angular/router';
 
+interface AttendanceEntry {
+  date: string;
+  status: string;
+}
+
+interface AttendanceData {
+  username: string;
+  attendance: AttendanceEntry[];
+  totalPresent: number;
+  totalAbsent: number;
+  totalHalfday: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -999,7 +1012,37 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/conversionRateMonthly`);
   }
   getAttendance(year: number, month: number): Observable<any> {
-    return this.http.get<any>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/attendance1?year=${year}&month=${month}`);
   }
+  // saveAttendance(year: number, month: number, attendanceData: any): Observable<any> {
+  //   return this.http.post<any>(`${appConfig.apiUrl}/auth/update-attendance`, { year, month, attendanceData });
+  // }
+
+  // getAttendance1(year: number, month: number): Observable<any> {
+  //   return this.http.get<any>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
+  // }
+
+  getAttendance1(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
+    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
+  }
+
+  // Update attendance status for a specific user, year, and month
+  updateAttendance(username: string, year: number, month: number, attendance: AttendanceEntry[]): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(`${appConfig.apiUrl}/auth/update-attendance`, {
+      username,
+      year,
+      month,
+      attendance
+    });
+  }
+
+  newSubsidiary(data:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/newSubsidiary`,data);
+  }
+
+  getSubsidiary():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getSubsidiary`);
+  }
+  
 
 }

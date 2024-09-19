@@ -118,6 +118,18 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details">Subsidiary Name: </span>
+                            <select class="form-select" formControlName="subsidiaryName" aria-label="Default select example">
+                                <option value="null">Select Subsidiary</option>
+                                <option *ngFor="let subs of subsidiary" value="{{subs.subsidiaryName}}">{{subs.subsidiaryName}}</option>
+                            </select>
+                            <div *ngIf="getControls('subsidiaryName')?.errors && getControls('subsidiaryName')?.touched">
+                                <label class="text-danger" *ngIf="getControls('subsidiaryName')?.errors?.['required']"> Subsidiary Name is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Password: </span>
                             <input type="text" class="from-control" formControlName="signupPassword"
                                 [ngClass]="{error:getControls('signupPassword')?.errors && getControls('signupPassword')?.touched}"

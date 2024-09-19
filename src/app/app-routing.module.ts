@@ -67,6 +67,7 @@ import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.compon
 import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
 import { AdminWhatsAppLeadsComponent } from './admin-whats-app-leads/admin-whats-app-leads.component';
 import { AdminAttendanceComponent } from './admin-attendance/admin-attendance.component';
+import { ManualAttendanceComponent } from './manual-attendance/manual-attendance.component';
 
 const routes: Routes = [
   {
@@ -183,6 +184,10 @@ const routes: Routes = [
       {
         path: 'admin-attendance',
         component: AdminAttendanceComponent
+      },
+      {
+        path: 'manual-attendance',
+        component: ManualAttendanceComponent
       }
     ]
   },

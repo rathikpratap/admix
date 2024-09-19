@@ -61,13 +61,19 @@ export class SideNavComponent {
       number:'9',
       name:'Payroll',
       icon: 'bi bi-cash',
-      route:  '/payroll'
+      route: '/payroll'
     },
+    // {
+    //   number:'10',
+    //   name:'Attendance',
+    //   icon:'bi bi-postcard',
+    //   route:'/admin-attendance'
+    // },
     {
       number:'10',
       name:'Attendance',
       icon:'bi bi-postcard',
-      route:'/admin-attendance'
+      route:'/manual-attendance'
     }
   ]
 }

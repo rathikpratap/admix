@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common'; // Import CommonModule for *ngFor
+import { FormsModule } from '@angular/forms';
 
 interface Attendance {
   username: string;
   attendance: { date: string; status: string; totalLoggedInTime: string }[];
 }
+// interface Attendance {
+//   username: string;
+//   attendance: { date: string; status: string }[];
+// }
 
 @Component({
   selector: 'app-admin-attendance',
   standalone: true,
-  imports: [CommonModule], // Add CommonModule to imports
+  imports: [CommonModule, FormsModule], // Add CommonModule to imports
   templateUrl: './admin-attendance.component.html',
   styleUrl: './admin-attendance.component.css'
 })
@@ -69,4 +74,72 @@ export class AdminAttendanceComponent implements OnInit {
     }
     this.fetchAttendance(); // Fetch data for the new month
   }
+
+  // month: number;
+  // year: number;
+  // monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  // attendanceData: Attendance[] = [];
+
+  // constructor(private auth: AuthService) {
+  //   const today = new Date();
+  //   this.month = today.getMonth() + 1;
+  //   this.year = today.getFullYear();
+  // }
+
+  // ngOnInit(): void {
+  //   this.fetchAttendance();
+  // }
+
+  // fetchAttendance(): void {
+  //   this.auth.getAttendance(this.year, this.month).subscribe(
+  //     response => {
+  //       if (response.success) {
+  //         this.attendanceData = response.data;
+  //         console.log("ATTENDANCE=====>>", this.attendanceData);
+  //       } else {
+  //         console.error('Failed to fetch attendance data:', response.message);
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error fetching attendance data:', error);
+  //     }
+  //   );
+  // }
+
+  // // Save manually entered attendance data
+  // saveAttendance(): void {
+  //   this.auth.saveAttendance(this.year, this.month, this.attendanceData).subscribe(
+  //     response => {
+  //       if (response.success) {
+  //         alert('Attendance saved successfully!');
+  //       } else {
+  //         alert('Failed to save attendance.');
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error saving attendance data:', error);
+  //     }
+  //   );
+  // }
+
+  // prevMonth(): void {
+  //   if (this.month === 1) {
+  //     this.month = 12;
+  //     this.year--;
+  //   } else {
+  //     this.month--;
+  //   }
+  //   this.fetchAttendance();
+  // }
+
+  // nextMonth(): void {
+  //   if (this.month === 12) {
+  //     this.month = 1;
+  //     this.year++;
+  //   } else {
+  //     this.month++;
+  //   }
+  //   this.fetchAttendance();
+  // }
+
 }

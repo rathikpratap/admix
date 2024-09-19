@@ -22,6 +22,10 @@ export class NewCategoryComponent {
   isProcess2:boolean = false; 
   className2 = 'd-none'
 
+  message3:string ='';
+  isProcess3:boolean = false;
+  className3 = 'd-none'
+
   constructor(private auth:AuthService) {
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
@@ -43,6 +47,10 @@ export class NewCategoryComponent {
   salesTeamForm = new FormGroup({
     salesTeamName : new FormControl("")
   });
+
+  subsidiaryForm = new FormGroup({
+    subsidiaryName: new FormControl("")
+  })
 
   categ(){
     this.isProcess = true;
@@ -107,6 +115,28 @@ export class NewCategoryComponent {
         this.isProcess1 = false;
         this.message1 = "Server Error";
         this.className1 = 'alert alert-danger';
+    })
+  }
+
+  subsidiarySubmit(){
+    this.isProcess = true;
+    console.warn(this.subsidiaryForm.value);
+    const data = this.subsidiaryForm.value;
+    this.auth.newSubsidiary(data).subscribe(res=>{
+      if(res.success){
+        this.isProcess3 = false;
+        this.message3 = "Subsidiary has been Created!!";
+        this.className3 = 'alert alert-success';
+        this.subsidiaryForm.reset();
+      }else{
+        this.isProcess3 = false;
+        this.message3 = res.message;
+        this.className3 = 'alert alert-danger';
+      }
+    },err =>{
+      this.isProcess3 = false;
+      this.message3 = "Server Error";
+      this.className3 = 'alert alert-danger';
     })
   }
 }

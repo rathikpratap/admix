@@ -13,6 +13,7 @@ export class UpdateEmployeeComponent {
   getId:any;
   team:any;
   tok:any;
+  subsidiary:any;
 
   empUpdateForm = new FormGroup({
     signupName: new FormControl("",[Validators.required]),
@@ -24,7 +25,8 @@ export class UpdateEmployeeComponent {
     signupAddress : new FormControl("",[Validators.required]),
     signupRole : new FormControl("",[Validators.required]),
     signupPayment: new FormControl(""),
-    salesTeam : new FormControl("") 
+    salesTeam : new FormControl(""),
+    subsidiaryName: new FormControl("") 
   })
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -49,11 +51,15 @@ export class UpdateEmployeeComponent {
         signupAddress : res['signupAddress'],
         signupRole : res['signupRole'],
         signupPayment: res['signupPayment'],
-        salesTeam: res['salesTeam']
+        salesTeam: res['salesTeam'],
+        subsidiaryName: res['subsidiaryName']
       })
     });
     this.auth.getSalesTeam().subscribe((res:any)=>{
       this.team = res;
+    });
+    this.auth.getSubsidiary().subscribe((res:any)=>{
+      this.subsidiary = res;
     })
   }
 
