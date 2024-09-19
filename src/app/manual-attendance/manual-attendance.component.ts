@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 interface AttendanceEntry {
   date: string;
@@ -31,7 +32,7 @@ export class ManualAttendanceComponent implements OnInit {
   attendanceData: AttendanceData[] = [];
   errorMessage: string = '';
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService,private toastr: ToastrService) {
     const today = new Date();
     this.month = today.getMonth() + 1;
     this.year = today.getFullYear();
@@ -103,6 +104,7 @@ export class ManualAttendanceComponent implements OnInit {
         response => {
           if (response.success) {
             console.log(`Attendance for ${user.username} saved successfully.`);
+            this.toastr.success(`Attendance for ${user.username} saved successfully.`, 'Success');
           } else {
             console.log(`Failed to save attendance for ${user.username}.`);
           }
@@ -149,5 +151,9 @@ export class ManualAttendanceComponent implements OnInit {
     this.attendanceData[userIndex].totalAbsent = totalAbsent;
     this.attendanceData[userIndex].totalHalfday = totalHalfday;
   }
+
+  // showSuccess() {
+  //   this.toastr.success('Hello world!', 'Toastr fun!');
+  // }
 
 }

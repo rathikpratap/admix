@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//import { ToastrModule } from 'ngx-toastr';
 import { initializeApp} from 'firebase/app';
 import { BaseChartDirective } from 'ng2-charts';
 initializeApp(appConfig.firebase);
 import { MessagingService } from './service/messaging-service';
-//import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +31,9 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { FacebookLeadsComponent } from './facebook-leads/facebook-leads.component';
 import { SalesLeadsComponent } from './sales-leads/sales-leads.component';
 import { LeadsComponent } from './leads/leads.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 import { EditorHomeComponent } from './editor-home/editor-home.component';
 import { EditorDashboardComponent } from './editor-dashboard/editor-dashboard.component';
@@ -160,12 +160,16 @@ import { appConfig } from 'src/environment';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     BaseChartDirective
-    //ToastrModule.forRoot()
     
   ],
-  providers: [],
+  providers: [provideAnimations(),provideToastr({
+    timeOut: 5000,
+    closeButton: true,
+    progressBar: true,
+    preventDuplicates: true
+  })],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

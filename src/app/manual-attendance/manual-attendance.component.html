@@ -5,7 +5,6 @@
         </div>
     </div>
 
-    <!-- Month navigation arrows -->
     <div class="month-navigation">
         <button class="btn btn-secondary" (click)="prevMonth()">&#8592; Prev</button>
         <h2>{{ monthNames[month - 1] }} / {{ year }}</h2>
@@ -36,11 +35,10 @@
                             <option value="Half Day">Half Day</option>
                         </select>
                     </td>
-                    <td class="text-center">P: {{user.totalPresent}}<br>H: {{user.totalHalfday}}</td>
+                    <td class="text-center">P: {{user.totalPresent}}<br>H: {{user.totalHalfday}}<br>A: {{user.totalAbsent}}</td>
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" (click)="saveAttendance()">Save Attendance</button>
     </div>
     <ng-template #noData>
         <p>No attendance data available for this month.</p>
