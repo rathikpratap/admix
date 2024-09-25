@@ -1,5 +1,5 @@
 <div class="side-nav-content">
-    <ul class="nav-list" [ngClass]="{'nav-list-open': editorSideNavStatus}">
+    <ul class="nav-list" [ngClass]="{'nav-list-open': graphicSideNavStatus}">
         <li class="nav-list-item" *ngFor="let item of list" [routerLinkActive]="'active'">
             <a routerLink="{{item.route}}"> <i class="{{item.icon}}"></i> </a>
             <span>
@@ -7,4 +7,4 @@
             </span>
         </li>
     </ul>
-</div>   
+</div>  

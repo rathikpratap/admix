@@ -1,0 +1,79 @@
+nav {
+    height: 100%;
+
+}
+.navbar-brand img{
+    width: 130px;
+}
+
+.side-nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+.side-nav-button:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30%;
+}
+
+.profile-logo button{
+    text-decoration: none;
+    color:white;
+}
+.profile-logo button:hover{
+    background-color: black;
+}
+.dropdown .notif{
+    margin-right: 100px;
+}
+.dropdown i{
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+.dropdown .badge{
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+.dropdown .notif .dropdown-menu .unRead{
+    background-color: #d4c0f3;
+}
+.dropdown .dropdown-menu{
+    width: 150px; /* Set a fixed width if needed */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Ensure long words are broken to fit */
+  max-height: 400px; /* Optional: Set a max height and make it scrollable if there are too many items */
+  overflow-y: auto; /* Scroll if content exceeds max height */
+  
+}
+.dropdown-item {
+    white-space: normal;
+  }
+  .dropdown-item sub {
+    margin-left: 30px;
+    margin-top: 5px; /* Adjust the space between msgBody and date */
+    font-size: smaller; /* Optional: Make the date text smaller */
+    color: gray; /* Optional: Change the color of the date */
+  }
+@media only screen and (max-width: 500px){
+    .navbar-brand img{
+        width: 80px;
+    }
+    .side-nav-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .nav-link{
+        font-size: 12px;
+    }
+}

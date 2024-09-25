@@ -2,6 +2,7 @@ import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-projects',
@@ -37,7 +38,7 @@ export class AllProjectsComponent {
   });
   rangeData: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder, private renderer: Renderer2, private router: Router) {
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private renderer: Renderer2, private router: Router, private toastr: ToastrService) {
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
       if (!this.tok) {
@@ -77,7 +78,7 @@ export class AllProjectsComponent {
 
   highlightRow(index: number) {
     this.selectedRowIndex = index;
-  }
+  } 
 
   updateEditors(user: any) {
     const currentDate = new Date().toISOString().split('T')[0];
@@ -98,7 +99,8 @@ export class AllProjectsComponent {
     }
     this.auth.updateEditors([user]).subscribe((res: any) => {
       if (res) {
-        alert("Project Successfully Assigned");
+        //alert("Project Successfully Assigned");
+        this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
         console.log("Editor Updated List", res);
       }
       console.log("Successfully Assigned", res);
@@ -115,12 +117,21 @@ export class AllProjectsComponent {
 
     this.auth.sendNotifications([selectedEmployee],[user], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
       if(res){
-        alert("Notification Send");
+        this.toastr.success('Notification Send','Success');
+        //alert("Notification Send");
       }else{
-        alert("Error Sending Notification");
+        this.toastr.error('Error Sending Notification','Error')
+        //alert("Error Sending Notification");
       }
     });
   }
+  updatePriority(user:any,priority:any){
+    this.auth.updateEditors([user]).subscribe((res:any)=>{
+      if(res) {
+        this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`,'Success');
+      }
+    });
+  } 
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
     //window.open(url, '_blank');
@@ -191,7 +202,7 @@ export class AllProjectsComponent {
     }
   }
 
-  filterEmployeesByRole(projectStatus: string): any[] {
+  filterEmployeesByRole(projectStatus: string): any[] { 
     switch (projectStatus) {
       case 'Scripting':
         return this.emp.filter((employee: any) => employee.signupRole === 'Script Writer');
@@ -199,7 +210,7 @@ export class AllProjectsComponent {
       case 'Video Changes':
       case 'Video Done':
         return this.emp.filter((employee: any) => employee.signupRole === 'Editor');
-      case 'Voice Over':
+      case 'Voice Over': 
         return this.emp.filter((employee: any) => employee.signupRole === 'VO Artist');
       case 'Graphic Designing':
         return this.emp.filter((employee: any) => employee.signupRole === 'Graphic Designer')

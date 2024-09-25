@@ -170,6 +170,7 @@
                             <th scope="col">Project Status</th>
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
+                            <th scope="col">Priority</th>
                             <th scope="col">View</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -185,7 +186,7 @@
                             <td>{{user.closingDate}}</td>
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.remainingAmount}}</td> 
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <select [(ngModel)]="user.projectStatus" (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
@@ -193,12 +194,13 @@
                                     <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Editing">Video Editing</option> 
                                     <option value="Video Changes">Video Changes</option> 
-                                    <option value="Video Done">Video Done</option>
+                                    <option value="Video Done">Video Done</option> 
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
@@ -237,12 +239,20 @@
                                 {{user.voiceOverStatus}}
                             </td>
                             <td *ngIf="user.projectStatus === 'Graphic Designing'" [(ngModel)]="user.graphicDesigner">
-
+                                {{user.graphicStatus}}
                             </td>
                             <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
                                 {{user.projectStatus}}
                             </td>
-                            
+                            <td>
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="none">Select</option>
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
@@ -273,6 +283,7 @@
                             <th scope="col">Project Status</th>
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
+                            <th scope="col">Priority</th>
                             <th scope="col">View</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -336,7 +347,15 @@
                             <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
                                 {{user.projectStatus}}
                             </td>
-                            
+                            <td>
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="none">Select</option>
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> View</button>   
@@ -367,6 +386,7 @@
                             <th scope="col">Project Status</th>
                             <th scope="col">Select T.M</th>
                             <th scope="col">T.M Status</th>
+                            <th scope="col">Priority</th>
                             <th scope="col">View</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -429,6 +449,15 @@
                             </td>
                             <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
                                 {{user.projectStatus}}
+                            </td>
+                            <td>
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="none">Select</option>
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
                             </td>
                             
                             <td>

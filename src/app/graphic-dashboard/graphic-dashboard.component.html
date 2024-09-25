@@ -8,7 +8,7 @@
                     </div>
                     <h2>{{todayEntries}}</h2>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
             <div class="form-container">
@@ -61,18 +61,21 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card ongoing">
             <p class="d-line-flex dateButton">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#today" aria-controls="collapseExample">
+                    Today Tasks
+                </button>
+                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#pending" aria-controls="collapseExample">
+                    Pending Tasks
+                </button>
                 <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#urgent" aria-controls="collapseExample">
-                    Urgent
+                    Urgent Tasks
                 </button>
-                <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#high" aria-controls="collapseExample">
-                    High
-                </button>
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#medium" aria-controls="collapseExample">
-                    Medium
+                <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#changes" aria-controls="collapseExample">
+                    Changes
                 </button>
             </p>
             <hr>
-            <div class="collapse show" id="urgent">
+            <div class="collapse show" id="today">
                 <div class="table-scroll">
                     <div class="table table-striped">
                         <thead>
@@ -81,34 +84,65 @@
                                 <th scope="col">Client Code</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">VoiceOver Type</th>
-                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Priority</th>
+                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let customer of urgent; let i = index">
+                            <tr *ngFor="let user of today; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{customer.custCode}}</td>
-                                <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
-                                <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                                <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
-                                <td>{{customer.priority}}</td>
-                                <td>{{customer.voiceOverStatus}}</td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.priority}}</td>
+                                <td>{{user.graphicDeliveryDate}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Completed">Not Completed</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+
+                </div>
+            </div>
+            <div class="collapse" id="pending">
+                <div class="table-scroll">
+                    <div class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Assigned Date</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of pending; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.priority}}</td>
+                                <td>{{user.graphicDeliveryDate}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Complete">Not Complete</option>
+                                        <option value="Complete">Completed</option>
+                                    </select> 
                                 </td>
                             </tr>
                         </tbody>
                     </div>
                 </div>
             </div>
-            <div class="collapse" id="high">
+            <div class="collapse" id="urgent">
                 <div class="table-scroll">
                     <div class="table table-striped">
                         <thead>
@@ -117,34 +151,31 @@
                                 <th scope="col">Client Code</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">VoiceOver Type</th>
-                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Priority</th>
+                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let customer of high; let i = index">
+                            <tr *ngFor="let user of urgent; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{customer.custCode}}</td>
-                                <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
-                                <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                                <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
-                                <td>{{customer.priority}}</td>
-                                <td>{{customer.voiceOverStatus}}</td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.priority}}</td>
+                                <td>{{user.graphicDeliveryDate}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Complete">Not Complete</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>
                     </div>
                 </div>
             </div>
-            <div class="collapse" id="medium">
+            <div class="collapse" id="changes">
                 <div class="table-scroll">
                     <div class="table table-striped">
                         <thead>
@@ -153,27 +184,24 @@
                                 <th scope="col">Client Code</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">VoiceOver Type</th>
-                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Priority</th>
+                                <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let customer of medium; let i = index">
+                            <tr *ngFor="let user of changes; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{customer.custCode}}</td>
-                                <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
-                                <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                                <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
-                                <td>{{customer.priority}}</td>
-                                <td>{{customer.voiceOverStatus}}</td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.priority}}</td>
+                                <td>{{user.graphicDeliveryDate}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Completed">Not Completed</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>
@@ -188,8 +216,8 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Voice Over Type</th>
+                            <th scope="col">Words Count</th>
+                            <th scope="col">Script</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
                             <th scope="col"> Action </th>
@@ -198,19 +226,19 @@
                     <tbody>
                         <tr *ngFor="let customer of data; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{customer.custCode}}</td>
+                            <td>{{customer.custCode}}</td> 
                             <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.voicePassDate}}</td>
-                            <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                            <td>{{customer.voiceOverType}}</td>
-                            <td>{{customer.voiceDeliveryDate}}</td>
-                            <td>{{customer.voiceOverStatus}}</td>
+                            <td>{{customer.scriptPassDate}}</td>
+                            <td>{{customer.wordsCount}}</td>
+                            <td>{{customer.script}}</td>
+                            <td>{{customer.scriptDeliveryDate}}</td>
+                            <td>{{customer.scriptStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
                             </td>
                         </tr>
                     </tbody>
-                </table> 
+                </table>
             </div> -->
         </div>
         <div class="card ongoing">
@@ -226,26 +254,20 @@
                             <th scope="col">Client Code</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Voice Over Type</th>
+                            <th scope="col">Priority</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let customer of completed; let i = index">
+                        <tr *ngFor="let user of completed; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{customer.custCode}}</td>
-                            <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.voicePassDate}}</td>
-                            <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                            <td>{{customer.voiceOverType}}</td>
-                            <td>{{customer.voiceDeliveryDate}}</td>
-                            <td>{{customer.voiceOverStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
-                            </td>
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.graphicPassDate}}</td>
+                            <td>{{user.priority}}</td>
+                            <td>{{user.graphicDeliveryDate}}</td>
+                            <td>{{user.graphicStatus}}</td>
                         </tr>
                     </tbody>
                 </table>

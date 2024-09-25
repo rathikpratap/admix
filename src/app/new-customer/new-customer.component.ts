@@ -23,6 +23,7 @@ export class NewCustomerComponent {
   companies: any;
   employee: any;
   allEmployee:any;
+  Graphicemp:any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   codeInput2!: ElementRef<HTMLInputElement>;
@@ -99,8 +100,10 @@ export class NewCustomerComponent {
     });
     this.auth.allEmployee().subscribe((res:any)=>{
       this.allEmployee = res;
-      this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor')
+      this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor');
+      this.Graphicemp = res.filter((Gemp:any)=> Gemp.signupRole === 'Graphic Designer');
       console.log("Editorss===>", this.employee);
+      console.log("Graphic Designer===>", this.Graphicemp);
     });
   }
 
@@ -116,15 +119,17 @@ export class NewCustomerComponent {
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
     restAmount : new FormControl(""), 
-    custCountry : new FormControl("null", [Validators.required]),
-    custCity : new FormControl("null", [Validators.required]),
-    custState : new FormControl("null", [Validators.required]),
+    custCountry : new FormControl("null"),
+    custCity : new FormControl("null"),
+    custState : new FormControl("null"),
     projectStatus : new FormControl("null",[Validators.required]),
     salesPerson : new FormControl("",[Validators.required]),
     youtubeLink : new FormControl(""),
     remark  : new FormControl(""),
     salesTeam : new FormControl(""),
-    companyName : new FormControl("")
+    companyName : new FormControl(""),
+    graphicDesigner : new FormControl(""),
+    graphicPassDate : new FormControl("")
   });
 
   b2bCustomerForm = new FormGroup({
@@ -173,6 +178,7 @@ export class NewCustomerComponent {
 
   addCust(){
     const currentDate = new Date().toISOString();
+    this.customerForm.get('graphicPassDate')!.setValue(currentDate);
     this.isProcess = true;
     console.warn(this.customerForm.value);
     const custData = this.customerForm.value;
@@ -242,4 +248,5 @@ export class NewCustomerComponent {
       this.className = 'alert alert-danger';
     })
   }
+  
 }

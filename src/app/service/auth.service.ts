@@ -816,6 +816,7 @@ export class AuthService {
   scriptProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptProjects`);
   }
+
   scriptPreviousProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptPreviousProjects`)
   }
@@ -1043,6 +1044,60 @@ export class AuthService {
   getSubsidiary():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSubsidiary`);
   }
+
+  urgentScriptProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/urgentScriptProjects`);
+  }
+  highScriptProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/highScriptProjects`);
+  }
+  mediumScriptProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/mediumScriptProjects`);
+  }
   
+  urgentEditorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/urgentEditorProjects`);
+  }
+  highEditorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/highEditorProjects`);
+  }
+  mediumEditorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/mediumEditorProjects`);
+  }
+
+  urgentVoProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/urgentVoProjects`);
+  }
+  highVoProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/highVoProjects`);
+  }
+  mediumVoProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/mediumVoProjects`);
+  }
+
+  urgentGraphicProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/urgentGraphicProjects`);
+  }
+  pendingGraphicProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/pendingGraphicProjects`);
+  }
+  todayGraphicProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/todayGraphicProjects`);
+  }
+  changesGraphicProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/changesGraphicProjects`);
+  }
+  getTodayEntriesGraphics():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesGraphic`);
+  }
+  getGraphicData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/graphicActiveList`);
+  }
+  getCompleteGraphicData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/graphicCompleteList`);
+  }
+  allGraphicProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allGraphicProjects`)
+  }
 
 }

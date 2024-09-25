@@ -17,6 +17,9 @@ export class ScriptDashboardComponent {
   completeLength:any;
   allProjects:any;
   accessToken:any;
+  urgent:any;
+  high:any;
+  medium:any;
 
   constructor(private auth: AuthService,private messagingService: MessagingService){
     this.auth.getAccessToken().subscribe((res:any)=>{
@@ -36,6 +39,15 @@ export class ScriptDashboardComponent {
       this.data = res;
       console.log("Data===>", res);
     });
+    this.auth.urgentScriptProjects().subscribe((res:any)=>{
+      this.urgent = res;
+    });
+    this.auth.highScriptProjects().subscribe((res:any)=>{
+      this.high = res;
+    });
+    this.auth.mediumScriptProjects().subscribe((res:any)=>{
+      this.medium = res;
+    });
     this.auth.getTodayEntriesScript().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
@@ -44,7 +56,6 @@ export class ScriptDashboardComponent {
       }else{
         this.todayEntries = 0;
       }
-      
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
@@ -59,7 +70,7 @@ export class ScriptDashboardComponent {
     });
     this.auth.allscriptProjects().subscribe((res:any)=>{
       this.allProjects = res.length;
-    })
+    });
   }
   openUpdatePanel(userId: string) {
     const url = `/script-home/script-update/${userId}`;

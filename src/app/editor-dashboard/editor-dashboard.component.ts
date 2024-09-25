@@ -19,6 +19,9 @@ export class EditorDashboardComponent {
   unreadNotif: any;
   readNotif:any;
   unreadCount: number = 0;
+  urgent:any;
+  medium:any;
+  high:any;
 
   constructor(private auth: AuthService,private renderer: Renderer2,private messagingService: MessagingService){
     
@@ -37,6 +40,15 @@ export class EditorDashboardComponent {
     this.auth.editorProjects().subscribe((res:any)=>{
       this.data = res;
       console.log("Data===>", res);
+    });
+    this.auth.urgentEditorProjects().subscribe((res:any)=>{
+      this.urgent = res;
+    });
+    this.auth.highEditorProjects().subscribe((res:any)=>{
+      this.high = res;
+    });
+    this.auth.mediumEditorProjects().subscribe((res:any)=>{
+      this.medium = res;
     });
     this.auth.getTodayEntriesEditor().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);

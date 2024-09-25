@@ -1,6 +1,16 @@
 * {
     font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.ProjectCard{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+}
 .card{
     background-color: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);
@@ -13,6 +23,9 @@
 }
 hr{
     color: #fff;
+}
+.dateButton button{
+    margin-left: 10px;
 }
 .card1{
     background-color: rgba(255,255, 255, 0.13);

@@ -68,6 +68,10 @@ import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
 import { AdminWhatsAppLeadsComponent } from './admin-whats-app-leads/admin-whats-app-leads.component';
 import { AdminAttendanceComponent } from './admin-attendance/admin-attendance.component';
 import { ManualAttendanceComponent } from './manual-attendance/manual-attendance.component';
+import { GraphicHomeComponent } from './graphic-home/graphic-home.component';
+import { GraphicDashboardComponent } from './graphic-dashboard/graphic-dashboard.component';
+import { GraphicNavbarComponent } from './graphic-navbar/graphic-navbar.component';
+import { GraphicSidenavComponent } from './graphic-sidenav/graphic-sidenav.component';
 
 const routes: Routes = [
   {
@@ -364,6 +368,25 @@ const routes: Routes = [
       {
         path: 'vo-payroll',
         component: VoPayrollComponent
+      }
+    ]
+  },
+  {
+    path: 'graphic-home',
+    component: GraphicHomeComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'graphic-dashboard',
+        component: GraphicDashboardComponent
+      },
+      {
+        path: 'graphic-navbar',
+        component: GraphicNavbarComponent
+      },
+      {
+        path: 'graphic-sidenav',
+        component: GraphicSidenavComponent
       }
     ]
   }

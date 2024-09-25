@@ -140,6 +140,15 @@
                         placeholder="Rest Amount">
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="customerForm.get('salesTeam')?.value === 'Logo Sales Team'">
+                        <div class="form-group">
+                            <span class="details"> Assigned To:</span>
+                            <select class="form-select" formControlName="graphicDesigner" aria-label="Default select example">
+                                <option value="">Select Designer</option>
+                                <option *ngFor="let emp of Graphicemp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Country: </span>

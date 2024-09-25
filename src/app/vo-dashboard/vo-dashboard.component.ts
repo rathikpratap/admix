@@ -16,6 +16,9 @@ export class VoDashboardComponent {
   completeLength:any;
   allProjects:any;
   accessToken:any;
+  urgent:any;
+  high:any;
+  medium:any;
 
   constructor(private auth: AuthService,private messagingService: MessagingService){
 
@@ -34,6 +37,15 @@ export class VoDashboardComponent {
     this.auth.voProjects().subscribe((res:any)=>{
       this.data = res;
       console.log("Data===>", res);
+    });
+    this.auth.urgentVoProjects().subscribe((res:any)=>{
+      this.urgent = res;
+    });
+    this.auth.highVoProjects().subscribe((res:any)=>{
+      this.high = res;
+    });
+    this.auth.mediumVoProjects().subscribe((res:any)=>{
+      this.medium = res;
     });
     this.auth.getTodayEntriesVo().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);

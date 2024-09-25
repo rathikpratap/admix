@@ -1,6 +1,7 @@
 import { Component, ViewChild,Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-customers',
@@ -12,7 +13,7 @@ export class AllCustomersComponent {
  @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
  
-  tok:any;
+  tok:any; 
   data:any=[];
   searchForm: FormGroup;
   customers :any[] = [];  
@@ -23,6 +24,7 @@ export class AllCustomersComponent {
   dataPreviousMonth: any=[];
   dataTwoPreviousMonth:any=[];
   isExpanded: boolean = false;
+  GraphicEmp:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -30,14 +32,14 @@ export class AllCustomersComponent {
   });
   rangeData: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private toastr: ToastrService){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
-    })
+    });
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });
@@ -45,15 +47,18 @@ export class AllCustomersComponent {
     this.auth.salesAllProjects().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list;
-    })
+    });
     this.auth.salesPreviousMonthProjects().subscribe((list : any)=>{
       console.log("list",list)
       this.dataPreviousMonth = list;
-    })
+    });
     this.auth.salesPreviousTwoMonthProjects().subscribe((list : any)=>{
       console.log("list",list)
       this.dataTwoPreviousMonth = list;
-    })
+    });
+    this.auth.allEmployee().subscribe((res:any)=>{
+      this.GraphicEmp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
+    });
 
 
     this.previousMonthName = this.auth.getPreviousMonthName();
@@ -126,6 +131,31 @@ export class AllCustomersComponent {
   invoice(userId: string){
     const url = `/salesHome/main-invoice/${userId}`;
     window.open(url,'_blank');
+  }
+
+  updateDesigner(user:any,designer:any){
+    user.graphicPassDate = new Date().toISOString();
+    this.auth.updateEditors([user]).subscribe((res:any)=>{
+      if(res){
+        this.toastr.success(`Project ${user.custName} Assigned to ${designer}`,'Success');
+      }else{
+        this.toastr.error('Project Assigned Failed', 'Error');
+      }
+    });
+  };
+  updatePriority(user:any,priority:any){
+    this.auth.updateEditors([user]).subscribe((res:any)=>{
+      if(res) {
+        this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`,'Success');
+      }
+    });
+  };
+  updateStatus(user:any,graphicStatus:any){
+    this.auth.updateEditors([user]).subscribe((res:any)=>{
+      if(res){
+        this.toastr.success(`Project ${user.custName} Status changed to ${graphicStatus}`,'Success');
+      }
+    })
   }
  
 }

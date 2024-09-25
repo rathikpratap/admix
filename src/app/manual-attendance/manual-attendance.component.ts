@@ -143,7 +143,7 @@ export class ManualAttendanceComponent implements OnInit {
 
     user.attendance.forEach(day => {
       if (day.status === 'Present') totalPresent++;
-      if (day.status === 'Absent') totalAbsent++;
+      if (day.status === 'Absent') totalAbsent++; 
       if (day.status === 'Half Day') totalHalfday++;
     });
 

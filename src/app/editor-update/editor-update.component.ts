@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-editor-update',
@@ -37,7 +38,7 @@ export class EditorUpdateComponent implements OnInit {
     salesPerson: new FormControl("")
   })
 
-  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
+  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer,private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
@@ -375,6 +376,7 @@ export class EditorUpdateComponent implements OnInit {
     const currentDate = new Date().toISOString();
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully", res);
+      this.toastr.success('Data Updated Successfully','Success');
       const projectStatusControl = this.updateForm.get('editorStatus');
         projectStatusControl?.valueChanges.subscribe(value => {
           if (value === 'Completed') {
@@ -385,9 +387,11 @@ export class EditorUpdateComponent implements OnInit {
             let msgBody = `${this.updateForm.get('custBussiness')?.value} by Editor`;
             this.auth.sendNotificationsAdmin([selectedEmployee],sales,  msgTitle, msgBody, currentDate).subscribe((res: any) => {
               if (res) {
-                alert("Notification Sent");
+                //alert("Notification Sent");
+                this.toastr.success('Notification Send', 'Success'); 
               } else {
-                alert("Error Sending Notification");
+                //alert("Error Sending Notification");
+                this.toastr.error('Error Sending Notification','Error');
               }
             });
           }

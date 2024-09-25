@@ -50,6 +50,8 @@ export class LoginComponent {
           this.router.navigateByUrl('/editor-home/editor-dashboard');
         }else if(res.role === 'VO Artist'){
           this.router.navigateByUrl('/vo-home/vo-dashboard');
+        }else if(res.role === 'Graphic Designer'){
+          this.router.navigateByUrl('/graphic-home/graphic-dashboard');
         }
       } else{
         alert(res.message);
