@@ -64,15 +64,27 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#today" aria-controls="collapseExample">
                     Today Tasks
                 </button>
+                <span class="badge">{{todayLength}}</span>
                 <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#pending" aria-controls="collapseExample">
                     Pending Tasks
                 </button>
+                <span class="badge">{{pendingLength}}</span>
                 <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#urgent" aria-controls="collapseExample">
                     Urgent Tasks
                 </button>
+                <span class="badge">{{urgentLength}}</span>
                 <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#changes" aria-controls="collapseExample">
                     Changes
                 </button>
+                <span class="badge">{{changesLength}}</span>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#todayAssigned" aria-controls="collapseExample">
+                    Today Assigned Task
+                </button>
+                <span class="badge">{{todayAssignedLength}}</span>
+                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#pendingAssigned" aria-controls="collapseExample">
+                    Pending Assigned Task
+                </button>
+                <span class="badge">{{pendingAssignedLength}}</span>
             </p>
             <hr>
             <div class="collapse show" id="today">
@@ -82,31 +94,36 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
                                 <th scope="col">Project Name</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Assigned Date</th>
                                 <th scope="col">Priority</th>
                                 <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of today; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
-                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.graphicPassDate | date: 'dd/MM/yy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.graphicDeliveryDate}}</td>
+                                <td>{{user.graphicDeliveryDate | date: 'short'}}</td>
                                 <td>
                                     <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
                                         <option value="Not Completed">Not Completed</option>
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
+                                <td [ngClass]="user.shouldBlink ? 'blinking' : 'color'">{{ user.remainingTime }}</td>
                             </tr>
                         </tbody>
                     </div>
-
                 </div>
             </div>
             <div class="collapse" id="pending">
@@ -116,27 +133,38 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
                                 <th scope="col">Priority</th>
                                 <th scope="col">Delivery Date</th>
+                                <th scope="col">Watermark</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of pending; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.graphicPassDate}}</td>
                                 <td>{{user.priority}}</td>
                                 <td>{{user.graphicDeliveryDate}}</td>
+                                <td>{{user.watermark}}</td>
                                 <td>
                                     <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
                                         <option value="Not Complete">Not Complete</option>
                                         <option value="Complete">Completed</option>
                                     </select> 
                                 </td>
+                                <td [ngClass]="{
+                                    'blinking': user.shouldBlink, 
+                                    'color': !user.shouldBlink && !user.timeUp,
+                                    'time-up': user.timeUp,
+                                    'within-24-hours': user.within24Hours
+                                  }">{{ user.remainingTime }}</td>
                             </tr>
                         </tbody>
                     </div>
@@ -149,17 +177,20 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
                                 <th scope="col">Priority</th>
                                 <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of urgent; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.graphicPassDate}}</td>
                                 <td>{{user.priority}}</td>
@@ -170,6 +201,7 @@
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
+                                <td [ngClass]="user.shouldBlink ? 'blinking' : 'color'">{{ user.remainingTime }}</td>
                             </tr>
                         </tbody>
                     </div>
@@ -182,17 +214,20 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
                                 <th scope="col">Project Name</th>
                                 <th scope="col">Assigned Date</th>
                                 <th scope="col">Priority</th>
                                 <th scope="col">Delivery Date</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of changes; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.graphicPassDate}}</td>
                                 <td>{{user.priority}}</td>
@@ -203,6 +238,77 @@
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
+                                <td [ngClass]="user.shouldBlink ? 'blinking' : 'color'">{{ user.remainingTime }}</td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="todayAssigned">
+                <div class="table-scroll">
+                    <div class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Task No.</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Task Description</th>
+                                <th scope="col">Assigned Date</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of todayAssigned; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{user.SrNo}}</td>
+                                <td>{{user.taskName}}</td>
+                                <td>{{user.taskDescription}}</td>
+                                <td>{{user.assignedDate | date: 'dd/MM/yy'}}</td>
+                                <td>{{user.taskDeliveryDate | date: 'dd/MM/yy'}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Completed">Not Completed</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
+                                </td>
+                                <td [ngClass]="user.taskShouldBlink ? 'blinking' : 'color'">{{ user.taskRemainingTime }}</td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="pendingAssigned">
+                <div class="table-scroll">
+                    <div class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Task No.</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Task Description</th>
+                                <th scope="col">Assigned Date</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Remainig Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of pendingAssigned; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{user.SrNo}}</td>
+                                <td>{{user.taskName}}</td>
+                                <td>{{user.taskDescription}}</td>
+                                <td>{{user.assignedDate | date: 'dd/MM/yy'}}</td>
+                                <td>{{user.taskDeliveryDate | date: 'dd/MM/yy'}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
+                                        <option value="Not Completed">Not Completed</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
+                                </td>
+                                <td [ngClass]="user.taskShouldBlink ? 'blinking' : 'color'">{{ user.taskRemainingTime }}</td>
                             </tr>
                         </tbody>
                     </div>
@@ -252,6 +358,7 @@
                         <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
                             <th scope="col">Project Name</th>
                             <th scope="col">Assigned Date</th>
                             <th scope="col">Priority</th>
@@ -263,6 +370,7 @@
                         <tr *ngFor="let user of completed; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.graphicPassDate}}</td>
                             <td>{{user.priority}}</td>

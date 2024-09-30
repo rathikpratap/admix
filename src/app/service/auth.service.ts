@@ -1087,6 +1087,14 @@ export class AuthService {
   changesGraphicProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/changesGraphicProjects`);
   }
+
+  todayAssignedTask(){
+    return this.http.get(`${appConfig.apiUrl}/auth/todayAssignedTask`);
+  }
+  pendingAssignedTask(){
+    return this.http.get(`${appConfig.apiUrl}/auth/pendingAssignedTask`);
+  } 
+
   getTodayEntriesGraphics():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesGraphic`);
   }
@@ -1097,7 +1105,14 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/graphicCompleteList`);
   }
   allGraphicProjects(){
-    return this.http.get(`${appConfig.apiUrl}/auth/allGraphicProjects`)
+    return this.http.get(`${appConfig.apiUrl}/auth/allGraphicProjects`);
+  }
+
+  tasksDataLength(){
+    return this.http.get(`${appConfig.apiUrl}/auth/taskDataLength`);
+  }
+  addTask(taskData:any){
+    return this.http.post(`${appConfig.apiUrl}/auth/addTask`, taskData);
   }
 
 }

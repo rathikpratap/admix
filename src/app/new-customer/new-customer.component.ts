@@ -185,7 +185,7 @@ export class NewCustomerComponent {
     this.auth.addcustomer(custData).subscribe(res =>{
       if(res.success){
         this.isProcess = false;
-        this.message = "Customer Added";
+        this.message = "Customer Added"; 
         this.className = 'alert alert-success';
         this.customerForm.reset();
         this.customerForm.get('custCode')!.setValue(this.dataLength + 1);

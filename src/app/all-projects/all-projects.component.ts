@@ -78,7 +78,7 @@ export class AllProjectsComponent {
 
   highlightRow(index: number) {
     this.selectedRowIndex = index;
-  } 
+  }  
 
   updateEditors(user: any) {
     const currentDate = new Date().toISOString().split('T')[0];

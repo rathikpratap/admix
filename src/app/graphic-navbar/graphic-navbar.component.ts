@@ -26,7 +26,7 @@ export class GraphicNavbarComponent {
       this.readNotif = res.readNotif;
       this.unreadCount = res.unReadNotif.length;
     })
-    this.auth.getProfile().subscribe((res:any)=>{
+    this.auth.getProfile().subscribe((res:any)=>{ 
       this.tok = res?.data;
     })
   }

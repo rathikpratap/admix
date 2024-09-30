@@ -1,0 +1,53 @@
+<div class="new-customer">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2>New Task Form</h2>
+            </div>
+            <form [formGroup]="taskForm" (ngSubmit)="taskForm.status !== 'INVALID' && addTask()">
+                <div [ngClass]="className" role="alert">
+                    {{message}}
+                </div>
+                <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Sr.No.</span>
+                            <input type="number" class="form-control" formControlName="SrNo" placeholder="Enter Serial Number" #srInput>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Assigned Date: </span>
+                            <input type="datetime-local" class="form-control" formControlName="assignedDate">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Task Name:</span>
+                            <input type="text" class="form-control" formControlName="taskName" placeholder="Enter Task Name">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Task Description:</span>
+                            <input type="text" class="form-control" formControlName="taskDescription" placeholder="Enter Task Description">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Assigned To:</span>
+                            <select class="form-select" formControlName="graphicDesigner" aria-label="Default select example">
+                                <option value="">Select Designer</option>
+                                <option *ngFor="let emp of Graphicemp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="taskForm.status ==='INVALID'" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>

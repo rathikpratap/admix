@@ -185,6 +185,7 @@
                                     <option value="Complete">Completed</option>
                                 </select>
                             </td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -212,6 +213,8 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Rest Amount Received</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
@@ -229,7 +232,26 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user,user.graphicStatus)">
+                                    <option value="Not Completed">Not Completed</option>
+                                    <option value="Graphic Designing Changes">Changes</option>
+                                    <option value="Complete">Completed</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -257,6 +279,8 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Rest Amount Received</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
@@ -274,7 +298,26 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user,user.graphicStatus)">
+                                    <option value="Not Completed">Not Completed</option>
+                                    <option value="Graphic Designing Changes">Changes</option>
+                                    <option value="Complete">Completed</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>

@@ -39,7 +39,7 @@ nav {
     left: 10px;
     border-radius: 50%;
     background-color: red;
-    color: white;
+    color: white; 
 }
 .dropdown .notif .dropdown-menu .unRead{
     background-color: #d4c0f3;

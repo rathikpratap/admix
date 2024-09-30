@@ -72,6 +72,8 @@ import { GraphicHomeComponent } from './graphic-home/graphic-home.component';
 import { GraphicDashboardComponent } from './graphic-dashboard/graphic-dashboard.component';
 import { GraphicNavbarComponent } from './graphic-navbar/graphic-navbar.component';
 import { GraphicSidenavComponent } from './graphic-sidenav/graphic-sidenav.component';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { SalesNewTaskComponent } from './sales-new-task/sales-new-task.component';
 
 const routes: Routes = [
   {
@@ -192,6 +194,10 @@ const routes: Routes = [
       {
         path: 'manual-attendance',
         component: ManualAttendanceComponent
+      },
+      {
+        path: 'new-task',
+        component: NewTaskComponent
       }
     ]
   },
@@ -263,6 +269,10 @@ const routes: Routes = [
       {
         path: 'main-invoice/:id',
         component: MainInvoiceComponent
+      },
+      {
+        path: 'sales-new-task',
+        component: SalesNewTaskComponent
       }
     ]
   },

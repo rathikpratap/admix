@@ -29,36 +29,42 @@ export class SideNavComponent {
     },
     {
       number: '4',
+      name: 'Add New Tasks',
+      icon: 'bi bi-plus-circle-fill',
+      route: '/new-task'
+    },
+    {
+      number: '5',
       name: 'Payment',
       icon: 'bi bi-currency-rupee',
       route: '/payment'
     },
     {
-      number: '5',
+      number: '6',
       name: 'All Projects',
       icon: 'bi bi-card-list',
       route: '/all-projects'
     },
     {
-      number: '6',
+      number: '7',
       name: 'Add New Category',
       icon: 'bi bi-file-earmark-plus-fill',
       route: '/new-category'
     },
     {
-      number: '7',
+      number: '8',
       name: 'Get Leads',
       icon: 'bi bi-arrow-down-circle',
       route: '/facebook-leads'
     },
     {
-      number: '8',
+      number: '9',
       name: 'Leads',
       icon: 'bi bi-box-arrow-in-up',
       route: '/Leads'
     },
     {
-      number:'9',
+      number:'10',
       name:'Payroll',
       icon: 'bi bi-cash',
       route: '/payroll'
@@ -70,7 +76,7 @@ export class SideNavComponent {
     //   route:'/admin-attendance'
     // },
     {
-      number:'10',
+      number:'11',
       name:'Attendance',
       icon:'bi bi-postcard',
       route:'/manual-attendance'
