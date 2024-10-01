@@ -100,7 +100,7 @@ export class WhatsAppLeadsComponent implements OnInit {
       this.emp = res;
     }) 
   }
-
+ 
   getgetData(){
     this.auth.getWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
@@ -225,6 +225,19 @@ export class WhatsAppLeadsComponent implements OnInit {
         window.location.reload();
       })
     }
+  }
+  transferLead(user:any,newSalesTeam:any){
+    const currentDate = new Date().toISOString();
+    const transferData = {
+      custId: user._id,              // Updated key name to match backend
+      salesTeam: newSalesTeam,       // Updated key name to match backend
+      closingDate: currentDate       // Pass the current date as closing date
+    };
+
+    console.log("USERID========>>", transferData);
+    this.auth.transferToLeads(transferData).subscribe((res:any)=>{
+      console.log("Customer transferred successfully", res);
+    })
   }
 }
  

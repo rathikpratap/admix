@@ -1114,5 +1114,8 @@ export class AuthService {
   addTask(taskData:any){
     return this.http.post(`${appConfig.apiUrl}/auth/addTask`, taskData);
   }
+  transferToLeads(user:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`,user);
+  }
 
 }

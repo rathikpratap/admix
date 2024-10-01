@@ -195,7 +195,7 @@
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
-                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Closing Date </th> 
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
@@ -203,6 +203,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <!-- <th scope="col">Transfer To</th> -->
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -232,6 +233,12 @@
                             <td> 
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea>
                             </td>
+                            <!-- <td>
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td> -->
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" (click)="openUpdatePanel(list._id)"> Update Page</button>

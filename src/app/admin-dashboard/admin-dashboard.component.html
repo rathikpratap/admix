@@ -195,7 +195,7 @@
                         <div class="card-bg2">
                             <h6> Monthly Top Performer </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer && topPerformer.length > 0">
                             {{topPerformer[0]._id}}
                         </button>
                     </div>

@@ -145,7 +145,7 @@ export class AllCustomersComponent {
   };
   updatePriority(user:any,priority:any){
     this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res) {
+      if(res) { 
         this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`,'Success');
       }
     });
