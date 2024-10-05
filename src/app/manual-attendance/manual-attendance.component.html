@@ -15,14 +15,14 @@
         <table class="table table-striped table-responsive">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th *ngFor="let day of attendanceData[0]?.attendance" class="text-center">{{ day.date | date:'dd/MM'}}</th>
-                    <th class="text-center"> Overall Status</th>
+                    <th class="sticky-header">User</th>
+                    <th *ngFor="let day of attendanceData[0]?.attendance" class="text-center sticky-header">{{ day.date | date:'dd/MM'}}</th>
+                    <th class="text-center sticky-header"> Overall Status</th> 
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of attendanceData; let i = index">
-                    <td><strong>{{ user.username }}</strong></td>
+                    <td><strong>{{ user.username }}</strong></td> 
                     <td *ngFor="let day of user.attendance; let j = index" [ngClass]="{
                         'present-day': day.status === 'Present',
                         'absent-day': day.status === 'Absent',

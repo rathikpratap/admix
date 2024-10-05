@@ -209,7 +209,7 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" 
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>

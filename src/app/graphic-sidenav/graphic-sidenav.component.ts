@@ -29,6 +29,12 @@ export class GraphicSidenavComponent {
       name: 'Payroll',
       icon: 'bi bi-cash',
       route: '/graphic-home/graphic-payroll'
+    },
+    {
+      number: '4',
+      name: 'Attendance',
+      icon: 'bi bi-postcard',
+      route: '/graphic-home/graphic-attendance'
     }
   ]
 }

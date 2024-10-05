@@ -74,6 +74,9 @@ import { GraphicNavbarComponent } from './graphic-navbar/graphic-navbar.componen
 import { GraphicSidenavComponent } from './graphic-sidenav/graphic-sidenav.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { SalesNewTaskComponent } from './sales-new-task/sales-new-task.component';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { GraphicAttendanceComponent } from './graphic-attendance/graphic-attendance.component';
+import { EditorAttendanceComponent } from './editor-attendance/editor-attendance.component';
 
 const routes: Routes = [
   {
@@ -273,7 +276,11 @@ const routes: Routes = [
       {
         path: 'sales-new-task',
         component: SalesNewTaskComponent
-      }
+      },
+      {
+        path: 'attendance',
+        component: AttendanceComponent
+      },
     ]
   },
   {
@@ -316,6 +323,10 @@ const routes: Routes = [
       {
         path: 'editor-payroll',
         component: EditorPayrollComponent
+      },
+      {
+        path: 'editor-attendance',
+        component: EditorAttendanceComponent
       }
     ]
   },
@@ -397,6 +408,10 @@ const routes: Routes = [
       {
         path: 'graphic-sidenav',
         component: GraphicSidenavComponent
+      },
+      {
+        path: 'graphic-attendance',
+        component: GraphicAttendanceComponent
       }
     ]
   }

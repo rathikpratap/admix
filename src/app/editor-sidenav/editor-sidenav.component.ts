@@ -27,6 +27,12 @@ export class EditorSidenavComponent {
       name: 'Payroll',
       icon: 'bi bi-cash',
       route: '/editor-home/editor-payroll'
+    },
+    {
+      number: '4',
+      name: 'Attendance',
+      icon: 'bi bi-postcard',
+      route: '/editor-home/editor-attendance'
     }
   ];
   list2 = [

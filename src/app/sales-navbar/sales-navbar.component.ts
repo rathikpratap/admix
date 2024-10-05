@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
 export class SalesNavbarComponent {
  
   tok:any;
-  unreadNotif: any;
+  unreadNotif: any; 
   readNotif:any;
   unreadCount: number = 0;
 

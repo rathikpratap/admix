@@ -26,6 +26,7 @@ export class ScriptSidenavComponent {
       name: 'Payroll',
       icon: 'bi bi-cash',
       route: '/script-home/script-payroll'
-    }
+    },
+    
   ]
 }

@@ -25,6 +25,8 @@ export class AllCustomersComponent {
   dataTwoPreviousMonth:any=[];
   isExpanded: boolean = false;
   GraphicEmp:any;
+  sales:any;
+  transferName: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -35,6 +37,7 @@ export class AllCustomersComponent {
   constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private toastr: ToastrService){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
+      this.transferName = this.tok.signupUsername;
       if(!this.tok){
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
@@ -59,6 +62,10 @@ export class AllCustomersComponent {
     this.auth.allEmployee().subscribe((res:any)=>{
       this.GraphicEmp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
     });
+    this.auth.getSalesTeam().subscribe((res:any)=>{
+      console.log("SALESTEAM=======>>", res);
+      this.sales = res;
+    })
 
 
     this.previousMonthName = this.auth.getPreviousMonthName();
@@ -155,6 +162,19 @@ export class AllCustomersComponent {
       if(res){
         this.toastr.success(`Project ${user.custName} Status changed to ${graphicStatus}`,'Success');
       }
+    })
+  }
+  transferLead(user:any,newSalesTeam:any){
+    const currentDate = new Date().toISOString();
+    const transferData = {
+      custId: user._id,
+      salesTeam: newSalesTeam,
+      closingDate: currentDate,
+      name: this.transferName
+    };
+    this.auth.transferCustomertoSales(transferData).subscribe((res:any)=>{
+      this.toastr.success("Transferred successfully","Success");
+      console.log("Customer transferred successfully", res);
     })
   }
  

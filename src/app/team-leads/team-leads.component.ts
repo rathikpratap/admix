@@ -32,7 +32,7 @@ export class TeamLeadsComponent {
   threeYesterdayDate: string;
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
-  fbLeads: any;
+  fbLeads: any; 
   modifyCount:any
 
   dateRangeForm = new FormGroup({

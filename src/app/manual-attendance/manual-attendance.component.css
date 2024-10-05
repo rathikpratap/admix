@@ -14,75 +14,84 @@
 }
 
 .table-scroll {
-    overflow-x: auto;
-    width: 100%;
+    /* width: 100%;*/
+    position: relative;
+    max-height: 500px; /* Limit the table container height */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    overflow-x: auto;  /* Enable horizontal scrolling for wide tables */
     margin-top: 20px;
 }
 
-table {
+.table-scroll table {
     width: 100%;
-    table-layout: auto;
+    border-collapse: collapse;
 }
 
-th,
-td {
-    text-align: center;
-    vertical-align: middle;
+th, td {
     padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
+/* Present, Absent, and Half-Day status colors */
 .present-day {
     background-color: #e0ffe0;
-    /* Light green for present days */
     color: #2c662d;
-    /* Darker green text */
 }
 
 .absent-day {
     background-color: #ffe0e0;
-    /* Light red for absent days */
     color: #662c2c;
-    /* Darker red text */
 }
-.half-day{
+
+.half-day {
     background-color: rgb(222, 239, 147);
 }
 
-.logged-time {
-    font-size: 12px;
-    /* Smaller text for logged-in time */
-    color: #666;
-    /* Grey color for logged-in time */
-}
-
-th {
-    background-color: #f4f4f4;
-    /* Light grey header */
+/* Header styling */
+.sticky-header{
     position: sticky;
     top: 0;
-    z-index: 2;
-    font-weight: bold;
+    background-color: white; /* Optional: Ensure the header stands out */
+    z-index: 100; /* Ensure the header stays on top of other content */
+    border-bottom: 2px solid #dee2e6; /* Optional: Add a border for clarity */
+}
+thead tr {
+    position: sticky;
+    top: 0;
+    z-index: 3;
 }
 
-thead th {
-    background-color: #ececec;
+/* Sticky first column styling */
+tbody td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f9f9f9; /* Optional background to differentiate */
+    z-index: 2; /* Ensures first column stays on top of other rows */
 }
 
+/* Striped table rows */
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-tbody td:first-child,
-thead th:first-child {
-    position: sticky;
-    left: 0;
+tbody {
+    height: 300px; /* Set height for the scrollable area */
+    overflow-y: auto; /* Enables vertical scrolling */
 }
 
-h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+/* Remove borders from dropdowns */
+select {
+    border: none;
+    background: none;
 }
 
+.logged-time {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Month navigation styles */
 .month-navigation {
     display: flex;
     justify-content: space-between;
@@ -100,8 +109,4 @@ h2 {
 
 .month-navigation h2 {
     margin: 0;
-}
-select{
-    border: none;
-    background: none;
 }

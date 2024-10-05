@@ -1117,5 +1117,11 @@ export class AuthService {
   transferToLeads(user:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`,user);
   }
+  transferCustomertoSales(user:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/transferCustomerToSalesLead`,user);
+  }
+  getUserAttendance(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
+    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`);
+  }
 
 }

@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="Attendance">
+            <h5> Attendance for {{year}}</h5>
+        </div>
+    </div>
+    <div class="month-navigation">
+        <button class="btn btn-secondary" (click)="prevMonth()">&#8592; Prev</button>
+        <h2>{{monthNames[month-1]}}</h2>
+        <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
+    </div>
+
+    <div class="calendar" *ngIf="calendarDays.length > 0; else noData">
+        <div class="week-days" *ngFor="let dayName of weekDays">{{dayName}}</div>
+        <div class="back" *ngFor="let day of calendarDays">
+            <div class="day" [ngClass]="{
+                'present-day': day.attendance.status === 'Present',
+                'absent-day': day.attendance.status=== 'Absent',
+                'half-day': day.attendance.status === 'Half Day'
+            }" *ngIf="day.attendance">
+                <div class="date">{{day.date ? (day.date | date: 'dd') : ''}}</div>
+                <span>{{day.attendance.status}}</span>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #noData>
+        <p>No attendance data available for this month.</p>
+    </ng-template>
+</div>

@@ -1,0 +1,86 @@
+* {
+    font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .week-day {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  .day {
+    border: 1px solid #ddd;
+    min-height: 100px;
+    position: relative;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .date {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+.Attendance {
+    background: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    border-radius: 15px;
+    padding: 5px;
+    width: fit-content;
+    color: #fff;
+}
+
+.present-day {
+    background-color: #e0ffe0;
+    /* Light green for present days */
+    color: #2c662d;
+    /* Darker green text */
+}
+
+.absent-day {
+    background-color: #ffe0e0;
+    /* Light red for absent days */
+    color: #662c2c;
+    /* Darker red text */
+}
+.half-day{
+    background-color: rgb(222, 239, 147);
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.month-navigation h2 {
+    margin: 0;
+}

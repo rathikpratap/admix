@@ -150,6 +150,7 @@
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -186,6 +187,12 @@
                                 </select>
                             </td>
                             <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <td>
+                                <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
+                                    <option value="">Select</option> 
+                                    <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>

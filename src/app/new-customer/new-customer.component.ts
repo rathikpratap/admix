@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import {Router} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-customer', 
@@ -36,7 +37,7 @@ export class NewCustomerComponent {
     }
   } 
  
-  constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef){
+  constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef, private toastr: ToastrService){
 
     this.customerForm.get('restAmount')!.setValue('0');
 
@@ -195,9 +196,11 @@ export class NewCustomerComponent {
         let msgBody = `${custData.custBussiness} by ${this.tok.signupUsername}`;
         this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
           if(res){
-            alert("Notification Send");
+            this.toastr.success("Notification Send","Success");
+            //alert("Notification Send");
           }else{
-            alert("Error Sending Notification");
+            this.toastr.error("Error Sending Notification","Error");
+            //alert("Error Sending Notification");
           }
         });
       }else{
@@ -232,9 +235,11 @@ export class NewCustomerComponent {
         let msgBody = `${custData.b2bProjectName} by ${this.tok.signupUsername}`;
         this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
           if(res){
-            alert("Notification Send");
+            this.toastr.success("Notification Send","Success");
+            //alert("Notification Send");
           }else{
-            alert("Error Sending Notification");
+            this.toastr.error("Error Sending Notification","Error");
+            //alert("Error Sending Notification");
           }
         })
       }else{

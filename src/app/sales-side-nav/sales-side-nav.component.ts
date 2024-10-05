@@ -54,6 +54,12 @@ export class SalesSideNavComponent {
       name: 'Add new Task',
       icon: 'bi bi-plus-circle-fill',
       route: '/salesHome/sales-new-task'
+    },
+    {
+      number: '8',
+      name: 'Attendance', 
+      icon:'bi bi-postcard',
+      route: '/salesHome/attendance'
     }
   ];
   list2 = [

@@ -49,7 +49,7 @@ export class ManualAttendanceComponent implements OnInit {
           this.attendanceData = response.data;
           console.log("ATTENDANCE=====>>", this.attendanceData);
         } else {
-          console.error('Failed to fetch attendance data:');
+          console.error('Failed to fetch attendance data:'); 
         }
       },
       error => {
