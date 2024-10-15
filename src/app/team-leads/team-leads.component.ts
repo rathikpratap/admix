@@ -33,7 +33,8 @@ export class TeamLeadsComponent {
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
   fbLeads: any; 
-  modifyCount:any
+  modifyCount:any;
+  secondFbLeads:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -59,6 +60,10 @@ export class TeamLeadsComponent {
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
       console.log("Fetched Facebook Leads===>>", res);
       this.fbLeads = res;
+    });
+    this.auth.salesSecondFacebookLeads().subscribe((res:any)=>{
+      this.secondFbLeads = res;
+      console.log("SEcond Leadas=====>>", this.secondFbLeads);
     })
     this.auth.getTeamLeads().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);

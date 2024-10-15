@@ -156,6 +156,10 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/salesFacebook-leads`);
   }
 
+  salesSecondFacebookLeads(){
+    return this.http.get(`${appConfig.apiUrl}/auth/salesSecondFacebook-leads`);
+  }
+
   getSalesFacebookLeads(){
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFacebook-leads`);
   }
