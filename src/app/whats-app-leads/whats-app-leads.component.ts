@@ -21,6 +21,7 @@ export class WhatsAppLeadsComponent implements OnInit {
   rangeData: any;
   searchForm: FormGroup;
   customers :any[] = [];
+  projects: any[]=[];
   errorMessage: any;
   tok: any;
   Category: any;
@@ -53,7 +54,7 @@ export class WhatsAppLeadsComponent implements OnInit {
       console.log("Campaign Name===>", this.campaign_Name);
       this.getgetData();
     });    
-  }
+  } 
 
   constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2, private toastr: ToastrService){
 
@@ -69,7 +70,8 @@ export class WhatsAppLeadsComponent implements OnInit {
     })
 
     this.searchForm = this.formBuilder.group({
-      projectStatus: ['']
+      projectStatus: [''],
+      mobile: ['']
     });
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
       console.log("Fetched Facebook Leads===>>", res);
@@ -97,7 +99,7 @@ export class WhatsAppLeadsComponent implements OnInit {
     this.auth.getSalesTeam().subscribe((res : any)=>{
       console.log("Sales Teams==>", res);
       this.emp = res;
-    }); 
+    });  
   }
  
   getgetData(){
@@ -160,11 +162,11 @@ export class WhatsAppLeadsComponent implements OnInit {
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
       console.log("customer",customers)
-      this.customers = customers;
+      this.projects = customers;
       this.errorMessage = null; 
     },
     error=>{
-      this.customers = [];
+      this.projects = [];
       this.errorMessage = error.message;
     });
   }
@@ -240,6 +242,18 @@ export class WhatsAppLeadsComponent implements OnInit {
       this.toastr.success("Transferred Successfully","Success");
       console.log("Customer transferred successfully", res);
     })
+  }
+  searchCustomerByName(){
+    const mobile = this.searchForm.get('mobile')!.value;
+    this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers)=>{
+      console.log("customer",customers)
+      this.customers = customers;
+      this.errorMessage = null;
+    },
+    error=>{
+      this.customers = [];
+      this.errorMessage = error.message;
+    });
   }
 }
  

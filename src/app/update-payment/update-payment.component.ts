@@ -46,7 +46,7 @@ export class UpdatePaymentComponent {
     });
     this.auth.getCompany().subscribe((res:any)=>{
       this.companies = res.filter((company: any, index: number, self: any[]) =>
-        index === self.findIndex((c: any) => c.companyName === company.companyName)
+        index === self.findIndex((c: any) => c.companyName === company.companyName) 
       );
     });
     this.auth.allEmployee().subscribe((res:any)=>{

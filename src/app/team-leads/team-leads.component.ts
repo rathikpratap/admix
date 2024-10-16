@@ -1,14 +1,15 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-team-leads',
   templateUrl: './team-leads.component.html',
   styleUrls: ['./team-leads.component.css']
 })
-export class TeamLeadsComponent {
+export class TeamLeadsComponent implements OnInit {
  
   data:any; 
   dataYesterday: any;
@@ -21,6 +22,7 @@ export class TeamLeadsComponent {
   rangeData: any;
   searchForm: FormGroup;
   customers :any[] = [];
+  projects: any[] = [];
   errorMessage: any;
   tok: any;
   Category: any;
@@ -35,15 +37,29 @@ export class TeamLeadsComponent {
   fbLeads: any; 
   modifyCount:any;
   secondFbLeads:any;
+  transferName: any;
+  campaign_names: any;
+  campaignName: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
+  categForm = new FormGroup({
+    campaign_name: new FormControl("null")
+  });
 
   updateButtonVisible: boolean = true;
 
-  constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2){
+  ngOnInit(): void {
+    this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
+      this.campaignName = this.categForm.get('campaign_name')?.value;
+      console.log("NAME NAME NAME=====>", this.campaignName);
+      this.getgetData();
+    });
+  }
+
+  constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2, private toastr: ToastrService){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data.salesTeam;
@@ -55,7 +71,8 @@ export class TeamLeadsComponent {
     })
 
     this.searchForm = this.formBuilder.group({
-      projectStatus: ['']
+      projectStatus: [''],
+      mobile: ['']
     });
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
       console.log("Fetched Facebook Leads===>>", res);
@@ -64,41 +81,14 @@ export class TeamLeadsComponent {
     this.auth.salesSecondFacebookLeads().subscribe((res:any)=>{
       this.secondFbLeads = res;
       console.log("SEcond Leadas=====>>", this.secondFbLeads);
-    })
-    this.auth.getTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.data = res; 
-    });  
-
-    this.auth.getYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataYesterday = res;
     });
- 
-    this.auth.getOneYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataOneYesterday = res;
+    this.auth.getCampaign().subscribe((res:any)=>{
+      console.log("CAMPAIGN_NAME=========>>", res);
+      this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
+      index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
+      console.log("campaign_names=========>>", this.campaign_names);
     });
-
-    this.auth.getTwoYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataTwoYesterday = res;
-    });
-
-    this.auth.getThreeYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataThreeYesterday = res;
-    });
-
-    this.auth.getFourYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataFourYesterday = res;
-    });
-
-    this.auth.getFiveYesterdayTeamLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
-      this.dataFiveYesterday = res;
-    });
+    
 
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
@@ -124,6 +114,43 @@ export class TeamLeadsComponent {
     }) 
   }
 
+  getgetData(){
+    this.auth.getTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.data = res; 
+    });  
+
+    this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataYesterday = res;
+    });
+ 
+    this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataOneYesterday = res;
+    });
+
+    this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataTwoYesterday = res;
+    });
+
+    this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataThreeYesterday = res;
+    });
+
+    this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFourYesterday = res;
+    });
+
+    this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.dataFiveYesterday = res;
+    });
+  }
+
   refreshPage(){
     window.location.reload();
   }
@@ -147,11 +174,11 @@ export class TeamLeadsComponent {
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
       console.log("customer",customers)
-      this.customers = customers;
+      this.projects = customers;
       this.errorMessage = null; 
     },
     error=>{
-      this.customers = [];
+      this.projects = [];
       this.errorMessage = error.message;
     });
   }
@@ -211,5 +238,32 @@ export class TeamLeadsComponent {
         window.location.reload();
       })
     }
+  }
+  transferLead(user:any,newSalesTeam:any){
+    const currentDate = new Date().toISOString();
+    const transferData = {
+      custId: user._id,              // Updated key name to match backend
+      salesTeam: newSalesTeam,       // Updated key name to match backend
+      closingDate: currentDate,       // Pass the current date as closing date
+      name: this.transferName
+    };
+    console.log("TransferData====>", transferData);
+    this.auth.transferToLeads(transferData).subscribe((res:any)=>{
+      this.toastr.success("Transferred Successfully","Success");
+      console.log("Customer transferred successfully", res);
+    })
+  }
+
+  searchCustomerByName(){
+    const mobile = this.searchForm.get('mobile')!.value;
+    this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers)=>{
+      console.log("customer",customers)
+      this.customers = customers;
+      this.errorMessage = null;
+    },
+    error=>{
+      this.customers = [];
+      this.errorMessage = error.message;
+    });
   }
 }

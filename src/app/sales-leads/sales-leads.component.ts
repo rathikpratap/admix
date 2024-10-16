@@ -16,6 +16,7 @@ export class SalesLeadsComponent {
   rangeData: any;
   searchForm: FormGroup;
   customers :any[] = [];
+  projects: any[] = [];
   errorMessage: any;
   previousMonthName: string;
   previousTwoMonthName: string;
@@ -37,7 +38,8 @@ export class SalesLeadsComponent {
     })
 
     this.searchForm = this.formBuilder.group({
-      projectStatus: ['']
+      //projectStatus: ['']
+      mobile: ['']
     });
 
     this.auth.getSalesLeads().subscribe((res:any)=>{
@@ -70,9 +72,21 @@ export class SalesLeadsComponent {
     }
   }
 
+  // searchProject(){
+  //   const projectStatus = this.searchForm.get('projectStatus')!.value;
+  //   this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
+  //     console.log("customer",customers)
+  //     this.projects = customers;
+  //     this.errorMessage = null;
+  //   },
+  //   error=>{
+  //     this.projects = [];
+  //     this.errorMessage = error.message;
+  //   });
+  // }
   searchCustomer(){
-    const projectStatus = this.searchForm.get('projectStatus')!.value;
-    this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
+    const mobile = this.searchForm.get('mobile')!.value;
+    this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
       console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
@@ -82,6 +96,7 @@ export class SalesLeadsComponent {
       this.errorMessage = error.message;
     });
   }
+
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;

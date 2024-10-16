@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-6 move-to-new-row3">
-        <div class="searchData2">
+        <div class="searchData2"> 
             <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
                 <input type="text" formControlName="mobile" placeholder="Enter Mobile No/ Name">
                 <button class="btn btn-sm btn-primary" type="submit"> Search</button>
@@ -51,6 +51,7 @@
                         <th scope="col">Amount Received</th>
                         <th scope="col">Remaining Amount</th>
                         <th scope="col">Project Status</th>
+                        <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead>
@@ -66,6 +67,12 @@
                         <td>{{customer.AdvPay}}</td>
                         <td>{{customer.remainingAmount}}</td>
                         <td>{{customer.projectStatus}}</td>
+                        <td>
+                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
+                                <option value="">Select</option> 
+                                <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                            </select>
+                        </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
                 </tbody>
@@ -91,6 +98,7 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Project Status</th>
                             <th scope="col">Action</th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
@@ -110,6 +118,12 @@
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                                 <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>
+                            </td>
+                            <td>
+                                <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
+                                    <option value="">Select</option> 
+                                    <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                         </tr>
@@ -223,6 +237,7 @@
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -260,6 +275,12 @@
                             </td>
                             <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
                             <td>
+                                <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
+                                    <option value="">Select</option> 
+                                    <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
+                            <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
                                 <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>   
@@ -289,6 +310,7 @@
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
@@ -325,6 +347,12 @@
                                 </select>
                             </td>
                             <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <td>
+                                <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
+                                    <option value="">Select</option> 
+                                    <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>

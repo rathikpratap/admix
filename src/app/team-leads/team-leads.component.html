@@ -44,6 +44,37 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-3 col-3">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Search By Name</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+        <div class="searchData2">
+            <form [formGroup]="searchForm" (ngSubmit)="searchCustomerByName()">
+                <input type="text" formControlName="mobile" placeholder="Enter Mobile No/ Name">
+                <button class="btn btn-sm btn-primary" type="submit"> Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+        <div class="categ">
+            <form [formGroup]="categForm">
+                <span class="categ-left"> Campaign Name: </span>
+                <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                    <option value="null"> Select Campaign</option>
+                    <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div *ngIf="customers.length > 0">
             <table class="table">
@@ -51,7 +82,6 @@
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Campaign Name</th>
-                        <th scope="col">Ad Name</th>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Mobile</th>
                         <th scope="col">Created Date</th>
@@ -59,14 +89,14 @@
                         <th scope="col">Bussiness</th>
                         <th scope="col">State</th>
                         <th scope="col">Project Status</th>
+                        <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
                     </tr>
-                </thead>
+                </thead> 
                 <tbody>
                     <tr *ngFor="let customer of customers; let i = index">
                         <td>{{i+1}}</td>
                         <td>{{customer.campaign_Name}}</td>
-                        <td>{{customer.ad_Name}}</td>
                         <td>{{customer.custName}}</td>
                         <td>{{customer.custNumb}}</td>
                         <td>{{customer.closingDate}}</td>
@@ -74,6 +104,51 @@
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
                         <td>{{customer.projectStatus}}</td>
+                        <td> 
+                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
+                                <option value="">Select</option>
+                                <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                            </select>
+                        </td>
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="projects.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Campaign Name</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Bussiness</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Project Status</th>
+                        <th scope="col">Transfer To</th>
+                        <th scope="col"> Create Invoice</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr *ngFor="let customer of projects; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{customer.campaign_Name}}</td>
+                        <td>{{customer.custName}}</td>
+                        <td>{{customer.custNumb}}</td>
+                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.custEmail}}</td>
+                        <td>{{customer.custBussiness}}</td>
+                        <td>{{customer.state}}</td>
+                        <td>{{customer.projectStatus}}</td>
+                        <td> 
+                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
+                                <option value="">Select</option>
+                                <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                            </select>
+                        </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
                 </tbody>
@@ -97,6 +172,7 @@
                             <th scope="col"> Business </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col">Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -125,6 +201,12 @@
                             </td>
                             <td> 
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(rangeData)"></textarea>
+                            </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
@@ -194,6 +276,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -210,7 +293,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus" 
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -218,10 +301,16 @@
                                     <option value="Busy">Busy</option>
                                     <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
-                                </select>
+                                </select> 
                             </td>
                             <td> 
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea>
+                            </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
@@ -248,6 +337,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -277,6 +367,12 @@
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataYesterday)"></textarea>
                             </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
@@ -303,6 +399,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -332,6 +429,12 @@
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataOneYesterday)"></textarea>
                             </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
@@ -358,6 +461,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -387,6 +491,12 @@
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
                             </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
@@ -413,6 +523,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -442,6 +553,12 @@
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
                             </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
@@ -468,6 +585,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -497,6 +615,12 @@
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataFourYesterday)"></textarea>
                             </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
                                 <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
@@ -523,6 +647,7 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark </th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -551,6 +676,12 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark" (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                            </td>
+                            <td> 
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
                             <td>
