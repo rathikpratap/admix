@@ -78,6 +78,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { GraphicAttendanceComponent } from './graphic-attendance/graphic-attendance.component';
 import { EditorAttendanceComponent } from './editor-attendance/editor-attendance.component';
 import { DownloadInvoiceComponent } from './download-invoice/download-invoice.component';
+import { ViewInvoiceComponent } from './view-invoice/view-invoice.component';
 
 const routes: Routes = [
   {
@@ -89,13 +90,12 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
   },
   {
-    path: 'terms&consitions',
+    path: 'terms&conditions',
     component: TermsConditionComponent
   },
   {
@@ -206,6 +206,10 @@ const routes: Routes = [
       {
         path: 'download_invoice',
         component: DownloadInvoiceComponent
+      },
+      {
+        path: 'viewInvoice/:id',
+        component: ViewInvoiceComponent
       }
     ]
   },

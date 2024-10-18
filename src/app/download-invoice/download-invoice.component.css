@@ -1,0 +1,79 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.nameCard{
+    font-weight: 700;
+    margin-bottom: 25px;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.title-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+}
+.searchData{
+    display: flex;
+}
+.searchData .details{
+    color: #fff;
+}
+.searchData .details input{
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData .details label{
+    font-weight: 500;
+    margin-right: 25px;
+}
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 25px;
+    overflow: scroll;
+    text-align: center;
+}

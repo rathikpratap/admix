@@ -90,6 +90,7 @@
                         <th scope="col">State</th>
                         <th scope="col">Project Status</th>
                         <th scope="col">Transfer To</th>
+                        <th scope="col"> Action </th>
                         <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead> 
@@ -110,6 +111,10 @@
                                 <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
                             </select>
                         </td>
+                        <td>
+                            <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update Page</button>
+                            <button class="btn btn-sm btn-danger" (click)="delete(customer._id,1)"> Delete </button>
+                        </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
                 </tbody>
@@ -129,6 +134,7 @@
                         <th scope="col">State</th>
                         <th scope="col">Project Status</th>
                         <th scope="col">Transfer To</th>
+                        <th scope="col"> Action </th>
                         <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead> 
@@ -148,6 +154,10 @@
                                 <option value="">Select</option>
                                 <option *ngFor="let team of emp" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
                             </select>
+                        </td>
+                        <td>
+                            <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update Page</button>
+                            <button class="btn btn-sm btn-danger" (click)="delete(customer._id,1)"> Delete </button>
                         </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
@@ -354,7 +364,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -416,7 +426,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataOneYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -478,7 +488,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataTwoYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -540,7 +550,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataThreeYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -602,7 +612,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFourYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
@@ -664,7 +674,7 @@
                             <td>{{list.custBussiness}}</td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFiveYesterday)">
                                     <option value="Null"> Null</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
