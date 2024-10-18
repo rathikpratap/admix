@@ -77,6 +77,7 @@ import { SalesNewTaskComponent } from './sales-new-task/sales-new-task.component
 import { AttendanceComponent } from './attendance/attendance.component';
 import { GraphicAttendanceComponent } from './graphic-attendance/graphic-attendance.component';
 import { EditorAttendanceComponent } from './editor-attendance/editor-attendance.component';
+import { DownloadInvoiceComponent } from './download-invoice/download-invoice.component';
 
 const routes: Routes = [
   {
@@ -201,6 +202,10 @@ const routes: Routes = [
       {
         path: 'new-task',
         component: NewTaskComponent
+      },
+      {
+        path: 'download_invoice',
+        component: DownloadInvoiceComponent
       }
     ]
   },

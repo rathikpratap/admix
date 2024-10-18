@@ -501,6 +501,12 @@ export class AuthService {
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
+  getDatabyCampaign(startDate: Date, endDate: Date, campaign: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/DataByCampaign/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`);
+  }
+  getDataByClosingCamp(startDate: Date, endDate: Date, campaign: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByClosingCamp/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`);
+  }
   getDatabyRangeB2b(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDateB2b/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
@@ -625,6 +631,32 @@ export class AuthService {
       console.log("Download Done")
     }, error =>{
       console.error('Error Downloading File: ',error);
+    });
+  }
+
+  downloadCampaignLead(startDate: Date, endDate: Date, campaign: String){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadCampaignLead/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, {responseType: 'blob'}).subscribe((res: any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'LeadsData.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File: ',error);
+    });
+  }
+
+  downloadCategoryCamp(startDate: Date, endDate: Date, campaign: String){
+    this.http.get(`${appConfig.apiUrl}/auth/downloadCategoryCamp/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, {responseType: 'blob'}).subscribe((res:any)=>{
+      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'ClosingData.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error =>{
+      console.error('Error Downloading File:',error);
     });
   }
 

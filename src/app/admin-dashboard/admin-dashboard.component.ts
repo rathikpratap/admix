@@ -130,10 +130,18 @@ export class AdminDashboardComponent implements OnInit {
   topYearlyPerformer:any;
   monthlyPerformer: { [key: string]: { [month: number]: number } } = {};
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November', 'December'];
+  campaign_names:any;
+  campaignName:any;
+  campaignData:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
+  });
+  categForm = new FormGroup({
+    campaign_name: new FormControl("null"),
+    categStartDate: new FormControl(""),
+    categEndDate: new FormControl("")
   });
 
   // Array of predefined colors
@@ -151,6 +159,10 @@ export class AdminDashboardComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+
+    this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
+      this.campaignName = this.categForm.get('campaign_name')?.value;
+    });
 
     Chart.register(
       DoughnutController,
@@ -310,6 +322,11 @@ export class AdminDashboardComponent implements OnInit {
     this.auth.monthlyPerformer().subscribe((res:any)=>{
       this.monthlyPerformer = res;
     });
+
+    this.auth.getCampaign().subscribe((res:any)=>{
+      this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
+      index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
+    });
   }
 
   downloadRestAmountFile(){
@@ -349,6 +366,44 @@ export class AdminDashboardComponent implements OnInit {
       console.error("Start date and End Date is not Valid");
     }
   }
+  onCategSubmit(){
+    const startDateValue = this.categForm.value.categStartDate;
+    const endDateValue = this.categForm.value.categEndDate;
+    const campaign = this.campaignName;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate && campaign){
+      this.auth.getDatabyCampaign(startDate, endDate, campaign).subscribe((res:any)=>{
+        this.campaignData = res;
+      },(error)=>{
+        console.log("Error Fetching Data",error);
+      });
+    }else{
+      console.error("Start date and End Date is not Valid");
+    }
+  };
+
+  onCategClosingSubmit(){
+    const startDateValue = this.categForm.value.categStartDate;
+    const endDateValue = this.categForm.value.categEndDate;
+    const campaign = this.campaignName;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate && campaign){
+      this.auth.getDataByClosingCamp(startDate, endDate, campaign).subscribe((res: any)=>{
+        this.campaignData = res;
+      },(error)=>{
+        console.log("Error Fetching Data", error);
+        
+      });
+    }else{
+      console.error("Start date and End date is not valid");
+    }
+  };
 
   downloadRangeFile(){
     const startDateValue = this.dateRangeForm.value.startDate;
@@ -359,6 +414,32 @@ export class AdminDashboardComponent implements OnInit {
 
     if(startDate && endDate){
       this.auth.downloadRangeFile(startDate, endDate);
+    }
+  }
+
+  downloadCampaignLead(){
+    const startDateValue = this.categForm.value.categStartDate;
+    const endDateValue = this.categForm.value.categEndDate;
+    const campaign = this.campaignName;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate && campaign){
+      this.auth.downloadCampaignLead(startDate, endDate, campaign);
+    }
+  }
+
+  downloadCategoryCamp(){
+    const startDateValue = this.categForm.value.categStartDate;
+    const endDateValue = this.categForm.value.categEndDate;
+    const campaign = this.campaignName;
+
+    const startDate = startDateValue? new Date(startDateValue) : null;
+    const endDate = endDateValue? new Date(endDateValue) : null;
+
+    if(startDate && endDate && campaign){
+      this.auth.downloadCategoryCamp(startDate, endDate, campaign);
     }
   }
 

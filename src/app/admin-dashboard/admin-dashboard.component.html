@@ -10,7 +10,7 @@
                         <!-- <h2> {{todayEntries}} </h2> -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayEntryModal">
                             {{todayEntries}}
-                          </button>   
+                        </button>   
                     </div> 
                 </div>
             </div>
@@ -195,7 +195,7 @@
                         <div class="card-bg2">
                             <h6> Monthly Top Performer </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer && topPerformer.length > 0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer.length > 0">
                             {{topPerformer[0]._id}}
                         </button>
                     </div>
@@ -225,7 +225,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
                 <div class="form-container2">
@@ -246,7 +246,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
@@ -264,6 +264,60 @@
                                 height="385">
                             </canvas>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 cvol-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-bg2">
+                        <h6>Search Data Leads</h6>
+                    </div>
+                    <div class="categ">
+                        <form [formGroup]="categForm">
+                            <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                                <option value="null">Select Campaign</option>
+                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
+                            </select>
+                            <div class="details">
+                                <label for="categStartDate"> Start Date</label>
+                                <input type="date" formControlName="categStartDate" if="categStartDate">
+                            </div>
+                            <div class="details">
+                                <label for="categEndDate">End Date</label>
+                                <input type="date" formControlName="categEndDate" if="categEndDate" (change)="onCategSubmit()">
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#campaignModal">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-bg2">
+                        <h6>Search Data Closing</h6>
+                    </div>
+                    <div class="categ">
+                        <form [formGroup]="categForm">
+                            <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                                <option value="null">Select Campaign</option>
+                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
+                            </select>
+                            <div class="details">
+                                <label for="categStartDate"> Start Date</label>
+                                <input type="date" formControlName="categStartDate" if="categStartDate">
+                            </div>
+                            <div class="details">
+                                <label for="categEndDate">End Date</label>
+                                <input type="date" formControlName="categEndDate" if="categEndDate" (change)="onCategClosingSubmit()">
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#campaignModal">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -712,5 +766,44 @@
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="campaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Client Number</th>
+                                <th scope="col">CLosing Date</th>
+                                <th scope="col">Campaign Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of campaignData">
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.custNumb}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.campaign_Name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadCampaignLead()">Download</button>
+            </div>
+        </div>
     </div>
   </div>

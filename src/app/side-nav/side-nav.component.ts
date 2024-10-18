@@ -80,6 +80,12 @@ export class SideNavComponent {
       name:'Attendance',
       icon:'bi bi-postcard',
       route:'/manual-attendance'
+    },
+    {
+      number: '12',
+      name: 'Download Invoice',
+      icon: 'bi bi-receipt-cutoff',
+      route: '/download_invoice'
     }
   ]
 }
