@@ -133,6 +133,7 @@ export class AdminDashboardComponent implements OnInit {
   campaign_names:any;
   campaignName:any;
   campaignData:any;
+  closing_names:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -321,12 +322,17 @@ export class AdminDashboardComponent implements OnInit {
     });
     this.auth.monthlyPerformer().subscribe((res:any)=>{
       this.monthlyPerformer = res;
-    });
+    }); 
 
     this.auth.getCampaign().subscribe((res:any)=>{
       this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
       index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
     });
+
+    this.auth.getClosing().subscribe((res:any)=>{
+      this.closing_names = res.filter((closing:any, index: number, self: any[])=>
+      index === self.findIndex((clo:any)=> clo.closingCateg === closing.closingCateg));
+    })
   }
 
   downloadRestAmountFile(){
@@ -428,6 +434,7 @@ export class AdminDashboardComponent implements OnInit {
     if(startDate && endDate && campaign){
       this.auth.downloadCampaignLead(startDate, endDate, campaign);
     }
+    this.categForm.reset();
   }
 
   downloadCategoryCamp(){
@@ -441,6 +448,7 @@ export class AdminDashboardComponent implements OnInit {
     if(startDate && endDate && campaign){
       this.auth.downloadCategoryCamp(startDate, endDate, campaign);
     }
+    this.categForm.reset();
   }
 
   downloadDueFile(){

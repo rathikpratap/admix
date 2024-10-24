@@ -305,9 +305,9 @@
                     <div class="categ">
                         <form [formGroup]="categForm">
                             <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
-                                <option value="null">Select Campaign</option>
-                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
-                            </select>
+                                <option value="null">Select Closing</option>
+                                <option *ngFor="let camp of closing_names" value="{{camp.closingCateg}}">{{camp.closingCateg}}</option>
+                            </select> 
                             <div class="details">
                                 <label for="categStartDate"> Start Date</label>
                                 <input type="date" formControlName="categStartDate" if="categStartDate">
@@ -316,7 +316,7 @@
                                 <label for="categEndDate">End Date</label>
                                 <input type="date" formControlName="categEndDate" if="categEndDate" (change)="onCategClosingSubmit()">
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#campaignModal">Submit</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#closingModal">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -774,7 +774,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Data</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="this.categForm.reset()"></button>
             </div>
             <div class="modal-body">
                 <div class="table-scroll">
@@ -801,8 +801,46 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.categForm.reset()">close</button>
                 <button type="button" class="btn btn-primary" (click)="downloadCampaignLead()">Download</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal fade" id="closingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Closing Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="this.categForm.reset()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Client Number</th>
+                                <th scope="col">CLosing Date</th>
+                                <th scope="col">Campaign Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of campaignData">
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.custNumb}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingCateg}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.categForm.reset()">close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadCategoryCamp()">Download</button>
             </div>
         </div>
     </div>

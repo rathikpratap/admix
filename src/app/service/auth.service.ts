@@ -761,6 +761,9 @@ export class AuthService {
   getCampaign():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
+  getClosing():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getClosingNames`);
+  }
 
   getSalesTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeamWork`);
