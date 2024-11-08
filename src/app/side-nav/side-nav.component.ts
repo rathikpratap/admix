@@ -86,6 +86,12 @@ export class SideNavComponent {
       name: 'Download Invoice',
       icon: 'bi bi-receipt-cutoff',
       route: '/download_invoice'
+    },
+    {
+      number:'13',
+      name: 'Incentive',
+      icon: 'bi bi-wallet-fill',
+      route: '/incentive'
     }
   ]
 }

@@ -13,6 +13,27 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "core-js/modules/es.array.index-of",
+  "core-js/modules/es.array.iterator",
+  "core-js/modules/es.array.reduce",
+  "core-js/modules/es.array.reverse",
+  "core-js/modules/es.promise",
+  "core-js/modules/es.regexp.to-string",
+  "core-js/modules/es.string.ends-with",
+  "core-js/modules/es.string.includes",
+  "core-js/modules/es.string.match",
+  "core-js/modules/es.string.replace",
+  "core-js/modules/es.string.split",
+  "core-js/modules/es.string.starts-with",
+  "core-js/modules/es.string.trim",
+  "core-js/modules/web.dom-collections.iterator",
+  "raf",
+  "rgbcolor",
+  "html2canvas",
+  "num-words"
+            ],
             "outputPath": "dist/admix-software",
             "index": "src/index.html",
             "main": "src/main.ts",

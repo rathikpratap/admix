@@ -21,16 +21,14 @@ export class NewTaskComponent {
   dataLength:any;
   srInput!: ElementRef<HTMLInputElement>;
   Graphicemp:any;
-
+ 
   constructor(private auth:AuthService, private router:Router, private renderer:Renderer2, private el:ElementRef, private toastr: ToastrService){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
-      if(this.tok){
-        this.toastr.success("Login Successful",'Success');
-      }else{
-        this.toastr.error("Login Failed, Please Login Again","Error");
-        this.router.navigate(['/login']);
+      if(!this.tok){
+        alert("Session Expired, PLease Login Again");
+        this.auth.logout();
       }
     });
     this.auth.tasksDataLength().subscribe((list:any)=>{

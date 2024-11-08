@@ -764,6 +764,9 @@ export class AuthService {
   getClosing():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getClosingNames`);
   }
+  getIncentive():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allIncentive`);
+  }
 
   getSalesTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeamWork`);
@@ -1164,6 +1167,9 @@ export class AuthService {
   }
   addTask(taskData:any){
     return this.http.post(`${appConfig.apiUrl}/auth/addTask`, taskData);
+  }
+  addIncentive(incentiveData:any){
+    return this.http.put(`${appConfig.apiUrl}/auth/addIncentive`, incentiveData);
   }
   transferToLeads(user:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`,user);

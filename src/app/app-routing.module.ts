@@ -79,6 +79,8 @@ import { GraphicAttendanceComponent } from './graphic-attendance/graphic-attenda
 import { EditorAttendanceComponent } from './editor-attendance/editor-attendance.component';
 import { DownloadInvoiceComponent } from './download-invoice/download-invoice.component';
 import { ViewInvoiceComponent } from './view-invoice/view-invoice.component';
+import { IncentiveComponent } from './incentive/incentive.component';
+import { IncentiveCalculationComponent } from './incentive-calculation/incentive-calculation.component';
 
 const routes: Routes = [
   {
@@ -210,6 +212,14 @@ const routes: Routes = [
       {
         path: 'viewInvoice/:id',
         component: ViewInvoiceComponent
+      },
+      {
+        path: 'incentive',
+        component: IncentiveComponent
+      },
+      {
+        path: 'incentive-calculation',
+        component: IncentiveCalculationComponent
       }
     ]
   },
