@@ -586,8 +586,8 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoice/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getSalesLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  getSalesLeadbyRange(startDate: Date, endDate: Date, categ: String): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}/${categ}`);
   }
   getSalesLeadbyRangeAdmin(startDate: Date, endDate: Date): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeAdmin/${startDate.toISOString()}/${endDate.toISOString()}`);

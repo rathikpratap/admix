@@ -158,12 +158,13 @@ export class TeamLeadsComponent implements OnInit {
   onDate(){
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
+    const categ = this.categForm.value.campaign_name;
 
     const startDate = startDateValue? new Date(startDateValue) : null;
     const endDate = endDateValue? new Date(endDateValue) : null;
 
-    if(startDate && endDate){
-      this.auth.getSalesLeadbyRange(startDate, endDate).subscribe((rangeData:any)=>{
+    if(startDate && endDate && categ){
+      this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData:any)=>{
         console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
