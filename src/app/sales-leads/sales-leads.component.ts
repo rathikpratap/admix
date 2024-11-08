@@ -65,7 +65,7 @@ export class SalesLeadsComponent {
     const endDate = endDateValue? new Date(endDateValue) : null;
 
     if(startDate && endDate){
-      this.auth.getSalesLeadbyRange(startDate, endDate).subscribe((rangeData:any)=>{
+      this.auth.getSalesLeadbyRangeSales(startDate, endDate).subscribe((rangeData:any)=>{
         console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
