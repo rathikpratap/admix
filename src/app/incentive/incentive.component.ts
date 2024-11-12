@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-incentive',
@@ -10,29 +10,38 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './incentive.component.html',
   styleUrl: './incentive.component.css'
 })
-export class IncentiveComponent {
+export class IncentiveComponent implements OnInit {
   
+  incentiveForm : FormGroup;
   tok:any;
   emp: any;
   closing_names:any;
-  options: number[] = [];
   className= 'd-none';
   message: string ='';
   isProcess: boolean = false;
   data: any;
 
-  incentiveForm = new FormGroup({
-    employeeName : new FormControl(""),
-    category : new FormControl(""),
-    amountOne : new FormControl(0),
-    amountOneIncrement: new FormControl(),
-    amountTwo: new FormControl(0),
-    amountTwoIncrement: new FormControl(),
-    amountThree: new FormControl(0),
-    amountThreeIncrement: new FormControl()
-  });
+  // incentiveForm = new FormGroup({
+  //   employeeName : new FormControl(""),
+  //   category : new FormControl(""),
+  //   amountOne : new FormControl(0),
+  //   amountOneIncrement: new FormControl(),
+  //   amountTwo: new FormControl(0),
+  //   amountTwoIncrement: new FormControl(),
+  //   amountThree: new FormControl(0),
+  //   amountThreeIncrement: new FormControl()
+  // });
 
-  constructor(private auth: AuthService){
+  ngOnInit(): void { }
+
+  constructor(private auth: AuthService, private fb: FormBuilder){
+
+    this.incentiveForm = this.fb.group({
+      employeeName : new FormControl(""),
+      category : new FormControl(""),
+      incentives: this.fb.array([])
+    });
+
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -48,15 +57,45 @@ export class IncentiveComponent {
       this.closing_names = res.filter((closing:any, index: number, self: any[])=>
       index === self.findIndex((clo:any)=> clo.closingCateg === closing.closingCateg));
     });
-    for (let i = 10000; i <= 200000; i += 10000) {
-      this.options.push(i);
-    };
+    
     this.auth.getIncentive().subscribe((res:any)=>{
       this.data = res;
-    })
+    });
+
+    this.addIncentive();
+  }
+
+  get incentives(): FormArray {
+    return this.incentiveForm.get('incentives') as FormArray;
   }
 
   addIncentive(){
+    const incentiveGroup = this.fb.group({
+      amount: [0],
+      increment: [0]
+    });
+    this.incentives.push(incentiveGroup);
+  }
+
+  removeIncentive(index: number){
+    if(this.incentives.length > 1){
+      this.incentives.removeAt(index);
+    }
+  }
+
+  createIncentiveField(previousAmount: number = 0): FormGroup {
+    return this.fb.group({
+      amount: new FormControl(previousAmount)
+    });
+  }
+
+  // Add a new incentive field and set its label to the last entered amount
+  addIncentiveField() {
+    const lastAmount = this.incentives.at(this.incentives.length - 1).value.amount;
+    this.incentives.push(this.createIncentiveField(lastAmount));
+  }
+
+  submitIncentive(){
     this.isProcess = true;
     const incentiveData = this.incentiveForm.value;
     this.auth.addIncentive(incentiveData).subscribe((res:any)=>{
@@ -74,6 +113,6 @@ export class IncentiveComponent {
       this.isProcess = false;
       this.message = 'Server Error';
       this.className = 'alert alert-danger';
-    })
+    });
   }
 }

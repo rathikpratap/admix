@@ -152,6 +152,19 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Incentive Password: </span>
+                            <input type="password" class="from-control" formControlName="incentivePassword"
+                                [ngClass]="{error:getControls('incentivePassword')?.errors && getControls('incentivePassword')?.touched}"
+                                placeholder="Create Password">
+                            <div *ngIf="getControls('incentivePassword')?.errors && getControls('incentivePassword')?.touched">
+                                <label class="text-danger" *ngIf="getControls('incentivePassword')?.errors?.['required']">
+                                    Password is Required
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Address: </span>
                             <textarea class="from-control" formControlName="signupAddress"
                                 [ngClass]="{error:getControls('signupAddress')?.errors && getControls('signupAddress')?.touched}"

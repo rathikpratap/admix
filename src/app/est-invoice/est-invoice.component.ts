@@ -49,7 +49,9 @@ export class EstInvoiceComponent implements OnInit {
   });
   custForm = new FormGroup({
     custGST: new FormControl(""),
-    custADD: new FormControl("")
+    custAddLine1: new FormControl(""),
+    custAddLine2: new FormControl(""),
+    custAddLine3: new FormControl("")
   })
 
   ngOnInit(): void {

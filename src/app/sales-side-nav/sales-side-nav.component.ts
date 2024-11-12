@@ -60,6 +60,12 @@ export class SalesSideNavComponent {
       name: 'Attendance', 
       icon:'bi bi-postcard',
       route: '/salesHome/attendance'
+    },
+    {
+      number: '9',
+      name: 'Incentive',
+      icon: 'bi bi-currency-rupee',
+      route: '/salesHome/sales-incentive'
     }
   ];
   list2 = [

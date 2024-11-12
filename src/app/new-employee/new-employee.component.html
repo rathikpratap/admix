@@ -143,7 +143,21 @@
                                         <li> At least 1 uppercase letter</li>
                                         <li> At least 1 lowercase letter</li>
                                         <li> At least 1 number and 1 Special Character</li>
+                                        <li> Minimum Length is 8 Characters</li>
                                     </ul>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Incentive Password: </span>
+                            <input type="password" class="from-control" formControlName="incentivePassword"
+                                [ngClass]="{error:getControls('incentivePassword')?.errors && getControls('incentivePassword')?.touched}"
+                                placeholder="Create Password">
+                            <div *ngIf="getControls('incentivePassword')?.errors && getControls('incentivePassword')?.touched">
+                                <label class="text-danger" *ngIf="getControls('incentivePassword')?.errors?.['required']">
+                                    Password is Required
                                 </label>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { appConfig } from 'src/environment';
@@ -1182,6 +1182,18 @@ export class AuthService {
   }
   getUserAttendance(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`);
+  }
+  allEmpIncentive():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount`);
+  }
+  salesIncentive(pass: any):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    const params = new HttpParams().set('pass', pass);
+    return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive`, {headers, params});
   }
 
 }

@@ -26,7 +26,8 @@ export class UpdateEmployeeComponent {
     signupRole : new FormControl("",[Validators.required]),
     signupPayment: new FormControl(""),
     salesTeam : new FormControl(""),
-    subsidiaryName: new FormControl("") 
+    subsidiaryName: new FormControl(""),
+    incentivePassword : new FormControl("") 
   })
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -52,7 +53,8 @@ export class UpdateEmployeeComponent {
         signupRole : res['signupRole'],
         signupPayment: res['signupPayment'],
         salesTeam: res['salesTeam'],
-        subsidiaryName: res['subsidiaryName']
+        subsidiaryName: res['subsidiaryName'],
+        incentivePassword: res['incentivePassword']
       })
     });
     this.auth.getSalesTeam().subscribe((res:any)=>{

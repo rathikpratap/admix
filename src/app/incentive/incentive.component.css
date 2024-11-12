@@ -85,6 +85,7 @@ form .user-details .input-box{
 .user-details .input-box select:focus{
     border-color: blueviolet;
 }
+
 .btn{
     width: 100%;
     outline: none;
@@ -142,4 +143,10 @@ td{
 }
 ::-webkit-scrollbar-thumb:hover{
     background: #555;
+}
+.btn-secondary{
+    margin-bottom: 20px;
+}
+.btn-danger{
+    margin-top: 20px;
 }

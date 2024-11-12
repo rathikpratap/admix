@@ -7,7 +7,7 @@
             <div class="new-heading">
                 <h2>Incentive Data Form</h2>
             </div>
-            <form [formGroup]="incentiveForm" (ngSubmit)="incentiveForm.status !== 'INVALID' && addIncentive()">
+            <form [formGroup]="incentiveForm" (ngSubmit)="incentiveForm.status !== 'INVALID' && submitIncentive()">
                 <div [ngClass]="className" role="alert">
                     {{message}}
                 </div>
@@ -17,7 +17,8 @@
                             <span class="details">Employee</span>
                             <select class="form-select" formControlName="employeeName">
                                 <option value=""> Select Employee</option>
-                                <option *ngFor="let item of emp" value="{{item.signupUsername}}">{{item.signupUsername}}</option>
+                                <option *ngFor="let item of emp" value="{{item.signupUsername}}">{{item.signupUsername}}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -26,57 +27,32 @@
                             <span class="details">Category</span>
                             <select class="form-select" formControlName="category">
                                 <option value="">Select Category</option>
-                                <option *ngFor="let item of closing_names" value="{{item.closingCateg}}">{{item.closingCateg}}</option>
+                                <option *ngFor="let item of closing_names" value="{{item.closingCateg}}">
+                                    {{item.closingCateg}}</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details">Upto Amount 1</span>
-                            <select class="form-select" formControlName="amountOne">
-                                <option value=0>Select Amount</option>
-                                <option *ngFor="let option of options" [value]="option">{{option | number}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Incentive of Amount 1</span>
-                            <input type="number" formControlName="amountOneIncrement" class="form-control" min="0" value="0" step=".01">
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details">Upto Amount 2</span>
-                            <select class="form-select" formControlName="amountTwo">
-                                <option value=0>Select Amount</option>
-                                <option *ngFor="let option of options" [value]="option">{{option | number}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details">Incentive of Amount 2</span>
-                            <input type="number" formControlName="amountTwoIncrement" class="form-control" min="0" value="0" step=".01">
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details">Upto Amount 3</span>
-                            <select class="form-select" formControlName="amountThree">
-                                <option value=0>Select Amount</option>
-                                <option *ngFor="let option of options" [value]="option">{{option | number}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details">Incentive of Amount 3</span>
-                            <input type="number" formControlName="amountThreeIncrement" class="form-control" min="0" value="0" step=".01">
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="incentiveForm.status === 'INVALID'" class="btn btn-success">
+                <div class="user-details">
+                    <div formArrayName="incentives" class="input-box">
+                        <div *ngFor="let incentive of incentives.controls; let i= index" [formGroupName]="i"
+                            class="form-group">
+
+                            <span class="details">Upto Amount {{ i === 0 ? '0' : incentives.at(i - 1).value.amount }}
+                                to {{ incentive.value.amount }}</span>
+                            <input type="number" formControlName="amount" class="form-control" min="0">
+
+                            <span class="details"> Incentive of Amount {{i+1}}</span>
+                            <input type="number" formControlName="increment" class="form-control" min="0" value="0"
+                                step=".01">
+
+                            <button type="button" (click)="removeIncentive(i)" *ngIf="incentives.length > 1"
+                                class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" (click)="addIncentive()" class="btn btn-secondary">Add More</button>
+                    <input type="submit" [disabled]="incentiveForm.status === 'INVALID'" class="btn btn-success">
+                </div>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -99,12 +75,11 @@
                             <th scope="col">No.</th>
                             <th scope="col">Employee Name</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Upto Range 1</th>
-                            <th scope="col">Incentive of Range 1</th>
-                            <th scope="col">Upto Range 2</th>
-                            <th scope="col">Incentive of Range 2</th>
-                            <th scope="col">Upto Range 3</th>
-                            <th scope="col">Incentive of Range 3</th>
+                            <ng-container *ngFor="let incentive of data[0]?.incentives; let idx = index">
+                                <th scope="col">Upto Range {{ idx + 1 }}</th>
+                                <th scope="col">Incentive of Range {{ idx + 1 }}</th>
+                            </ng-container>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -112,12 +87,11 @@
                             <td>{{i+1}}</td>
                             <td>{{user.employeeName}}</td>
                             <td>{{user.category}}</td>
-                            <td>{{user.amountOne}}</td>
-                            <td>{{user.amountOneIncrement}}</td>
-                            <td>{{user.amountTwo}}</td>
-                            <td>{{user.amountTwoIncrement}}</td>
-                            <td>{{user.amountThree}}</td>
-                            <td>{{user.amountThreeIncrement}}</td>
+                            <ng-container *ngFor="let incentive of user.incentives">
+                                <td>{{ incentive.amount }}</td>
+                                <td>{{ incentive.increment }}%</td>
+                            </ng-container>
+
                         </tr>
                     </tbody>
                 </table>

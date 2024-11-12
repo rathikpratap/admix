@@ -81,6 +81,7 @@ import { DownloadInvoiceComponent } from './download-invoice/download-invoice.co
 import { ViewInvoiceComponent } from './view-invoice/view-invoice.component';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { IncentiveCalculationComponent } from './incentive-calculation/incentive-calculation.component';
+import { SalesIncentiveComponent } from './sales-incentive/sales-incentive.component';
 
 const routes: Routes = [
   {
@@ -300,6 +301,10 @@ const routes: Routes = [
         path: 'attendance',
         component: AttendanceComponent
       },
+      {
+        path: 'sales-incentive',
+        component: SalesIncentiveComponent
+      }
     ]
   },
   {

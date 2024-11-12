@@ -18,17 +18,6 @@
     width: fit-content;
     color: #fff;
 }
-.emp-name h5{
-    background: rgba(255,255,255,0.13);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    border-radius: 15px;
-    padding: 5px 10px 10px 10px;
-    width: fit-content;
-    color: #fff;
-    margin-top: 15px;
-}
 .table-scroll{
     margin-top: 20px;
     overflow: scroll;

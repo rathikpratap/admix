@@ -2,11 +2,10 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="nameCard">
             <div class="title-heading">
-                <h5>Data Wise Employee Incentives</h5>
+                <h5>Incentive</h5>
             </div>
         </div>
-        <div class="emp-name" *ngFor="let employee of objectKeys(groupedData)">
-            <h5>{{employee}}</h5>
+        
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>
@@ -20,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of groupedData[employee]; let i = index">
+                        <tr *ngFor="let user of result; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user._id.salesPerson}}</td>
                             <td>{{user._id.closingCateg}}</td>
@@ -31,6 +30,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        
     </div>
 </div>

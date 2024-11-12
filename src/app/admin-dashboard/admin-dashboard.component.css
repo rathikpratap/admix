@@ -237,6 +237,12 @@ hr{
   .chart-container2{
     display: block;
   }
+
+.categ button{
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-left: 70px;
+}
 @media (max-width: 500px){
     .form-container{
         display: block;

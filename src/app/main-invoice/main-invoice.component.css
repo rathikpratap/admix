@@ -46,6 +46,9 @@ hr{
     display: flex;
     justify-content: space-between;
 }
+.name-txt{
+    width: 40%;
+}
 .name-txt h4{
     color: #5d11b5;
 }
@@ -136,7 +139,6 @@ textarea {
     border: none;
   }
 .custForm-inline input{
-    border: none;
     font-size: 20px;
 }
   .custForm-inline{
@@ -145,6 +147,12 @@ textarea {
 }
 .custForm-inline input.inline-input {
     margin-left: 10px; /* Adjust the margin as needed */
+  }
+  .inline-input2{
+    margin-left: 130px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    width: 75%;
   }
   select{
     font-size: 20px;
