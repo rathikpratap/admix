@@ -34,7 +34,7 @@
                             <option value="Absent">Absent</option>
                             <option value="Half Day">Half Day</option>
                         </select>
-                        <textarea *ngIf="day.status === 'Absent'" [(ngModel)]="attendanceData[i].attendance[j].reason" placeholder="Enter Reason for Absent" (change)="saveAttendance(i)" class="reason-txt"></textarea>
+                        <textarea *ngIf="day.status === 'Absent' || day.status === 'Half Day'" [(ngModel)]="attendanceData[i].attendance[j].reason" placeholder="Enter Reason for Absent/ Half Day" (change)="saveAttendance(i)" class="reason-txt"></textarea>
                     </td>
                     <td class="text-center">P: {{user.totalPresent}}<br>H: {{user.totalHalfday}}<br>A: {{user.totalAbsent}}</td>
                 </tr>

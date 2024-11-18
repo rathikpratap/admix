@@ -37,6 +37,7 @@ export class MainInvoiceComponent implements OnInit {
 
   invoiceForm = new FormGroup({
     billType: new FormControl("null"),
+    gstType: new FormControl("null"),
     invoiceCateg: new FormControl("null"),
     customCateg: new FormControl(""),
     custName: new FormControl(""),
