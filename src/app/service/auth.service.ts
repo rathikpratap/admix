@@ -5,6 +5,7 @@ import { appConfig } from 'src/environment';
 import { Router } from '@angular/router';
 
 interface AttendanceEntry {
+  reason: string;
   date: string;
   status: string;
 }

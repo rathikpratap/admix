@@ -36,6 +36,7 @@ export class EstInvoiceComponent implements OnInit {
 
   invoiceForm = new FormGroup({
     billType: new FormControl("null"),
+    gstType: new FormControl("null"),
     invoiceCateg: new FormControl("null"),
     customCateg: new FormControl("null"),
     custName: new FormControl(""),

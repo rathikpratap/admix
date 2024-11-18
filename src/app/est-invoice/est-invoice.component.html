@@ -1,10 +1,14 @@
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
-        <form [formGroup]="invoiceForm">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+        <form [formGroup]="invoiceForm" class="d-flex align-items-center gap-2">
             <select class="form-select" formControlName="billType" aria-label="Default select example">
                 <option value="null">Select Bill Type</option>
                 <option value="GST">GST</option>
                 <option value="Non-GST">Non-GST</option>
+            </select>
+            <select class="form-select" formControlName="gstType" aria-label="Default select example">
+                <option value="null">UP</option>
+                <option value="Other">Not UP</option>
             </select>
         </form>
     </div>
@@ -46,7 +50,7 @@
                         <div class="name-txt">
                             <h4>Invoice To: </h4>
                             <h3>{{name}}</h3>
-                            <p><strong>Contact No.:</strong> +{{number}}</p>
+                            <p><strong>Contact No.:</strong> {{number}}</p>
                             <form [formGroup]="custForm">
                                 <p class="custForm-inline"><strong>GST number: </strong>
                                     <input type="text" class="form-control inline-input" formControlName="custGST"
@@ -132,8 +136,12 @@
                     <div class="sub-total">
                         <div class="sub-total-title">
                             <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
-                            <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
-                            <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                            <p *ngIf="invoiceForm.get('gstType')?.value === 'Other'"><strong>IGST &#64;18%:</strong>₹{{this.gstAmount}} </p>
+                            <div *ngIf="invoiceForm.get('gstType')?.value !== 'Other'">
+                                <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                                <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                            </div>
+                            
                             <p class="bottom-total"><strong>Total: </strong>₹ {{this.totalAmount}} </p>
                         </div>
                     </div>

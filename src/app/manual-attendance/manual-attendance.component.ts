@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 interface AttendanceEntry {
   date: string;
   status: string;
+  reason: string;
 }
 
 interface AttendanceData {
@@ -46,7 +47,14 @@ export class ManualAttendanceComponent implements OnInit {
     this.auth.getAttendance1(this.year, this.month).subscribe(
       response => {
         if (response.success) {
-          this.attendanceData = response.data;
+          // this.attendanceData = response.data;
+          this.attendanceData = response.data.map(user => ({
+            ...user,
+            attendance: user.attendance.map(day => ({
+              ...day,
+              reason: day.reason || '' // Ensure every day includes a reason
+            }))
+          }));
           console.log("ATTENDANCE=====>>", this.attendanceData);
         } else {
           console.error('Failed to fetch attendance data:'); 
@@ -77,24 +85,6 @@ export class ManualAttendanceComponent implements OnInit {
     }
     this.fetchAttendance();
   }
-
-  // saveAttendance(): void {
-  //   this.attendanceData.forEach(user => {
-  //     this.auth.updateAttendance(user.username, this.year, this.month, user.attendance).subscribe(
-  //       response => {
-  //         if (response.success) {
-  //           console.log('Attendance saved successfully.');
-  //         } else {
-  //           console.log('Failed to save attendance.');
-  //         }
-  //       },
-  //       error => {
-  //         console.error('Error saving attendance:', error);
-  //         console.log('Error saving attendance.');
-  //       } 
-  //     );
-  //   });
-  // }
 
   saveAttendance(userIndex?: number): void {
     // Save attendance for a single user if userIndex is passed, else save all users.
