@@ -144,9 +144,14 @@
                             <h6> Monthly Received Rest &#8377; </h6>
                         </div>
                         <!-- <h2>{{monthRestAmount}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restAmountModal">
-                            {{monthRestAmount}}
-                          </button>
+                         <h2 *ngIf="rangeData; else elseBlock4">
+                            {{rangeData.rangeMonthAmount}}
+                         </h2>
+                         <ng-template #elseBlock4>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restAmountModal">
+                                {{monthRestAmount}}
+                            </button>
+                         </ng-template>
                     </div>
                 </div>
             </div>

@@ -97,7 +97,7 @@ export class AllProjectsComponent {
       user.graphicPassDate = currentDate;
       selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.graphicDesigner);
     }
-    this.auth.updateEditors([user]).subscribe((res: any) => {
+    this.auth.updateEditors([user]).subscribe((res: any) => { 
       if (res) {
         //alert("Project Successfully Assigned");
         this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
