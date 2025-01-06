@@ -104,11 +104,15 @@
                         </div>
 
                         <!-- <h2>{{totalRecv}}</h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                         <h2 *ngIf="rangeData; else elseBlock2">
+                            {{rangeData.rangeTotalRecv}}
+                         </h2>
+                         <ng-template #elseBlock2>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#totalEntryModal">
                             {{totalRecv}}
-                        </button>
-
+                            </button>
+                         </ng-template>
                     </div>
                 </div>
             </div>
