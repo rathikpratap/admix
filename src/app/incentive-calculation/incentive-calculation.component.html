@@ -5,6 +5,11 @@
                 <h5>Data Wise Employee Incentives</h5>
             </div>
         </div>
+        <div class="month-navigation">
+            <button class="btn btn-secondary" (click)="prevMonth()">&#8692; Prev</button>
+            <h2>{{monthNames[month-1]}}-{{year}}</h2>
+            <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
+        </div>
         <div class="emp-name" *ngFor="let employee of objectKeys(groupedData)">
             <h5>{{employee}}</h5>
             <div class="table-scroll">

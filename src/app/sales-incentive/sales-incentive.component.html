@@ -5,7 +5,13 @@
                 <h5>Incentive</h5>
             </div>
         </div>
-        
+        <div class="month-navigation">
+            <button class="btn btn-secondary" (click)="prevMonth()">&#8692; Prev</button>
+            <h2>{{monthNames[month-1]}}-{{year}}</h2>
+            <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
+        </div>
+
+        <div *ngIf="result.length > 0;else noData">
             <div class="table-scroll">
                 <table class="table table-striped">
                     <thead>
@@ -30,6 +36,10 @@
                     </tbody>
                 </table>
             </div>
-        
+        </div>
+        <ng-template #noData>
+            <p>No attendance data available for this month.</p>
+        </ng-template>
+
     </div>
 </div>

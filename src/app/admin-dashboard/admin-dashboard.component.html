@@ -3,18 +3,19 @@
         <div class="card1">
             <div class="card-body">
                 <div class="form-container2">
-                    <div class="card-txt"> 
+                    <div class="card-txt">
                         <div class="card-bg">
                             <h6> Today's Sale </h6>
                         </div>
                         <!-- <h2> {{todayEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayEntryModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#todayEntryModal">
                             {{todayEntries}}
-                        </button>   
-                    </div> 
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
@@ -25,26 +26,28 @@
                             <h6> Monthly Sale </h6>
                         </div>
                         <!-- <h2> {{totalEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#totalEntryModal">
                             {{totalEntries}}
-                          </button>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card2">
             <div class="card-body">
                 <div class="form-container2">
-                    <div class="card-txt"> 
+                    <div class="card-txt">
                         <div class="card-bg">
                             <h6> Month Active Projects </h6>
                         </div>
                         <!-- <h2> {{dataLength}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#ActiveProjectsModal">
                             {{dataLength}}
-                          </button>    
+                        </button>
                     </div>
                 </div>
             </div>
@@ -59,9 +62,10 @@
                             <h6> Total Active Projects </h6>
                         </div>
                         <!-- <h2>{{allProjects}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#allActiveModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#allActiveModal">
                             {{allProjects}}
-                          </button>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -77,13 +81,14 @@
                         </div>
                         <h2 *ngIf="rangeData; else elseBlock">
                             {{ rangeData.rangeTotalAmount }}
-                          </h2>
-                          <ng-template #elseBlock>
+                        </h2>
+                        <ng-template #elseBlock>
                             <!-- <h2>{{totalAmount}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#totalEntryModal">
                                 {{totalAmount}}
-                              </button> 
-                          </ng-template>
+                            </button>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -97,15 +102,13 @@
                         <div class="card-bg2">
                             <h6> Monthly Received &#8377;</h6>
                         </div>
-                        <h2 *ngIf="rangeData; else elseBlock2">
-                            {{ rangeData.rangeTotalRecv }}
-                          </h2>
-                          <ng-template #elseBlock2>
-                            <!-- <h2>{{totalRecv}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
-                                {{totalRecv}}
-                              </button>
-                          </ng-template>
+
+                        <!-- <h2>{{totalRecv}}</h2> -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#totalEntryModal">
+                            {{totalRecv}}
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -123,13 +126,14 @@
                         </div>
                         <h2 *ngIf="rangeData; else elseBlock3">
                             {{ rangeData.rangeTotalDue }}
-                          </h2>
-                          <ng-template #elseBlock3>
+                        </h2>
+                        <ng-template #elseBlock3>
                             <!-- <h2>{{totalDue}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dueAmountModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#dueAmountModal">
                                 {{totalDue}}
-                              </button>
-                          </ng-template>
+                            </button>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -144,14 +148,15 @@
                             <h6> Monthly Received Rest &#8377; </h6>
                         </div>
                         <!-- <h2>{{monthRestAmount}} </h2> -->
-                         <h2 *ngIf="rangeData; else elseBlock4">
+                        <h2 *ngIf="rangeData; else elseBlock4">
                             {{rangeData.rangeMonthAmount}}
-                         </h2>
-                         <ng-template #elseBlock4>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restAmountModal">
+                        </h2>
+                        <ng-template #elseBlock4>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#restAmountModal">
                                 {{monthRestAmount}}
                             </button>
-                         </ng-template>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -165,7 +170,7 @@
                         <div class="card-bg">
                             <h6>Search Data</h6>
                         </div>
-                    </div> 
+                    </div>
                     <div class="details">
                         <label for="startDate"> Start Date</label>
                         <input type="date" formControlName="startDate" id="startDate">
@@ -181,16 +186,17 @@
                         <div class="downloadButton">
                             <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
                         </div>
-                        <div class="downloadButton" >
+                        <div class="downloadButton">
                             <button class="btn btn-success" (click)="resetData()"> Reset Data </button>
                         </div>
-                        <div class="downloadButton" >
-                            <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File </button>
+                        <div class="downloadButton">
+                            <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File
+                            </button>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </form>
-        </div> 
+        </div>
     </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card4">
@@ -200,7 +206,8 @@
                         <div class="card-bg2">
                             <h6> Monthly Top Performer </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
                             {{topPerformer[0]?._id}}
                         </button>
                     </div>
@@ -219,12 +226,10 @@
                             <h6> Top Selling Category </h6>
                         </div>
                         <div class="chart-container">
-                            <canvas baseChart
-                            [data]="doughnutChartData"
-                            [options]="doughnutChartOptions"
-                            [type]="'doughnut'">
+                            <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions"
+                                [type]="'doughnut'">
                             </canvas>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -261,12 +266,8 @@
                             <h6> Conversion Rate Monthly </h6>
                         </div>
                         <div class="chart-container2">
-                            <canvas baseChart
-                                [data]="lineChartData"
-                                [options]="lineChartOptions"
-                                chartType="line"
-                                width="400"
-                                height="385">
+                            <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" chartType="line"
+                                width="400" height="385">
                             </canvas>
                         </div>
                     </div>
@@ -283,9 +284,11 @@
                     </div>
                     <div class="categ">
                         <form [formGroup]="categForm">
-                            <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                            <select class="form-select categ-right" formControlName="campaign_name"
+                                aria-label="Default select example">
                                 <option value="null">Select Campaign</option>
-                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
+                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">
+                                    {{camp.campaign_Name}}</option>
                             </select>
                             <div class="details">
                                 <label for="categStartDate"> Start Date</label>
@@ -293,9 +296,11 @@
                             </div>
                             <div class="details">
                                 <label for="categEndDate">End Date</label>
-                                <input type="date" formControlName="categEndDate" if="categEndDate" (change)="onCategSubmit()">
+                                <input type="date" formControlName="categEndDate" if="categEndDate"
+                                    (change)="onCategSubmit()">
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#campaignModal">Submit</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#campaignModal">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -309,19 +314,23 @@
                     </div>
                     <div class="categ">
                         <form [formGroup]="categForm">
-                            <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                            <select class="form-select categ-right" formControlName="campaign_name"
+                                aria-label="Default select example">
                                 <option value="null">Select Closing</option>
-                                <option *ngFor="let camp of closing_names" value="{{camp.closingCateg}}">{{camp.closingCateg}}</option>
-                            </select> 
+                                <option *ngFor="let camp of closing_names" value="{{camp.closingCateg}}">
+                                    {{camp.closingCateg}}</option>
+                            </select>
                             <div class="details">
                                 <label for="categStartDate"> Start Date</label>
                                 <input type="date" formControlName="categStartDate" if="categStartDate">
                             </div>
                             <div class="details">
                                 <label for="categEndDate">End Date</label>
-                                <input type="date" formControlName="categEndDate" if="categEndDate" (change)="onCategClosingSubmit()">
+                                <input type="date" formControlName="categEndDate" if="categEndDate"
+                                    (change)="onCategClosingSubmit()">
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#closingModal">Submit</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#closingModal">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -334,8 +343,10 @@
                         <h6>Incentive Data</h6>
                     </div>
                     <div class="categ">
-                        <button type="button" class="btn btn-primary" routerLink="/incentive"> Add Employee Incentive</button>
-                        <button type="button" class="btn btn-info" routerLink="/incentive-calculation"> See Employee Incentive</button>
+                        <button type="button" class="btn btn-primary" routerLink="/incentive"> Add Employee
+                            Incentive</button>
+                        <button type="button" class="btn btn-info" routerLink="/incentive-calculation"> See Employee
+                            Incentive</button>
                     </div>
                 </div>
             </div>
@@ -429,370 +440,373 @@
 
 <div class="modal fade" id="todayEntryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Today Sale</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of totalDayEntry">
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Today Sale</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of totalDayEntry">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadTotalDayEntryFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"(click)="downloadTotalDayEntryFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!--Total Entry Modal -->
-  <div class="modal fade" id="totalEntryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Total Entry Modal -->
+<div class="modal fade" id="totalEntryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Total Projects</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Rest Payment</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let users of totalEntry">
-                            <td>{{users.custCode}}</td>
-                            <td>{{users.custName}}</td>
-                            <td>{{users.custBussiness}}</td>
-                            <td>{{users.closingCateg}}</td>
-                            <td>{{users.closingDate}}</td>
-                            <td>{{users.closingPrice}}</td>
-                            <td>{{users.AdvPay}}</td>
-                            <td>{{users.restAmount}}</td>
-                            <td>{{users.remainingAmount}}</td>
-                            <td>{{users.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Total Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Rest Payment</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let users of totalEntry">
+                                <td>{{users.custCode}}</td>
+                                <td>{{users.custName}}</td>
+                                <td>{{users.custBussiness}}</td>
+                                <td>{{users.closingCateg}}</td>
+                                <td>{{users.closingDate}}</td>
+                                <td>{{users.closingPrice}}</td>
+                                <td>{{users.AdvPay}}</td>
+                                <td>{{users.restAmount}}</td>
+                                <td>{{users.remainingAmount}}</td>
+                                <td>{{users.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadTotalEntryFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"(click)="downloadTotalEntryFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
-  <!--Active Projects Modal -->
-  <div class="modal fade" id="ActiveProjectsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<!--Active Projects Modal -->
+<div class="modal fade" id="ActiveProjectsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Active Projects</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of data">
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Active Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of data">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadActiveEntryFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="downloadActiveEntryFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!-- All Active Modal-->
+<!-- All Active Modal-->
 
 <div class="modal fade" id="allActiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">All Active Projects</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of allActiveProjects">
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">All Active Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of allActiveProjects">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadAllActiveEntryFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="downloadAllActiveEntryFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!--Due Amount Modal -->
-  <div class="modal fade" id="dueAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Due Amount Modal -->
+<div class="modal fade" id="dueAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Due Amount Projects</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of dueData">
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Due Amount Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of dueData">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadDueAmountFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="downloadDueAmountFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!--Rest Amount Modal -->
-  <div class="modal fade" id="restAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Rest Amount Modal -->
+<div class="modal fade" id="restAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Rest Amount Projects</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of restData">
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Rest Amount Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of restData">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadRestAmountFile()">Download</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="downloadRestAmountFile()">Download</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!--Top Performer -->
-  <div class="modal fade" id="topPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Top Performer -->
+<div class="modal fade" id="topPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Top Performer</h1>
-          <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal" data-bs-target="#monthlyPerformer">
-            Month-wise Performance
-        </button>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Total Closing Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of topPerformer">
-                            <td>{{user._id}}</td>
-                            <td>{{user.totalClosingPrice}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Top Performer</h1>
+                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal"
+                    data-bs-target="#monthlyPerformer">
+                    Month-wise Performance
+                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Total Closing Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of topPerformer">
+                                <td>{{user._id}}</td>
+                                <td>{{user.totalClosingPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!--Monthly Performer -->
-  <div class="modal fade" id="monthlyPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Monthly Performer -->
+<div class="modal fade" id="monthlyPerformer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Monthly Performer</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>SalesPerson</th>
-                            <th *ngFor="let month of months">{{ month }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let salesperson of monthlyPerformer | keyvalue">
-                            <td>{{ salesperson.key }}</td>
-                            <td *ngFor="let month of months">{{ salesperson.value[months.indexOf(month) + 1] || 0 }}</td>
-                          </tr>
-                    </tbody>
-                </table>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Monthly Performer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>SalesPerson</th>
+                                <th *ngFor="let month of months">{{ month }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let salesperson of monthlyPerformer | keyvalue">
+                                <td>{{ salesperson.key }}</td>
+                                <td *ngFor="let month of months">{{ salesperson.value[months.indexOf(month) + 1] || 0 }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal fade" id="campaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="campaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Data</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="this.categForm.reset()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"
+                    (click)="this.categForm.reset()"></button>
             </div>
             <div class="modal-body">
                 <div class="table-scroll">
@@ -819,18 +833,20 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.categForm.reset()">close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="this.categForm.reset()">close</button>
                 <button type="button" class="btn btn-primary" (click)="downloadCampaignLead()">Download</button>
             </div>
         </div>
     </div>
-  </div>
-  <div class="modal fade" id="closingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="closingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Closing Data</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close" (click)="this.categForm.reset()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"
+                    (click)="this.categForm.reset()"></button>
             </div>
             <div class="modal-body">
                 <div class="table-scroll">
@@ -857,9 +873,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.categForm.reset()">close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="this.categForm.reset()">close</button>
                 <button type="button" class="btn btn-primary" (click)="downloadCategoryCamp()">Download</button>
             </div>
         </div>
     </div>
-  </div>
+</div>

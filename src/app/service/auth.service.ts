@@ -1184,17 +1184,17 @@ export class AuthService {
   getUserAttendance(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`);
   }
-  allEmpIncentive():Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount`);
+  allEmpIncentive(year: number, month: number):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount?year=${year}&month=${month}`);
   }
-  salesIncentive(pass: any):Observable<any>{
+  salesIncentive(pass: any, year: number, month: number):Observable<any>{
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
     const params = new HttpParams().set('pass', pass);
-    return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive`, {headers, params});
+    return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive?year=${year}&month=${month}`, {headers, params});
   }
 
 }
