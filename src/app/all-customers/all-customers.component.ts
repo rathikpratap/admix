@@ -25,6 +25,7 @@ export class AllCustomersComponent {
   dataTwoPreviousMonth:any=[];
   isExpanded: boolean = false;
   GraphicEmp:any;
+  bundleEmp:any;
   sales:any;
   transferName: any;
 
@@ -59,9 +60,21 @@ export class AllCustomersComponent {
       console.log("list",list)
       this.dataTwoPreviousMonth = list;
     });
-    this.auth.allEmployee().subscribe((res:any)=>{
-      this.GraphicEmp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
+    // this.auth.allEmployee().subscribe((res:any)=>{
+    //   this.GraphicEmp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
+    //   this.bundleEmp = res.filter((empB: any) => empB.signupRoles && empB.signupRoles.includes('Bundle Handler'));
+    //   console.log("BUNDELERDNDJKN======>>", this.bundleEmp);
+    // });
+    this.auth.allEmployee().subscribe((res: any) => {
+      if (Array.isArray(res)) {
+        this.GraphicEmp = res.filter((emp: any) => emp.signupRole && emp.signupRole.includes('Graphic Designer'));
+        this.bundleEmp = res.filter((empB: any) => empB.signupRole && empB.signupRole.includes('Bundle Handler'));
+        console.log("Bundle Handlers:", this.bundleEmp);
+      } else {
+        console.error("Unexpected response format:", res);
+      }
     });
+    
     this.auth.getSalesTeam().subscribe((res:any)=>{
       console.log("SALESTEAM=======>>", res);
       this.sales = res;
@@ -164,6 +177,28 @@ export class AllCustomersComponent {
       }
     })
   }
+  updateBundle(user:any,bundleHandler:any){
+    const currentDate = new Date().toISOString().split('T')[0];
+    user.bundlePassDate = currentDate;
+    user.bundleStatus = "Not Created";
+    this.auth.updateEditors([user]).subscribe((res:any)=>{
+      if(res){
+        this.toastr.success(`Bundle ${user.custName} Assigned to ${bundleHandler}`,'Success');
+      }else{
+        this.toastr.error('Bundle Assigned Failed','Error');
+      }
+    });
+    let msgTitle='Project Bundle Assigned';
+    let msgBody=`Bundle ${user.custName} Assigned`;
+
+    this.auth.sendNotifications([bundleHandler],[user],msgTitle, msgBody,currentDate).subscribe((res:any)=>{
+      if(res){
+        this.toastr.success('Notification Send','Success');
+      }else{
+        this.toastr.error('Error Sending Notification','Error');
+      }
+    })
+  };
   transferLead(user:any,newSalesTeam:any){
     const currentDate = new Date().toISOString();
     const transferData = {

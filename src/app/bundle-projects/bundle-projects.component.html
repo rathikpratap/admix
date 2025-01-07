@@ -31,9 +31,9 @@
             </div>
         </form> 
     </div>
-    <!-- <div class="col-lg-2 col-md-12 col-sm-12 col-12 move-to-new-row2">
-        <button class="btn btn-sm btn-primary getButton" (click)="otherProjects()">Other Projects</button>
-    </div> -->
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12 move-to-new-row2">
+        <button class="btn btn-sm btn-primary getButton" (click)="otherProjects()">Projects</button>
+    </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -42,29 +42,19 @@
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Client Code</th>
-                        <th scope="col">Project Name</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Video Type</th>
-                        <th scope="col">Delivery Date</th>
-                        <th scope="col">Status</th>
-                        <th scope="col"> Action </th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <th scope="col">Assigned Date</th>
+                            <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let customer of customers; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{customer.custCode}}</td> 
+                        <td>{{customer.custName}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.editorPassDate}}</td>
-                        <td>{{customer.videoDurationMinutes}}:{{customer.videoDurationSeconds}}</td>
-                        <td>{{customer.videoType}}</td>
-                        <td>{{customer.videoDeliveryDate}}</td>
-                        <td>{{customer.editorStatus}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
-                        </td>
+                        <td>{{customer.bundleStatus}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -74,29 +64,19 @@
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Client Code</th>
-                        <th scope="col">Project Name</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Video Type</th>
-                        <th scope="col">Delivery Date</th>
-                        <th scope="col">Status</th>
-                        <th scope="col"> Action </th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <th scope="col">Assigned Date</th>
+                            <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let customer of rangeData; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{customer.custCode}}</td> 
+                        <td>{{customer.custName}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.editorPassDate}}</td>
-                        <td>{{customer.videoDurationMinutes}}:{{customer.videoDurationSeconds}}</td>
-                        <td>{{customer.videoType}}</td>
-                        <td>{{customer.videoDeliveryDate}}</td>
-                        <td>{{customer.editorStatus}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
-                        </td>
+                        <td>{{customer.bundleStatus}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -125,29 +105,19 @@
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Video Type</th>
-                            <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of data; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td> 
+                            <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.editorPassDate}}</td>
-                            <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
-                            <td>{{user.videoType}}</td>
-                            <td>{{user.videoDeliveryDate}}</td>
-                            <td>{{user.editorStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                            </td>
+                            <td>{{user.bundleStatus}}</td>
                         </tr>
                     </tbody>
                 </div>
@@ -159,29 +129,19 @@
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Video Type</th>
-                            <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of previousData; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td> 
+                            <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.editorPassDate}}</td>
-                            <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
-                            <td>{{user.videoType}}</td>
-                            <td>{{user.videoDeliveryDate}}</td>
-                            <td>{{user.editorStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                            </td>
+                            <td>{{user.bundleStatus}}</td>
                         </tr>
                     </tbody>
                 </div>
@@ -193,29 +153,19 @@
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Video Type</th>
-                            <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of twoPreviousData; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td> 
+                            <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.editorPassDate}}</td>
-                            <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
-                            <td>{{user.videoType}}</td>
-                            <td>{{user.videoDeliveryDate}}</td>
-                            <td>{{user.editorStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                            </td>
+                            <td>{{user.bundleStatus}}</td>
                         </tr>
                     </tbody>
                 </div>
@@ -227,29 +177,19 @@
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
                             <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Video Type</th>
-                            <th scope="col">Delivery Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of allData; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td> 
+                            <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.editorPassDate}}</td>
-                            <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
-                            <td>{{user.videoType}}</td>
-                            <td>{{user.videoDeliveryDate}}</td>
-                            <td>{{user.editorStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                            </td>
+                            <td>{{user.bundleStatus}}</td>
                         </tr>
                     </tbody>
                 </div>

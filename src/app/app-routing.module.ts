@@ -82,6 +82,8 @@ import { ViewInvoiceComponent } from './view-invoice/view-invoice.component';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { IncentiveCalculationComponent } from './incentive-calculation/incentive-calculation.component';
 import { SalesIncentiveComponent } from './sales-incentive/sales-incentive.component';
+import { BundleDashboardComponent } from './bundle-dashboard/bundle-dashboard.component';
+import { BundleProjectsComponent } from './bundle-projects/bundle-projects.component';
 
 const routes: Routes = [
   {
@@ -351,6 +353,14 @@ const routes: Routes = [
       {
         path: 'editor-attendance',
         component: EditorAttendanceComponent
+      },
+      {
+        path: 'bundle-dashboard',
+        component: BundleDashboardComponent
+      },
+      {
+        path: 'bundle-projects',
+        component: BundleProjectsComponent
       }
     ]
   },

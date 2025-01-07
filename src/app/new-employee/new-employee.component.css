@@ -117,6 +117,32 @@ form .user-details .input-box{
     background-color: black;
     opacity: 0.2;
 }
+
+/* Multiple select customization */
+.user-details .input-box select[multiple] {
+    height: auto; /* Adjust height for multiple selections */
+    overflow-y: auto;
+}
+.user-details .input-box select[multiple] option{
+    color: #fff;
+    padding-top: 10px;
+}
+
+/* Scrollbar for multiple selection */
+.form-select[multiple]::-webkit-scrollbar {
+    width: 6px;
+}
+
+.form-select[multiple]::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.form-select[multiple]::-webkit-scrollbar-thumb:hover {
+    background: #007bff;
+}
+
+
 @media only screen and (max-width:550px){
     .new-registration form .user-details{
         display: block;

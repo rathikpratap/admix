@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <span class="details"> Role: </span>
                             <select class="form-select" formControlName="signupRole"
-                                aria-label="Default select example"
+                                aria-label="Default select example" multiple size="3"
                                 [ngClass]="{error:getControls('signupRole')?.errors && getControls('signupRole')?.touched}">
                                 <option value="Select Role"> Select Employee Role </option>
                                 <option value="Admin"> Admin </option>
@@ -95,6 +95,7 @@
                                 <option value="Graphic Designer"> Graphic Designer </option>
                                 <option value="Web Developer"> Web Developer </option>
                                 <option value="Editor"> Editor </option>
+                                <option value="Bundle Handler">Bundle Handler</option>
                                 <option value="Script Writer"> Script Writer </option>
                                 <option value="VO Artist"> VO Artist </option>
                             </select>

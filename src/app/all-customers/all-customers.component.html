@@ -161,6 +161,8 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Rest Amount</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
@@ -181,6 +183,13 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
+                            <td>
+                                <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
+                                    <option value="Select">Select</option>
+                                    <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">{{empB.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td>{{user.bundleStatus}}</td>
                             <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                 <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
                                     <option value="">Select</option>

@@ -123,6 +123,9 @@ export class AuthService {
   getEditorData(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorActiveList`);
   }
+  getBundleData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/bundleActiveList`);
+  }
   getCompleteScriptData(){
     return this.http.get(`${appConfig.apiUrl}/auth/scriptCompleteList`);
   }
@@ -138,6 +141,9 @@ export class AuthService {
   }
   getCompleteEditorData(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorCompleteList`);
+  }
+  getCompleteBundleData(){
+    return this.http.get(`${appConfig.apiUrl}/auth/bundleCompleteList`);
   }
   allProjectsSales(){
     return this.http.get(`${appConfig.apiUrl}/auth/allList`);
@@ -889,6 +895,9 @@ export class AuthService {
   editorProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
   }
+  bundleProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/bundleProjects`);
+  }
 
   editorPreviousProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorPreviousProjects`)
@@ -896,10 +905,18 @@ export class AuthService {
   editorTwoPreviousProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorTwoPreviousProjects`)
   }
+  bundlePreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/bundlePreviousProjects`)
+  }
+  bundleTwoPreviousProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/bundleTwoPreviousProjects`)
+  }
   allEditorProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allEditorProjects`)
   }
-
+  allBundleProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allBundleProjects`)
+  }
 
   editorOtherProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjectsOther`);

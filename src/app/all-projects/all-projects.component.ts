@@ -202,22 +202,47 @@ export class AllProjectsComponent {
     }
   }
 
+  // filterEmployeesByRole(projectStatus: string): any[] { 
+  //   switch (projectStatus) {
+  //     case 'Scripting':
+  //       return this.emp.filter((employee: any) => employee.signupRole === 'Script Writer');
+  //     case 'Video Editing':
+  //     case 'Video Changes':
+  //     case 'Video Done':
+  //       return this.emp.filter((employee: any) => employee.signupRole === 'Editor');
+  //     case 'Voice Over': 
+  //       return this.emp.filter((employee: any) => employee.signupRole === 'VO Artist');
+  //     case 'Graphic Designing':
+  //       return this.emp.filter((employee: any) => employee.signupRole === 'Graphic Designer')
+  //     default:
+  //       return []; // Return an empty array if no specific role is selected
+  //   }
+  // }
   filterEmployeesByRole(projectStatus: string): any[] { 
     switch (projectStatus) {
       case 'Scripting':
-        return this.emp.filter((employee: any) => employee.signupRole === 'Script Writer');
+        return this.emp.filter((employee: any) => 
+          employee.signupRole && employee.signupRole.includes('Script Writer')
+        );
       case 'Video Editing':
       case 'Video Changes':
       case 'Video Done':
-        return this.emp.filter((employee: any) => employee.signupRole === 'Editor');
+        return this.emp.filter((employee: any) => 
+          employee.signupRole && employee.signupRole.includes('Editor')
+        );
       case 'Voice Over': 
-        return this.emp.filter((employee: any) => employee.signupRole === 'VO Artist');
+        return this.emp.filter((employee: any) => 
+          employee.signupRole && employee.signupRole.includes('VO Artist')
+        );
       case 'Graphic Designing':
-        return this.emp.filter((employee: any) => employee.signupRole === 'Graphic Designer')
+        return this.emp.filter((employee: any) => 
+          employee.signupRole && employee.signupRole.includes('Graphic Designer')
+        );
       default:
         return []; // Return an empty array if no specific role is selected
     }
   }
+  
   invoice(userId: string) {
     const url = `/main-invoice/${userId}`;
     window.open(url, '_blank');

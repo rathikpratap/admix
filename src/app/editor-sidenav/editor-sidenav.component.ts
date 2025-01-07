@@ -49,6 +49,20 @@ export class EditorSidenavComponent {
       route: '/editor-home/editor-otherProjects'
     }
   ];
+  list3 = [
+    {
+      number: '1',
+      name: 'Bundle Dashboard',
+      icon: 'bi bi-house',
+      route: '/editor-home/bundle-dashboard'
+    },
+    {
+      number: '2',
+      name: 'All Bundles',
+      icon: 'bi bi-card-list',
+      route: '/editor-home/bundle-projects'
+    }
+  ];
   list = this.list1;
 
   constructor(private router: Router) {}
@@ -63,6 +77,8 @@ export class EditorSidenavComponent {
     const currentUrl = this.router.url;
     if (currentUrl === '/editor-home/editor-otherProjects' || currentUrl === '/editor-home/editor-other') {
       this.list = this.list2;
+    }else if( currentUrl === '/editor-home/bundle-dashboard' || currentUrl === '/editor-home/bundle-projects'){
+      this.list = this.list3;
     } else {
       this.list = this.list1;
     }

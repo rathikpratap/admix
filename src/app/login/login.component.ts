@@ -31,33 +31,72 @@ export class LoginComponent {
     loginPswd: new FormControl('')
   }) 
 
-  loginUser(){
-    const loginData = this.loginForm.value as {loginUsername: string, loginPswd: string};
-    this.auth.signin(loginData).subscribe((res:any)=>{
-      if(res.success){
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
+  // loginUser(){
+  //   const loginData = this.loginForm.value as {loginUsername: string, loginPswd: string};
+  //   this.auth.signin(loginData).subscribe((res:any)=>{
+  //     if(res.success){
+  //       localStorage.setItem('token', res.token);
+  //       localStorage.setItem('role', res.role);
         
-        if (res.role === 'Admin' || res.role === 'Manager'){
+  //       if (res.role === 'Admin' || res.role === 'Manager'){
+  //         this.router.navigateByUrl('/admin-dashboard');
+  //       } else if(res.role === 'Sales Team' && res.team !== 'Shiva Development'){
+  //         this.router.navigateByUrl('/salesHome/salesDashboard');
+  //       }else if(res.role === 'Sales Team' && res.team === 'Shiva Development'){
+  //         this.router.navigateByUrl('/salesHome/b2b-dashboard');
+  //       }else if(res.role === 'Script Writer'){
+  //         this.router.navigateByUrl('/script-home/script-dashboard');
+  //       }else if(res.role === 'Editor'){
+  //         this.router.navigateByUrl('/editor-home/editor-dashboard');
+  //       }else if(res.role === 'VO Artist'){
+  //         this.router.navigateByUrl('/vo-home/vo-dashboard');
+  //       }else if(res.role === 'Graphic Designer'){
+  //         this.router.navigateByUrl('/graphic-home/graphic-dashboard');
+  //       }
+  //     } else{
+  //       alert(res.message);
+  //     }
+  //   }, err => {
+  //     alert('Login Failed!');
+  //   });
+  // }
+  loginUser() {
+    const loginData = this.loginForm.value as { loginUsername: string; loginPswd: string };
+    
+    this.auth.signin(loginData).subscribe((res: any) => {
+      if (res.success) {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('roles', JSON.stringify(res.role)); // Store roles as a JSON string
+        
+        // Check for roles in the response
+        const roles: string[] = res.role || [];
+        const team = res.team;
+  
+        if (roles.includes('Admin') || roles.includes('Manager')) {
           this.router.navigateByUrl('/admin-dashboard');
-        } else if(res.role === 'Sales Team' && res.team !== 'Shiva Development'){
-          this.router.navigateByUrl('/salesHome/salesDashboard');
-        }else if(res.role === 'Sales Team' && res.team === 'Shiva Development'){
-          this.router.navigateByUrl('/salesHome/b2b-dashboard');
-        }else if(res.role === 'Script Writer'){
+        } else if (roles.includes('Sales Team')) {
+          if (team === 'Shiva Development') {
+            this.router.navigateByUrl('/salesHome/b2b-dashboard');
+          } else {
+            this.router.navigateByUrl('/salesHome/salesDashboard');
+          }
+        } else if (roles.includes('Script Writer')) {
           this.router.navigateByUrl('/script-home/script-dashboard');
-        }else if(res.role === 'Editor'){
+        } else if (roles.includes('Editor')) {
           this.router.navigateByUrl('/editor-home/editor-dashboard');
-        }else if(res.role === 'VO Artist'){
+        } else if (roles.includes('VO Artist')) {
           this.router.navigateByUrl('/vo-home/vo-dashboard');
-        }else if(res.role === 'Graphic Designer'){
+        } else if (roles.includes('Graphic Designer')) {
           this.router.navigateByUrl('/graphic-home/graphic-dashboard');
+        } else {
+          alert('No matching role found!');
         }
-      } else{
+      } else {
         alert(res.message);
       }
     }, err => {
       alert('Login Failed!');
     });
   }
+  
 }

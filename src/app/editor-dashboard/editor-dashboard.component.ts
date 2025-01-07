@@ -37,10 +37,10 @@ export class EditorDashboardComponent {
         this.auth.logout();
       }
     });
-    this.auth.editorProjects().subscribe((res:any)=>{
-      this.data = res;
-      console.log("Data===>", res);
-    });
+    // this.auth.editorProjects().subscribe((res:any)=>{
+    //   this.data = res;
+    //   console.log("Data===>", res);
+    // });
     this.auth.urgentEditorProjects().subscribe((res:any)=>{
       this.urgent = res;
     });
@@ -85,6 +85,10 @@ export class EditorDashboardComponent {
     const url = `/editor-home/editor-other`;
     //window.open(url, '_blank');
     window.location.href = url;
+  }
+  bundles(){
+    const url = `/editor-home/bundle-dashboard`;
+    window.open(url,'_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-update/${userId}`;
