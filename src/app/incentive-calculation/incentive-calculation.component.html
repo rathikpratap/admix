@@ -18,7 +18,7 @@
                         <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Employee Name</th>
-                            <th scope="col">Category</th>
+                            <!-- <th scope="col">Category</th> -->
                             <th scope="col">No. of Closing</th>
                             <th scope="col">Total Closing Price</th>
                             <th scope="col">Calculated Incentive</th>
@@ -28,7 +28,7 @@
                         <tr *ngFor="let user of groupedData[employee]; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user._id.salesPerson}}</td>
-                            <td>{{user._id.closingCateg}}</td>
+                            <!-- <td>{{user._id.closingCateg}}</td> -->
                             <td>{{user.numberOfClosings}}</td>
                             <td>{{user.totalClosingPrice}}</td>
                             <td>{{user.calculatedIncentive}}</td>
@@ -38,4 +38,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> 

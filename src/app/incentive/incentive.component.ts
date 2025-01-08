@@ -38,7 +38,7 @@ export class IncentiveComponent implements OnInit {
 
     this.incentiveForm = this.fb.group({
       employeeName : new FormControl(""),
-      category : new FormControl(""),
+      //category : new FormControl(""),
       incentives: this.fb.array([])
     });
 
@@ -53,10 +53,10 @@ export class IncentiveComponent implements OnInit {
       this.emp = res;
       console.log("EMPLOYEE===>>", this.emp);
     });
-    this.auth.getClosing().subscribe((res:any)=>{
-      this.closing_names = res.filter((closing:any, index: number, self: any[])=>
-      index === self.findIndex((clo:any)=> clo.closingCateg === closing.closingCateg));
-    });
+    // this.auth.getClosing().subscribe((res:any)=>{
+    //   this.closing_names = res.filter((closing:any, index: number, self: any[])=>
+    //   index === self.findIndex((clo:any)=> clo.closingCateg === closing.closingCateg));
+    // });
     
     this.auth.getIncentive().subscribe((res:any)=>{
       this.data = res;

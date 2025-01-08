@@ -130,7 +130,8 @@ export class NewCustomerComponent {
     salesTeam : new FormControl(""),
     companyName : new FormControl(""),
     graphicDesigner : new FormControl(""),
-    graphicPassDate : new FormControl("")
+    graphicPassDate : new FormControl(""),
+    Qr : new FormControl("null")
   });
 
   b2bCustomerForm = new FormGroup({

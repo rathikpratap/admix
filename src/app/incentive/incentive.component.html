@@ -22,7 +22,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <div class="form-group">
                             <span class="details">Category</span>
                             <select class="form-select" formControlName="category">
@@ -31,7 +31,7 @@
                                     {{item.closingCateg}}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="user-details">
                     <div formArrayName="incentives" class="input-box">
@@ -86,7 +86,8 @@
                         <tr *ngFor="let user of data; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user.employeeName}}</td>
-                            <td>{{user.category}}</td>
+                            <!-- <td>{{user.category}}</td> -->
+                             <td>All Category</td>
                             <ng-container *ngFor="let incentive of user.incentives">
                                 <td>{{ incentive.amount }}</td>
                                 <td>{{ incentive.increment }}%</td>
