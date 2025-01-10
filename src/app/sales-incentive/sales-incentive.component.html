@@ -18,7 +18,8 @@
                         <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Employee Name</th>
-                            <th scope="col">Category</th>
+                            <!-- <th scope="col">Category</th> -->
+                            <th scope="col">Incentive Source</th>
                             <th scope="col">No. of Closing</th>
                             <th scope="col">Total Closing Price</th>
                             <th scope="col">Calculated Incentive</th>
@@ -28,7 +29,8 @@
                         <tr *ngFor="let user of result; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user._id.salesPerson}}</td>
-                            <td>{{user._id.closingCateg}}</td>
+                            <!-- <td>{{user._id.closingCateg}}</td> -->
+                            <td>{{user.incentiveSource}}</td>
                             <td>{{user.numberOfClosings}}</td>
                             <td>{{user.totalClosingPrice}}</td>
                             <td>{{user.calculatedIncentive}}</td>
@@ -38,7 +40,7 @@
             </div>
         </div>
         <ng-template #noData>
-            <p>No attendance data available for this month.</p>
+            <p class="NoData">No Incentive data available for this month.</p>
         </ng-template>
 
     </div>

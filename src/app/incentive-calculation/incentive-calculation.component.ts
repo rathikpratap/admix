@@ -71,4 +71,8 @@ export class IncentiveCalculationComponent implements OnInit{
   objectKeys(obj: any) {
     return Object.keys(obj);
   }
+  get isEmptyGroupedData() {
+    return !this.groupedData || Object.keys(this.groupedData).length === 0;
+  }
+  
 }

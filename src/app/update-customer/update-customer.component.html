@@ -147,6 +147,9 @@
                                 class="form-control" formControlName="restPaymentDate"
                                 [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
                                 placeholder="Enter Closing Date">
+                            <div *ngIf="getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched;">
+                                <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']"> Rest Payment Date is Required</label>
+                            </div>
                         </div>
                     </div>
                     <div class="input-box">

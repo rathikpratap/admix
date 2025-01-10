@@ -61,7 +61,7 @@ export class UpdateCustomerComponent implements OnInit{
     youtubeLink: new FormControl(""),
     remark: new FormControl(""),
     restAmount: new FormControl(""),
-    restPaymentDate: new FormControl(""),
+    restPaymentDate: new FormControl("", [Validators.required]), 
     leadsCreatedDate: new FormControl(""),
     companyName: new FormControl("")
   })
@@ -163,6 +163,8 @@ export class UpdateCustomerComponent implements OnInit{
       this.updateEmbeddedVideoUrl();
     });
 
+    this.onRestAmountChange();
+
     this.auth.getCategory().subscribe((category:any)=>{
       console.log("Categories===>>", category);
       this.Category = category;
@@ -180,6 +182,18 @@ export class UpdateCustomerComponent implements OnInit{
       } else{
         this.updateForm.get('companyName')?.setValue('AdmixMedia');
       }
+    });
+  }
+
+  onRestAmountChange(){
+    this.updateForm.get('restAmount')?.valueChanges.subscribe((value:any)=>{
+      const restPaymentDateControl = this.updateForm.get('restPaymentDate');
+      if(value > 0){
+        restPaymentDateControl?.setValidators([Validators.required]);
+      } else {
+        restPaymentDateControl?.clearValidators();
+      }
+      restPaymentDateControl?.updateValueAndValidity();
     });
   }
 

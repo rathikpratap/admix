@@ -86,3 +86,6 @@ td{
 .month-navigation button{
     padding: 10px;
 }
+.NoData{
+    color: white;
+}
