@@ -137,6 +137,9 @@ export class AdminDashboardComponent implements OnInit {
   todayAmount:any;
   advToday:any;
   totalAmountAM:any;
+  restAmount:any;
+  todayRestAmount:any;
+  restToday:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -324,12 +327,14 @@ export class AdminDashboardComponent implements OnInit {
       this.monthlyPerformer = res;
     });
     this.auth.todayAmount().subscribe((res:any)=>{
-      this.todayAmount = res.totalAmount;
-      const todayData = [...res.advToday, ...res.restToday];
-      this.advToday = todayData;
+      this.todayAmount = res.advAmount;
+      this.advToday = res.advToday;
+      this.todayRestAmount = res.restAmount;
+      this.restToday = res.restToday;
     });
     this.auth.receivedQr().subscribe((res:any)=>{
-      this.totalAmountAM = res.totals;
+      this.totalAmountAM = res.advTotals;
+      this.restAmount = res.restTotals;
     });
 
     this.auth.getCampaign().subscribe((res:any)=>{

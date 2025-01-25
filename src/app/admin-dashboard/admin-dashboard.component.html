@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card3">
             <div class="card-body">
@@ -160,7 +160,39 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6> Today's Received Amount</h6>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayRecv">
+                            {{todayAmount}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6> Previous Received Amount</h6>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayRestRecv">
+                            {{todayRestAmount}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="card5">
             <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
                 <div class="form-container">
@@ -195,7 +227,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
@@ -215,20 +247,40 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-        <div class="card1">
-            <div class="card-body">
-                <div class="form-container2">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="card5">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+                <div class="form-container">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h6> Today's Received Amount</h6>
+                            <h6>Search Data</h6>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayRecv">
-                            {{todayAmount}}
-                        </button>
+                    </div>
+                    <div class="details">
+                        <label for="startDate"> Start Date</label>
+                        <input type="date" formControlName="startDate" id="startDate">
+                    </div>
+                    <div class="details">
+                        <label for="endDate"> End Date</label>
+                        <input type="date" formControlName="endDate" id="endDate">
                     </div>
                 </div>
-            </div>
+                <div class="rangeButton">
+                    <button type="submit" class="btn btn-primary"> Submit</button>
+                    <div class="rangeButton1" *ngIf="rangeData">
+                        <div class="downloadButton">
+                            <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
+                        </div>
+                        <div class="downloadButton">
+                            <button class="btn btn-success" (click)="resetData()"> Reset Data </button>
+                        </div>
+                        <div class="downloadButton">
+                            <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -962,6 +1014,87 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let amount of totalAmountAM | keyvalue">
+                                <td>{{ amount.key }}</td>
+                                <td>{{ amount.value || 0 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="todayRestRecv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Today Received Amount</h1>
+                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal" data-bs-target="#qrRestPayment">
+                    Check QR Payment
+                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of restToday">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="qrRestPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">QR Payments</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>QR</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let amount of restAmount | keyvalue">
                                 <td>{{ amount.key }}</td>
                                 <td>{{ amount.value || 0 }}</td>
                             </tr>
