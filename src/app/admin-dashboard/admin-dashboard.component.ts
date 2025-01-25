@@ -134,6 +134,9 @@ export class AdminDashboardComponent implements OnInit {
   campaignName:any;
   campaignData:any;
   closing_names:any;
+  todayAmount:any;
+  advToday:any;
+  totalAmountAM:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -158,7 +161,7 @@ export class AdminDashboardComponent implements OnInit {
     '#D4AC0D', // Gold
     '#D98880'  // Salmon
   ];
-
+ 
   ngOnInit(): void {
 
     this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
@@ -274,7 +277,6 @@ export class AdminDashboardComponent implements OnInit {
       console.log("allList",allList)
       this.data = allList;
       this.dataLength = allList.length;
-      console.log('loag ==>', this.data);
     })
 
     this.auth.getAllCompleteProjects().subscribe((allProject : any)=>{
@@ -283,7 +285,6 @@ export class AdminDashboardComponent implements OnInit {
     })
     this.auth.getMonthEntries().subscribe((res : any)=>{
       this.totalEntry = res.totalEntries;
-      console.log("TOTALENTRY========>>", this.totalEntry);
       this.totalEntries = res.totalEntries.length;
       this.totalAmount = res.totalAmount;
       this.totalRecv = res.totalRecv;
@@ -318,11 +319,18 @@ export class AdminDashboardComponent implements OnInit {
     });
     this.auth.topPerformer().subscribe((res:any)=>{
       this.topPerformer = res;
-      console.log("TOP=====>>", this.topPerformer);
     });
     this.auth.monthlyPerformer().subscribe((res:any)=>{
       this.monthlyPerformer = res;
-    }); 
+    });
+    this.auth.todayAmount().subscribe((res:any)=>{
+      this.todayAmount = res.totalAmount;
+      const todayData = [...res.advToday, ...res.restToday];
+      this.advToday = todayData;
+    });
+    this.auth.receivedQr().subscribe((res:any)=>{
+      this.totalAmountAM = res.totals;
+    });
 
     this.auth.getCampaign().subscribe((res:any)=>{
       this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>

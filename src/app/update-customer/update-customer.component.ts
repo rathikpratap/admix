@@ -63,7 +63,8 @@ export class UpdateCustomerComponent implements OnInit{
     restAmount: new FormControl(""),
     restPaymentDate: new FormControl("", [Validators.required]), 
     leadsCreatedDate: new FormControl(""),
-    companyName: new FormControl("")
+    companyName: new FormControl(""),
+    Qr: new FormControl("")
   })
 
   updateEmbeddedVideoUrl() {
@@ -158,7 +159,8 @@ export class UpdateCustomerComponent implements OnInit{
         restAmount: res['restAmount'],
         restPaymentDate: res['restPaymentDate'],
         leadsCreatedDate: res['leadsCreatedDate'],
-        companyName: res['companyName']
+        companyName: res['companyName'],
+        Qr: res['Qr']
       })
       this.updateEmbeddedVideoUrl();
     });

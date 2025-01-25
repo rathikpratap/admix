@@ -10,40 +10,35 @@
             <h2>{{monthNames[month-1]}}-{{year}}</h2>
             <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
         </div>
-        <div *ngIf="!isEmptyGroupedData; else noData">
+        <div *ngIf="!isEmptyGroupedData(); else noData">
             <div class="emp-name" *ngFor="let employee of objectKeys(groupedData)">
-                <h5>{{employee}}</h5>
-                <div class="table-scroll">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Employee Name</th>
-                                <!-- <th scope="col">Category</th> -->
-                                <th scope="col">Incentive Source</th>
-                                <th scope="col">No. of Closing</th>
-                                <th scope="col">Total Closing Price</th>
-                                <th scope="col">Calculated Incentive</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let user of groupedData[employee]; let i = index">
-                                <td>{{i+1}}</td>
-                                <td>{{user._id.salesPerson}}</td>
-                                <!-- <td>{{user._id.closingCateg}}</td> -->
-                                <td>{{user.incentiveSource}}</td>
-                                <td>{{user.numberOfClosings}}</td>
-                                <td>{{user.totalClosingPrice}}</td>
-                                <td>{{user.calculatedIncentive}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+              <h5>{{ employee }}</h5>
+              <div class="table-scroll">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">No. of Closings</th>
+                      <th scope="col">Total Closing Price</th>
+                      <th scope="col">Calculated Incentive</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of groupedData[employee]; let i = index">
+                      <td>{{ i + 1 }}</td>
+            <td>{{user.numberOfClosings || 0}}</td>
+            <td>{{user.totalClosingPrice || 0}}</td>
+            <td>{{user.calculatedIncentive || 0}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-        </div>
-        <ng-template #noData>
-            <p class="NoData">No Incentive Data Available for this Month.</p>
-        </ng-template>
+          </div>
+          <ng-template #noData>
+            <p>No incentive data available for the selected period.</p>
+          </ng-template>
+          
         
     </div>
 </div> 

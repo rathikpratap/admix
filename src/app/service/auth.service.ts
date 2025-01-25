@@ -1213,5 +1213,11 @@ export class AuthService {
     const params = new HttpParams().set('pass', pass);
     return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive?year=${year}&month=${month}`, {headers, params});
   }
+  todayAmount():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/todayAmount`);
+  }
+  receivedQr():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/receivedQr`);
+  }
 
 }

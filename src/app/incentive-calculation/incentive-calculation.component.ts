@@ -35,21 +35,40 @@ export class IncentiveCalculationComponent implements OnInit{
       }
     });
   }
-  fetchIncentive(){
+  fetchIncentive() {
     this.groupedData = {};
-    this.auth.allEmpIncentive(this.year, this.month).subscribe((res:any)=>{
-      res.forEach((result:any)=>{
-        const emp = result._id.salesPerson;
-
-        if(!this.groupedData[emp]){
-          this.groupedData[emp] = [];
-        }
-        this.groupedData[emp].push(result);
-      });
-      // this.incentiveResult = res;
-      // console.log("DATA====>", this.incentiveResult);
-    });
+    this.auth.allEmpIncentive(this.year, this.month).subscribe(
+      (res: any) => {
+        console.log('API Response:', res); // Log the response to debug
+        res.forEach((result: any) => {
+          // Ensure the result and the salesPerson field exist
+          if (result && result.salesPerson) {
+            const emp = result.salesPerson;
+  
+            // Initialize the employee's array if not already present
+            if (!this.groupedData[emp]) {
+              this.groupedData[emp] = [];
+            }
+  
+            // Add the result to the grouped data
+            this.groupedData[emp].push(result);
+          } else {
+            console.warn('Invalid result format:', result); // Warn about invalid entries
+          }
+        });
+      },
+      (error) => {
+        console.error('Error fetching incentives:', error); // Handle errors gracefully
+      }
+    );
   }
+  
+  
+  
+  isEmptyGroupedData(): boolean {
+    return Object.keys(this.groupedData).length === 0;
+  }
+  
   prevMonth():void{
     if(this.month === 1){
       this.month =12;
@@ -71,8 +90,8 @@ export class IncentiveCalculationComponent implements OnInit{
   objectKeys(obj: any) {
     return Object.keys(obj);
   }
-  get isEmptyGroupedData() {
-    return !this.groupedData || Object.keys(this.groupedData).length === 0;
-  }
+  // get isEmptyGroupedData() {
+  //   return !this.groupedData || Object.keys(this.groupedData).length === 0;
+  // }
   
 }

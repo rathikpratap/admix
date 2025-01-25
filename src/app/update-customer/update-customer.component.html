@@ -154,6 +154,21 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details">Payment QR: </span>
+                            <select class="form-select" formControlName="Qr" aria-label="Default select example" [ngClass]="{error:getControls('Qr')?.errors && getControls('Qr')?.touched}">
+                                <option value="null">Select QR</option>
+                                <option value="Admix Media">Admix Media</option>
+                                <option value="Shiva Varshney">Shiva Varshney</option>
+                                <option value="Swati Varshney">Swati Varshney</option>
+                                <option value="Umeshchand Varshney">Umeshchand Varshney</option>
+                            </select>
+                            <div *ngIf="getControls('Qr')?.errors && getControls('Qr')?.touched">
+                                <label class="text-danger" *ngIf="getControls('Qr')?.errors?.['required']"> QR Selection is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Remaining Amount: </span>
                             <input type="number" class="form-control" formControlName="remainingAmount"
                                 [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"

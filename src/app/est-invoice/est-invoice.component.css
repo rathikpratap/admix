@@ -50,7 +50,7 @@ hr{
     justify-content: space-between;
 }
 .name-txt{
-    width: 40%;
+    width: 50%;
 }
 .name-txt h4{
     color: #5d11b5;
@@ -158,4 +158,46 @@ textarea {
 }
 select{
     font-size: 20px;
+}
+.bottom-txt{
+    width: 130%;
+    font-size: larger;
+    border: none;
+    margin-bottom: 10px;
+}
+.topName-txt{
+    width: 100%;
+    font-weight: 600;
+    border: none;
+    margin-left: -10px;
+}
+
+.form-container {
+    max-width: 800px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+.inline-fields {
+    display: flex;
+    gap: 10px; /* Adds space between the fields */
+}
+
+.inline-fields .form-control {
+    width: calc(50% - 5px); /* Ensures each input shares the row evenly */
 }
