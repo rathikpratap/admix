@@ -1,1 +1,199 @@
-<p>view-invoice works!</p>
+ <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+        <form [formGroup]="invoiceForm" class="d-flex align-items-center gap-2">
+            <select class="form-select" formControlName="billType" aria-label="Default select example">
+                <option value="null">Select Bill Type</option>
+                <option value="GST">GST</option>
+                <option value="Non-GST">Non-GST</option>
+            </select>
+            <select class="form-select" formControlName="gstType" aria-label="Default select example">
+                <option value="null">UP</option>
+                <option value="Other">Not UP</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+        <!-- <button class="btn btn-sm btn-primary" (click)="downloadPdf()">Download Invoice PDF</button> -->
+    </div>
+</div>
+<div id="invoice">
+    <div class="invoice-container">
+    <div class="row">
+            <div class="col-lg-8">
+                <div class="top-left-text">
+                    <h2>Admix Media Pvt. Ltd.</h2>
+                    <p>PDN Wali Gali, Basant View, Hathras</p>
+                    <p>Uttar Pradesh -  204101</p>
+                    <P>Phone No.: +91-9084607774</P>
+                    <p>Email Id: admixmediaindia&#64;gmail.com</p>
+                    <p>GSTIN: 09AAZCA3162F1ZC</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="box-left">
+                    <img src="assets/Images/logo.png" alt="Admix Media">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="est-text">
+                    <h3>INVOICE</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mid-txt">
+                    <div class="name-txt">
+                        <h4>Invoice To: {{invoiceData.custName}}</h4>
+                    <form [formGroup]="custForm" class="form-container">
+                        <div class="form-group">
+                            <input type="text" class="form-control topName-txt" formControlName="custName" placeholder="Customer Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNo"><strong>Contact No:</strong></label>
+                            <input type="text" id="contactNo" class="form-control" formControlName="custNumb" placeholder="Enter Contact Number">
+                     </div>
+                     <div class="form-group">
+                        <label for="gstNumber"><strong>GST Number:</strong></label>
+                        <input type="text" id="gstNumber" class="form-control" formControlName="custGST" placeholder="Enter customer GST">
+                     </div>
+                     <div class="form-group">
+                        <label for="customerAddress"><strong>Customer Address:</strong></label>
+                        <div class="inline-fields">
+                            <input type="text" id="customerAddressLine1" class="form-control" formControlName="custAddLine1" placeholder="Address Line 1">
+                            <input type="text" class="form-control" formControlName="custAddLine2" placeholder="Address LIne 2">
+                        </div>
+                        <input type="text" class="form-control" formControlName="custAddLine3" placeholder="Address Line 3" name="custAdd3">
+                     </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-lg-12">
+                <div class="mid-txt">
+                    <div class="name-txt">
+                        <h4>Invoice To: </h4>
+                        <form [formGroup]="custForm" class="form-container">
+                            <div class="form-group">
+                                <input type="text" class="form-control topName-txt" formControlName="custName" placeholder="Customer Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactNo"><strong>Contact No:</strong></label>
+                                <input type="text" id="contactNo" class="form-control" formControlName="custNumb" placeholder="Enter Contact Number">
+                         </div>
+                         <div class="form-group">
+                            <label for="gstNumber"><strong>GST Number:</strong></label>
+                            <input type="text" id="gstNumber" class="form-control" formControlName="custGST" placeholder="Enter customer GST">
+                         </div>
+                         <div class="form-group">
+                            <label for="customerAddress"><strong>Customer Address:</strong></label>
+                            <div class="inline-fields">
+                                <input type="text" id="customerAddressLine1" class="form-control" formControlName="custAddLine1" placeholder="Address Line 1">
+                                <input type="text" class="form-control" formControlName="custAddLine2" placeholder="Address LIne 2">
+                            </div>
+                            <input type="text" class="form-control" formControlName="custAddLine3" placeholder="Address Line 3" name="custAdd3">
+                         </div>
+                        </form>
+                    </div>
+                    <div class="bill-number">
+                        <h4>Invoice Details</h4>
+                        <p><strong>Invoice No.</strong>{{count}}</p>
+                        <p><strong>Date: </strong>{{date}}</p>
+                    </div>
+                </div>
+                <form [formGroup]="invoiceForm">
+                    <div class="table-scroll">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><button class="btn btn-dark" (click)="addRow()">+</button></th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price/Unit</th>
+                                    <th scope="col">GST</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <tbody formArrayName="rows">
+                            <tr *ngFor="let row of rows; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{row.invoiceCateg}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-group-divider">
+                                <td><b>Total</b></td>
+                                <td></td>
+                                <td><b>{{totalNumOfVideoss}}</b></td>
+                                <td></td>
+                                <td><b>&#8377;{{gstAmount}}</b></td>
+                                <td><b>&#8377;{{totalAmount}}</b></td>
+                            </tr>
+                        </tfoot>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="lower-mid-text">
+                <div class="est-amt">
+                    <p><strong>Invoice Amount in Words</strong></p>
+                    <p>{{wordsAmt | uppercase}} ONLY</p>
+                </div>
+                <div class="sub-total">
+                    <div class="sub-total-title">
+                        <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
+                        <p *ngIf="invoiceForm.get('gstType')?.value === 'Other'"><strong>IGST &#64;18%:</strong>₹{{this.gstAmount}} </p>
+                            <div *ngIf="invoiceForm.get('gstType')?.value !== 'Other'">
+                                <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                                <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                            </div>
+                        <p class="bottom-total"><strong>Total: </strong>₹ {{this.totalAmount}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="qr-code" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
+                    <img src="assets/Images/GSTQR.jpeg" alt="AdMix Media QR Code">
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="details" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
+                    <h4>Pay To:</h4>
+                    <p><strong>Bank Name:</strong> HDFC BANK, HATHRAS, UTTAR PRADESH</p>
+                    <P><strong>Bank Account No:</strong> 50200088351070</P>
+                    <p><strong>Bank IFSC Code:</strong> HDFC0006723</p>
+                    <p><strong>Account holder's Name:</strong> AdmixMedia</p>
+                    <p><strong>Account Type:</strong> Current Account</p>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="signature">
+                    <p> For: Admix Media Pvt. Ltd.</p>
+                    <img src="assets/Images/signature.png" alt="Authorized Signature">
+                    <p><strong>Authorized Signatory</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer">
+                    <h6>Declaration</h6>
+                    <ul>
+                        <li>We declare that this invoice shows the actual price of the goods described and that all perticulars are true and correct.</li>
+                        <li>This is a Computer Generated Invoice.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

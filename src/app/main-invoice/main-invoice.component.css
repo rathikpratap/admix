@@ -141,19 +141,34 @@ textarea {
 .custForm-inline input{
     font-size: 20px;
 }
-  .custForm-inline{
-    display: flex;
-    align-items: center;
-}
-.custForm-inline input.inline-input {
-    margin-left: 10px; /* Adjust the margin as needed */
-  }
-  .inline-input2{
-    margin-left: 130px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    width: 75%;
-  }
   select{
     font-size: 20px;
+}.form-container {
+    max-width: 800px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+.inline-fields {
+    display: flex;
+    gap: 10px; /* Adds space between the fields */
+}
+
+.inline-fields .form-control {
+    width: calc(50% - 5px); /* Ensures each input shares the row evenly */
 }

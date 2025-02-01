@@ -1,0 +1,174 @@
+
+.invoice-container {
+    max-width: 1700px;
+    margin: 20px auto;
+    padding: 50px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.top-left-text p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+hr{
+    border-width: 0;
+    height: 3px;
+    color: #fe371f;
+    background-color: #fe371f;
+}
+
+.box-left {
+    background-color: #5d11b5;
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-transform: perspective(5px) rotateX(0.25deg) translateZ(-1px);
+    transform: perspective(5px) rotateX(.25deg) translateZ(-1px);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-box-shadow: 15px -15px 30px rgba(0, 0, 0, 0.32);
+    -moz-box-shadow: 15px -15px 30px rgba(0, 0, 0, 0.32);
+    box-shadow: 15px -15px 30px rgba(0, 0, 0, 0.32);
+}
+.box-left img {
+    width: 60%;
+}
+.est-text{
+    justify-content: center;
+    text-align: center;
+    color: #5d11b5;
+    text-decoration: underline;
+}
+.mid-txt{
+    display: flex;
+    justify-content: space-between;
+}
+.name-txt{
+    width: 40%;
+}
+.name-txt h4{
+    color: #5d11b5;
+}
+.name-txt p{
+    font-size: 20px;
+}
+.bill-number h4{
+    color: #5d11b5;
+    text-decoration: underline;
+}
+.bill-number p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+table th{
+    background-color: #5d11b5;
+    color: #fff;
+}
+table{
+    font-size: 20px;
+}
+.inline-elements {
+    display: flex;
+}
+.lower-mid-text{
+    display: flex;
+    justify-content: space-between;
+}
+.est-amt p{
+    font-size: 20px;
+}
+.sub-total{
+    display: flex;
+    justify-content:space-around;
+}
+.sub-total-title{
+    margin-right: 30px;
+}
+.sub-total-title p{
+    font-size: 18px;
+}
+.sub-total-title p strong{
+    margin-right: 65px;
+}
+.bottom-total strong{
+    margin-right: 88px !important;
+}
+.bottom-total{
+    background-color: #5d11b5;
+    color: #fff;
+    padding: 5px 5px 5px 5px;
+}
+.payment-details{
+    display: flex;
+    justify-content: space-between;
+}
+.table-scroll{
+    text-align: center;
+}
+.details p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+.est-text h4{
+    font-weight: 700;
+}
+.qr-code img{
+    width: 50%;
+}
+.signature img{
+    width: 25%;
+    margin-left: 20px;
+}
+.signature p{
+    font-size: 20px;
+}
+td input, select{
+    border: none;
+}
+.otherCategory{
+    margin-top: 10px;
+}
+.signature{
+    padding-left: 40px;
+}
+textarea {
+    border-radius: 10px;
+    border: none;
+  }
+.custForm-inline input{
+    font-size: 20px;
+}
+  select{
+    font-size: 20px;
+}.form-container {
+    max-width: 800px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+.inline-fields {
+    display: flex;
+    gap: 10px; /* Adds space between the fields */
+}
+
+.inline-fields .form-control {
+    width: calc(50% - 5px); /* Ensures each input shares the row evenly */
+}

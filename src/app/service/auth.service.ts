@@ -1219,5 +1219,9 @@ export class AuthService {
   receivedQr():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/receivedQr`);
   }
-
+  getSelectedInvoice(id:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/read-inv/${id}`, {headers: this.httpHeaders}).pipe(map((res:any)=>{
+      return res || {}
+    }), catchError(this.handleError))
+  }
 }

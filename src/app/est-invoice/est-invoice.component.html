@@ -41,7 +41,7 @@
                 <div class="col-lg-12">
                     <div class="est-text">
                         <!-- <h3>ESTIMATE INVOICE</h3> -->
-                        <h3>INVOICE</h3>
+                        <h3>QUOTATION</h3>
                     </div>
                 </div>
             </div>
@@ -53,12 +53,12 @@
                             <!-- <h3>{{name}}</h3> -->
                             <form [formGroup]="custForm" class="form-container">
                                 <div class="form-group">
-                                    <input type="text" value="{{name}}" class="form-control topName-txt" formControlName="custName" placeholder="Customer Name">
+                                    <input type="text" class="form-control topName-txt" formControlName="custName" placeholder="Customer Name">
                                 </div>
                             
                                 <div class="form-group">
                                     <label for="contactNo"><strong>Contact No:</strong></label>
-                                    <input type="text" id="contactNo" class="form-control" formControlName="custNumb" value="{{number}}" placeholder="Enter contact number">
+                                    <input type="text" id="contactNo" class="form-control" formControlName="custNumb" placeholder="Enter contact number">
                                 </div>
                             
                                 <div class="form-group">
@@ -79,7 +79,7 @@
                         </div>
                         <div class="bill-number">
                             <h4>Invoice Details</h4>
-                            <p><strong>Invoice No.</strong> {{100+count}}</p>
+                            <p><strong>Invoice No.</strong> {{160+count}}</p>
                             <p><strong>Date:</strong> {{currentDate}}</p>
                         </div>
                     </div>
