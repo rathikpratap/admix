@@ -131,7 +131,7 @@ export class NewCustomerComponent {
     companyName : new FormControl(""),
     graphicDesigner : new FormControl(""),
     graphicPassDate : new FormControl(""),
-    Qr : new FormControl("null")
+    Qr : new FormControl("",[Validators.required])
   });
 
   b2bCustomerForm = new FormGroup({

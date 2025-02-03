@@ -20,6 +20,7 @@ export class UpdateCustomerComponent implements OnInit{
   tok:any;
   emp:any;
   companies: any;
+  
 
   codeInput!: ElementRef<HTMLInputElement>;
   
@@ -64,7 +65,7 @@ export class UpdateCustomerComponent implements OnInit{
     restPaymentDate: new FormControl("", [Validators.required]), 
     leadsCreatedDate: new FormControl(""),
     companyName: new FormControl(""),
-    Qr: new FormControl("")
+    Qr: new FormControl("",[Validators.required])
   })
 
   updateEmbeddedVideoUrl() {
@@ -204,9 +205,20 @@ export class UpdateCustomerComponent implements OnInit{
   }
  
   onUpdate() {
+    // Mark all form fields as touched to show validation messages
+    Object.keys(this.updateForm.controls).forEach(field => {
+      const control = this.updateForm.get(field);
+      control?.markAsTouched();
+      control?.updateValueAndValidity();
+  });
+
+  // Check if form is invalid before proceeding
+  if (this.updateForm.invalid) {
+      return;
+  }
     const currentDate = new Date().toISOString();
     if(!this.updateForm.get('AdvPay')!.value){
-      this.updateForm.get('AdvPay')?.setValue(0);
+      this.updateForm.get('AdvPay')?.setValue(0); 
     }
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");

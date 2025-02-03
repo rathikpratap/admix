@@ -42,40 +42,79 @@
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Client Code</th>
-                        <th scope="col">Client Name</th>
-                        <th scope="col">Mobile Number</th>
-                        <th scope="col">Project Category</th>
-                        <th scope="col">Closing Date</th>
-                        <th scope="col">Closing Payment</th>
-                        <th scope="col">Received QR</th>
-                        <th scope="col">Amount Received</th>
-                        <th scope="col">Remaining Amount</th>
-                        <th scope="col">Project Status</th>
-                        <th scope="col">Transfer To</th>
-                        <th scope="col"> Create Invoice</th>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Received QR</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Rest Amount</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <th scope="col">Project Status</th>
+                            <th scope="col">Transfer To</th>
+                            <th scope="col">Action</th>
+                            <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers; let i = index">
+                    <tr *ngFor="let user of customers; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{customer.custCode}}</td>
-                        <td>{{customer.custName}}</td>
-                        <td>{{customer.custNumb}}</td>
-                        <td>{{customer.closingCateg}}</td>
-                        <td>{{customer.closingDate}}</td>
-                        <td>{{customer.closingPrice}}</td>
-                        <td>{{customer.Qr}}</td>
-                        <td>{{customer.AdvPay}}</td>
-                        <td>{{customer.remainingAmount}}</td>
-                        <td>{{customer.projectStatus}}</td>
-                        <td>
-                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
-                                <option value="">Select</option> 
-                                <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
-                            </select>
-                        </td>
-                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custNumb}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.Qr}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.restAmount}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>
+                                <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
+                                    <option value="Select">Select</option>
+                                    <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">{{empB.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td>{{user.bundleStatus}}</td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user,user.graphicStatus)">
+                                    <option value="Not Completed">Not Completed</option>
+                                    <option value="Graphic Designing Changes">Changes</option>
+                                    <option value="Complete">Completed</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <td>
+                                <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
+                                    <option value="">Select</option> 
+                                    <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
+                                <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>   
+                                </div>
+                            </td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                     </tr>
                 </tbody>
             </table>
@@ -97,11 +136,15 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Received QR</th>
                             <th scope="col">Amount Received</th>
-                            <th scope="col">Rest Amount Received</th>
+                            <th scope="col">Rest Amount</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
-                            <th scope="col">Action</th>
                             <th scope="col">Transfer To</th>
+                            <th scope="col">Action</th>
                             <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
@@ -112,22 +155,50 @@
                             <td>{{user.custName}}</td>
                             <td>{{user.custNumb}}</td>
                             <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td> 
+                            <td>{{user.closingDate}}</td>
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.Qr}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td> 
-                            <td>{{user.projectStatus}}</td>
+                            <td>{{user.remainingAmount}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                                <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>
+                                <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
+                                    <option value="Select">Select</option>
+                                    <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">{{empB.signupUsername}}</option>
+                                </select>
                             </td>
+                            <td>{{user.bundleStatus}}</td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user,user.graphicStatus)">
+                                    <option value="Not Completed">Not Completed</option>
+                                    <option value="Graphic Designing Changes">Changes</option>
+                                    <option value="Complete">Completed</option>
+                                </select>
+                            </td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
                             <td>
                                 <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
                                     <option value="">Select</option> 
                                     <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}</option>
                                 </select>
+                            </td>
+                            <td>
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
+                                <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>   
+                                </div>
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
                         </tr>
@@ -248,8 +319,10 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Received QR</th>
                             <th scope="col">Amount Received</th>
-                            <th scope="col">Rest Amount Received</th>
+                            <th scope="col">Rest Amount</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
@@ -271,6 +344,13 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
+                            <td>
+                                <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
+                                    <option value="Select">Select</option>
+                                    <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">{{empB.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td>{{user.bundleStatus}}</td>
                             <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                 <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
                                     <option value="">Select</option>
@@ -323,8 +403,10 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Received QR</th>
                             <th scope="col">Amount Received</th>
-                            <th scope="col">Rest Amount Received</th>
+                            <th scope="col">Rest Amount</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
                             <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
                             <th scope="col">Project Status</th>
@@ -346,6 +428,13 @@
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
+                            <td>
+                                <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
+                                    <option value="Select">Select</option>
+                                    <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">{{empB.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td>{{user.bundleStatus}}</td>
                             <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                 <select [(ngModel)]="user.graphicDesigner" (change)="updateDesigner(user,user.graphicDesigner)">
                                     <option value="">Select</option>

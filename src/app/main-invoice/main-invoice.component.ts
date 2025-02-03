@@ -57,9 +57,6 @@ export class MainInvoiceComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    // this.invoiceForm.get('numOfVideos')?.valueChanges.subscribe(value => {
-    //   this.calculateAmount();
-    // });
     this.date = new Date();
     this.currentDate = this.formatDate(this.date);
     this.invoiceForm.get('billType')?.valueChanges.subscribe(value=>{
@@ -85,8 +82,6 @@ export class MainInvoiceComponent implements OnInit {
         custName: this.name,
         custNumb: this.number
       });
-      // this.priceOfVideo = res.closingPrice;
-      // this.categ = res.closingCateg;
     });
 
     this.auth.mainInvoiceCount().subscribe((res:any)=>{
@@ -96,19 +91,6 @@ export class MainInvoiceComponent implements OnInit {
     this.addRow();
     
   }
-
-  // calculateAmount(): void {
-
-  //   this.numOfVideos = this.invoiceForm.get('numOfVideos')?.value ?? 0;
-  //     this.amount = this.numOfVideos * this.priceOfVideo;
-  //     if(this.Bill === 'GST'){
-  //       this.gstAmount = this.amount*0.18;
-  //     }else{
-  //       this.gstAmount = 0;
-  //     }
-  //     this.totalAmount = this.amount + this.gstAmount;
-  //     this.wordsAmt = numWords(this.totalAmount);
-  // }
   
   constructor(private auth:AuthService,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private toastr: ToastrService){ }
 
@@ -185,60 +167,6 @@ export class MainInvoiceComponent implements OnInit {
       this.wordsAmt = 'Error';
     }
   }
-  
-  // downloadPdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       //const pdf = new jsPDF('p', 'mm', 'a4');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p', 
-  //         unit: 'mm', 
-  //         format: [210 * 1.5, 297 * 1.5]  // A4 size increased by 1.5 times
-  //       });
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       // pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       const fileName = `invoice_${this.name}.pdf`.replace(/\s+/g, '_');  // Replace spaces with underscores
-  //       pdf.save(fileName);
-  //     });
-  //   }
-
-  //   const rowsData = this.rows.controls.map(row => {
-  //     return {
-  //       invoiceCateg: row.get('invoiceCateg')?.value || '',
-  //       customCateg: row.get('customCateg')?.value || '',
-  //       numOfVideos: row.get('numOfVideos')?.value || 0,
-  //       priceOfVideos: row.get('priceOfVideos')?.value || 0,
-  //       gst: row.get('gst')?.value || 0,
-  //       amt: row.get('amt')?.value || 0
-  //     };
-  //   });
-
-  //   //this.invoiceForm.get('custName')?.setValue(this.name);
-  //   this.invoiceForm.get('invoiceDate')?.setValue(this.date);
-  //   this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount);
-  //   this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount);
-  //   //this.invoiceForm.get('custNumb')?.setValue(this.number);
-  //   this.invoiceForm.get('billFormat')?.setValue('Main');
-  //   this.invoiceForm.get('billNumber')?.setValue(this.count);
-  //   this.invoiceForm.get('rows')?.setValue(rowsData);
-  //   const invoiceData = this.invoiceForm.value;
-  //   const custData = this.custForm.value;
-  //   const combinedData = {...custData, ...invoiceData};
-  //   this.auth.addEstInvoice(combinedData).subscribe((res:any)=>{
-  //     if(res.success){
-  //       alert('Invoice saved successfully');
-  //     }else{
-  //       alert('error saving invoice');
-  //     }
-  //   });
-  // }
 
   downloadPdf(){
     const rowsData = this.rows.controls.map(row => {

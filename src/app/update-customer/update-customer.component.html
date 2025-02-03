@@ -67,7 +67,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Date: </span>
-                            <input type="Date" class="form-control" formControlName="closingDate"
+                            <input [type]="updateForm.get('closingDate')!.value ? 'text':'date'" class="form-control" formControlName="closingDate"
                                 [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
                                 placeholder="Enter Closing Date">
                             <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
@@ -147,7 +147,7 @@
                                 class="form-control" formControlName="restPaymentDate"
                                 [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
                                 placeholder="Enter Closing Date">
-                            <div *ngIf="getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched;">
+                            <div *ngIf="getControls('restPaymentDate')?.errors">
                                 <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']"> Rest Payment Date is Required</label>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 <option value="Swati Varshney">Swati Varshney</option>
                                 <option value="Umeshchand Varshney">Umeshchand Varshney</option>
                             </select>
-                            <div *ngIf="getControls('Qr')?.errors && getControls('Qr')?.touched">
+                            <div *ngIf="getControls('Qr')?.errors">
                                 <label class="text-danger" *ngIf="getControls('Qr')?.errors?.['required']"> QR Selection is Required </label>
                             </div>
                         </div>
