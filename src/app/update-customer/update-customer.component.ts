@@ -25,7 +25,7 @@ export class UpdateCustomerComponent implements OnInit{
   codeInput!: ElementRef<HTMLInputElement>;
   
   ngOnInit(): void {
-    this.updateForm.get('AdvPay')?.valueChanges.subscribe(value=>{
+    this.updateForm.get('AdvPay')!.valueChanges.subscribe(value=>{
       this.updateForm.get('restAmount')!.setValue('0');
     })
     
@@ -205,23 +205,13 @@ export class UpdateCustomerComponent implements OnInit{
   }
  
   onUpdate() {
-    // Mark all form fields as touched to show validation messages
-    Object.keys(this.updateForm.controls).forEach(field => {
-      const control = this.updateForm.get(field);
-      control?.markAsTouched();
-      control?.updateValueAndValidity();
-  });
-
-  // Check if form is invalid before proceeding
-  if (this.updateForm.invalid) {
-      return;
-  }
     const currentDate = new Date().toISOString();
     if(!this.updateForm.get('AdvPay')!.value){
       this.updateForm.get('AdvPay')?.setValue(0); 
     }
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       console.log("Data Updated Successfully");
+      console.log("UPDATED DATA=====>>", this.updateForm.value);
       const projectStatusControl = this.updateForm.get('projectStatus');
         projectStatusControl?.valueChanges.subscribe(value => {
           if (value === 'Closing') {
