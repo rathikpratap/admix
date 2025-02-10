@@ -45,7 +45,7 @@ export class ScriptUpdateComponent {
         custBussiness: res['custBussiness'],
         wordsCount: res['wordsCount'],
         scriptDuration: res['scriptDuration'],
-        scriptDeliveryDate: res['scriptDeliveryDate'],
+        scriptDeliveryDate: this.formatDate(res['scriptDeliveryDate']),
         script: res['script'],
         scriptPayment: res['scriptPayment'],
         scriptStatus: res['scriptStatus'],
@@ -74,6 +74,10 @@ export class ScriptUpdateComponent {
     this.auth.getCompany().subscribe((res:any)=>{
       this.company = res;
     });
+  }
+  formatDate(isoDate: string): string{
+    if(!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 
   getControls(name: any): AbstractControl | null {

@@ -94,10 +94,10 @@
                                 <td>{{i+1}}</td>
                                 <td>{{customer.custCode}}</td>
                                 <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
+                                <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                                 <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
+                                <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.priority}}</td>
                                 <td>{{customer.voiceOverStatus}}</td>
                                 <td>
@@ -130,10 +130,10 @@
                                 <td>{{i+1}}</td>
                                 <td>{{customer.custCode}}</td>
                                 <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
+                                <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                                 <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
+                                <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.priority}}</td>
                                 <td>{{customer.voiceOverStatus}}</td>
                                 <td>
@@ -166,10 +166,10 @@
                                 <td>{{i+1}}</td>
                                 <td>{{customer.custCode}}</td>
                                 <td>{{customer.custBussiness}}</td>
-                                <td>{{customer.voicePassDate}}</td>
+                                <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                                 <td>{{customer.voiceOverType}}</td>
-                                <td>{{customer.voiceDeliveryDate}}</td>
+                                <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{customer.priority}}</td>
                                 <td>{{customer.voiceOverStatus}}</td>
                                 <td>
@@ -180,38 +180,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
-                            <th scope="col">Assigned Date</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Voice Over Type</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let customer of data; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{customer.custCode}}</td>
-                            <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.voicePassDate}}</td>
-                            <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
-                            <td>{{customer.voiceOverType}}</td>
-                            <td>{{customer.voiceDeliveryDate}}</td>
-                            <td>{{customer.voiceOverStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> 
-            </div> -->
         </div>
         <div class="card ongoing">
             <div class="card-heading">
@@ -238,10 +206,10 @@
                             <td>{{i+1}}</td>
                             <td>{{customer.custCode}}</td>
                             <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.voicePassDate}}</td>
+                            <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                             <td>{{customer.voiceOverType}}</td>
-                            <td>{{customer.voiceDeliveryDate}}</td>
+                            <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{customer.voiceOverStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)">Update</button>

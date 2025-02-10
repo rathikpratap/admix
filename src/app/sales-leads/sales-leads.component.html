@@ -65,7 +65,7 @@
                         <td>{{customer.ad_Name}}</td>
                         <td>{{customer.custName}}</td>
                         <td>{{customer.custNumb}}</td>
-                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
@@ -99,7 +99,7 @@
                         <td>{{customer.ad_Name}}</td>
                         <td>{{customer.custName}}</td>
                         <td>{{customer.custNumb}}</td>
-                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
@@ -129,7 +129,7 @@
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.ad_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -179,7 +179,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{list.custName}}</td>
                                 <td>{{list.custNumb}}</td>
-                                <td>{{list.closingDate}}</td>
+                                <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{list.closingCateg}}</td>
                                 <td>{{list.closingPrice}}</td>
                                 <td>{{list.remainingAmount}}</td>
@@ -219,7 +219,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{list.custName}}</td>
                                 <td>{{list.custNumb}}</td>
-                                <td>{{list.closingDate}}</td>
+                                <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{list.closingCateg}}</td>
                                 <td>{{list.closingPrice}}</td>
                                 <td>{{list.remainingAmount}}</td>
@@ -259,7 +259,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{list.custName}}</td>
                                 <td>{{list.custNumb}}</td>
-                                <td>{{list.closingDate}}</td> 
+                                <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td> 
                                 <td>{{list.closingCateg}}</td>
                                 <td>{{list.closingPrice}}</td>
                                 <td>{{list.remainingAmount}}</td>

@@ -144,7 +144,7 @@ export class UpdateCustomerComponent implements OnInit{
         custNumb: res['custNumb'],
         custEmail: res['custEmail'],
         custBussiness: res['custBussiness'],
-        closingDate: res['closingDate'],
+        closingDate: this.formatDate(res['closingDate']),
         closingPrice: res['closingPrice'],
         closingCateg: res['closingCateg'],
         billType: res['billType'],
@@ -158,7 +158,7 @@ export class UpdateCustomerComponent implements OnInit{
         youtubeLink: res['youtubeLink'],
         remark: res['remark'],
         restAmount: res['restAmount'],
-        restPaymentDate: res['restPaymentDate'],
+        restPaymentDate: this.formatDate(res['restPaymentDate']),
         leadsCreatedDate: res['leadsCreatedDate'],
         companyName: res['companyName'],
         Qr: res['Qr']
@@ -186,6 +186,11 @@ export class UpdateCustomerComponent implements OnInit{
         this.updateForm.get('companyName')?.setValue('AdmixMedia');
       }
     });
+  }
+
+  formatDate(isoDate: string): string{
+    if(!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 
   onRestAmountChange(){

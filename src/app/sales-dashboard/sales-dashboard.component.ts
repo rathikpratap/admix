@@ -132,7 +132,7 @@ export class SalesDashboardComponent {
     }else{
       console.error("Start date and End Date is not Valid");
     }
-    
+     
   }
 
   downloadRangeFile(){

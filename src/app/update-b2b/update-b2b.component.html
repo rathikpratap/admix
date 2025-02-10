@@ -75,7 +75,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Date:</span>
-                            <input type="datetime-local" class="form-control" formControlName="b2bProjectDate"
+                            <input type="date" class="form-control" formControlName="b2bProjectDate"
                                 [ngClass]="{error:getB2bCustomerFormControl('b2bProjectDate')?.errors && getB2bCustomerFormControl('b2bProjectDate')?.touched}"
                                 placeholder="Enter Project Date">
                             <div *ngIf="getB2bCustomerFormControl('b2bProjectDate')?.errors && getB2bCustomerFormControl('b2bProjectDate')?.touched">

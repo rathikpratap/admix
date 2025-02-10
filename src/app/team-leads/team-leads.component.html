@@ -100,7 +100,7 @@
                         <td>{{customer.campaign_Name}}</td>
                         <td>{{customer.custName}}</td>
                         <td>{{customer.custNumb}}</td>
-                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
@@ -144,7 +144,7 @@
                         <td>{{customer.campaign_Name}}</td>
                         <td>{{customer.custName}}</td>
                         <td>{{customer.custNumb}}</td>
-                        <td>{{customer.closingDate}}</td>
+                        <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
@@ -191,7 +191,7 @@
                         <tr *ngFor="let list of rangeData; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -295,7 +295,7 @@
                         <tr *ngFor="let list of data; let i = index"> 
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -356,7 +356,7 @@
                         <tr *ngFor="let list of dataYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -418,7 +418,7 @@
                         <tr *ngFor="let list of dataOneYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -480,7 +480,7 @@
                         <tr *ngFor="let list of dataTwoYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -542,7 +542,7 @@
                         <tr *ngFor="let list of dataThreeYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -604,7 +604,7 @@
                         <tr *ngFor="let list of dataFourYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
@@ -666,7 +666,7 @@
                         <tr *ngFor="let list of dataFiveYesterday; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>

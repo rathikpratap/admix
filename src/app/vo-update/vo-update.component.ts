@@ -45,7 +45,7 @@ export class VoUpdateComponent {
         custCode: res['custCode'],
         custBussiness: res['custBussiness'],
         voiceDuration: res['voiceDuration'],
-        voiceDeliveryDate: res['voiceDeliveryDate'],
+        voiceDeliveryDate: this.formatDate(res['voiceDeliveryDate']),
         voiceOverType: res['voiceOverType'],
         voicePayment: res['voicePayment'],
         voiceOverStatus: res['voiceOverStatus'],
@@ -57,7 +57,7 @@ export class VoUpdateComponent {
         companyName: res['companyName'],
         salesPerson: res['salesPerson']
       })
-    })
+    });
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
@@ -65,15 +65,20 @@ export class VoUpdateComponent {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
-    })
+    });
 
     this.auth.allEmployee().subscribe((res:any)=>{
       console.log("All Employees==>", res);
       this.emp = res;
     });
+    
     this.auth.getCompany().subscribe((res:any)=>{
       this.company = res;
-    })
+    });
+  }
+  formatDate(isoDate: string): string{
+    if(!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 
   getControls(name: any): AbstractControl | null {

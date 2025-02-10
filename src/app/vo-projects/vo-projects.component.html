@@ -54,10 +54,10 @@
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode}}</td> 
                         <td>{{customer.custBussiness}}</td>
-                        <td>{{customer.voicePassDate}}</td>
+                        <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                         <td>{{customer.voiceOverType}}</td>
-                        <td>{{customer.voiceDeliveryDate}}</td>
+                        <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.voiceOverStatus}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
@@ -86,10 +86,10 @@
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode}}</td> 
                         <td>{{customer.custBussiness}}</td>
-                        <td>{{customer.voicePassDate}}</td>
+                        <td>{{customer.voicePassDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.voiceDurationMinutes}}:{{customer.voiceDurationSeconds}}</td>
                         <td>{{customer.voiceOverType}}</td>
-                        <td>{{customer.voiceDeliveryDate}}</td>
+                        <td>{{customer.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.voiceOverStatus}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
@@ -137,10 +137,10 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voicePassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
                             <td>{{user.voiceOverType}}</td>
-                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -171,10 +171,10 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voicePassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
                             <td>{{user.voiceOverType}}</td>
-                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -205,10 +205,10 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voicePassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
                             <td>{{user.voiceOverType}}</td>
-                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -239,10 +239,10 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td> 
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.voicePassDate}}</td>
+                            <td>{{user.voicePassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceDurationMinutes}}:{{user.voiceDurationSeconds}}</td>
                             <td>{{user.voiceOverType}}</td>
-                            <td>{{user.voiceDeliveryDate}}</td>
+                            <td>{{user.voiceDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.voiceOverStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>

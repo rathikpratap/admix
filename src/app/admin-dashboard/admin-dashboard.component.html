@@ -8,8 +8,7 @@
                             <h6> Today's Sale </h6>
                         </div>
                         <!-- <h2> {{todayEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#todayEntryModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayEntryModal">
                             {{todayEntries}}
                         </button>
                     </div>
@@ -25,11 +24,15 @@
                         <div class="card-bg">
                             <h6> Monthly Sale </h6>
                         </div>
-                        <!-- <h2> {{totalEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#totalEntryModal">
+                        <h2 *ngIf="rangeData; else elseBlock4">
+                            {{rangeDataCount}}
+                        </h2>
+                        <ng-template #elseBlock4>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                             {{totalEntries}}
-                        </button>
+                            </button>
+                        </ng-template>
+                        <!-- <h2> {{totalEntries}} </h2> -->
                     </div>
                 </div>
             </div>
@@ -43,11 +46,15 @@
                         <div class="card-bg">
                             <h6> Month Active Projects </h6>
                         </div>
-                        <!-- <h2> {{dataLength}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#ActiveProjectsModal">
+                        <h2 *ngIf="onGoingDataCount; else elseBlock5">
+                            {{onGoingDataCount}}
+                        </h2>
+                        <ng-template #elseBlock5>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
                             {{dataLength}}
                         </button>
+                        </ng-template>
+                        <!-- <h2> {{dataLength}} </h2> -->
                     </div>
                 </div>
             </div>
@@ -62,8 +69,7 @@
                             <h6> Total Active Projects </h6>
                         </div>
                         <!-- <h2>{{allProjects}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#allActiveModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#allActiveModal">
                             {{allProjects}}
                         </button>
                     </div>
@@ -84,8 +90,7 @@
                         </h2>
                         <ng-template #elseBlock>
                             <!-- <h2>{{totalAmount}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#totalEntryModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                                 {{totalAmount}}
                             </button>
                         </ng-template>
@@ -102,14 +107,12 @@
                         <div class="card-bg2">
                             <h6> Monthly Received &#8377;</h6>
                         </div>
-
                         <!-- <h2>{{totalRecv}}</h2> -->
                          <h2 *ngIf="rangeData; else elseBlock2">
                             {{rangeData.rangeTotalRecv}}
                          </h2>
                          <ng-template #elseBlock2>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#totalEntryModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
                             {{totalRecv}}
                             </button>
                          </ng-template>
@@ -133,8 +136,7 @@
                         </h2>
                         <ng-template #elseBlock3>
                             <!-- <h2>{{totalDue}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#dueAmountModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dueAmountModal">
                                 {{totalDue}}
                             </button>
                         </ng-template>
@@ -152,9 +154,14 @@
                             <h6> Monthly Received Rest &#8377; </h6>
                         </div>
                         <!-- <h2>{{monthRestAmount}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restAmountModal">
+                         <button type="button" class="btn btn-primary" *ngIf="rangeMonthRestAmount; else elseBlockRecv">
+                            {{rangeMonthRestAmount}}
+                         </button>
+                         <ng-template #elseBlockRecv>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#restAmountModal">
                                 {{monthRestAmount}}
                         </button>
+                         </ng-template>
                     </div>
                 </div>
             </div>
@@ -192,42 +199,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-        <div class="card5">
-            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
-                <div class="form-container">
-                    <div class="card-txt">
-                        <div class="card-bg">
-                            <h6>Search Data</h6>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <label for="startDate"> Start Date</label>
-                        <input type="date" formControlName="startDate" id="startDate">
-                    </div>
-                    <div class="details">
-                        <label for="endDate"> End Date</label>
-                        <input type="date" formControlName="endDate" id="endDate">
-                    </div>
-                </div>
-                <div class="rangeButton">
-                    <button type="submit" class="btn btn-primary"> Submit</button>
-                    <div class="rangeButton1" *ngIf="rangeData">
-                        <div class="downloadButton">
-                            <button class="btn btn-success" (click)="downloadRangeFile()"> Download File </button>
-                        </div>
-                        <div class="downloadButton">
-                            <button class="btn btn-success" (click)="resetData()"> Reset Data </button>
-                        </div>
-                        <div class="downloadButton">
-                            <button class="btn btn-success" (click)="downloadDueFile()"> Download Due Data File
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
@@ -236,10 +207,14 @@
                         <div class="card-bg2">
                             <h6> Monthly Top Performer </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
-                            {{topPerformer[0]?._id}}
+                        <button type="button" class="btn btn-primary" *ngIf="rangeTop; else elseBlockTop">
+                            {{rangeTop}}
                         </button>
+                        <ng-template #elseBlockTop>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
+                            {{topPerformer[0]?._id}}
+                            </button>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -303,28 +278,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-        <div class="card4">
-            <div class="card-body">
-                <div class="form-container2">
-                    <div class="card-txt">
-                        <div class="card-bg2">
-                            <h6> Conversion Rate </h6>
-                        </div>
-                        <div class="chart-container">
-                            <canvas baseChart
-                                [data]="barChartData"
-                                [options]="barChartOptions"
-                                [type]="'bar'"
-                                width="400"
-                                height="385">
-                            </canvas>
-                          </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">

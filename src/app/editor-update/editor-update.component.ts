@@ -47,7 +47,7 @@ export class EditorUpdateComponent implements OnInit {
         custCode: res['custCode'],
         custBussiness: res['custBussiness'],
         videoDuration: res['videoDuration'],
-        videoDeliveryDate: res['videoDeliveryDate'],
+        videoDeliveryDate: this.formatDate(res['videoDeliveryDate']),
         videoType: res['videoType'],
         editorPayment: res['editorPayment'],
         editorStatus: res['editorStatus'],
@@ -79,6 +79,10 @@ export class EditorUpdateComponent implements OnInit {
       this.company = res;
       console.log("Company Details===> ", this.company);
     })
+  }
+  formatDate(isoDate: string): string{
+    if(!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 
   ngOnInit(): void {

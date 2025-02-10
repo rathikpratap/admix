@@ -149,9 +149,9 @@
                                 <td>{{user.custCode}}</td>
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
-                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.graphicPassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.graphicDeliveryDate}}</td>
+                                <td>{{user.graphicDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.watermark}}</td>
                                 <td>
                                     <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
@@ -192,9 +192,9 @@
                                 <td>{{user.custCode}}</td>
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
-                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.graphicPassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.graphicDeliveryDate}}</td>
+                                <td>{{user.graphicDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>
                                     <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
                                         <option value="Not Complete">Not Complete</option>
@@ -229,9 +229,9 @@
                                 <td>{{user.custCode}}</td>
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
-                                <td>{{user.graphicPassDate}}</td>
+                                <td>{{user.graphicPassDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.graphicDeliveryDate}}</td>
+                                <td>{{user.graphicDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>
                                     <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user, user.graphicStatus)">
                                         <option value="Not Completed">Not Completed</option>
@@ -314,38 +314,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="table-scroll">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Project Name</th>
-                            <th scope="col">Assigned Date</th>
-                            <th scope="col">Words Count</th>
-                            <th scope="col">Script</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col"> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let customer of data; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{customer.custCode}}</td> 
-                            <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.scriptPassDate}}</td>
-                            <td>{{customer.wordsCount}}</td>
-                            <td>{{customer.script}}</td>
-                            <td>{{customer.scriptDeliveryDate}}</td>
-                            <td>{{customer.scriptStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
         </div>
         <div class="card ongoing">
             <div class="card-heading">
@@ -372,9 +340,9 @@
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
-                            <td>{{user.graphicPassDate}}</td>
+                            <td>{{user.graphicPassDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.priority}}</td>
-                            <td>{{user.graphicDeliveryDate}}</td>
+                            <td>{{user.graphicDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.graphicStatus}}</td>
                         </tr>
                     </tbody>

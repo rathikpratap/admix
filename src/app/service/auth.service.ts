@@ -106,8 +106,13 @@ export class AuthService {
   }
 
   getCustData(){
-    return this.http.get(`${appConfig.apiUrl}/auth/list`);
-  }
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/list`, {headers});
+  };
   getCustDataB2b(){
     return this.http.get(`${appConfig.apiUrl}/auth/listB2b`);
   }
@@ -145,9 +150,14 @@ export class AuthService {
   getCompleteBundleData(){
     return this.http.get(`${appConfig.apiUrl}/auth/bundleCompleteList`);
   }
-  allProjectsSales(){
-    return this.http.get(`${appConfig.apiUrl}/auth/allList`);
-  } 
+  allProjectsSales(): Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/allList`,{headers});
+  };
   allProjectsAdmin(){
     return this.http.get(`${appConfig.apiUrl}/auth/allListAdmin`);
   } 
@@ -357,7 +367,12 @@ export class AuthService {
   }
 
   getMonthEntriesEmp(): Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`,{headers});
   }
   getDueAmount():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDue`);
@@ -487,10 +502,15 @@ export class AuthService {
 
   getTodayEntries(): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntries`);
-  } 
+  }
 
   getTodayEntriesEmp(): Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`, {headers});
   }
   getTodayEntriesScript():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesScript`);
@@ -505,8 +525,24 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEditorOther`);
   }
 
+  rangeTotalRecv(startDate:Date, endDate: Date):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/rangeTotalRecvAmount/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+  rangeTopPerformer(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/rangeTopPerformer/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
+  getOngoingRangeData(startDate: Date, endDate: Date): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/onGoingRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+  }
+
   getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`, {headers});
   }
   getDatabyCampaign(startDate: Date, endDate: Date, campaign: String): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/DataByCampaign/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`);

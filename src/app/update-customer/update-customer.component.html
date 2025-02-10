@@ -67,7 +67,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Closing Date: </span>
-                            <input [type]="updateForm.get('closingDate')!.value ? 'text':'date'" class="form-control" formControlName="closingDate"
+                            <input type="date" class="form-control" formControlName="closingDate"
                                 [ngClass]="{error:getControls('closingDate')?.errors && getControls('closingDate')?.touched}"
                                 placeholder="Enter Closing Date">
                             <div *ngIf="getControls('closingDate')?.errors && getControls('closingDate')?.touched">
@@ -143,14 +143,14 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment Date: </span>
-                            <input [type]="updateForm.get('restPaymentDate')!.value ? 'text' : 'date'"
+                            <input type="date"
                                 class="form-control" formControlName="restPaymentDate"
                                 [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
-                                placeholder="Enter Closing Date">
+                                placeholder="Enter Rest Payment Date">
                             <div *ngIf="getControls('restPaymentDate')?.errors">
                                 <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']"> Rest Payment Date is Required</label>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="input-box">
                         <div class="form-group">

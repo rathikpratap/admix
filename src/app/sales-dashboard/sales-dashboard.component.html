@@ -88,7 +88,7 @@
                             {{ rangeData.rangeTotalRecv }}
                         </h2>
                         <ng-template #elseBlock2>
-                            <!-- <h2>{{totalRecv}}</h2> -->
+                            <!-- <h2>{{totalRecv}}</h2> --> 
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#restAmountModal">
                                 {{totalRecv}} 
@@ -238,7 +238,7 @@
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
@@ -284,7 +284,7 @@
                             <td>{{users.custName}}</td>
                             <td>{{users.custBussiness}}</td>
                             <td>{{users.closingCateg}}</td>
-                            <td>{{users.closingDate}}</td>
+                            <td>{{users.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{users.closingPrice}}</td>
                             <td>{{users.AdvPay}}</td>
                             <td>{{users.restAmount}}</td>
@@ -334,7 +334,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -388,7 +388,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -441,7 +441,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -494,7 +494,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -547,7 +547,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -600,7 +600,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>
@@ -653,7 +653,7 @@
                                 <td>{{user.custName}}</td>
                                 <td>{{user.custBussiness}}</td>
                                 <td>{{user.closingCateg}}</td>
-                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.closingPrice}}</td>
                                 <td>{{user.AdvPay}}</td>
                                 <td>{{user.remainingAmount}}</td>

@@ -149,7 +149,7 @@ export class UpdatePanelComponent {
         custName: res['custName'],
         custNumb: res['custNumb'],
         custBussiness: res['custBussiness'],
-        closingDate: res['closingDate'],
+        closingDate: this.formatDate(res['closingDate']),
         closingPrice: res['closingPrice'],
         closingCateg: res['closingCateg'],
         AdvPay: res['AdvPay'],
@@ -162,7 +162,7 @@ export class UpdatePanelComponent {
         youtubeLink: res['youtubeLink'],
         remark: res['remark'],
         restAmount: res['restAmount'],
-        restPaymentDate: res['restPaymentDate'],
+        restPaymentDate: this.formatDate(res['restPaymentDate']),
         scriptWriter: res['scriptWriter'],
         editor: res['editor'],
         voiceOver: res['voiceOver'],
@@ -200,6 +200,11 @@ export class UpdatePanelComponent {
       this.countries = Countrydata;
     });
 
+  }
+
+  formatDate(isoDate: string): string{
+    if(!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 
   getControls(name: any): AbstractControl | null {
