@@ -175,7 +175,7 @@ export class MainInvoiceComponent implements OnInit {
         customCateg: row.get('customCateg')?.value || '',
         numOfVideos: row.get('numOfVideos')?.value || 0,
         priceOfVideos: row.get('priceOfVideos')?.value || 0,
-        get: row.get('gst')?.value || 0,
+        gst: row.get('gst')?.value || 0,
         amt: row.get('amt')?.value || 0
       };
     });
