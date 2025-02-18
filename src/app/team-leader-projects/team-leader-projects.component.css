@@ -1,0 +1,183 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+tr.highlighted {
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1); 
+  }
+.nameCard{
+      
+    /* display: flex; */
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.nameCard2{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+/* .searchCard{
+    margin-left: -30px;
+} */
+.searchCard form input{
+    background: rgba(255,255, 255, 0);
+    width: 60%;
+    color: #fff;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.nameCard form input:focus{
+    border-color: rgb(255, 0, 0);
+}
+.ProjectCard{
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px;
+    width: fit-content;
+    background-color: white;
+}
+ 
+.table{
+    font-size: 14px;
+    margin-top: 15px;
+}
+.title-heading{ 
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+}
+.downloadFile{
+    text-align: right;
+    margin-bottom: 15px;
+}
+.update-button{
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.searchData{
+    display: flex;
+}
+.searchData .details{
+    color: #fff; 
+    display: flex;
+}
+.searchData .details input{
+    background: rgba(255,255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid #D1D1D4;
+    color: #fff;
+    padding: 5px;
+}
+.searchData .details label{
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 300;
+    font-size: 14px;
+}
+.searchData button{
+    margin-left: 10px;
+}
+.allCustomers{
+    margin-bottom: 25px;
+}
+
+.rangeData{
+    margin-top: 20px;
+}
+.downloadButton{
+    text-align: right;
+    margin-bottom: 15px;
+}
+.btn[aria-expanded="true"] {
+    background-color: green;
+}
+.custom-file-upload{
+    display: flex;
+    color: #fff;
+}
+.custom-file-upload input{
+    width: 55%;
+}
+.custom-file-upload p{
+    font-size: 14px;
+    margin-right: 5px;
+}
+.d-line-flex{
+    margin-top: 15px;
+}
+.d-line-flex button{
+    margin-right: 15px;
+}
+
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    overflow: scroll;
+}
+@media only screen and (max-width: 534px){
+    .move-to-new-row {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+    .searchData{
+        display: block;
+    }
+    .searchData .details{
+        margin-top: 10px;
+    }
+}
+@media only screen and (min-width: 534px) and (max-width: 1200px) { /* Medium and Small screens */
+    .move-to-new-row {
+        flex-basis: 100%; /* Full width for medium and small screens */
+        max-width: 100%;
+        margin-top: 15px;
+    }
+}

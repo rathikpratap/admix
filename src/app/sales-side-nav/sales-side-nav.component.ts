@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../service/auth.service';
+//import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -88,20 +88,52 @@ export class SalesSideNavComponent {
       route: '/salesHome/b2b-projects'
     }
   ];
+  list3 = [
+    {
+      number: '1',
+      name: 'Bundle Dashboard',
+      icon: 'bi bi-house',
+      route: '/salesHome/bundle-dashboard'
+    },
+    {
+      number: '2',
+      name: 'All Bundles',
+      icon: 'bi bi-card-list',
+      route: '/salesHome/bundle-projects'
+    }
+  ];
+  list4 = [
+    {
+      number: '1',
+      name: 'Team Leader Dashboard',
+      icon: 'bi bi-house',
+      route: '/salesHome/team-leader'
+    },
+    {
+      number: '2',
+      name: 'All Team Dashboard',
+      icon: 'bi bi-card-list',
+      route: '/salesHome/team-leader-projects'
+    }
+  ];
   list = this.list1;
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.auth.getProfile().subscribe((res: any) => {
-      this.tok = res?.data;
-      this.currentTeam = this.tok.salesTeam;
-      this.updateListBasedOnTeam();
+    this.router.events.subscribe(() => {
+      this.updateListBasedOnRoute();
     });
+    this.updateListBasedOnRoute();
   }
-  private updateListBasedOnTeam(): void {
-    if (this.currentTeam === 'Shiva Development') {
+  private updateListBasedOnRoute(): void {
+    const currentUrl = this.router.url;
+    if(currentUrl === '/salesHome/b2b-dashboard' || currentUrl === '/salesHome/newCustomer' || currentUrl === '/salesHome/b2b-projects' ){
       this.list = this.list2;
-    } else {
+    }else if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
+      this.list = this.list3;
+    }else if(currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects'){
+      this.list = this.list4;
+    }else{
       this.list = this.list1;
     }
   }

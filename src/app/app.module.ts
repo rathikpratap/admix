@@ -81,6 +81,8 @@ import { WhatsAppLeadsComponent } from './whats-app-leads/whats-app-leads.compon
 import { MainInvoiceComponent } from './main-invoice/main-invoice.component';
 import { AdminWhatsAppLeadsComponent } from './admin-whats-app-leads/admin-whats-app-leads.component';
 import { appConfig } from 'src/environment';
+import { TeamLeaderComponent } from './team-leader/team-leader.component';
+import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
 
 
  
@@ -153,6 +155,8 @@ import { appConfig } from 'src/environment';
     WhatsAppLeadsComponent,
     MainInvoiceComponent,
     AdminWhatsAppLeadsComponent,
+    TeamLeaderComponent,
+    TeamLeaderProjectsComponent
     ],
   imports: [
     BrowserModule,

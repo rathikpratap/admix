@@ -1,6 +1,6 @@
 export const appConfig = {
-    apiUrl : 'https://www.login.admixmedia.in/api',
-    //apiUrl : 'http://localhost:5000',
+    //apiUrl : 'https://www.login.admixmedia.in/api',
+    apiUrl : 'http://localhost:5000',
     production: false,
     firebase: {
     // apiKey: "AIzaSyBI2Tr1-YBb7y2Iev1GSqAdJDgr2kEMIfg",

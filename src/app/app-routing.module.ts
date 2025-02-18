@@ -84,6 +84,8 @@ import { IncentiveCalculationComponent } from './incentive-calculation/incentive
 import { SalesIncentiveComponent } from './sales-incentive/sales-incentive.component';
 import { BundleDashboardComponent } from './bundle-dashboard/bundle-dashboard.component';
 import { BundleProjectsComponent } from './bundle-projects/bundle-projects.component';
+import { TeamLeaderComponent } from './team-leader/team-leader.component';
+import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
 
 const routes: Routes = [
   {
@@ -306,6 +308,22 @@ const routes: Routes = [
       {
         path: 'sales-incentive',
         component: SalesIncentiveComponent
+      },
+      {
+        path: 'bundle-dashboard',
+        component: BundleDashboardComponent
+      },
+      {
+        path: 'bundle-projects',
+        component: BundleProjectsComponent
+      },
+      {
+        path: 'team-leader',
+        component: TeamLeaderComponent
+      },
+      {
+        path: 'team-leader-projects',
+        component: TeamLeaderProjectsComponent
       }
     ]
   },
@@ -353,14 +371,6 @@ const routes: Routes = [
       {
         path: 'editor-attendance',
         component: EditorAttendanceComponent
-      },
-      {
-        path: 'bundle-dashboard',
-        component: BundleDashboardComponent
-      },
-      {
-        path: 'bundle-projects',
-        component: BundleProjectsComponent
       }
     ]
   },

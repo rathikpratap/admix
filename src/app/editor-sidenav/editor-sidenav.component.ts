@@ -83,5 +83,5 @@ export class EditorSidenavComponent {
       this.list = this.list1;
     }
   }
-}
+} 
  

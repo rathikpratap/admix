@@ -73,7 +73,11 @@ export class BundleDashboardComponent {
     });
   }
   projects() {
-    const url = `/editor-home/editor-dashboard`;
+    const url = `/salesHome/team-leader`;
+    window.open(url, '_blank');
+  }
+  salesWork() {
+    const url = `/salesHome/salesDashboard`;
     window.open(url, '_blank');
   }
   markAsRead(notifId: any) {

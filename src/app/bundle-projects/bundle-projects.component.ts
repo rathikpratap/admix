@@ -85,8 +85,11 @@ export class BundleProjectsComponent {
     }
   } 
   otherProjects(){
-    const url = `/editor-home/editor-projects`;
+    const url = `/salesHome/team-leader`;
     window.location.href = url;
-    //window.open(url, '_blank');
+  }
+  sales(){
+    const url = `/salesHome/salesDashboard`;
+    window.location.href = url;
   }
 }
