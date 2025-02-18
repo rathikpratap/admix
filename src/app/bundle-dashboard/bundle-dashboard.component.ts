@@ -74,11 +74,13 @@ export class BundleDashboardComponent {
   }
   projects() {
     const url = `/salesHome/team-leader`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   salesWork() {
     const url = `/salesHome/salesDashboard`;
-    window.open(url, '_blank');
+    window.location.href = url;
+    //window.open(url, '_blank');
   }
   markAsRead(notifId: any) {
     this.auth.markRead({ id: notifId }).subscribe((res: any) => {

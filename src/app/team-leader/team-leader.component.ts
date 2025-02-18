@@ -292,4 +292,14 @@ export class TeamLeaderComponent implements OnInit {
   resetData() {
     location.reload();
   }
+  bundles(){
+    const url = `/salesHome/bundle-dashboard`;
+    window.location.href = url;
+    //window.open(url,'_blank');
+  }
+  salesWork(){
+    const url = `/salesHome/salesDashboard`;
+    window.location.href = url;
+    //window.open(url,'_blank');
+  }
 }

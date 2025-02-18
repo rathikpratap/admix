@@ -169,11 +169,13 @@ export class SalesDashboardComponent {
   }
   bundles(){
     const url = `/salesHome/bundle-dashboard`;
-    window.open(url,'_blank');
+    window.location.href = url;
+    //window.open(url,'_blank');
   }
   teamWork(){
     const url = `/salesHome/team-leader`;
-    window.open(url,'_blank');
+    window.location.href = url;
+    //window.open(url,'_blank');
   }
 }
 

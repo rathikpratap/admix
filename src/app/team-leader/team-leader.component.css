@@ -243,6 +243,9 @@ hr{
     margin-right: 50px;
     margin-left: 70px;
 }
+.getButton{
+    margin-right: 20px;
+}
 @media (max-width: 500px){
     .form-container{
         display: block;

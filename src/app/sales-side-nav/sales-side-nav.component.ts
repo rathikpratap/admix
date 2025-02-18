@@ -127,7 +127,7 @@ export class SalesSideNavComponent {
   }
   private updateListBasedOnRoute(): void {
     const currentUrl = this.router.url;
-    if(currentUrl === '/salesHome/b2b-dashboard' || currentUrl === '/salesHome/newCustomer' || currentUrl === '/salesHome/b2b-projects' ){
+    if(currentUrl === '/salesHome/b2b-dashboard' || currentUrl === '/salesHome/b2b-projects' ){
       this.list = this.list2;
     }else if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
       this.list = this.list3;
