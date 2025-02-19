@@ -124,6 +124,12 @@ td{
     border-radius: 25px;
     margin-top: 25px;
     overflow: scroll;
+    height: 550px;
+}
+.sticky-header th{
+    position: sticky;
+    top: 0;
+    background: rgba(37,37, 37, 1);
 }
 @media only screen and (max-width: 500px){
     .searchData2 input{

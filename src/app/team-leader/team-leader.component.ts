@@ -46,6 +46,9 @@ export class TeamLeaderComponent implements OnInit {
   onGoingDataCount:any;
   rangeTop:any;
   rangeMonthRestAmount:any;
+  allClosings:any;
+  closingData:any;
+  cloData:any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -56,11 +59,18 @@ export class TeamLeaderComponent implements OnInit {
     categStartDate: new FormControl(""),
     categEndDate: new FormControl("")
   });
+  closingForm = new FormGroup({
+    closing_name: new FormControl("null")
+  });
 
   ngOnInit(): void {
-    this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
-      this.campaignName = this.categForm.get('campaign_name')?.value;
-    });  
+    // this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
+    //   this.campaignName = this.categForm.get('campaign_name')?.value;
+    // });
+    this.closingForm.get('closing_name')?.valueChanges.subscribe(value=>{
+      this.closingData = this.closingForm.get('closing_name')?.value;
+      this.getData();
+    });
   }
   
   constructor(private auth: AuthService, private messagingService: MessagingService) {
@@ -146,7 +156,10 @@ export class TeamLeaderComponent implements OnInit {
     this.auth.getClosing().subscribe((res: any) => {
       this.closing_names = res.filter((closing: any, index: number, self: any[]) =>
         index === self.findIndex((clo: any) => clo.closingCateg === closing.closingCateg));
-    })
+    });
+    this.auth.allClosing().subscribe((res:any)=>{
+      this.allClosings = res;
+    });
   }
 
   downloadRestAmountFile() {
@@ -166,6 +179,13 @@ export class TeamLeaderComponent implements OnInit {
   }
   downloadAllActiveEntryFile() {
     this.auth.getAllActiveDownloadAdmin();
+  }
+
+  getData(){
+    this.auth.closingData(this.closingData).subscribe((list:any)=>{
+      this.cloData = list;
+      console.log("SELECTED=====>>", this.cloData);
+    })
   }
 
   onSubmit() {

@@ -161,6 +161,42 @@ td{
     border-radius: 25px;
     overflow: scroll;
 }
+.categ form{
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.categ-left {
+    margin-right: 10px; /* Space between the label and the select box */
+    color: #fff;
+    margin-left: 20px;
+}
+
+.categ-right {
+    width: 70%; /* Make the select box take the remaining space */
+    background: rgba(255,255, 255, 0);
+    color: #fff;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.categ form select option{
+    color: black;
+}
+.table-scroll{
+    overflow: scroll;
+    height: 550px;
+}
+.sticky-header th{
+    position: sticky;
+    top: 0;
+    background: rgba(37,37, 37, 1);
+}
+
+
 @media only screen and (max-width: 534px){
     .move-to-new-row {
         flex-basis: 100%; /* Full width for medium and small screens */

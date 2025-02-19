@@ -1,4 +1,4 @@
-import { Component, ViewChild,Renderer2 } from '@angular/core';
+import { Component, ViewChild,Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './team-leader-projects.component.html',
   styleUrl: './team-leader-projects.component.css'
 })
-export class TeamLeaderProjectsComponent {
+export class TeamLeaderProjectsComponent implements OnInit {
  
   @ViewChild('fileInput') fileInput:any;
  selectedFile: File | null =null;
@@ -28,12 +28,28 @@ export class TeamLeaderProjectsComponent {
   bundleEmp:any;
   sales:any;
   transferName: any;
+  salesPerson_name: any;
+  salesEmp:any;
+  empData:any;
+  empDataPre:any;
+  empDataTwoPre:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
+  salesForm = new FormGroup({
+    salesperson_name: new FormControl("null")
+  });
   rangeData: any;
+ 
+  ngOnInit(): void {
+    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
+      this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
+      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
+      this.getData();
+    });
+  }
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private toastr: ToastrService){
     this.auth.getProfile().subscribe((res:any)=>{
@@ -62,8 +78,7 @@ export class TeamLeaderProjectsComponent {
     });
     this.auth.allEmployee().subscribe((res: any) => {
       if (Array.isArray(res)) {
-        this.bundleEmp = res.filter((empB: any) => empB.signupRole && empB.signupRole.includes('Bundle Handler'));
-        console.log("Bundle Handlers:", this.bundleEmp);
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
       } else {
         console.error("Unexpected response format:", res);
       }
@@ -78,6 +93,19 @@ export class TeamLeaderProjectsComponent {
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
+  }
+
+  getData(){
+    this.auth.empAllProjects(this.salesPerson_name).subscribe((list : any)=>{
+      this.empData = list;
+      console.log("EMPDATA=======>>", this.empData);
+    });
+    this.auth.empAllPrevMonth(this.salesPerson_name).subscribe((list: any)=>{
+      this.empDataPre = list;
+    });
+    this.auth.empAllPrevTwoMonth(this.salesPerson_name).subscribe((list:any)=>{
+      this.empDataTwoPre = list;
+    })
   }
 
   ToggleExpanded() {
@@ -145,65 +173,5 @@ export class TeamLeaderProjectsComponent {
   invoice(userId: string){
     const url = `/salesHome/main-invoice/${userId}`;
     window.open(url,'_blank');
-  }
-
-  updateDesigner(user:any,designer:any){
-    user.graphicPassDate = new Date().toISOString();
-    this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res){
-        this.toastr.success(`Project ${user.custName} Assigned to ${designer}`,'Success');
-      }else{
-        this.toastr.error('Project Assigned Failed', 'Error');
-      }
-    });
-  };
-  updatePriority(user:any,priority:any){
-    this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res) { 
-        this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`,'Success');
-      }
-    });
-  };
-  updateStatus(user:any,graphicStatus:any){
-    this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res){
-        this.toastr.success(`Project ${user.custName} Status changed to ${graphicStatus}`,'Success');
-      }
-    })
-  }
-  updateBundle(user:any,bundleHandler:any){
-    const currentDate = new Date().toISOString().split('T')[0];
-    user.bundlePassDate = currentDate;
-    user.bundleStatus = "Not Created";
-    this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res){
-        this.toastr.success(`Bundle ${user.custName} Assigned to ${bundleHandler}`,'Success');
-      }else{
-        this.toastr.error('Bundle Assigned Failed','Error');
-      }
-    });
-    let msgTitle='Project Bundle Assigned';
-    let msgBody=`Bundle ${user.custName} Assigned`;
-
-    this.auth.sendNotifications([bundleHandler],[user],msgTitle, msgBody,currentDate).subscribe((res:any)=>{
-      if(res){
-        this.toastr.success('Notification Send','Success');
-      }else{
-        this.toastr.error('Error Sending Notification','Error');
-      }
-    })
-  };
-  transferLead(user:any,newSalesTeam:any){
-    const currentDate = new Date().toISOString();
-    const transferData = {
-      custId: user._id,
-      salesTeam: newSalesTeam,
-      closingDate: currentDate,
-      name: this.transferName
-    };
-    this.auth.transferCustomertoSales(transferData).subscribe((res:any)=>{
-      this.toastr.success("Transferred successfully","Success");
-      console.log("Customer transferred successfully", res);
-    })
   }
 }

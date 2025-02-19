@@ -1,6 +1,5 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 

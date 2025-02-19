@@ -160,6 +160,12 @@ td{
     border: 2px solid rgba(255,255,255,0.1);
     border-radius: 25px;
     overflow: scroll;
+    height: 550px;
+}
+.sticky-header th{
+    position: sticky;
+    top: 0;
+    background: rgba(37,37, 37, 1);
 }
 @media only screen and (max-width: 534px){
     .move-to-new-row {

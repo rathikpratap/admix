@@ -223,6 +223,19 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
   }
 
+  empAllProjects(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/empAllProjects/${name}`);
+  }
+  empAllPrevMonth(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/empAllPrevProjects/${name}`);
+  }
+  empAllPrevTwoMonth(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/empAllTwoPrevProjects/${name}`);
+  }
+  closingData(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allCategProjects/${name}`);
+  }
+
   allProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
   }
@@ -809,6 +822,9 @@ export class AuthService {
   }
   getClosing():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getClosingNames`);
+  }
+  allClosing():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allClosing`);
   }
   getIncentive():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/allIncentive`);
