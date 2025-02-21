@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-lg-12 d-flex justify-content-end">
-        <button class="btn btn-success getButton" (click)="salesWork()" *ngIf="tok?.signupRole?.includes('Team Leader')">Sales</button>
-        <button class="btn btn-success getButton" (click)="bundles()" *ngIf="tok?.signupRole?.includes('Bundle Handler')">Bundles</button>
+        <button class="btn btn-success getButton" (click)="salesWork()"
+            *ngIf="tok?.signupRole?.includes('Team Leader')">Sales</button>
+        <button class="btn btn-success getButton" (click)="bundles()"
+            *ngIf="tok?.signupRole?.includes('Bundle Handler')">Bundles</button>
     </div>
 </div>
 <div class="row">
@@ -14,7 +16,8 @@
                             <h6> Today's Sale </h6>
                         </div>
                         <!-- <h2> {{todayEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#todayEntryModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#todayEntryModal">
                             {{todayEntries}}
                         </button>
                     </div>
@@ -34,8 +37,9 @@
                             {{rangeDataCount}}
                         </h2>
                         <ng-template #elseBlock4>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#totalEntryModal">
-                            {{totalEntries}}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#totalEntryModal">
+                                {{totalEntries}}
                             </button>
                         </ng-template>
                         <!-- <h2> {{totalEntries}} </h2> -->
@@ -56,9 +60,10 @@
                             {{onGoingDataCount}}
                         </h2>
                         <ng-template #elseBlock5>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActiveProjectsModal">
-                            {{dataLength}}
-                        </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#ActiveProjectsModal">
+                                {{dataLength}}
+                            </button>
                         </ng-template>
                         <!-- <h2> {{dataLength}} </h2> -->
                     </div>
@@ -75,14 +80,15 @@
                             <h6> Total Active Projects </h6>
                         </div>
                         <!-- <h2>{{allProjects}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#allActiveModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#allActiveModal">
                             {{allProjects}}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
@@ -96,7 +102,8 @@
                         </h2>
                         <ng-template #elseBlock3>
                             <!-- <h2>{{totalDue}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dueAmountModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#dueAmountModal">
                                 {{totalDue}}
                             </button>
                         </ng-template>
@@ -117,8 +124,9 @@
                             {{rangeTop}}
                         </button>
                         <ng-template #elseBlockTop>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
-                            {{topPerformer[0]?._id}}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
+                                {{topPerformer[0]?._id}}
                             </button>
                         </ng-template>
                     </div>
@@ -195,8 +203,8 @@
                 </div>
             </div>
         </div>
-        </div>
-        <div class="col-lg-6 col-md-6 cvol-sm-12 col-12">
+    </div>
+    <div class="col-lg-6 col-md-6 cvol-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
                 <div class="form-container2">
@@ -275,33 +283,60 @@
                 <div class="card-heading">
                     <h4>Ongoing Projects</h4>
                 </div>
-                <div class="closing_categ d-inline-flex">
-                    <form [formGroup]="closingForm">
-                        <span class="closing_categ-left"> Select Closing:</span>
-                        <select class="form-select closing_categ-right" formControlName="closing_name"
-                            aria-label="Default select example">
-                            <option value="null">Select Closing</option>
-                            <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
-                            </option>
-                        </select>
-                    </form>
-                </div>
             </div>
             <hr>
-            <div class="table-scroll" *ngIf="this.closingForm.get('closing_name')?.value ==='null'">
+            <div class="table-scroll"
+                *ngIf="this.closingForm.get('closing_name')?.value ==='null' && this.salesForm.get('salesperson_name')?.value ==='null' && this.statusForm.get('project_status')?.value === 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                            <th scope="col">Sales Person</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -320,24 +355,337 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.closingForm.get('closing_name')?.value !=='null'">
+            <div class="table-scroll" *ngIf="this.closingForm.get('closing_name')?.value !=='null' && this.salesForm.get('salesperson_name')?.value === 'null' && this.statusForm.get('project_status')?.value === 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <th scope="col">Project Category</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <th scope="col">Project Status</th>
-                            <th scope="col">Sales Person</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of cloData">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value === 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of empData">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value === 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of combineTwo">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value ==='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value !== 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of statusData">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <td>{{user.projectStatus}}</td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value !== 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                    aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of combineThree">
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
@@ -375,6 +723,7 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Rest Payment</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Sales Person</th>
                             <th scope="col">Project Status</th>
                         </tr>
                     </thead>
@@ -389,6 +738,7 @@
                             <td>{{users.AdvPay}}</td>
                             <td>{{users.restAmount}}</td>
                             <td>{{users.remainingAmount}}</td>
+                            <td>{{users.salesPerson}}</td>
                             <td>{{users.projectStatus}}</td>
                         </tr>
                     </tbody>
@@ -844,7 +1194,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Today Received Amount</h1>
-                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal" data-bs-target="#qrPayment">
+                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal"
+                    data-bs-target="#qrPayment">
                     Check QR Payment
                 </button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -925,7 +1276,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Today Received Amount</h1>
-                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal" data-bs-target="#qrRestPayment">
+                <button type="button" class="btn btn-primary month-wise-performance" data-bs-toggle="modal"
+                    data-bs-target="#qrRestPayment">
                     Check QR Payment
                 </button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -49,6 +49,13 @@ export class TeamLeaderComponent implements OnInit {
   allClosings:any;
   closingData:any;
   cloData:any;
+  salesEmp:any;
+  salesPerson_name:any;
+  empData:any;
+  combineTwo:any;
+  projectStatus:any;
+  statusData:any;
+  combineThree:any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -62,6 +69,12 @@ export class TeamLeaderComponent implements OnInit {
   closingForm = new FormGroup({
     closing_name: new FormControl("null")
   });
+  salesForm = new FormGroup({
+    salesperson_name: new FormControl("null")
+  });
+  statusForm = new FormGroup({
+    project_status: new FormControl("null")
+  });
 
   ngOnInit(): void {
     // this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
@@ -70,7 +83,39 @@ export class TeamLeaderComponent implements OnInit {
     this.closingForm.get('closing_name')?.valueChanges.subscribe(value=>{
       this.closingData = this.closingForm.get('closing_name')?.value;
       this.getData();
+      this.check();
+      this.checkTwo();
     });
+    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
+      this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
+      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
+      this.getSalesData();
+      this.check();
+      this.checkTwo();
+    });
+    this.statusForm.get('project_status')?.valueChanges.subscribe(value=>{
+      this.projectStatus = this.statusForm.get('project_status')?.value;
+      console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
+      this.getStatusData();
+      this.checkTwo();
+    });
+  }
+
+  check(){
+    if(this.closingData && this.salesPerson_name){
+      this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res:any)=>{
+        console.log("COMBINE======>>", res);
+        this.combineTwo = res;
+      });
+    }
+  }
+  checkTwo(){
+    if(this.closingData && this.salesPerson_name && this.projectStatus){
+      this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res:any)=>{
+        console.log("COMBINE THREE=============>>", res);
+        this.combineThree = res;
+      })
+    }
   }
   
   constructor(private auth: AuthService, private messagingService: MessagingService) {
@@ -160,6 +205,13 @@ export class TeamLeaderComponent implements OnInit {
     this.auth.allClosing().subscribe((res:any)=>{
       this.allClosings = res;
     });
+    this.auth.allEmployee().subscribe((res: any) => {
+      if (Array.isArray(res)) {
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
+      } else {
+        console.error("Unexpected response format:", res);
+      }
+    });
   }
 
   downloadRestAmountFile() {
@@ -186,6 +238,18 @@ export class TeamLeaderComponent implements OnInit {
       this.cloData = list;
       console.log("SELECTED=====>>", this.cloData);
     })
+  };
+  getSalesData(){
+    this.auth.empProjects(this.salesPerson_name).subscribe((list : any)=>{
+      this.empData = list;
+      console.log("EMPDATA=======>>", this.empData);
+    });
+  };
+  getStatusData(){
+    this.auth.empStatus(this.projectStatus).subscribe((list:any)=>{
+      this.statusData = list;
+      console.log("EMPSTATUS========>>",this.statusData);
+    });
   }
 
   onSubmit() {

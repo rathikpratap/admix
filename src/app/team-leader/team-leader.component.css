@@ -261,7 +261,6 @@ hr{
 }
 .closing_categ-right {
     width: 100%; /* Make the select box take the remaining space */
-    
     background: rgba(255,255, 255, 0);
     color: #fff;
     margin-right: 15px;
@@ -274,7 +273,7 @@ hr{
 .closing_categ-left{
     width: 70%;
 }
-.closing_categ form select option{
+.closing_categ-right option{
     color: black;
 }
 @media (max-width: 500px){

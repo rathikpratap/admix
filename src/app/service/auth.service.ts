@@ -223,6 +223,19 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
   }
 
+  empProjects(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/empProjects/${name}`);
+  }
+  getSalesClosing(closing:any, person:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/sales_closing/${closing}/${person}`);
+  }
+  empStatus(status:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/empStatus/${status}`);
+  }
+  getSalesClosingStatus(closing:any, person:any, status:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/sales_statusClosing/${closing}/${person}/${status}`);
+  }
+
   empAllProjects(name:any):Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/empAllProjects/${name}`);
   }
