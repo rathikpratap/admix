@@ -63,6 +63,7 @@ export class TeamLeaderComponent implements OnInit {
   searchForm: FormGroup;
   customers :any[] = [];  
   errorMessage: any;
+  rangeSearchData:any;
   // dataSet: any[] = [];
 
   isAscending:{[key: string]: boolean} = {
@@ -297,6 +298,7 @@ export class TeamLeaderComponent implements OnInit {
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData: any) => {
         console.log("Data by Date Range==>", rangeData);
         this.rangeData = rangeData;
+        this.rangeSearchData = rangeData.rangeTotalData;
         this.rangeDataCount = rangeData.rangeTotalData.length;
       }, (error) => {
         console.error('Error fetching data', error);

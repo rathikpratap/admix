@@ -114,6 +114,12 @@ export class SalesSideNavComponent {
       name: 'All Team Dashboard',
       icon: 'bi bi-card-list',
       route: '/salesHome/team-leader-projects'
+    },
+    {
+      number: '3',
+      name: 'See Sales Work',
+      icon: 'bi bi-people',
+      route: '/salesHome/sales-workTeam'
     }
   ];
   list = this.list1;
@@ -131,7 +137,7 @@ export class SalesSideNavComponent {
       this.list = this.list2;
     }else if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
       this.list = this.list3;
-    }else if(currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects'){
+    }else if(currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam'){
       this.list = this.list4;
     }else{
       this.list = this.list1;

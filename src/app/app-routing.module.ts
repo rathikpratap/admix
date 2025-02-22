@@ -86,6 +86,7 @@ import { BundleDashboardComponent } from './bundle-dashboard/bundle-dashboard.co
 import { BundleProjectsComponent } from './bundle-projects/bundle-projects.component';
 import { TeamLeaderComponent } from './team-leader/team-leader.component';
 import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
+import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
 
 const routes: Routes = [
   {
@@ -324,6 +325,10 @@ const routes: Routes = [
       {
         path: 'team-leader-projects',
         component: TeamLeaderProjectsComponent
+      },
+      {
+        path: 'sales-workTeam',
+        component: SalesWorkTeamComponent
       }
     ]
   },
