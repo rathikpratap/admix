@@ -192,6 +192,9 @@ export class AuthService {
   updateEditors(data: any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`,{items: data});
   }
+  updateProjectStatusTeam(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`,{items: data});
+  }
 
   getCompleteProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
@@ -234,6 +237,12 @@ export class AuthService {
   }
   getSalesClosingStatus(closing:any, person:any, status:any):Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/sales_statusClosing/${closing}/${person}/${status}`);
+  }
+  getClosingStatus(closing:any, status:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/closing_status/${closing}/${status}`);
+  }
+  getSalesStatus(person:any, status:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/sales_status/${person}/${status}`);
   }
 
   empAllProjects(name:any):Observable<any>{

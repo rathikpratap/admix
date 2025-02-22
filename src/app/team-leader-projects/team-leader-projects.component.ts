@@ -34,6 +34,9 @@ export class TeamLeaderProjectsComponent implements OnInit {
   empDataPre:any;
   empDataTwoPre:any;
 
+  updateEditorVisible: boolean = true;
+  selectedRowIndex: number = -1;
+
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
@@ -173,5 +176,19 @@ export class TeamLeaderProjectsComponent implements OnInit {
   invoice(userId: string){
     const url = `/salesHome/main-invoice/${userId}`;
     window.open(url,'_blank');
+  }
+
+  highlightRow(index: number) {
+    this.selectedRowIndex = index;
+  }
+
+  updateEditors(user: any) {
+
+    this.auth.updateEditors([user]).subscribe((res: any) => {
+      if (res) {
+        //alert("Project Successfully Assigned");
+        this.toastr.success(`Project Status Changed to ${user.projectStatus}`, 'Success');
+      }
+    });
   }
 }

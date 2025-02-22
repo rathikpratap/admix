@@ -171,7 +171,7 @@
                     </option>
                 </select>
             </form>
-        </div>
+        </div> 
         <div class="collapse show" id="currentMonth" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
             <div class="table-scroll">
                 <table class="table table-striped table-responsive">
@@ -211,7 +211,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <div class="buttons">
@@ -266,7 +283,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <div class="buttons">
@@ -321,7 +355,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <th>{{user.salesPerson}}</th>
                             <td>
                                 <div class="buttons">
@@ -376,7 +427,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <div class="buttons">
@@ -431,7 +499,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <div class="buttons">
@@ -486,7 +571,24 @@
                             <td>{{user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                             <td>
                                 <div class="buttons">

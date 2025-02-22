@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-team-leader',
@@ -48,7 +49,7 @@ export class TeamLeaderComponent implements OnInit {
   rangeMonthRestAmount:any;
   allClosings:any;
   closingData:any;
-  cloData:any;
+  cloDatat:any;
   salesEmp:any;
   salesPerson_name:any;
   empData:any;
@@ -56,6 +57,25 @@ export class TeamLeaderComponent implements OnInit {
   projectStatus:any;
   statusData:any;
   combineThree:any;
+  closingStatus:any;
+  salesStatus:any;
+  updateEditorVisible: boolean = true;
+  searchForm: FormGroup;
+  customers :any[] = [];  
+  errorMessage: any;
+  // dataSet: any[] = [];
+
+  isAscending:{[key: string]: boolean} = {
+    customer: true,
+    data: true,
+    cloDatat: true,
+    empData: true,
+    combineTwo: true,
+    statusData: true,
+    combineThree: true,
+    closingStatus: true,
+    salesStatus: true
+  };
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -75,6 +95,7 @@ export class TeamLeaderComponent implements OnInit {
   statusForm = new FormGroup({
     project_status: new FormControl("null")
   });
+  
 
   ngOnInit(): void {
     // this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
@@ -98,6 +119,7 @@ export class TeamLeaderComponent implements OnInit {
       console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
       this.getStatusData();
       this.checkTwo();
+      this.check();
     });
   }
 
@@ -107,6 +129,15 @@ export class TeamLeaderComponent implements OnInit {
         console.log("COMBINE======>>", res);
         this.combineTwo = res;
       });
+    } else if(this.closingData && this.projectStatus){
+      this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res:any)=>{
+        this.closingStatus = res;
+      })
+    } else if(this.salesPerson_name && this.projectStatus){
+      this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res:any)=>{
+        this.salesStatus = res;
+        console.log("SALES STATUS===========>>>", this.salesStatus);
+      })
     }
   }
   checkTwo(){
@@ -118,9 +149,12 @@ export class TeamLeaderComponent implements OnInit {
     }
   }
   
-  constructor(private auth: AuthService, private messagingService: MessagingService) {
+  constructor(private auth: AuthService, private messagingService: MessagingService,private toastr: ToastrService,private formBuilder: FormBuilder) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
+    });
+    this.searchForm = this.formBuilder.group({
+      mobile: ['']
     });
 
     this.messagingService.requestPermission();
@@ -235,8 +269,8 @@ export class TeamLeaderComponent implements OnInit {
 
   getData(){
     this.auth.closingData(this.closingData).subscribe((list:any)=>{
-      this.cloData = list;
-      console.log("SELECTED=====>>", this.cloData);
+      this.cloDatat = list;
+      console.log("SELECTED=====>>", this.cloDatat);
     })
   };
   getSalesData(){
@@ -385,5 +419,41 @@ export class TeamLeaderComponent implements OnInit {
     const url = `/salesHome/salesDashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
+  }
+
+  updateProjectStatus(dataa: any){ 
+    console.log("UPDATE", dataa);
+    this.auth.updateProjectStatusTeam([dataa]).subscribe(( res: any)=>{
+      if(res){
+        console.log("UPDATE SUCCESS", res);
+        this.toastr.success("Data Successfully Changed","Success");
+      }
+    })
+  }
+
+  // Sort Function
+  sortByClosingDate(dataSet: 'customers' | 'data' | 'cloDatat'| 'empData'| 'combineTwo' | 'statusData' | 'combineThree' | 'closingStatus' | 'salesStatus' ): void {
+    console.log("DATE DATE");
+    this[dataSet].sort((a: any, b: any) => {
+      const dateA = new Date(a.closingDate).getTime();
+      const dateB = new Date(b.closingDate).getTime();
+  
+      return this.isAscending[dataSet] ? dateA - dateB : dateB - dateA;
+    });
+    
+    this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
+  }
+  
+  searchCustomer(){
+    const mobile = this.searchForm.get('mobile')!.value;
+    this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
+      console.log("customer",customers)
+      this.customers = customers;
+      this.errorMessage = null;
+    },
+    error=>{
+      this.customers = [];
+      this.errorMessage = error.message;
+    });
   }
 }

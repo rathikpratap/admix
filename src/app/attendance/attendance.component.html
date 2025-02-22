@@ -3,26 +3,26 @@
         <div class="Attendance">
             <h5> Attendance for {{year}}</h5>
         </div>
-    
-    <div class="month-navigation">
-        <button class="btn btn-secondary" (click)="prevMonth()">&#8592; Prev</button>
-        <h2>{{monthNames[month-1]}}</h2>
-        <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
-    </div>
 
-    <div class="calendar" *ngIf="calendarDays.length > 0; else noData">
-        <div class="week-days" *ngFor="let dayName of weekDays">{{dayName}}</div>
-        <div class="back" *ngFor="let day of calendarDays">
-            <div class="day" [ngClass]="{
+        <div class="month-navigation">
+            <button class="btn btn-secondary" (click)="prevMonth()">&#8592; Prev</button>
+            <h2>{{monthNames[month-1]}}</h2>
+            <button class="btn btn-secondary" (click)="nextMonth()">Next &#8594;</button>
+        </div>
+
+        <div class="calendar" *ngIf="calendarDays.length > 0; else noData">
+            <div class="week-days" *ngFor="let dayName of weekDays">{{dayName}}</div>
+            <div class="back" *ngFor="let day of calendarDays">
+                <div class="day" [ngClass]="{
                 'present-day': day.attendance.status === 'Present',
                 'absent-day': day.attendance.status=== 'Absent',
                 'half-day': day.attendance.status === 'Half Day'
             }" *ngIf="day.attendance">
-                <div class="date">{{day.date ? (day.date | date: 'dd') : ''}}</div>
-                <span>{{day.attendance.status}}</span>
+                    <div class="date">{{day.date ? (day.date | date: 'dd') : ''}}</div>
+                    <span>{{day.attendance.status}}</span>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <ng-template #noData>

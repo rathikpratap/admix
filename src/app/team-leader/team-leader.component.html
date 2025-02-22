@@ -16,7 +16,7 @@
                             <h6> Today's Sale </h6>
                         </div>
                         <!-- <h2> {{todayEntries}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                             data-bs-target="#todayEntryModal">
                             {{todayEntries}}
                         </button>
@@ -37,7 +37,7 @@
                             {{rangeDataCount}}
                         </h2>
                         <ng-template #elseBlock4>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                                 data-bs-target="#totalEntryModal">
                                 {{totalEntries}}
                             </button>
@@ -60,7 +60,7 @@
                             {{onGoingDataCount}}
                         </h2>
                         <ng-template #elseBlock5>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                                 data-bs-target="#ActiveProjectsModal">
                                 {{dataLength}}
                             </button>
@@ -80,7 +80,7 @@
                             <h6> Total Active Projects </h6>
                         </div>
                         <!-- <h2>{{allProjects}} </h2> -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                             data-bs-target="#allActiveModal">
                             {{allProjects}}
                         </button>
@@ -102,7 +102,7 @@
                         </h2>
                         <ng-template #elseBlock3>
                             <!-- <h2>{{totalDue}}</h2> -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                                 data-bs-target="#dueAmountModal">
                                 {{totalDue}}
                             </button>
@@ -120,11 +120,11 @@
                         <div class="card-bg2">
                             <h6> Monthly Top Performer </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" *ngIf="rangeTop; else elseBlockTop">
+                        <button type="button" class="btn btn-primary button1" *ngIf="rangeTop; else elseBlockTop">
                             {{rangeTop}}
                         </button>
                         <ng-template #elseBlockTop>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary button1" data-bs-toggle="modal"
                                 data-bs-target="#topPerformer" *ngIf="topPerformer?.length > 0">
                                 {{topPerformer[0]?._id}}
                             </button>
@@ -274,6 +274,127 @@
             </form>
         </div>
     </div>
+    <div class="col-lg-3">
+        <div class="card1">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg">
+                            <h6>Search Data</h6>
+                        </div>
+                        <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()" class="searchForm">
+                            <input type="text" formControlName="mobile" placeholder="Enter Details">
+                            <button class="btn btn-sm btn-primary button2" type="submit"> Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="customers.length > 0">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-heading">
+                <h4>Searched Data</h4>
+            </div>
+            <hr>
+            <div class="table-scroll">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('customers')">
+                                    {{ isAscending['customers'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Remark</th>
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of customers">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay + user.restAmount}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(customers)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(customers)"></textarea>
+                            </td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -299,12 +420,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('data')">
+                                    {{ isAscending['data'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -312,7 +438,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -325,6 +451,7 @@
                                     </select>
                                 </form>
                             </th>
+                            <th scope="col">Remark</th>
                             <!-- <th scope="col">Sales Person</th> -->
                             <th scope="col">
                                 <form [formGroup]="salesForm">
@@ -349,13 +476,34 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.closingForm.get('closing_name')?.value !=='null' && this.salesForm.get('salesperson_name')?.value === 'null' && this.statusForm.get('project_status')?.value === 'null'">
+            <div class="table-scroll"
+                *ngIf="this.closingForm.get('closing_name')?.value !=='null' && this.salesForm.get('salesperson_name')?.value === 'null' && this.statusForm.get('project_status')?.value === 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
@@ -368,12 +516,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('cloDatat')">
+                                    {{ isAscending['cloDatat'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -381,7 +534,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -394,7 +547,7 @@
                                     </select>
                                 </form>
                             </th>
-                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">Remark</th>
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -409,22 +562,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloData">
+                        <tr *ngFor="let user of cloDatat">
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay}}</td>
+                            <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value === 'null'">
+            <div class="table-scroll"
+                *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value === 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
@@ -437,12 +611,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('empData')">
+                                    {{ isAscending['empData'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -450,7 +629,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -463,7 +642,7 @@
                                     </select>
                                 </form>
                             </th>
-                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">Reamrk</th>
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -487,13 +666,34 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value === 'null'">
+            <div class="table-scroll"
+                *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value === 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
@@ -506,12 +706,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('combineTwo')">
+                                    {{ isAscending['combineTwo'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -519,7 +724,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -532,7 +737,7 @@
                                     </select>
                                 </form>
                             </th>
-                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">Remark</th>
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -556,13 +761,34 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value ==='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value !== 'null'">
+            <div class="table-scroll"
+                *ngIf="this.salesForm.get('salesperson_name')?.value ==='null' && this.closingForm.get('closing_name')?.value ==='null' && this.statusForm.get('project_status')?.value !== 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
@@ -575,12 +801,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('statusData')">
+                                    {{ isAscending['statusData'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -588,7 +819,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -601,7 +832,7 @@
                                     </select>
                                 </form>
                             </th>
-                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">Remark</th>
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -625,13 +856,34 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value !== 'null'">
+            <div class="table-scroll"
+                *ngIf="this.salesForm.get('salesperson_name')?.value !=='null' && this.closingForm.get('closing_name')?.value !=='null' && this.statusForm.get('project_status')?.value !== 'null'">
                 <table class="table table-striped">
                     <thead class="sticky-header">
                         <tr>
@@ -644,12 +896,17 @@
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
                                         aria-label="Default select example">
                                         <option value="null">Project Category</option>
-                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">{{camp.categoryName}}
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
                                         </option>
                                     </select>
                                 </form>
                             </th>
-                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('combineThree')">
+                                    {{ isAscending['combineThree'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
@@ -657,7 +914,7 @@
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
-                                    aria-label="Default select example">
+                                        aria-label="Default select example">
                                         <option value="null">Project Status</option>
                                         <option value="Closing">Closing</option>
                                         <option value="Scripting">Scripting</option>
@@ -670,7 +927,7 @@
                                     </select>
                                 </form>
                             </th>
-                            <!-- <th scope="col">Sales Person</th> -->
+                            <th scope="col">Remark</th>
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -694,7 +951,217 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <td>{{user.projectStatus}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll"
+                *ngIf="this.closingForm.get('closing_name')?.value !=='null' && this.salesForm.get('salesperson_name')?.value ==='null' && this.statusForm.get('project_status')?.value !== 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('closingStatus')">
+                                    {{ isAscending['closingStatus'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Remark</th>
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of closingStatus">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay + user.restAmount}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
+                            <td>{{user.salesPerson}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll"
+                *ngIf="this.closingForm.get('closing_name')?.value ==='null' && this.salesForm.get('salesperson_name')?.value !=='null' && this.statusForm.get('project_status')?.value !== 'null'">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Client Business</th>
+                            <!-- <th scope="col">Project Category</th> -->
+                            <th scope="col">
+                                <form [formGroup]="closingForm">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Category</option>
+                                        <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                            {{camp.categoryName}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Closing Date
+                                <button (click)="sortByClosingDate('salesStatus')">
+                                    {{ isAscending['salesStatus'] ? '&uarr;' : "&darr;" }}
+                                </button>
+                            </th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Remaining Amount</th>
+                            <!-- <th scope="col">Project Status</th> -->
+                            <th scope="col">
+                                <form [formGroup]="statusForm">
+                                    <select class="form-select closing_categ-right" formControlName="project_status"
+                                        aria-label="Default select example">
+                                        <option value="null">Project Status</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col">Remark</th>
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of salesStatus">
+                            <td>{{user.custCode}}</td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingCateg}}</td>
+                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.closingPrice}}</td>
+                            <td>{{user.AdvPay + user.restAmount}}</td>
+                            <td>{{user.remainingAmount}}</td>
+                            <!-- <td>{{user.projectStatus}}</td> -->
+                            <td>
+                                <select [(ngModel)]="user.projectStatus"
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                    <option value="Graphic Designing">Graphic Designing</option>
+                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                    <option value="Scripting">Scripting</option>
+                                    <option value="Script Correction">Script Correction</option>
+                                    <option value="Voice Over">Voice Over</option>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Video Changes">Video Changes</option>
+                                    <option value="Video Done">Video Done</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                            <td> 
+                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>

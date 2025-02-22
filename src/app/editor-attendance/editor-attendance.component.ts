@@ -96,5 +96,5 @@ export class EditorAttendanceComponent implements OnInit {
       this.month++;
     }
     this.fetchAttendance();
-  }
+  } 
 }

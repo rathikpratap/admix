@@ -22,10 +22,16 @@
 .modal-header .btn-close{
     background-color: aliceblue;
 }
-.card-txt button{
+.card-txt .button1{
     background: none;
     border: none;
     font-size: 24px;
+}
+.card-txt .button2{
+    margin-left: 15px;
+}
+.searchForm{
+    margin-top: 15px;
 }
 .card{
     background-color: rgba(255,255, 255, 0.13);
