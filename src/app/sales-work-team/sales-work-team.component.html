@@ -149,9 +149,9 @@
             </button>
         </p>
         <div class="collapse show" id="today">
-            <div class="table-scroll"> 
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'"> 
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -161,7 +161,18 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> SalesPerson</th>
+                            <!-- <th scope="col"> SalesPerson</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -181,11 +192,54 @@
                     </tbody>
                 </table>
             </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'"> 
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <!-- <th scope="col"> SalesPerson</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of empData; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="collapse" id="yesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -215,11 +269,75 @@
                     </tbody>
                 </table>
             </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <th scope="col"> Sales Person</th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of empDataYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="collapse" id="oneYesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <th scope="col"> Sales Person</th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dataOneYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -251,9 +369,41 @@
             </div>
         </div>
         <div class="collapse" id="twoYesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <th scope="col"> Sales Person</th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dataTwoYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -285,9 +435,9 @@
             </div>
         </div>
         <div class="collapse" id="threeYesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -297,7 +447,61 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dataThreeYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -319,9 +523,41 @@
             </div>
         </div>
         <div class="collapse" id="fourYesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <th scope="col"> Sales Person</th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dataFourYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>
@@ -353,9 +589,41 @@
             </div>
         </div>
         <div class="collapse" id="fiveYesterday">
-            <div class="table-scroll">
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value === 'null'">
                 <table class="table table-striped table-responsive">
-                    <thead>
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col"> Remark </th>
+                            <th scope="col"> Sales Person</th>
+                            <th scope="col"> Create Invoice</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dataFiveYesterday; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.campaign_Name}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td>{{list.custBussiness}}</td>
+                            <td>{{list.projectStatus}}</td>
+                            <td>{{list.remark}}</td>
+                            <td>{{list.salesPerson}}</td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll" *ngIf="this.salesForm.get('salesperson_name')?.value !== 'null'">
+                <table class="table table-striped table-responsive">
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col"> No. </th>
                             <th scope="col"> Campaign Name </th>

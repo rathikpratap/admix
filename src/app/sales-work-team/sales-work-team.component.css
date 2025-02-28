@@ -70,6 +70,14 @@ td{
     border: none;
     color: #fff;
 }
+tr select{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+    border: none;
+}
+tr select option{
+    color: black;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -96,6 +104,12 @@ td{
     border-radius: 25px;
     margin-top: 25px;
     overflow: scroll;
+    height: 650px;
+}
+.sticky-header th{
+    position: sticky;
+    top: 0;
+    background: rgba(37,37, 37, 1);
 }
 @media only screen and (max-width: 530px){
     .dateBlock{

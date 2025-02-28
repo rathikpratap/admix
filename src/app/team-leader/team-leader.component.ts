@@ -44,29 +44,29 @@ export class TeamLeaderComponent implements OnInit {
   todayRestAmount: any;
   restToday: any;
   rangeDataCount: any;
-  onGoingDataCount:any;
-  rangeTop:any;
-  rangeMonthRestAmount:any;
-  allClosings:any;
-  closingData:any;
-  cloDatat:any;
-  salesEmp:any;
-  salesPerson_name:any;
-  empData:any;
-  combineTwo:any;
-  projectStatus:any;
-  statusData:any;
-  combineThree:any;
-  closingStatus:any;
-  salesStatus:any;
+  onGoingDataCount: any;
+  rangeTop: any;
+  rangeMonthRestAmount: any;
+  allClosings: any;
+  closingData: any;
+  cloDatat: any;
+  salesEmp: any;
+  salesPerson_name: any;
+  empData: any;
+  combineTwo: any;
+  projectStatus: any;
+  statusData: any;
+  combineThree: any;
+  closingStatus: any;
+  salesStatus: any;
   updateEditorVisible: boolean = true;
   searchForm: FormGroup;
-  customers :any[] = [];  
+  customers: any[] = [];
   errorMessage: any;
-  rangeSearchData:any;
+  rangeSearchData: any;
   // dataSet: any[] = [];
 
-  isAscending:{[key: string]: boolean} = {
+  isAscending: { [key: string]: boolean } = {
     customer: true,
     data: true,
     cloDatat: true,
@@ -96,26 +96,26 @@ export class TeamLeaderComponent implements OnInit {
   statusForm = new FormGroup({
     project_status: new FormControl("null")
   });
-  
+
 
   ngOnInit(): void {
     // this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
     //   this.campaignName = this.categForm.get('campaign_name')?.value;
     // });
-    this.closingForm.get('closing_name')?.valueChanges.subscribe(value=>{
+    this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
       this.closingData = this.closingForm.get('closing_name')?.value;
       this.getData();
       this.check();
       this.checkTwo();
     });
-    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
+    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value => {
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
       console.log("SalesPerson NAme=====>>", this.salesPerson_name);
       this.getSalesData();
       this.check();
       this.checkTwo();
     });
-    this.statusForm.get('project_status')?.valueChanges.subscribe(value=>{
+    this.statusForm.get('project_status')?.valueChanges.subscribe(value => {
       this.projectStatus = this.statusForm.get('project_status')?.value;
       console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
       this.getStatusData();
@@ -124,33 +124,33 @@ export class TeamLeaderComponent implements OnInit {
     });
   }
 
-  check(){
-    if(this.closingData && this.salesPerson_name){
-      this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res:any)=>{
+  check() {
+    if (this.closingData && this.salesPerson_name) {
+      this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res: any) => {
         console.log("COMBINE======>>", res);
         this.combineTwo = res;
       });
-    } else if(this.closingData && this.projectStatus){
-      this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res:any)=>{
+    } else if (this.closingData && this.projectStatus) {
+      this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res: any) => {
         this.closingStatus = res;
       })
-    } else if(this.salesPerson_name && this.projectStatus){
-      this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res:any)=>{
+    } else if (this.salesPerson_name && this.projectStatus) {
+      this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
         this.salesStatus = res;
         console.log("SALES STATUS===========>>>", this.salesStatus);
       })
     }
   }
-  checkTwo(){
-    if(this.closingData && this.salesPerson_name && this.projectStatus){
-      this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res:any)=>{
+  checkTwo() {
+    if (this.closingData && this.salesPerson_name && this.projectStatus) {
+      this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
         console.log("COMBINE THREE=============>>", res);
         this.combineThree = res;
       })
     }
   }
-  
-  constructor(private auth: AuthService, private messagingService: MessagingService,private toastr: ToastrService,private formBuilder: FormBuilder) {
+
+  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private formBuilder: FormBuilder) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
     });
@@ -237,7 +237,7 @@ export class TeamLeaderComponent implements OnInit {
       this.closing_names = res.filter((closing: any, index: number, self: any[]) =>
         index === self.findIndex((clo: any) => clo.closingCateg === closing.closingCateg));
     });
-    this.auth.allClosing().subscribe((res:any)=>{
+    this.auth.allClosing().subscribe((res: any) => {
       this.allClosings = res;
     });
     this.auth.allEmployee().subscribe((res: any) => {
@@ -268,22 +268,22 @@ export class TeamLeaderComponent implements OnInit {
     this.auth.getAllActiveDownloadAdmin();
   }
 
-  getData(){
-    this.auth.closingData(this.closingData).subscribe((list:any)=>{
+  getData() {
+    this.auth.closingData(this.closingData).subscribe((list: any) => {
       this.cloDatat = list;
       console.log("SELECTED=====>>", this.cloDatat);
     })
   };
-  getSalesData(){
-    this.auth.empProjects(this.salesPerson_name).subscribe((list : any)=>{
+  getSalesData() {
+    this.auth.empProjects(this.salesPerson_name).subscribe((list: any) => {
       this.empData = list;
       console.log("EMPDATA=======>>", this.empData);
     });
   };
-  getStatusData(){
-    this.auth.empStatus(this.projectStatus).subscribe((list:any)=>{
+  getStatusData() {
+    this.auth.empStatus(this.projectStatus).subscribe((list: any) => {
       this.statusData = list;
-      console.log("EMPSTATUS========>>",this.statusData);
+      console.log("EMPSTATUS========>>", this.statusData);
     });
   }
 
@@ -303,15 +303,15 @@ export class TeamLeaderComponent implements OnInit {
       }, (error) => {
         console.error('Error fetching data', error);
       });
-      this.auth.getOngoingRangeData(startDate, endDate).subscribe((onGoingData: any) =>{
+      this.auth.getOngoingRangeData(startDate, endDate).subscribe((onGoingData: any) => {
         this.onGoingDataCount = onGoingData.length;
-      },(error)=>{
+      }, (error) => {
         console.error("Error Fetching Ongoing", error);
       });
-      this.auth.rangeTopPerformer(startDate, endDate).subscribe((top:any)=>{
+      this.auth.rangeTopPerformer(startDate, endDate).subscribe((top: any) => {
         this.rangeTop = top[0]?._id;
       });
-      this.auth.rangeTotalRecv(startDate, endDate).subscribe((res:any)=>{
+      this.auth.rangeTotalRecv(startDate, endDate).subscribe((res: any) => {
         this.rangeMonthRestAmount = res;
       });
     } else {
@@ -412,50 +412,55 @@ export class TeamLeaderComponent implements OnInit {
   resetData() {
     location.reload();
   }
-  bundles(){
+  bundles() {
     const url = `/salesHome/bundle-dashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
   }
-  salesWork(){
+  salesWork() {
     const url = `/salesHome/salesDashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
   }
+  toggleHighlight(user: any) {
+    user.isHighlighted = !user.isHighlighted;
+    console.log("Toggling isHighlighted:", user.isHighlighted);
+    this.updateProjectStatus(user);
+  }
 
-  updateProjectStatus(dataa: any){ 
+  updateProjectStatus(dataa: any) {
     console.log("UPDATE", dataa);
-    this.auth.updateProjectStatusTeam([dataa]).subscribe(( res: any)=>{
-      if(res){
+    this.auth.updateProjectStatusTeam([dataa]).subscribe((res: any) => {
+      if (res) {
         console.log("UPDATE SUCCESS", res);
-        this.toastr.success("Data Successfully Changed","Success");
+        this.toastr.success("Data Successfully Changed", "Success");
       }
     })
   }
 
   // Sort Function
-  sortByClosingDate(dataSet: 'customers' | 'data' | 'cloDatat'| 'empData'| 'combineTwo' | 'statusData' | 'combineThree' | 'closingStatus' | 'salesStatus' ): void {
+  sortByClosingDate(dataSet: 'customers' | 'data' | 'cloDatat' | 'empData' | 'combineTwo' | 'statusData' | 'combineThree' | 'closingStatus' | 'salesStatus'): void {
     console.log("DATE DATE");
     this[dataSet].sort((a: any, b: any) => {
       const dateA = new Date(a.closingDate).getTime();
       const dateB = new Date(b.closingDate).getTime();
-  
+
       return this.isAscending[dataSet] ? dateA - dateB : dateB - dateA;
     });
-    
+
     this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
   }
-  
-  searchCustomer(){
+
+  searchCustomer() {
     const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
+    this.auth.searchCustomerbyMobile(mobile).subscribe((customers) => {
+      console.log("customer", customers)
       this.customers = customers;
       this.errorMessage = null;
     },
-    error=>{
-      this.customers = [];
-      this.errorMessage = error.message;
-    });
+      error => {
+        this.customers = [];
+        this.errorMessage = error.message;
+      });
   }
 }

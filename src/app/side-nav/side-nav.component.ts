@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -8,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class SideNavComponent {
 
   @Input() sideNavStatus: boolean = false;
-  list = [
+  list1 = [
     {
       number: '1',
       name: 'Dashboard',
@@ -93,5 +94,48 @@ export class SideNavComponent {
       icon: 'bi bi-wallet-fill',
       route: '/incentive'
     }
-  ]
+  ];
+  list2 = [
+    {
+      number: '1',
+      name: 'B2b Dashboard',
+      icon: 'bi bi-house',
+      route: '/b2b-dashboard'
+    },
+    {
+      number: '2',
+      name: 'Add New Project',
+      icon: 'bi bi-person-fill-add',
+      route: '/newB2b-projects'
+    },
+    {
+      number: '3',
+      name: 'All B2b Projects',
+      icon: 'bi bi-person-square',
+      route: '/b2b-projects'
+    }
+  ];
+  list = this.list1;
+  constructor(private router: Router){}
+  
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.router.events.subscribe(() =>{
+      this.updateList();
+    });
+    this.updateList();
+  }
+  private updateList(): void {
+    const currentUrl = this.router.url;
+
+    if (currentUrl.includes('/b2b-dashboard') || 
+        currentUrl.includes('/newB2b-projects') || 
+        currentUrl.includes('/b2b-projects') || 
+        currentUrl.startsWith('/update-b2b/')) { // ✅ Correct dynamic route matching
+        this.list = this.list2;
+    } else {
+        this.list = this.list1;
+    }
+}
 }

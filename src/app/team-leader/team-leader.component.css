@@ -71,7 +71,7 @@
 }
 .categ form select option{
     color: black;
-}
+} 
 .table-scroll{
     overflow: scroll;
     height: 500px;
@@ -340,6 +340,35 @@ tr textarea{
     color: #fff;
     margin-top: 8px;
     resize: vertical;
+}
+.center-performer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.performer {
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.performer-inline{
+    display: flex;
+}
+.highlighted {
+    background-color: #21838a !important;
+}
+
+.star-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: gray;
+}
+
+.star-btn.active {
+    color: gold;
 }
 
 @media (max-width: 500px){

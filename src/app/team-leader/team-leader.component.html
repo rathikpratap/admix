@@ -291,6 +291,35 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Monthly Top Performer </h6>
+                        </div>
+                        <div class="performer-inline">
+                            <div *ngFor="let user of topPerformer; let i=index">
+                                <div *ngIf="i===0" class="center-performer">
+                                    <img src="assets/Images/1st.png" alt="1st Position" class="performer">
+                                    <span>{{user._id}}</span>
+                                </div>
+                                <div *ngIf="i===1" class="center-performer">
+                                    <img src="assets/Images/2nd.png" alt="2nd Position" class="performer">
+                                    <span>{{user._id}}</span>
+                                </div>
+                                <div *ngIf="i===2" class="center-performer">
+                                    <img src="assets/Images/3rd.png" alt="3rd Position" class="performer">
+                                    <span>{{user._id}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row" *ngIf="rangeSearchData">
@@ -305,9 +334,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -327,7 +356,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -337,6 +365,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -359,8 +388,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of rangeSearchData">
+                        <tr *ngFor="let user of rangeSearchData" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -368,26 +400,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(customers)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(customers)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -410,9 +446,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -432,7 +468,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -442,6 +477,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -464,8 +500,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of customers">
+                        <tr *ngFor="let user of customers" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -473,26 +512,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(customers)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(customers)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -502,7 +545,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card ongoing">
@@ -518,9 +560,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -540,7 +582,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -550,6 +591,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -558,7 +600,6 @@
                                 </form>
                             </th>
                             <th scope="col">Remark</th>
-                            <!-- <th scope="col">Sales Person</th> -->
                             <th scope="col">
                                 <form [formGroup]="salesForm">
                                     <select class="form-select closing_categ-right" formControlName="salesperson_name"
@@ -573,8 +614,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data">
+                        <tr *ngFor="let user of data" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -582,18 +626,16 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
@@ -606,12 +648,9 @@
                                         <input type="checkbox" [(ngModel)]="user.showRemark">
                                         <span class="slider"></span>
                                     </label>
-                            
-                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" 
-                                              (change)="updateProjectStatus(user)"></textarea>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
                                 </div>
                             </td>
-                            
                             <td>{{user.salesPerson}}</td>
                         </tr>
                     </tbody>
@@ -623,9 +662,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -645,7 +684,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -655,6 +693,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -677,8 +716,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloDatat">
+                        <tr *ngFor="let user of cloDatat" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -686,26 +728,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -718,9 +764,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -740,7 +786,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -750,6 +795,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -772,8 +818,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of empData">
+                        <tr *ngFor="let user of empData" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -781,26 +830,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -813,9 +866,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -835,7 +888,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -845,6 +897,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -867,8 +920,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of combineTwo">
+                        <tr *ngFor="let user of combineTwo" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -876,26 +932,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -908,9 +968,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -930,7 +990,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -940,6 +999,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -962,8 +1022,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of statusData">
+                        <tr *ngFor="let user of statusData" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -971,26 +1034,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -1003,9 +1070,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -1025,7 +1092,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -1035,6 +1101,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -1057,8 +1124,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of combineThree">
+                        <tr *ngFor="let user of combineThree" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -1066,26 +1136,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -1098,9 +1172,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -1120,7 +1194,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -1130,6 +1203,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -1152,8 +1226,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of closingStatus">
+                        <tr *ngFor="let user of closingStatus" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -1161,26 +1238,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>
@@ -1193,9 +1274,9 @@
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
-                            <!-- <th scope="col">Project Category</th> -->
                             <th scope="col">
                                 <form [formGroup]="closingForm">
                                     <select class="form-select closing_categ-right" formControlName="closing_name"
@@ -1215,7 +1296,6 @@
                             <th scope="col">Closing Payment</th>
                             <th scope="col">Amount Received</th>
                             <th scope="col">Remaining Amount</th>
-                            <!-- <th scope="col">Project Status</th> -->
                             <th scope="col">
                                 <form [formGroup]="statusForm">
                                     <select class="form-select closing_categ-right" formControlName="project_status"
@@ -1225,6 +1305,7 @@
                                         <option value="Scripting">Scripting</option>
                                         <option value="Script Correction">Script Correction</option>
                                         <option value="Voice Over">Voice Over</option>
+                                        <option value="Model Shooting">Model Shooting</option>
                                         <option value="Video Editing">Video Editing</option>
                                         <option value="Video Changes">Video Changes</option>
                                         <option value="Video Done">Video Done</option>
@@ -1247,8 +1328,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of salesStatus">
+                        <tr *ngFor="let user of salesStatus" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
+                            </td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingCateg}}</td>
@@ -1256,26 +1340,30 @@
                             <td>{{user.closingPrice}}</td>
                             <td>{{user.AdvPay + user.restAmount}}</td>
                             <td>{{user.remainingAmount}}</td>
-                            <!-- <td>{{user.projectStatus}}</td> -->
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
                                     (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
                                     <option value="Scripting">Scripting</option>
                                     <option value="Script Correction">Script Correction</option>
                                     <option value="Voice Over">Voice Over</option>
+                                    <option value="Model Shooting">Model Shooting</option>
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
                                     <option value="Completed">Completed</option>
                                 </select>
                             </td>
-                            <td> 
-                                <textarea type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="user.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark" (change)="updateProjectStatus(user)"></textarea>
+                                </div>
                             </td>
                             <td>{{user.salesPerson}}</td>
                         </tr>

@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './sales-work-team.component.html',
   styleUrl: './sales-work-team.component.css'
 })
-export class SalesWorkTeamComponent {
+export class SalesWorkTeamComponent implements OnInit{
 
   searchForm: FormGroup; 
   customers :any[] = [];
@@ -29,10 +29,65 @@ export class SalesWorkTeamComponent {
   tok:any;
   isExpanded: boolean = false;
   rangeData: any;
+  salesEmp:any;
+  salesPerson_name:any;
+  empData:any; 
+  empDataYesterday: any;
+  empDataOneYesterday: any;
+  empDataTwoYesterday: any;
+  empDataThreeYesterday: any;
+  empDataFourYesterday: any;
+  empDataFiveYesterday: any;
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
+  salesForm = new FormGroup({
+    salesperson_name: new FormControl("null")
+  });
+
+  ngOnInit(): void {
+    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
+      this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
+      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
+      this.getSalesData();
+    });
+  }
+
+  getSalesData(){
+    this.auth.getEmpSalesTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      this.empData = res;
+    });
+    this.auth.getEmpSalesYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataYesterday = res;
+    });
+ 
+    this.auth.getEmpSalesOneYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataOneYesterday = res;
+    });
+
+    this.auth.getEmpSalesTwoYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataTwoYesterday = res;
+    });
+
+    this.auth.getEmpSalesThreeYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataThreeYesterday = res;
+    });
+
+    this.auth.getEmpSalesFourYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataFourYesterday = res;
+    });
+
+    this.auth.getEmpSalesFiveYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
+      console.log("SalesLeads===>", res);
+      this.empDataFiveYesterday = res;
+    });
+  }
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
     this.auth.getProfile().subscribe((res:any)=>{
@@ -80,6 +135,13 @@ export class SalesWorkTeamComponent {
     this.auth.getSalesFiveYesterdayTeamWork().subscribe((res:any)=>{
       console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
+    });
+    this.auth.allEmployee().subscribe((res: any) => {
+      if (Array.isArray(res)) {
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
+      } else {
+        console.error("Unexpected response format:", res);
+      }
     });
 
     this.todayDate = this.auth.getDate();

@@ -101,7 +101,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
   getData(){
     this.auth.empAllProjects(this.salesPerson_name).subscribe((list : any)=>{
       this.empData = list;
-      console.log("EMPDATA=======>>", this.empData);
     });
     this.auth.empAllPrevMonth(this.salesPerson_name).subscribe((list: any)=>{
       this.empDataPre = list;

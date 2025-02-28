@@ -7,7 +7,7 @@ import { MessagingService } from '../service/messaging-service';
   selector: 'app-b2b-dashboard',
   templateUrl: './b2b-dashboard.component.html',
   styleUrls: ['./b2b-dashboard.component.css']
-})
+}) 
 export class B2bDashboardComponent {
   tok:any;
   totalEntries: any;
@@ -60,5 +60,10 @@ export class B2bDashboardComponent {
     this.auth.getAllCompleteProjectsB2b().subscribe((res:any)=>{
       this.allComplete = res.length;
     })
+  }
+  admix(){
+    const url = `/admin-dashboard`;
+    window.location.href = url;
+    //window.open(url,'_blank');
   }
 }

@@ -852,6 +852,28 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allIncentive`);
   }
 
+  getEmpSalesTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesTeamWork/${name}`);
+  }
+  getEmpSalesYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesYesterdayTeamWork/${name}`);
+  }
+  getEmpSalesOneYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesOneYesterdayTeamWork/${name}`);
+  }
+  getEmpSalesTwoYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesTwoYesterdayTeamWork/${name}`);
+  }
+  getEmpSalesThreeYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesThreeYesterdayTeamWork/${name}`);
+  }
+  getEmpSalesFourYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesFourYesterdayTeamWork/${name}`);
+  }
+  getEmpSalesFiveYesterdayTeamWork(name:any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesFiveYesterdayTeamWork/${name}`);
+  }
+
   getSalesTeamWork():Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeamWork`);
   }

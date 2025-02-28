@@ -3,7 +3,7 @@ import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale } from 'chart.js';
- 
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -94,6 +94,7 @@ export class AdminDashboardComponent implements OnInit {
 
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {},
       y: {
@@ -141,9 +142,9 @@ export class AdminDashboardComponent implements OnInit {
   todayRestAmount: any;
   restToday: any;
   rangeDataCount: any;
-  onGoingDataCount:any;
-  rangeTop:any;
-  rangeMonthRestAmount:any;
+  onGoingDataCount: any;
+  rangeTop: any;
+  rangeMonthRestAmount: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -186,6 +187,31 @@ export class AdminDashboardComponent implements OnInit {
       LinearScale
     );
 
+    this.auth.conversionRateMonthly().subscribe((res: any) => {
+      const conversionData = res.data;
+      const salesPeople = Array.from(new Set(conversionData.map((item: { salesPerson: string }) => item.salesPerson)));
+      const monthsYears = Array.from(new Set(conversionData.map((item: { month: number, year: number }) => `${item.month}/${item.year}`)));
+
+      this.lineChartData.labels = monthsYears;
+
+      this.lineChartData.datasets = salesPeople.map((salesPerson: any, index: number) => {
+        const salesPersonData = conversionData.filter((item: { salesPerson: string }) => item.salesPerson === salesPerson);
+        const data = monthsYears.map(monthYear => {
+          const item = salesPersonData.find((dataItem: { month: number, year: number }) => `${dataItem.month}/${dataItem.year}` === monthYear);
+          return item ? Number(item.conversionRate) : 0;
+        });
+
+        return {
+          data: data,
+          label: salesPerson,
+          borderColor: this.color[index % this.color.length], // Assign color from the predefined array
+          backgroundColor: this.color[index % this.color.length],
+          fill: false,
+          tension: 0.1
+        };
+      });
+    });
+
     this.auth.topCategory().subscribe((data: { _id: string, numberOfClosings: number }[]) => {
       const labels = data.map(item => item._id);
       const values = data.map(item => item.numberOfClosings);
@@ -211,50 +237,24 @@ export class AdminDashboardComponent implements OnInit {
       };
     });
 
-    this.auth.conversionRate().subscribe((res: any) => {
-      const data = res.data;
-      const labels = data.map((item: { salesPerson: string }) => item.salesPerson);
-      const conversionRate = data.map((item: { conversionRate: string }) => parseFloat(item.conversionRate));
+    // this.auth.conversionRate().subscribe((res: any) => {
+    //   const data = res.data;
+    //   const labels = data.map((item: { salesPerson: string }) => item.salesPerson);
+    //   const conversionRate = data.map((item: { conversionRate: string }) => parseFloat(item.conversionRate));
 
-      this.barChartData = {
-        labels: labels,
-        datasets: [
-          {
-            data: conversionRate,
-            label: 'Conversion Rate(%)',
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }
-        ]
-      };
-    });
-
-    this.auth.conversionRateMonthly().subscribe((res: any) => {
-      const conversionData = res.data;
-      const salesPeople = Array.from(new Set(conversionData.map((item: { salesPerson: string }) => item.salesPerson)));
-      const monthsYears = Array.from(new Set(conversionData.map((item: { month: number, year: number }) => `${item.month}/${item.year}`)));
-
-      this.lineChartData.labels = monthsYears;
-
-      this.lineChartData.datasets = salesPeople.map((salesPerson: any, index: number) => {
-        const salesPersonData = conversionData.filter((item: { salesPerson: string }) => item.salesPerson === salesPerson);
-        const data = monthsYears.map(monthYear => {
-          const item = salesPersonData.find((dataItem: { month: number, year: number }) => `${dataItem.month}/${dataItem.year}` === monthYear);
-          return item ? Number(item.conversionRate) : 0;
-        });
-
-        return {
-          data: data,
-          label: salesPerson,
-          borderColor: this.color[index % this.color.length], // Assign color from the predefined array
-          backgroundColor: this.color[index % this.color.length],
-          fill: false,
-          tension: 0.1
-        };
-      });
-
-    });
+    //   this.barChartData = {
+    //     labels: labels,
+    //     datasets: [
+    //       {
+    //         data: conversionRate,
+    //         label: 'Conversion Rate(%)',
+    //         backgroundColor: 'rgba(75, 192, 192, 0.5)',
+    //         borderColor: 'rgba(75, 192, 192, 1)',
+    //         borderWidth: 1
+    //       }
+    //     ]
+    //   };
+    // });
 
   }
 
@@ -387,15 +387,15 @@ export class AdminDashboardComponent implements OnInit {
       }, (error) => {
         console.error('Error fetching data', error);
       });
-      this.auth.getOngoingRangeData(startDate, endDate).subscribe((onGoingData: any) =>{
+      this.auth.getOngoingRangeData(startDate, endDate).subscribe((onGoingData: any) => {
         this.onGoingDataCount = onGoingData.length;
-      },(error)=>{
+      }, (error) => {
         console.error("Error Fetching Ongoing", error);
       });
-      this.auth.rangeTopPerformer(startDate, endDate).subscribe((top:any)=>{
+      this.auth.rangeTopPerformer(startDate, endDate).subscribe((top: any) => {
         this.rangeTop = top[0]?._id;
       });
-      this.auth.rangeTotalRecv(startDate, endDate).subscribe((res:any)=>{
+      this.auth.rangeTotalRecv(startDate, endDate).subscribe((res: any) => {
         this.rangeMonthRestAmount = res;
       });
     } else {
@@ -495,5 +495,10 @@ export class AdminDashboardComponent implements OnInit {
 
   resetData() {
     location.reload();
+  }
+  other(){
+    const url = `/b2b-dashboard`;
+    window.location.href = url;
+    //window.open(url,'_blank');
   }
 }

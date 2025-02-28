@@ -57,9 +57,16 @@ export class UpdateB2bComponent {
     })
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
+    // this.auth.allEmployee().subscribe((res: any) => {
+    //   this.employee = res.filter((emp: any) => emp.signupRole === 'Editor')
+    //   console.log("Editorss===>", this.employee); 
+    // });
     this.auth.allEmployee().subscribe((res: any) => {
-      this.employee = res.filter((emp: any) => emp.signupRole === 'Editor')
-      console.log("Editorss===>", this.employee);
+      if (Array.isArray(res)) {
+        this.employee = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Editor'));
+      } else {
+        console.error("Unexpected response format:", res);
+      }
     });
     this.auth.getCompany().subscribe((res: any) => {
       this.companies = res.filter((company: any, index: number, self: any[]) =>

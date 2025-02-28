@@ -5,23 +5,37 @@
 	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .new-customer{
-    margin-top: 20px;
-} 
-form{ 
+    margin-top: 15px;
+}
+form{
     background: rgba(255,255, 255, 0.13);
     backdrop-filter: blur(10px);
 	border: 2px solid rgba(255,255,255,0.1);
 	box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 20px 20px 50px 20px;
+    padding: 20px 20px 50px 20px; 
     margin-top: 25px;
     margin-bottom: 79px;
     border-radius: 10px;
+}
+.minSec{
+    display: flex;
+    color: #fff;
+}
+.input-box .form-group .minSec input{
+    width: 30%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.minSec span{
+    display: block;
+    font-weight: 500;
+    margin-top: 15px;
 }
 .form-group{
     border: 0;
     padding: .375rem .75rem;
 }
-.new-heading{
+.new-heading{ 
     text-align: center;
     color: #fff;
     background-color: rgba(255,255, 255, 0.13);
@@ -47,10 +61,11 @@ form .user-details .input-box{
     color: #fff;
 }
 .user-details .input-box input{
+    height: 45px;
     width: 100%;
     background: rgba(255,255, 255, 0);
     color: #fff;
-    padding: 10px;
+    padding: 10px; 
     outline: none;
     border-radius: 5px;
     border: none;
@@ -75,19 +90,6 @@ form .user-details .input-box{
 .user-details .input-box textarea:focus{
     border-color: blueviolet;
 }
-.btn{
-    width: 100%;
-    outline: none;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-.error{
-    border: 1px solid red;
-}
-.hidden-input{
-    display: none;
-}
 .user-details .input-box select{
     height: 45px;
     width: 100%;
@@ -106,40 +108,25 @@ form .user-details .input-box{
 .user-details .input-box select:focus{
     border-color: blueviolet;
 }
-.input-box1 .form-group label{
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 5px;
-}
-.youtubeVideo{
-    margin-top: 20px;
-}
-.minSec{
-    display: flex;
-    color: #fff;
-}
-.input-box .form-group .minSec input{
-    width: 30%;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-.minSec span{
-    display: block;
+.btn{
+    width: 100%;
+    outline: none;
+    font-size: 18px;
     font-weight: 500;
-    margin-top: 15px;
+    letter-spacing: 1px;
 }
-.input-box1 .form-group label{
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 5px;
+.error{
+    border: 1px solid red;
 }
-.user-details .input-box1 .details{
-    margin-right: 20px;
-    font-weight: 500;
-    color: #fff;
+.hidden-input{
+    display: none;
+}
+.btn:disabled{
+    background-color: black;
+    opacity: 0.2;
 }
 ::placeholder{
-    color: #ccc;
+    color: #a6a3a3;
 }
 @media only screen and (max-width:550px){
     .new-customer form .user-details{
@@ -156,4 +143,4 @@ form .user-details .input-box{
         width: 100%;
         margin-bottom: 15px;
     }
-}
+} 

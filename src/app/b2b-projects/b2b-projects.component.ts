@@ -41,7 +41,7 @@ export class B2bProjectsComponent {
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });
- 
+  
     this.auth.getMonthEntriesB2b().subscribe((list : any)=>{
       console.log("list",list)
       this.data = list.totalEntries;
@@ -119,7 +119,7 @@ export class B2bProjectsComponent {
     }
   }
   openUpdatePanel(userId: string) {
-    const url = `/salesHome/update-b2b/${userId}`;
+    const url = `/update-b2b/${userId}`;
     //window.open(url, '_blank');
     window.location.href = url;
   }

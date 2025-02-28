@@ -87,6 +87,7 @@ import { BundleProjectsComponent } from './bundle-projects/bundle-projects.compo
 import { TeamLeaderComponent } from './team-leader/team-leader.component';
 import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
 import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
+import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 
 const routes: Routes = [
   {
@@ -226,6 +227,22 @@ const routes: Routes = [
       {
         path: 'incentive-calculation',
         component: IncentiveCalculationComponent
+      },
+      {
+        path: 'b2b-dashboard',
+        component: B2bDashboardComponent
+      },
+      {
+        path: 'b2b-projects',
+        component: B2bProjectsComponent
+      },
+      {
+        path: 'newB2b-projects',
+        component: NewB2bProjectsComponent
+      },
+      {
+        path: 'update-b2b/:id',
+        component: UpdateB2bComponent
       }
     ]
   },
@@ -269,18 +286,6 @@ const routes: Routes = [
       {
         path: 'team-leads',
         component: TeamLeadsComponent
-      },
-      {
-        path: 'b2b-dashboard',
-        component: B2bDashboardComponent
-      },
-      {
-        path: 'b2b-projects',
-        component: B2bProjectsComponent
-      },
-      {
-        path: 'update-b2b/:id',
-        component: UpdateB2bComponent
       },
       {
         path: 'custom-leads',

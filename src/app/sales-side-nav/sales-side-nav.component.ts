@@ -68,26 +68,7 @@ export class SalesSideNavComponent {
       route: '/salesHome/sales-incentive'
     }
   ];
-  list2 = [
-    {
-      number: '1',
-      name: 'Sales Dashboard',
-      icon: 'bi bi-house',
-      route: '/salesHome/b2b-dashboard'
-    },
-    {
-      number: '2',
-      name: 'Add New Customer',
-      icon: 'bi bi-person-fill-add',
-      route: '/salesHome/newCustomer'
-    },
-    {
-      number: '3',
-      name: 'All Customers',
-      icon: 'bi bi-person-square',
-      route: '/salesHome/b2b-projects'
-    }
-  ];
+  
   list3 = [
     {
       number: '1',
@@ -133,9 +114,7 @@ export class SalesSideNavComponent {
   }
   private updateListBasedOnRoute(): void {
     const currentUrl = this.router.url;
-    if(currentUrl === '/salesHome/b2b-dashboard' || currentUrl === '/salesHome/b2b-projects' ){
-      this.list = this.list2;
-    }else if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
+    if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
       this.list = this.list3;
     }else if(currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam'){
       this.list = this.list4;

@@ -3,11 +3,14 @@
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
 
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 col-12"> 
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
-                <h2>Customer Details Update Form </h2>
+                <h2>Project Closing Form</h2>
             </div>
-            <form [formGroup]="b2bUpdateForm" (ngSubmit)="b2bUpdateForm.status !== 'INVALID' && onUpdate()">
+            <form [formGroup]="b2bCustomerForm" (ngSubmit)="b2bCustomerForm.status !== 'INVALID' && addb2bCust()">
+                <div [ngClass]="className" role="alert">
+                    {{message}}
+                </div>
                 <div class="user-details">
                     <div class="input-box">
                         <div class="form-group">
@@ -56,13 +59,13 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details">Video Type:</span>
-                            <select *ngIf="b2bUpdateForm.get('b2bCategory')?.value === 'Video Development'" class="form-select" formControlName="b2bVideoType" aria-label="Default select example" [ngClass]="{error:getB2bCustomerFormControl('b2bVideoType')?.errors && getB2bCustomerFormControl('b2bVideoType')?.touched}">
+                            <select *ngIf="b2bCustomerForm.get('b2bCategory')?.value === 'Video Development'" class="form-select" formControlName="b2bVideoType" aria-label="Default select example" [ngClass]="{error:getB2bCustomerFormControl('b2bVideoType')?.errors && getB2bCustomerFormControl('b2bVideoType')?.touched}">
                                 <option value="null">Select Category</option>
                                 <option value="Normal Graphics">Normal Graphics</option>
                                 <option value="Motion Graphics">Motion Graphics</option>
                                 <option value="Green Screen">Green Screen</option>
                             </select>
-                            <select *ngIf="b2bUpdateForm.get('b2bCategory')?.value !== 'Video Development'" class="form-select" formControlName="b2bVideoType" aria-label="Default select example" [ngClass]="{error:getB2bCustomerFormControl('b2bVideoType')?.errors && getB2bCustomerFormControl('b2bVideoType')?.touched}">
+                            <select *ngIf="b2bCustomerForm.get('b2bCategory')?.value !== 'Video Development'" class="form-select" formControlName="b2bVideoType" aria-label="Default select example" [ngClass]="{error:getB2bCustomerFormControl('b2bVideoType')?.errors && getB2bCustomerFormControl('b2bVideoType')?.touched}">
                                 <option value="null">Select Category</option>
                                 <option value="Background Music">Background Music</option>
                                 <option value="Refine">Refine</option>
@@ -75,7 +78,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Date:</span>
-                            <input type="date" class="form-control" formControlName="b2bProjectDate"
+                            <input type="datetime-local" class="form-control" formControlName="b2bProjectDate"
                                 [ngClass]="{error:getB2bCustomerFormControl('b2bProjectDate')?.errors && getB2bCustomerFormControl('b2bProjectDate')?.touched}"
                                 placeholder="Enter Project Date">
                             <div *ngIf="getB2bCustomerFormControl('b2bProjectDate')?.errors && getB2bCustomerFormControl('b2bProjectDate')?.touched">
@@ -94,6 +97,19 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Bill Type: </span>
+                            <select class="form-select" formControlName="b2bBillType" aria-label="Default select example" [ngClass]="{error:getControls('b2bBillType')?.errors && getControls('b2bBillType')?.touched}">
+                                <option value="null">Select Bill Type</option>
+                                <option value="GST Bill">GST Bill</option>
+                                <option value="Non-GST Bill">Non-GST Bill</option>
+                            </select>
+                            <div *ngIf="getControls('b2bBillType')?.errors && getControls('b2bBillType')?.touched">
+                                <label class="text-danger" *ngIf="getControls('b2bBillType')?.errors?.['required']"> Bill Type is Required </label>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Video Duration: </span> 
@@ -114,40 +130,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box1">
-                        <div class="form-group">
-                            <span class="details"> Select Number of Videos </span>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One" id="one">
-                            <label for="one">One</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two" id="two">
-                            <label for="one">Two</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three" id="three">
-                            <label for="one">Three</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three" id="more">
-                            <label for="one">More than three</label>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="form-group">
-                            <span class="details"> Project Payment: </span>
-                            <input type="text" class="form-control readonly" formControlName="editorPayment" placeholder="Enter Payment" readonly>
-                        </div>
-                    </div>
-                    <div class="input-box1">
-                        <div class="form-group">
-                            <span class="details">Any Other Changes?(Only If their is any unnecessary Changes)</span>
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)" id="yes">
-                            <label for="yes">Yes</label>
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)" id="no">
-                            <label for="no">No</label>
-                        </div>
-                    </div>
-                    <div class="input-box" *ngIf="editorOtherChanges">
-                        <div class="form-group">
-                            <span class="details"> Changes Payment: </span>
-                            <input type="text" class="form-control readonly" formControlName="editorChangesPayment" placeholder="Enter Changes Payment" readonly>
-                        </div>
-                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
@@ -158,7 +140,7 @@
                                 <option value="Completed">Completed</option>
                             </select>  
                         </div>
-                    </div> 
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>
@@ -172,8 +154,11 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="b2bUpdateForm.status === 'INVALID'" class="btn btn-success">
+                <input type="submit" [disabled]="b2bCustomerForm.status === 'INVALID'" class="btn btn-success">
             </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
         </div>
     </div>
 </div>

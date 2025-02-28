@@ -84,6 +84,7 @@ import { appConfig } from 'src/environment';
 import { TeamLeaderComponent } from './team-leader/team-leader.component';
 import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
 import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
+import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 
 
  
@@ -158,7 +159,8 @@ import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.compon
     AdminWhatsAppLeadsComponent,
     TeamLeaderComponent,
     TeamLeaderProjectsComponent,
-    SalesWorkTeamComponent
+    SalesWorkTeamComponent,
+    NewB2bProjectsComponent
     ],
   imports: [
     BrowserModule,
