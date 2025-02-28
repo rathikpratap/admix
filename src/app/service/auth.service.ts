@@ -214,6 +214,9 @@ export class AuthService {
   getAllCompleteProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjects`);
   }
+  getremainingAmountProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/remainingAmountProjects`);
+  }
 
   salesAllProjects(){
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);

@@ -64,6 +64,7 @@ export class TeamLeaderComponent implements OnInit {
   customers: any[] = [];
   errorMessage: any;
   rangeSearchData: any;
+  remainAmtPro: any
   // dataSet: any[] = [];
 
   isAscending: { [key: string]: boolean } = {
@@ -176,6 +177,10 @@ export class TeamLeaderComponent implements OnInit {
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
       console.log("allProject", allProject)
       this.allData = allProject;
+    });
+    this.auth.getremainingAmountProjects().subscribe((res: any) => {
+      console.log("Remainig Projects", res);
+      this.remainAmtPro = res;
     })
     this.auth.getMonthEntries().subscribe((res: any) => {
       this.totalEntry = res.totalEntries;
