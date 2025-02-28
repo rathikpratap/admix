@@ -72,12 +72,12 @@ export class EditorUpdateComponent implements OnInit {
     })
 
     this.auth.allEmployee().subscribe((res: any) => {
-      console.log("All Employees==>", res);
+      // console.log("All Employees==>", res);
       this.emp = res;
     });
     this.auth.getCompany().subscribe((res: any) => {
       this.company = res;
-      console.log("Company Details===> ", this.company);
+      // console.log("Company Details===> ", this.company);
     })
   }
   formatDate(isoDate: string): string{
@@ -108,10 +108,10 @@ export class EditorUpdateComponent implements OnInit {
     const sec: number = this.updateForm.get('videoDurationSeconds')?.value || 0;
     this.totalSec = Minsec * 60 + sec;
     this.updateForm.get('videoDuration')?.setValue(this.totalSec);
-    console.log("Total Sec==>", this.totalSec);
+    // console.log("Total Sec==>", this.totalSec);
 
     const CompName = this.updateForm.get('companyName')?.value;
-    console.log("COMP NAme====>>", CompName);
+    // console.log("COMP NAme====>>", CompName);
 
     this.company.forEach((comp: { companyName: string, signupName: string,payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
       if (comp.companyName === CompName && comp.signupName === this.tok.signupUsername) {
@@ -379,13 +379,13 @@ export class EditorUpdateComponent implements OnInit {
 
     const currentDate = new Date().toISOString();
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
-      console.log("Data Updated Successfully", res);
+      // console.log("Data Updated Successfully", res);
       this.toastr.success('Data Updated Successfully','Success');
       const projectStatusControl = this.updateForm.get('editorStatus');
         projectStatusControl?.valueChanges.subscribe(value => {
           if (value === 'Completed') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
-            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
+            // console.log("SELECTED EMPLOYEE===>", selectedEmployee);
             let sales = this.updateForm.get('salesPerson')?.value;
             let msgTitle = "Project Complete";
             let msgBody = `${this.updateForm.get('custBussiness')?.value} by Editor`;
@@ -400,13 +400,12 @@ export class EditorUpdateComponent implements OnInit {
             });
           }
         });
-
         // Manually trigger the value change logic for projectStatus
         projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
       this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-dashboard') })
     }, (err) => {
       console.log(err)
-    }) 
+    })
   }
 
   onChange(event: any) {

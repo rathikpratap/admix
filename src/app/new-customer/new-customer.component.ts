@@ -112,6 +112,7 @@ export class NewCustomerComponent {
     custCode : new FormControl("", [Validators.required]),
     custName : new FormControl("", [Validators.required]),
     custNumb : new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
+    custNumb2 : new FormControl(""),
     custBussiness : new FormControl("", [Validators.required]),
     closingDate : new FormControl("", [Validators.required]),
     closingPrice : new FormControl("", [Validators.required]),

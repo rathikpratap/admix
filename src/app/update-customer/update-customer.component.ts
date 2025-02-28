@@ -46,6 +46,7 @@ export class UpdateCustomerComponent implements OnInit{
     custCode: new FormControl("", [Validators.required]),
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
+    custNumb2: new FormControl(""),
     custEmail: new FormControl(""),
     custBussiness: new FormControl(""),
     closingDate: new FormControl("", [Validators.required]),
@@ -142,6 +143,7 @@ export class UpdateCustomerComponent implements OnInit{
         
         custName: res['custName'],
         custNumb: res['custNumb'],
+        custNumb2: res['custNumb2'],
         custEmail: res['custEmail'],
         custBussiness: res['custBussiness'],
         closingDate: this.formatDate(res['closingDate']),

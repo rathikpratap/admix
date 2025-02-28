@@ -39,6 +39,8 @@
                             <input type="text" class="form-control" formControlName="custNumb"
                                 [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
                                 placeholder="Enter Customer Number">
+                                <input type="text" class="form-control" formControlName="custNumb2"
+                                placeholder="Enter Second Customer Number">
                             <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number
                                     is Required </label>

@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-6 move-to-new-row3">
-        <div class="searchData2"> 
+        <div class="searchData2">
             <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
                 <input type="text" formControlName="mobile" placeholder="Enter Mobile No/ Name">
                 <button class="btn btn-sm btn-primary" type="submit"> Search</button>
@@ -67,7 +67,7 @@
                         <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>
@@ -153,7 +153,7 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>
@@ -252,7 +252,7 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{ user.closingDate | date:'dd-MM-yyyy' }}</td>
                             <td>{{user.closingPrice}}</td>
@@ -336,7 +336,7 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>
@@ -420,7 +420,7 @@
                             <td>{{i+1}}</td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
                             <td>{{user.closingCateg}}</td>
                             <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.closingPrice}}</td>

@@ -65,11 +65,11 @@ export class EditorAttendanceComponent implements OnInit {
 
     for(let day=1; day <= totalDays; day++){
       const date = new Date(this.year, this.month -1, day).toISOString().split('T')[0];
-      const attendace = this.attendanceData[0].attendance.find(att=> att.date === date);
+      const attendance = this.attendanceData[0].attendance.find(att=> att.date === date); 
 
       this.calendarDays.push({
         date: date,
-        attendace: attendace || {status: "select"}
+        attendance: attendance || {status: "select"}
       });
     }
 
