@@ -26,7 +26,13 @@
                         <div class="card-bg">
                             <h6>Monthly Active Projects</h6>
                         </div>
-                        <h2>{{dataLength}}</h2>
+                        <h2 *ngIf="dataLength; else block2">
+                            {{dataLength}}
+                        </h2>
+                        <ng-template #block2>
+                            <h2>0</h2>
+                        </ng-template>
+                        
                     </div>
                 </div>
             </div>

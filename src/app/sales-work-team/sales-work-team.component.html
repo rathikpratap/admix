@@ -249,8 +249,16 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
-                            <th scope="col"> Create Invoice</th> 
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -281,7 +289,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesPerson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -315,7 +331,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select clsing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -347,8 +371,16 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
-                            <th scope="col"> Create Invoice</th> 
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
+                            <th scope="col"> Create Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -381,7 +413,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -413,7 +453,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -567,7 +615,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -601,7 +657,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>
@@ -633,7 +697,15 @@
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
                             <th scope="col"> Remark </th>
-                            <th scope="col"> Sales Person</th>
+                            <!-- <th scope="col"> Sales Person</th> -->
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">{{empS.signupUsername}}</option>
+                                    </select>
+                                </form>
+                            </th>
                             <th scope="col"> Create Invoice</th> 
                         </tr>
                     </thead>

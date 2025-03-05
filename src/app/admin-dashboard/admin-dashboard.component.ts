@@ -451,7 +451,7 @@ export class AdminDashboardComponent implements OnInit {
     if (startDate && endDate) {
       this.auth.downloadRangeFile(startDate, endDate);
     }
-  }
+  } 
 
   downloadCampaignLead() {
     const startDateValue = this.categForm.value.categStartDate;

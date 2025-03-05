@@ -1382,7 +1382,7 @@
             <hr>
             <div class="table-scroll">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
                             <th scope="col">Client Name</th>
@@ -1427,9 +1427,10 @@
             <hr>
             <div class="table-scroll">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="sticky-header">
                         <tr>
                             <th scope="col">Client Code</th>
+                            <th scope="col">⭐</th>
                             <th scope="col">Client Name</th>
                             <th scope="col">Client Business</th>
                             <th scope="col">Project Category</th>
@@ -1438,13 +1439,17 @@
                             <th scope="col">Amount Received</th>
                             <th scope="col">Rest Payment</th>
                             <th scope="col">Remaining Amount</th>
+                            <th scope="col">Remark</th>
                             <th scope="col">Sales Person</th>
                             <th scope="col">Project Status</th>
                         </tr>
                     </thead>
                     <tbody> 
-                        <tr *ngFor="let users of remainAmtPro">
+                        <tr *ngFor="let users of remainAmtPro" [ngClass]="{'highlighted': users.isHighlighted}">
                             <td>{{users.custCode}}</td>
+                            <td>
+                                <span class="star-btn" [class.active]="users.isHighlighted" (click)="toggleHighlight(users)">&#9733;</span>
+                            </td>
                             <td>{{users.custName}}</td>
                             <td>{{users.custBussiness}}</td>
                             <td>{{users.closingCateg}}</td>
@@ -1453,6 +1458,15 @@
                             <td>{{users.AdvPay}}</td>
                             <td>{{users.restAmount}}</td>
                             <td>{{users.remainingAmount}}</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="users.showRemark">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <textarea *ngIf="users.showRemark" type="text" [(ngModel)]="users.remark" (change)="updateProjectStatus(users)"></textarea>
+                                </div>
+                            </td>
                             <td>{{users.salesPerson}}</td>
                             <td>{{users.projectStatus}}</td>
                         </tr>

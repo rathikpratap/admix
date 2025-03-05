@@ -276,19 +276,16 @@ export class TeamLeaderComponent implements OnInit {
   getData() {
     this.auth.closingData(this.closingData).subscribe((list: any) => {
       this.cloDatat = list;
-      console.log("SELECTED=====>>", this.cloDatat);
     })
   };
   getSalesData() {
     this.auth.empProjects(this.salesPerson_name).subscribe((list: any) => {
       this.empData = list;
-      console.log("EMPDATA=======>>", this.empData);
     });
   };
   getStatusData() {
     this.auth.empStatus(this.projectStatus).subscribe((list: any) => {
       this.statusData = list;
-      console.log("EMPSTATUS========>>", this.statusData);
     });
   }
 
@@ -301,7 +298,6 @@ export class TeamLeaderComponent implements OnInit {
 
     if (startDate && endDate) {
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData: any) => {
-        console.log("Data by Date Range==>", rangeData);
         this.rangeData = rangeData;
         this.rangeSearchData = rangeData.rangeTotalData;
         this.rangeDataCount = rangeData.rangeTotalData.length;

@@ -684,7 +684,12 @@ export class AuthService {
   } 
 
   downloadFile(){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadFile`,{responseType: 'blob'}).subscribe((res: any)=>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    this.http.get(`${appConfig.apiUrl}/auth/downloadFile`,{headers, responseType: 'blob'}).subscribe((res: any)=>{
       const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -710,7 +715,12 @@ export class AuthService {
   };
 
   downloadRangeFile(startDate: Date, endDate: Date){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {headers, responseType: 'blob'}).subscribe((res: any)=>{
       const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -775,7 +785,12 @@ export class AuthService {
   }
 
   downloadDueFile(startDate: Date, endDate: Date){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, {headers, responseType: 'blob'}).subscribe((res: any)=>{
       const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
