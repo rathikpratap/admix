@@ -181,7 +181,7 @@ export class TeamLeaderComponent implements OnInit {
     this.auth.getremainingAmountProjects().subscribe((res: any) => {
       console.log("Remainig Projects", res);
       this.remainAmtPro = res;
-    })
+    });
     this.auth.getMonthEntries().subscribe((res: any) => {
       this.totalEntry = res.totalEntries;
       this.totalEntries = res.totalEntries.length;
@@ -464,4 +464,8 @@ export class TeamLeaderComponent implements OnInit {
         this.errorMessage = error.message;
       });
   }
+  sortedRemainAmtPro(dataArray: any[]) {
+    return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  }
+  
 }

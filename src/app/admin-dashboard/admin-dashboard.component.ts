@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
-import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale, ChartType, Color } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -145,6 +146,36 @@ export class AdminDashboardComponent implements OnInit {
   onGoingDataCount: any;
   rangeTop: any;
   rangeMonthRestAmount: any;
+  closingData: any;
+  salesPerson_name: any;
+  projectStatus: any;
+  combineTwo: any;
+  closingStatus: any;
+  salesStatus: any;
+  combineThree: any;
+  cloDatat: any;
+  empData: any;
+  statusData: any;
+  allClosings:any;
+  salesEmp:any;
+  remainAmtPro: any
+
+  salesData: any[] = [];
+  chartLabels: string[] = [];
+  chartData: any[] = [];
+  chartType: ChartType = 'bar';
+
+  isAscending: { [key: string]: boolean } = {
+    customer: true,
+    data: true,
+    cloDatat: true,
+    empData: true,
+    combineTwo: true,
+    statusData: true,
+    combineThree: true,
+    closingStatus: true,
+    salesStatus: true
+  };
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -154,6 +185,15 @@ export class AdminDashboardComponent implements OnInit {
     campaign_name: new FormControl("null"),
     categStartDate: new FormControl(""),
     categEndDate: new FormControl("")
+  });
+  closingForm = new FormGroup({
+    closing_name: new FormControl("null")
+  });
+  salesForm = new FormGroup({
+    salesperson_name: new FormControl("null")
+  });
+  statusForm = new FormGroup({
+    project_status: new FormControl("null")
   });
 
   // Array of predefined colors
@@ -172,9 +212,31 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
+      this.closingData = this.closingForm.get('closing_name')?.value;
+      this.getData();
+      this.check();
+      this.checkTwo();
+    });
+    this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value => {
+      this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
+      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
+      this.getSalesData();
+      this.check();
+      this.checkTwo();
+    });
+    this.statusForm.get('project_status')?.valueChanges.subscribe(value => {
+      this.projectStatus = this.statusForm.get('project_status')?.value;
+      console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
+      this.getStatusData();
+      this.checkTwo();
+      this.check();
+    });
+
     this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
       this.campaignName = this.categForm.get('campaign_name')?.value;
     });
+    this.fetchSalesData();
 
     Chart.register(
       DoughnutController,
@@ -258,6 +320,102 @@ export class AdminDashboardComponent implements OnInit {
 
   }
 
+  check() {
+    if (this.closingData && this.salesPerson_name) {
+      this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res: any) => {
+        console.log("COMBINE======>>", res);
+        this.combineTwo = res;
+      });
+    } else if (this.closingData && this.projectStatus) {
+      this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res: any) => {
+        this.closingStatus = res;
+      })
+    } else if (this.salesPerson_name && this.projectStatus) {
+      this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
+        this.salesStatus = res;
+        console.log("SALES STATUS===========>>>", this.salesStatus);
+      })
+    }
+  }
+  checkTwo() {
+    if (this.closingData && this.salesPerson_name && this.projectStatus) {
+      this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
+        console.log("COMBINE THREE=============>>", res);
+        this.combineThree = res;
+      })
+    }
+  }
+
+  getData() {
+    this.auth.closingData(this.closingData).subscribe((list: any) => {
+      this.cloDatat = list;
+    })
+  };
+  getSalesData() {
+    this.auth.empProjects(this.salesPerson_name).subscribe((list: any) => {
+      this.empData = list;
+    });
+  };
+  getStatusData() {
+    this.auth.empStatus(this.projectStatus).subscribe((list: any) => {
+      this.statusData = list;
+    });
+  }
+
+  fetchSalesData() {
+    this.auth.getSalesData().subscribe(data => {
+      this.salesData = data;
+
+      const salesPeopleSet = new Set<string>();
+      const salesDataByPerson: { [salesPerson: string]: { currentMonth: number, lastMonth: number } } = {};
+
+      let currentMonth = new Date().getMonth() + 1;
+      let lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+
+      data.forEach((item:any) => {
+        const salesPerson = item._id.salesPerson;
+        const month = item._id.month;
+        const totalSales = item.totalSales;
+
+        salesPeopleSet.add(salesPerson);
+
+        if (!salesDataByPerson[salesPerson]) {
+          salesDataByPerson[salesPerson] = { currentMonth: 0, lastMonth: 0 };
+        }
+
+        if (month === currentMonth) {
+          salesDataByPerson[salesPerson].currentMonth = totalSales;
+        } else if (month === lastMonth) {
+          salesDataByPerson[salesPerson].lastMonth = totalSales;
+        }
+      });
+
+      this.chartLabels = Array.from(salesPeopleSet);
+      this.chartData = [
+        {
+          data: this.chartLabels.map(person => salesDataByPerson[person]?.lastMonth || 0),
+          label: 'Last Month Sales',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        },
+        {
+          data: this.chartLabels.map(person => salesDataByPerson[person]?.currentMonth || 0),
+          label: 'Current Month Sales',
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }
+      ];
+    });
+  }
+
+  chartOptions: ChartOptions = {
+    responsive: true
+  };
+
+
+
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -267,7 +425,7 @@ export class AdminDashboardComponent implements OnInit {
     return color;
   }
 
-  constructor(private auth: AuthService, private messagingService: MessagingService) {
+  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
     });
@@ -350,6 +508,20 @@ export class AdminDashboardComponent implements OnInit {
     this.auth.getClosing().subscribe((res: any) => {
       this.closing_names = res.filter((closing: any, index: number, self: any[]) =>
         index === self.findIndex((clo: any) => clo.closingCateg === closing.closingCateg));
+    });
+    this.auth.allClosing().subscribe((res: any) => {
+      this.allClosings = res;
+    });
+    this.auth.allEmployee().subscribe((res: any) => {
+      if (Array.isArray(res)) {
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
+      } else {
+        console.error("Unexpected response format:", res);
+      }
+    });
+    this.auth.getremainingAmountProjects().subscribe((res: any) => {
+      console.log("Remainig Projects", res);
+      this.remainAmtPro = res;
     })
   }
 
@@ -500,5 +672,34 @@ export class AdminDashboardComponent implements OnInit {
     const url = `/b2b-dashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
+  }
+
+  toggleHighlight(user: any) {
+    user.isHighlighted = !user.isHighlighted;
+    console.log("Toggling isHighlighted:", user.isHighlighted);
+    this.updateProjectStatus(user);
+  }
+
+  updateProjectStatus(dataa: any) {
+    console.log("UPDATE", dataa);
+    this.auth.updateProjectStatusTeam([dataa]).subscribe((res: any) => {
+      if (res) {
+        console.log("UPDATE SUCCESS", res);
+        this.toastr.success("Data Successfully Changed", "Success");
+      }
+    })
+  }
+
+  // Sort Function
+  sortByClosingDate(dataSet: 'data' | 'cloDatat' | 'empData' | 'combineTwo' | 'statusData' | 'combineThree' | 'closingStatus' | 'salesStatus'): void {
+    console.log("DATE DATE");
+    this[dataSet].sort((a: any, b: any) => {
+      const dateA = new Date(a.closingDate).getTime();
+      const dateB = new Date(b.closingDate).getTime();
+
+      return this.isAscending[dataSet] ? dateA - dateB : dateB - dateA;
+    });
+
+    this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
   }
 }

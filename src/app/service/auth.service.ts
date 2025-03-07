@@ -1338,4 +1338,8 @@ export class AuthService {
       return res || {}
     }), catchError(this.handleError))
   }
+
+  getSalesData():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/sales-data`);
+  }
 }

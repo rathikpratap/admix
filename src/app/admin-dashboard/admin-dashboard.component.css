@@ -68,7 +68,12 @@
 }
 .table-scroll{
     overflow: scroll;
-    height: 250px;  
+    height: 550px;  
+}
+.sticky-header th{
+    position: sticky;
+    top: 0;
+    background: rgba(37,37, 37, 1);
 }
 th{
     background-color: rgba(255,255, 255, 0.1);
@@ -242,6 +247,65 @@ hr{
     margin-top: 10px;
     margin-right: 50px;
     margin-left: 70px;
+}
+.switch {
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.4s;
+    padding: 3px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+/* When Checkbox is Checked */
+.switch input:checked + .slider {
+    transform: translateX(26px);
+    background: white;
+}
+
+.switch input:checked ~ .switch {
+    background-color: #4CAF50;
+}
+.highlighted {
+    background-color: #21838a !important;
+}
+
+.star-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: gray;
+}
+
+.star-btn.active {
+    color: gold;
+}
+tr select{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+}
+tr select option{
+    color: black;
+}
+tr textarea{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+    margin-top: 8px;
+    resize: vertical;
 }
 @media (max-width: 500px){
     .form-container{
