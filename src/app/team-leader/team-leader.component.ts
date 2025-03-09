@@ -464,7 +464,7 @@ export class TeamLeaderComponent implements OnInit {
         this.errorMessage = error.message;
       });
   }
-  sortedRemainAmtPro(dataArray: any[]) {
+  sortedImportant(dataArray: any[]) {
     return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
   }
   

@@ -702,4 +702,7 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
   }
+  sortedImportant(dataArray: any[]) {
+    return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  }
 }

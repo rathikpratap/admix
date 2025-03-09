@@ -614,7 +614,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(data)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -716,7 +716,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloDatat" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(cloDatat)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -818,7 +818,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of empData" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(empData)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -920,7 +920,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of combineTwo" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(combineTwo)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -1022,7 +1022,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of statusData" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(statusData)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -1124,7 +1124,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of combineThree" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(combineThree)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -1226,7 +1226,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of closingStatus" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(closingStatus)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -1328,7 +1328,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of salesStatus" [ngClass]="{'highlighted': user.isHighlighted}">
+                        <tr *ngFor="let user of sortedImportant(salesStatus)" [ngClass]="{'highlighted': user.isHighlighted}">
                             <td>{{user.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="user.isHighlighted" (click)="toggleHighlight(user)">&#9733;</span>
@@ -1444,8 +1444,8 @@
                             <th scope="col">Project Status</th>
                         </tr>
                     </thead>
-                    <tbody> 
-                        <tr *ngFor="let users of sortedRemainAmtPro(remainAmtPro)" [ngClass]="{'highlighted': users.isHighlighted}">
+                    <tbody>
+                        <tr *ngFor="let users of sortedImportant(remainAmtPro)" [ngClass]="{'highlighted': users.isHighlighted}">
                             <td>{{users.custCode}}</td>
                             <td>
                                 <span class="star-btn" [class.active]="users.isHighlighted" (click)="toggleHighlight(users)">&#9733;</span>
