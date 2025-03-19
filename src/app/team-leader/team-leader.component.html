@@ -204,7 +204,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6 cvol-sm-12 col-12">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card4">
             <div class="card-body">
                 <div class="form-container2">
@@ -402,7 +402,7 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(customers)">
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)"> <!--changed this-->
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
@@ -514,7 +514,7 @@
                             <td>{{user.remainingAmount}}</td>
                             <td>
                                 <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(customers)">
+                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateProjectStatus(user)"> <!--changed this-->
                                     <option value="Closing">Closing</option>
                                     <option value="Graphic Designing">Graphic Designing</option>
                                     <option value="Graphic Designing Changes">Graphic Designing Changes</option>
