@@ -50,18 +50,15 @@ export class WhatsAppLeadsComponent implements OnInit {
   ngOnInit(): void {
     this.categForm.get('campaign_Name')?.valueChanges.subscribe(value=>{
       this.campaign_Name = this.categForm.get('campaign_Name')?.value;
-      console.log("Campaign Name===>", this.campaign_Name);
       this.getgetData();
     });    
   } 
 
-  constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2, private toastr: ToastrService){
+  constructor(private auth: AuthService,private formBuilder: FormBuilder, private toastr: ToastrService){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data.salesTeam;
       this.transferName = res?.data.signupUsername;
-      console.log("USerDAta==>", this.tok);
-      console.log("TransferName====>",this.transferName);
       if(!this.tok){
         alert("Session Expired, Please Login Again");
         this.auth.logout();
@@ -73,7 +70,6 @@ export class WhatsAppLeadsComponent implements OnInit {
       mobile: ['']
     });
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
-      console.log("Fetched Facebook Leads===>>", res);
       this.fbLeads = res;
     });
     
@@ -86,54 +82,43 @@ export class WhatsAppLeadsComponent implements OnInit {
     this.fiveYesterdayDate = this.auth.getDate(-6);
 
     this.auth.dataLength().subscribe((res:any)=>{
-      console.log("length==>", res);
       this.dataLength = res;
     });
 
     this.auth.getWhatsAppCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
     });
 
     this.auth.getSalesTeam().subscribe((res : any)=>{
-      console.log("Sales Teams==>", res);
       this.emp = res;
     });  
   }
- 
   getgetData(){
     this.auth.getWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res; 
     });  
 
     this.auth.getYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
     this.auth.getOneYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
     this.auth.getTwoYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res; 
     });
 
     this.auth.getThreeYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
     this.auth.getFourYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
     this.auth.getFiveYesterdayWhatsAppLeads(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
   }
@@ -152,7 +137,6 @@ export class WhatsAppLeadsComponent implements OnInit {
 
     if(startDate && endDate && categ){
       this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
@@ -161,7 +145,6 @@ export class WhatsAppLeadsComponent implements OnInit {
   searchCustomer(){
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-      console.log("customer",customers)
       this.projects = customers;
       this.errorMessage = null; 
     },
@@ -173,17 +156,14 @@ export class WhatsAppLeadsComponent implements OnInit {
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 
   updateProjectStatus(dataa: any){ 
     this.auth.updateProjectStatus(dataa).subscribe(( res: any)=>{
       if(dataa){
         this.toastr.success("Data Project Status Successfully Transfered","Success");
-        //alert("Data Project Status Successfully Transfered");
         console.log("Project Status Updated Data", dataa);
       }
-      
       console.log("SalesPerson Updated Successfully", res);
     })
   }
@@ -202,7 +182,6 @@ export class WhatsAppLeadsComponent implements OnInit {
   customLeads(){
     const url = `/salesHome/custom-leads`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   updateLeads(){
     this.auth.updateLead().subscribe((res:any)=>{
@@ -212,7 +191,6 @@ export class WhatsAppLeadsComponent implements OnInit {
   facebookLeads(){
     const url = `/salesHome/team-leads`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   invoice(userId: string){
     const url = `/salesHome/est-invoice/${userId}`;
@@ -223,7 +201,6 @@ export class WhatsAppLeadsComponent implements OnInit {
     if(window.confirm("Are you Sure want to Delete?")){
       this.auth.deleteSalesLead(id).subscribe((res : any)=>{
         this.data.splice(i,1);
-        //alert("Data Delete Successfully");
         this.toastr.error("Data Delete Successfully", "Success");
         window.location.reload();
       })
@@ -237,16 +214,13 @@ export class WhatsAppLeadsComponent implements OnInit {
       closingDate: currentDate,       // Pass the current date as closing date
       name: this.transferName
     };
-    console.log("TransferData====>", transferData);
     this.auth.transferToLeads(transferData).subscribe((res:any)=>{
       this.toastr.success("Transferred Successfully","Success");
-      console.log("Customer transferred successfully", res);
     })
   }
   searchCustomerByName(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -256,4 +230,3 @@ export class WhatsAppLeadsComponent implements OnInit {
     });
   }
 }
- 

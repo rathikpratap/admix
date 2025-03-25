@@ -43,18 +43,14 @@ export class B2bProjectsComponent {
     });
   
     this.auth.getMonthEntriesB2b().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list.totalEntries;
-    })
+    });
     this.auth.getPreviousMonthEntriesB2b().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataPreviousMonth = list;
-    })
+    });
     this.auth.getTwoPreviousMonthEntriesB2b().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataTwoPreviousMonth = list;
-    })
-
+    });
 
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
@@ -69,7 +65,6 @@ export class B2bProjectsComponent {
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchB2bByProjectName(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -92,7 +87,6 @@ export class B2bProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyRangeB2b(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }
@@ -120,7 +114,6 @@ export class B2bProjectsComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/update-b2b/${userId}`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
 }

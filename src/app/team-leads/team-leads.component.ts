@@ -1,4 +1,4 @@
-import { Component, Renderer2, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -53,42 +53,35 @@ export class TeamLeadsComponent implements OnInit {
   ngOnInit(): void {
     this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
       this.campaignName = this.categForm.get('campaign_name')?.value;
-      console.log("NAME NAME NAME=====>", this.campaignName);
       this.getgetData();
     });
   }
 
-  constructor(private auth: AuthService,private formBuilder: FormBuilder,private renderer: Renderer2, private toastr: ToastrService){
+  constructor(private auth: AuthService,private formBuilder: FormBuilder, private toastr: ToastrService){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data.salesTeam;
-      console.log("USerDAta==>", this.tok)
       if(!this.tok){
         alert("Session Expired, Please Login Again");
         this.auth.logout();
       }
-    })
+    });
 
     this.searchForm = this.formBuilder.group({
       projectStatus: [''],
       mobile: ['']
     });
     this.auth.salesFacebookLeads().subscribe((res:any)=>{
-      console.log("Fetched Facebook Leads===>>", res);
       this.fbLeads = res;
     });
     this.auth.salesSecondFacebookLeads().subscribe((res:any)=>{
       this.secondFbLeads = res;
-      console.log("SEcond Leadas=====>>", this.secondFbLeads);
     });
     this.auth.getCampaign().subscribe((res:any)=>{
-      console.log("CAMPAIGN_NAME=========>>", res);
       this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
       index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
-      console.log("campaign_names=========>>", this.campaign_names);
     });
     
-
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
     this.oneYesterdayDate = this.auth.getDate(-2);
@@ -98,54 +91,44 @@ export class TeamLeadsComponent implements OnInit {
     this.fiveYesterdayDate = this.auth.getDate(-6);
 
     this.auth.dataLength().subscribe((res:any)=>{
-      console.log("length==>", res);
       this.dataLength = res;
     });
 
     this.auth.getCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
     });
 
     this.auth.getSalesTeam().subscribe((res : any)=>{
-      console.log("Sales Teams==>", res);
       this.emp = res;
-    }) 
+    });
   }
 
   getgetData(){
     this.auth.getTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res; 
     });  
 
     this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
     this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
     this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
     this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
     this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
     this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
   }
@@ -164,7 +147,6 @@ export class TeamLeadsComponent implements OnInit {
 
     if(startDate && endDate && categ){
       this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
@@ -173,7 +155,6 @@ export class TeamLeadsComponent implements OnInit {
   searchCustomer(){
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-      console.log("customer",customers)
       this.projects = customers;
       this.errorMessage = null; 
     },
@@ -185,7 +166,6 @@ export class TeamLeadsComponent implements OnInit {
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   invoice(userId: string){
     const url = `/salesHome/est-invoice/${userId}`;
@@ -196,7 +176,6 @@ export class TeamLeadsComponent implements OnInit {
     this.auth.updateProjectStatus(dataa).subscribe(( res: any)=>{
       if(dataa){
         alert("Data Project Status Successfully Transfered");
-        console.log("Project Status Updated Data", dataa);
       }
       
       console.log("SalesPerson Updated Successfully", res);
@@ -217,7 +196,6 @@ export class TeamLeadsComponent implements OnInit {
   customLeads(){
     const url = `/salesHome/custom-leads`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   updateLeads(){
     this.auth.updateLead().subscribe((res:any)=>{
@@ -227,10 +205,8 @@ export class TeamLeadsComponent implements OnInit {
   whatsAppLeads(){
     const url = `/salesHome/whatsApp-leads`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   delete(id:any, i:any){
-    console.log(id);
     if(window.confirm("Are you Sure want to Delete?")){
       this.auth.deleteSalesLead(id).subscribe((res : any)=>{
         this.data.splice(i,1);
@@ -247,17 +223,14 @@ export class TeamLeadsComponent implements OnInit {
       closingDate: currentDate,       // Pass the current date as closing date
       name: this.transferName
     };
-    console.log("TransferData====>", transferData);
     this.auth.transferToLeads(transferData).subscribe((res:any)=>{
       this.toastr.success("Transferred Successfully","Success");
-      console.log("Customer transferred successfully", res);
     })
   }
 
   searchCustomerByName(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },

@@ -42,43 +42,35 @@ export class SalesWorkComponent {
         this.auth.logout();
       }
     })
-
     this.searchForm = this.formBuilder.group({
       projectStatus: ['']
     });
 
     this.auth.getSalesTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res;
     });
 
     this.auth.getSalesYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
     this.auth.getSalesOneYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
     this.auth.getSalesTwoYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
     this.auth.getSalesThreeYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
     this.auth.getSalesFourYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
     this.auth.getSalesFiveYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
 
@@ -98,7 +90,6 @@ export class SalesWorkComponent {
   searchCustomer(){
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -116,9 +107,8 @@ export class SalesWorkComponent {
 
     if(startDate && endDate){
       this.auth.getSalesLeadbyRangeAdmin(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
-      })
+      });
     }
   }
   refreshPage(){
@@ -142,7 +132,6 @@ export class SalesWorkComponent {
   whatsAppLeads(){
     const url = `/admin-WhatsAppLeads`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }
  

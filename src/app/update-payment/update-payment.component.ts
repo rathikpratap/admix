@@ -51,12 +51,10 @@ export class UpdatePaymentComponent {
     });
     this.auth.allEmployee().subscribe((res:any)=>{
       this.employee = res;
-      console.log("Emp===>", this.employee);
-    })
+    });
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
     
     this.auth.getCompanyPay(this.getId).subscribe((res:any)=>{
-      console.log("res====>", res);
       this.empUpdateForm.patchValue({
         companyName : res['companyName'],
         signupName : res['signupName'],
@@ -75,9 +73,8 @@ export class UpdatePaymentComponent {
         payment200words: res['payment200words'],
         payment300words: res['payment300words'],
         payment500words: res['payment500words']
-      })
-    })
-    
+      });
+    });
   }
 
   onUpdate(){
@@ -86,7 +83,6 @@ export class UpdatePaymentComponent {
     const signupRole = this.empUpdateForm.get('signupRole')?.value;
     const videoType = this.empUpdateForm.get('videoType')?.value;
     this.auth.updatePayment(companyName, signupName,signupRole,videoType, this.empUpdateForm.value).subscribe((res:any)=>{
-      console.log("Payment Update Successfully", this.empUpdateForm.value);
       alert("Payment Updated Successfully!!");
       this.ngZone.run(()=> {this.router.navigateByUrl('/payment')})
     },(err)=>{
@@ -99,5 +95,4 @@ export class UpdatePaymentComponent {
     this.selectedEmployee = selectedIndex !== 0 ? this.employee[selectedIndex - 1] : null;
     this.empUpdateForm.get('signupRole')?.setValue(this.selectedEmployee.signupRole);
   }
-
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-payroll',
@@ -32,7 +32,7 @@ export class PayrollComponent {
     this.dateRangeForm = new FormGroup({
       B2bEditor: new FormControl<string | null>('null'),
       startDate: new FormControl<string | null>(null),
-        endDate: new FormControl<string | null>(null)
+      endDate: new FormControl<string | null>(null)
     });
     this.payrollForm = new FormGroup({
       payrollTm: new FormControl<string>(''),
@@ -53,11 +53,11 @@ export class PayrollComponent {
       scriptPaymentDate: new FormControl(""),
       voiceOverPaymentDate: new FormControl(""),
       companyName: new FormControl("")
-    })
+    });
 
     this.auth.allEmployee().subscribe((res:any)=>{
       this.employee = res;
-    })
+    });
   }
 
   onDate(){
@@ -73,14 +73,11 @@ export class PayrollComponent {
         this.selectData = res;
         console.log(res);
         this.payrollForm.get('payrollTm')?.setValue(tmName);
-        console.log("Editor===>", res[0].editor);
         this.auth.allEmployee().subscribe((resEmp:any)=>{
-          console.log("RESEMp===>", resEmp);
           resEmp.forEach((employee: any) => {
             if (employee.signupUsername === tmName) {
               this.payrollForm.get('payrollRole')?.setValue(employee.signupRole);
               this.EmpRole = employee.signupRole;
-              console.log("ROLE===>", this.EmpRole);
             }
           });
           if(this.EmpRole === 'Editor'){
@@ -90,9 +87,7 @@ export class PayrollComponent {
               this.inCompleteProjects = res1.inCompleteProjects.length;
               this.payrollForm.get('inCompleteProjects')?.setValue(this.inCompleteProjects);
               this.payrollForm.get('EditorPaybalPayment')?.setValue(res1.paybalAmount);
-              console.log("Paybal Amount===>", res1.paybalAmount);
             })
-            console.log("Hello Editor");
           }else if(this.EmpRole === 'Script Writer'){
             this.auth.getScriptDetails(startDate,endDate,tmName).subscribe((res1:any)=>{
               this.completeProjects = res1.completeProjects.length;
@@ -100,9 +95,7 @@ export class PayrollComponent {
               this.inCompleteProjects = res1.inCompleteProjects.length;
               this.payrollForm.get('inCompleteProjects')?.setValue(this.inCompleteProjects);
               this.payrollForm.get('ScriptPaybalPayment')?.setValue(res1.paybalAmount);
-              console.log("Paybal Amount===>", res1.paybalAmount);
             })
-            console.log("Hello Writer");
           }else if(this.EmpRole === 'VO Artist'){
             this.auth.getVoDetails(startDate,endDate,tmName).subscribe((res1:any)=>{
               this.completeProjects = res1.completeProjects.length;
@@ -110,14 +103,10 @@ export class PayrollComponent {
               this.inCompleteProjects = res1.inCompleteProjects.length;
               this.payrollForm.get('inCompleteProjects')?.setValue(this.inCompleteProjects);
               this.payrollForm.get('VoPaybalPayment')?.setValue(res1.paybalAmount);
-              console.log("Paybal Amount===>", res1.paybalAmount);
             })
-            console.log("Hello VO Artist")
           }
         });
-        console.log("TOtal Projects===>", res.length);
         this.payrollForm.get('totalProjects')?.setValue(res.length);
-        
       })
     }
   }
@@ -142,10 +131,7 @@ export class PayrollComponent {
     this.payrollForm.get('companyName')?.setValue('AdmixMedia');
 
     if(startDate && endDate && tmName){
-      console.log("TMMMMNAMEEE===>>",tmName);
       this.auth.updatePayrollDetails(startDate,endDate,tmName, this.payrollForm.value).subscribe((res:any)=>{
-
-        console.log("Payroll Information Update", this.payrollForm.value);
         alert(res.message);
       },(err)=>{
         console.log(err)
@@ -161,10 +147,7 @@ export class PayrollComponent {
     const tmName = this.dateRangeForm.value.B2bEditor;
 
     if(startDate && endDate && tmName){
-      console.log("TMMMMNAMEEE===>>",tmName);
       this.auth.updatePayrollDetailsScript(startDate,endDate,tmName, this.payrollForm.value).subscribe((res:any)=>{
-
-        console.log("Payroll Information Update", this.payrollForm.value);
         alert(res.message);
       },(err)=>{
         console.log(err)
@@ -180,10 +163,7 @@ export class PayrollComponent {
     const tmName = this.dateRangeForm.value.B2bEditor;
 
     if(startDate && endDate && tmName){
-      console.log("TMMMMNAMEEE===>>",tmName);
       this.auth.updatePayrollDetailsVo(startDate,endDate,tmName, this.payrollForm.value).subscribe((res:any)=>{
-
-        console.log("Payroll Information Update", this.payrollForm.value);
         alert(res.message);
       },(err)=>{
         console.log(err)
@@ -193,12 +173,10 @@ export class PayrollComponent {
   b2bPayroll(){
     const url = `/b2b-payroll`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   allPayroll(){
     const url = `/all-payroll`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }
  

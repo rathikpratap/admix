@@ -36,7 +36,6 @@ export class VoDashboardComponent {
     });
     this.auth.voProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.urgentVoProjects().subscribe((res:any)=>{
       this.urgent = res;
@@ -48,19 +47,16 @@ export class VoDashboardComponent {
       this.medium = res;
     });
     this.auth.getTodayEntriesVo().subscribe((todayRes:any)=>{
-      console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
         this.todayEntries = totalDayEntry.length;
       }else{
         this.todayEntries = 0;
       }
-      
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.getVoData().subscribe((list : any)=>{ 
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;
     });
@@ -70,11 +66,10 @@ export class VoDashboardComponent {
     });
     this.auth.allVoProjects().subscribe((res:any)=>{
       this.allProjects = res.length;
-    })
+    });
   }
   openUpdatePanel(userId: string) {
     const url = `/vo-home/vo-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }

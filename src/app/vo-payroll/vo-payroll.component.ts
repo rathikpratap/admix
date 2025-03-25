@@ -36,7 +36,6 @@ export class VoPayrollComponent {
   }
   searchPayment(){
     const voCNR = this.searchForm.get('VoCNR')!.value;
-    console.log("CNR===>", voCNR);
     this.auth.searchPaymentVo(voCNR).subscribe((customers:any)=>{
       this.customers = customers;
       this.errorMessage = null;
@@ -54,7 +53,6 @@ export class VoPayrollComponent {
 
     if(startDate && endDate){
       this.auth.getPayrollbyDatePassRangeVo(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }

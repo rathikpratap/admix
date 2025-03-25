@@ -35,7 +35,6 @@ export class EditorProjectsComponent {
     });
     this.auth.editorProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.editorPreviousProjects().subscribe((res:any)=>{
       this.previousData = res;
@@ -55,9 +54,7 @@ export class EditorProjectsComponent {
   }
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
-    console.log("NUMBER===>", projectName);
     this.auth.searchCustomerbyProjectName(projectName).subscribe((customers: any)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -75,19 +72,16 @@ export class EditorProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyDatePassRangeEditor(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
-      })
+      });
     }
   } 
   otherProjects(){
     const url = `/editor-home/editor-otherProjects`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 } 

@@ -2,7 +2,6 @@ import { Component, NgZone } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -36,7 +35,7 @@ export class VoUpdateComponent {
     salesPerson: new FormControl("")
   }) 
 
-  constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer,private toastr: ToastrService){
+  constructor(private router: Router, private ngZone: NgZone,private activatedRoute: ActivatedRoute, private auth: AuthService,private toastr: ToastrService){
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.auth.getCustomer(this.getId).subscribe((res: any)=>{
@@ -68,7 +67,6 @@ export class VoUpdateComponent {
     });
 
     this.auth.allEmployee().subscribe((res:any)=>{
-      console.log("All Employees==>", res);
       this.emp = res;
     });
     
@@ -86,19 +84,15 @@ export class VoUpdateComponent {
   }
 
   onUpdate(){
-    console.log("duration==>",this.updateForm.get('voiceDurationSeconds')?.value);
     const Minsec: number = this.updateForm.get('voiceDurationMinutes')?.value || 0;
     const sec: number = this.updateForm.get('voiceDurationSeconds')?.value || 0;
     this.totalSec = Minsec * 60 + sec;
     this.updateForm.get('voiceDuration')?.setValue(this.totalSec);
-    console.log("Total Sec==>", this.totalSec);
     const CompName = this.updateForm.get('companyName')?.value;
 
     this.company.forEach((comp: {companyName: string, signupName: string, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number})=>{
       if(comp.companyName === CompName && comp.signupName === this.tok.signupUsername){
-        console.log("Payment Of employee===>>", comp.payment60Sec);
         if(this.totalSec > 0 && this.totalSec <= 60){
-          console.log("60Sec Payment",comp.payment60Sec);
           this.updateForm.get('voicePayment')?.setValue(comp.payment60Sec);
         } else if(this.totalSec > 60 && this.totalSec <= 90){
           this.updateForm.get('voicePayment')?.setValue(comp.payment90Sec);
@@ -122,28 +116,23 @@ export class VoUpdateComponent {
     const currentDate = new Date().toISOString();
 
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res:any)=>{
-      console.log("Data Updated Successfully", res);
       this.toastr.success('Data Updated Successfully','Success');
       const projectStatusControl = this.updateForm.get('voiceOverStatus');
         projectStatusControl?.valueChanges.subscribe(value => {
           if (value === 'Complete') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
-            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
             let sales = this.updateForm.get('salesPerson')?.value;
             let msgTitle = "Project Complete";
             let msgBody = `${this.updateForm.get('custBussiness')?.value} by Voice Over Artist`;
             this.auth.sendNotificationsAdmin([selectedEmployee],sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
               if (res) {
-                //alert("Notification Sent");
                 this.toastr.success('Notification Send', 'Success');
               } else {
-                //alert("Error Sending Notification");
                 this.toastr.error('Error Sending Notification', 'Error');
               }
             });
           }
         });
-
         // Manually trigger the value change logic for projectStatus
         projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
 

@@ -14,7 +14,6 @@ export class NewEmployeeComponent {
 
   visible:boolean = true;
   changetype:boolean = true;
-
   message:string ='';
   isProcess:boolean = false;
   className = 'd-none'
@@ -80,5 +79,4 @@ export class NewEmployeeComponent {
     this.visible = !this.visible;
     this.changetype = !this.changetype;
   }
-
 }

@@ -220,14 +220,12 @@ export class AdminDashboardComponent implements OnInit {
     });
     this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value => {
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
-      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
       this.getSalesData();
       this.check();
       this.checkTwo();
     });
     this.statusForm.get('project_status')?.valueChanges.subscribe(value => {
       this.projectStatus = this.statusForm.get('project_status')?.value;
-      console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
       this.getStatusData();
       this.checkTwo();
       this.check();
@@ -323,33 +321,30 @@ export class AdminDashboardComponent implements OnInit {
   check() {
     if (this.closingData && this.salesPerson_name) {
       this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res: any) => {
-        console.log("COMBINE======>>", res);
         this.combineTwo = res;
       });
     } else if (this.closingData && this.projectStatus) {
       this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res: any) => {
         this.closingStatus = res;
-      })
+      });
     } else if (this.salesPerson_name && this.projectStatus) {
       this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
         this.salesStatus = res;
-        console.log("SALES STATUS===========>>>", this.salesStatus);
-      })
+      });
     }
   }
   checkTwo() {
     if (this.closingData && this.salesPerson_name && this.projectStatus) {
       this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
-        console.log("COMBINE THREE=============>>", res);
         this.combineThree = res;
-      })
+      });
     }
   }
 
   getData() {
     this.auth.closingData(this.closingData).subscribe((list: any) => {
       this.cloDatat = list;
-    })
+    });
   };
   getSalesData() {
     this.auth.empProjects(this.salesPerson_name).subscribe((list: any) => {
@@ -414,8 +409,6 @@ export class AdminDashboardComponent implements OnInit {
     responsive: true
   };
 
-
-
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -438,17 +431,17 @@ export class AdminDashboardComponent implements OnInit {
         alert("Session Expired, Please Login Again");
         this.auth.logout();
       }
-    })
+    });
     this.auth.getAllProjects().subscribe((allList: any) => {
       console.log("allList", allList)
       this.data = allList;
       this.dataLength = allList.length;
-    })
+    });
 
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
       console.log("allProject", allProject)
       this.allData = allProject;
-    })
+    });
     this.auth.getMonthEntries().subscribe((res: any) => {
       this.totalEntry = res.totalEntries;
       this.totalEntries = res.totalEntries.length;
@@ -522,7 +515,7 @@ export class AdminDashboardComponent implements OnInit {
     this.auth.getremainingAmountProjects().subscribe((res: any) => {
       console.log("Remainig Projects", res);
       this.remainAmtPro = res;
-    })
+    });
   }
 
   downloadRestAmountFile() {
@@ -606,7 +599,6 @@ export class AdminDashboardComponent implements OnInit {
         this.campaignData = res;
       }, (error) => {
         console.log("Error Fetching Data", error);
-
       });
     } else {
       console.error("Start date and End date is not valid");
@@ -676,15 +668,12 @@ export class AdminDashboardComponent implements OnInit {
 
   toggleHighlight(user: any) {
     user.isHighlighted = !user.isHighlighted;
-    console.log("Toggling isHighlighted:", user.isHighlighted);
     this.updateProjectStatus(user);
   }
 
   updateProjectStatus(dataa: any) {
-    console.log("UPDATE", dataa);
     this.auth.updateProjectStatusTeam([dataa]).subscribe((res: any) => {
       if (res) {
-        console.log("UPDATE SUCCESS", res);
         this.toastr.success("Data Successfully Changed", "Success");
       }
     })

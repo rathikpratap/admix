@@ -21,24 +21,12 @@ export class IncentiveComponent implements OnInit {
   isProcess: boolean = false;
   data: any;
 
-  // incentiveForm = new FormGroup({
-  //   employeeName : new FormControl(""),
-  //   category : new FormControl(""),
-  //   amountOne : new FormControl(0),
-  //   amountOneIncrement: new FormControl(),
-  //   amountTwo: new FormControl(0),
-  //   amountTwoIncrement: new FormControl(),
-  //   amountThree: new FormControl(0),
-  //   amountThreeIncrement: new FormControl()
-  // });
-
   ngOnInit(): void { }
 
   constructor(private auth: AuthService, private fb: FormBuilder){
 
     this.incentiveForm = this.fb.group({
       employeeName : new FormControl(""),
-      //category : new FormControl(""),
       incentives: this.fb.array([])
     });
 
@@ -51,12 +39,7 @@ export class IncentiveComponent implements OnInit {
     });
     this.auth.allEmployee().subscribe((res:any)=>{
       this.emp = res;
-      console.log("EMPLOYEE===>>", this.emp);
     });
-    // this.auth.getClosing().subscribe((res:any)=>{
-    //   this.closing_names = res.filter((closing:any, index: number, self: any[])=>
-    //   index === self.findIndex((clo:any)=> clo.closingCateg === closing.closingCateg));
-    // });
     
     this.auth.getIncentive().subscribe((res:any)=>{
       this.data = res;

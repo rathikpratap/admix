@@ -8,14 +8,9 @@ import { MessagingService } from '../service/messaging-service';
 })
 export class LogoutComponent implements OnInit {
   message: any;
-  
-
-  constructor(private messagingService: MessagingService) {
-    
-  }
+  constructor(private messagingService: MessagingService) {}
 
   ngOnInit() {
-    //this.messagingService.requestPermission();
     this.messagingService.currentMessage.subscribe((message) => {
       if (message) {
         console.log("Message Arrived: ", message);

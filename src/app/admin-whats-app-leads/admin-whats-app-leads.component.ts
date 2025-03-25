@@ -41,7 +41,6 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
   ngOnInit(): void {
     this.categForm.get('campaign_Name')?.valueChanges.subscribe(value=>{
       this.campaign_Name = this.categForm.get('campaign_Name')?.value;
-      console.log("Campaign Name===>", this.campaign_Name);
       this.getgetData();
     });    
   }
@@ -55,15 +54,12 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
       }
     });
     this.auth.getWhatsAppCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
     });
 
     this.searchForm = this.formBuilder.group({
       projectStatus: ['']
     });
-
-    
 
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
@@ -81,7 +77,6 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
   searchCustomer(){
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -94,37 +89,30 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
   getgetData(){
 
     this.auth.getSalesWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res;
     });
 
     this.auth.getSalesYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
     this.auth.getSalesOneYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
     this.auth.getSalesTwoYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
     this.auth.getSalesThreeYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
     this.auth.getSalesFourYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
     this.auth.getSalesFiveYesterdayWhatsAppWork(this.campaign_Name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
   }
@@ -137,7 +125,6 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
 
     if(startDate && endDate){
       this.auth.getSalesLeadbyRangeAdmin(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
@@ -162,7 +149,6 @@ export class AdminWhatsAppLeadsComponent implements OnInit {
   }
   whatsAppLeads(){
     const url = `/admin-WhatsAppLeads`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
 }

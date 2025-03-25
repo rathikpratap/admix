@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -26,7 +25,6 @@ export class SalesLeadsComponent {
     startDate : new FormControl(""),
     endDate: new FormControl("")
   });
- 
 
   constructor(private auth: AuthService,private formBuilder: FormBuilder){
     this.auth.getProfile().subscribe((res:any)=>{
@@ -38,19 +36,16 @@ export class SalesLeadsComponent {
     })
 
     this.searchForm = this.formBuilder.group({
-      //projectStatus: ['']
       mobile: ['']
     });
 
     this.auth.getSalesLeads().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res;
-    })
+    });
 
     this.auth.dataLength().subscribe((res:any)=>{
-      console.log("length==>", res);
       this.dataLength = res; 
-    })
+    });
 
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
@@ -66,28 +61,13 @@ export class SalesLeadsComponent {
 
     if(startDate && endDate){
       this.auth.getSalesLeadbyRangeSales(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
-      })
+      });
     }
   }
-
-  // searchProject(){
-  //   const projectStatus = this.searchForm.get('projectStatus')!.value;
-  //   this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-  //     console.log("customer",customers)
-  //     this.projects = customers;
-  //     this.errorMessage = null;
-  //   },
-  //   error=>{
-  //     this.projects = [];
-  //     this.errorMessage = error.message;
-  //   });
-  // }
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -96,11 +76,8 @@ export class SalesLeadsComponent {
       this.errorMessage = error.message;
     });
   }
-
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
-  }
-  
+  } 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,7 +9,7 @@ interface AttendanceEntry {
   status: string;
   reason: string;
 }
-
+ 
 interface AttendanceData {
   username: string;
   attendance: AttendanceEntry[];
@@ -47,12 +47,11 @@ export class ManualAttendanceComponent implements OnInit {
     this.auth.getAttendance1(this.year, this.month).subscribe(
       response => {
         if (response.success) {
-          // this.attendanceData = response.data;
           this.attendanceData = response.data.map(user => ({
             ...user,
             attendance: user.attendance.map(day => ({
               ...day,
-              reason: day.reason || '' // Ensure every day includes a reason
+              reason: day.reason || ''
             }))
           }));
           console.log("ATTENDANCE=====>>", this.attendanceData);
@@ -87,7 +86,6 @@ export class ManualAttendanceComponent implements OnInit {
   }
 
   saveAttendance(userIndex?: number): void {
-    // Save attendance for a single user if userIndex is passed, else save all users.
     if (userIndex !== undefined) {
       const user = this.attendanceData[userIndex];
       this.auth.updateAttendance(user.username, this.year, this.month, user.attendance).subscribe(
@@ -141,9 +139,5 @@ export class ManualAttendanceComponent implements OnInit {
     this.attendanceData[userIndex].totalAbsent = totalAbsent;
     this.attendanceData[userIndex].totalHalfday = totalHalfday;
   }
-
-  // showSuccess() {
-  //   this.toastr.success('Hello world!', 'Toastr fun!');
-  // }
 
 }

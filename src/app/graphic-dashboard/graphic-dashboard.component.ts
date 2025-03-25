@@ -116,16 +116,11 @@ export class GraphicDashboardComponent implements OnInit {
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
-      console.log("TOK======>>", this.tok.signupName); 
       if(!this.tok){
         alert("Session Expired, Please Login Again");
         this.auth.logout();
       }
     });
-    // this.auth.scriptProjects().subscribe((res:any)=>{
-    //   this.data = res;
-    //   console.log("Data===>", res);
-    // });
     this.auth.getTodayEntriesGraphics().subscribe((todayRes:any)=>{
       console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
@@ -138,7 +133,6 @@ export class GraphicDashboardComponent implements OnInit {
       console.error('Error Fetching today Entries', error);
     });
     this.auth.getGraphicData().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;
     });
@@ -153,7 +147,6 @@ export class GraphicDashboardComponent implements OnInit {
   openUpdatePanel(userId: string) {
     const url = `/script-home/script-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   updateStatus(user:any,priority:any){
     const name = this.tok.signupName;

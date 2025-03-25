@@ -65,7 +65,6 @@ export class TeamLeaderComponent implements OnInit {
   errorMessage: any;
   rangeSearchData: any;
   remainAmtPro: any
-  // dataSet: any[] = [];
 
   isAscending: { [key: string]: boolean } = {
     customer: true,
@@ -98,11 +97,8 @@ export class TeamLeaderComponent implements OnInit {
     project_status: new FormControl("null")
   });
 
-
   ngOnInit(): void {
-    // this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
-    //   this.campaignName = this.categForm.get('campaign_name')?.value;
-    // });
+
     this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
       this.closingData = this.closingForm.get('closing_name')?.value;
       this.getData();
@@ -111,14 +107,12 @@ export class TeamLeaderComponent implements OnInit {
     });
     this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value => {
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
-      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
       this.getSalesData();
       this.check();
       this.checkTwo();
     });
     this.statusForm.get('project_status')?.valueChanges.subscribe(value => {
       this.projectStatus = this.statusForm.get('project_status')?.value;
-      console.log("PROJECT STATUS SELECT==========>>", this.projectStatus);
       this.getStatusData();
       this.checkTwo();
       this.check();
@@ -128,26 +122,23 @@ export class TeamLeaderComponent implements OnInit {
   check() {
     if (this.closingData && this.salesPerson_name) {
       this.auth.getSalesClosing(this.closingData, this.salesPerson_name).subscribe((res: any) => {
-        console.log("COMBINE======>>", res);
         this.combineTwo = res;
       });
     } else if (this.closingData && this.projectStatus) {
       this.auth.getClosingStatus(this.closingData, this.projectStatus).subscribe((res: any) => {
         this.closingStatus = res;
-      })
+      });
     } else if (this.salesPerson_name && this.projectStatus) {
       this.auth.getSalesStatus(this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
         this.salesStatus = res;
-        console.log("SALES STATUS===========>>>", this.salesStatus);
-      })
+      });
     }
   }
   checkTwo() {
     if (this.closingData && this.salesPerson_name && this.projectStatus) {
       this.auth.getSalesClosingStatus(this.closingData, this.salesPerson_name, this.projectStatus).subscribe((res: any) => {
-        console.log("COMBINE THREE=============>>", res);
         this.combineThree = res;
-      })
+      });
     }
   }
 
@@ -167,19 +158,15 @@ export class TeamLeaderComponent implements OnInit {
         alert("Session Expired, Please Login Again");
         this.auth.logout();
       }
-    })
+    });
     this.auth.getAllProjects().subscribe((allList: any) => {
-      console.log("allList", allList)
       this.data = allList;
       this.dataLength = allList.length;
-    })
-
+    });
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
-      console.log("allProject", allProject)
       this.allData = allProject;
     });
     this.auth.getremainingAmountProjects().subscribe((res: any) => {
-      console.log("Remainig Projects", res);
       this.remainAmtPro = res;
     });
     this.auth.getMonthEntries().subscribe((res: any) => {
@@ -193,7 +180,6 @@ export class TeamLeaderComponent implements OnInit {
     });
 
     this.auth.getTodayEntries().subscribe((todayRes: any) => {
-      console.log('Response Data:', todayRes);
       this.totalDayEntry = todayRes.totalDayEntry;
       if (Array.isArray(this.totalDayEntry)) {
         this.todayEntries = this.totalDayEntry.length;
@@ -351,7 +337,6 @@ export class TeamLeaderComponent implements OnInit {
         this.campaignData = res;
       }, (error) => {
         console.log("Error Fetching Data", error);
-
       });
     } else {
       console.error("Start date and End date is not valid");
@@ -416,46 +401,37 @@ export class TeamLeaderComponent implements OnInit {
   bundles() {
     const url = `/salesHome/bundle-dashboard`;
     window.location.href = url;
-    //window.open(url,'_blank');
   }
   salesWork() {
     const url = `/salesHome/salesDashboard`;
     window.location.href = url;
-    //window.open(url,'_blank');
   }
   toggleHighlight(user: any) {
     user.isHighlighted = !user.isHighlighted;
-    console.log("Toggling isHighlighted:", user.isHighlighted);
     this.updateProjectStatus(user);
   }
 
   updateProjectStatus(dataa: any) {
-    console.log("UPDATE", dataa);
     this.auth.updateProjectStatusTeam([dataa]).subscribe((res: any) => {
       if (res) {
-        console.log("UPDATE SUCCESS", res);
         this.toastr.success("Data Successfully Changed", "Success");
       }
     })
   }
-
   // Sort Function
   sortByClosingDate(dataSet: 'customers' | 'data' | 'cloDatat' | 'empData' | 'combineTwo' | 'statusData' | 'combineThree' | 'closingStatus' | 'salesStatus'): void {
-    console.log("DATE DATE");
+
     this[dataSet].sort((a: any, b: any) => {
       const dateA = new Date(a.closingDate).getTime();
       const dateB = new Date(b.closingDate).getTime();
-
       return this.isAscending[dataSet] ? dateA - dateB : dateB - dateA;
     });
-
     this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
   }
 
   searchCustomer() {
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobile(mobile).subscribe((customers) => {
-      console.log("customer", customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -467,5 +443,4 @@ export class TeamLeaderComponent implements OnInit {
   sortedImportant(dataArray: any[]) {
     return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
   }
-  
 }

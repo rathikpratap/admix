@@ -49,7 +49,6 @@ export class SalesWorkTeamComponent implements OnInit{
   ngOnInit(): void {
     this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
-      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
       this.getSalesData();
     });
   }
@@ -59,32 +58,26 @@ export class SalesWorkTeamComponent implements OnInit{
       this.empData = res;
     });
     this.auth.getEmpSalesYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataYesterday = res;
     });
  
     this.auth.getEmpSalesOneYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataOneYesterday = res;
     });
 
     this.auth.getEmpSalesTwoYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataTwoYesterday = res;
     });
 
     this.auth.getEmpSalesThreeYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataThreeYesterday = res;
     });
 
     this.auth.getEmpSalesFourYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataFourYesterday = res;
     });
 
     this.auth.getEmpSalesFiveYesterdayTeamWork(this.salesPerson_name).subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.empDataFiveYesterday = res;
     });
   }
@@ -103,37 +96,30 @@ export class SalesWorkTeamComponent implements OnInit{
     });
 
     this.auth.getSalesTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.data = res;
     });
 
     this.auth.getSalesYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataYesterday = res;
     });
  
     this.auth.getSalesOneYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataOneYesterday = res;
     });
 
     this.auth.getSalesTwoYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataTwoYesterday = res;
     });
 
     this.auth.getSalesThreeYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataThreeYesterday = res;
     });
 
     this.auth.getSalesFourYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFourYesterday = res;
     });
 
     this.auth.getSalesFiveYesterdayTeamWork().subscribe((res:any)=>{
-      console.log("SalesLeads===>", res);
       this.dataFiveYesterday = res;
     });
     this.auth.allEmployee().subscribe((res: any) => {
@@ -160,7 +146,6 @@ export class SalesWorkTeamComponent implements OnInit{
   searchCustomer(){
     const projectStatus = this.searchForm.get('projectStatus')!.value;
     this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -178,7 +163,6 @@ export class SalesWorkTeamComponent implements OnInit{
 
     if(startDate && endDate){
       this.auth.getSalesLeadbyRangeAdmin(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }

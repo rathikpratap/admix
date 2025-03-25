@@ -39,17 +39,14 @@ export class IncentiveCalculationComponent implements OnInit{
     this.groupedData = {};
     this.auth.allEmpIncentive(this.year, this.month).subscribe(
       (res: any) => {
-        console.log('API Response:', res); // Log the response to debug
         res.forEach((result: any) => {
           // Ensure the result and the salesPerson field exist
           if (result && result.salesPerson) {
             const emp = result.salesPerson;
-  
             // Initialize the employee's array if not already present
             if (!this.groupedData[emp]) {
               this.groupedData[emp] = [];
             }
-  
             // Add the result to the grouped data
             this.groupedData[emp].push(result);
           } else {
@@ -62,8 +59,6 @@ export class IncentiveCalculationComponent implements OnInit{
       }
     );
   }
-  
-  
   
   isEmptyGroupedData(): boolean {
     return Object.keys(this.groupedData).length === 0;
@@ -90,8 +85,4 @@ export class IncentiveCalculationComponent implements OnInit{
   objectKeys(obj: any) {
     return Object.keys(obj);
   }
-  // get isEmptyGroupedData() {
-  //   return !this.groupedData || Object.keys(this.groupedData).length === 0;
-  // }
-  
 }

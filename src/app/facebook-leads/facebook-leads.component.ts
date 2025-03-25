@@ -34,29 +34,25 @@ export class FacebookLeadsComponent {
     });
 
     this.auth.getLeads().subscribe((list : any)=>{
-      console.log("list==>",list)
       this.data = list;
     }); 
 
     this.auth.allEmployee().subscribe((res : any)=>{
-      console.log("employee==>", res);
       this.emp = res;
-    })
+    });
   }
  
   getLeads(){
     this.auth.getLeads().subscribe((list : any)=>{
-      console.log("list==>",list)
       this.data = list;
-      console.log(list.campaign_name)
-    })
+    });
   }
 
   transferLeads(){
     this.auth.transferLeads().subscribe((res: any)=>{
       alert("Leads Successfully Transfered");
       console.log("Leads transfered Succefully to admin Leads");
-    })
+    });
   }
 
   onDate(){

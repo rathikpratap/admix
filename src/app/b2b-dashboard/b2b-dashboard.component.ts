@@ -42,7 +42,6 @@ export class B2bDashboardComponent {
       console.error('Error Fetching Entries',error);
     });
     this.auth.getCustDataB2b().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;  
     });
@@ -64,6 +63,5 @@ export class B2bDashboardComponent {
   admix(){
     const url = `/admin-dashboard`;
     window.location.href = url;
-    //window.open(url,'_blank');
   }
 }

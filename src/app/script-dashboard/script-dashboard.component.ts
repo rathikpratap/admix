@@ -37,7 +37,6 @@ export class ScriptDashboardComponent {
     });
     this.auth.scriptProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.urgentScriptProjects().subscribe((res:any)=>{
       this.urgent = res;
@@ -49,7 +48,6 @@ export class ScriptDashboardComponent {
       this.medium = res;
     });
     this.auth.getTodayEntriesScript().subscribe((todayRes:any)=>{
-      console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
         this.todayEntries = totalDayEntry.length;
@@ -57,10 +55,9 @@ export class ScriptDashboardComponent {
         this.todayEntries = 0;
       }
     },(error)=>{
-      console.error('Error Fetching today Entreis', error);
+      console.error('Error Fetching today Entries', error);
     });
     this.auth.getScriptData().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;
     });
@@ -75,6 +72,5 @@ export class ScriptDashboardComponent {
   openUpdatePanel(userId: string) {
     const url = `/script-home/script-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }

@@ -35,7 +35,6 @@ export class VoProjectsComponent {
     });
     this.auth.voProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.voPreviousProjects().subscribe((res:any)=>{
       this.previousData = res;
@@ -55,9 +54,7 @@ export class VoProjectsComponent {
   }
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
-    console.log("NUMBER===>", projectName);
     this.auth.searchCustomerbyProjectName(projectName).subscribe((customers: any)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -75,7 +72,6 @@ export class VoProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyDatePassRangeVo(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }
@@ -83,7 +79,5 @@ export class VoProjectsComponent {
   openUpdatePanel(userId: string) {
     const url = `/vo-home/vo-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }
- 

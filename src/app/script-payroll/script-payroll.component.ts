@@ -36,7 +36,6 @@ export class ScriptPayrollComponent {
   }
   searchPayment(){
     const scriptCNR = this.searchForm.get('ScriptCNR')!.value;
-    console.log("CNR===>", scriptCNR);
     this.auth.searchPaymentScript(scriptCNR).subscribe((customers:any)=>{
       this.customers = customers;
       this.errorMessage = null;
@@ -54,10 +53,8 @@ export class ScriptPayrollComponent {
 
     if(startDate && endDate){
       this.auth.getPayrollbyDatePassRangeScript(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }
   }
 }
- 

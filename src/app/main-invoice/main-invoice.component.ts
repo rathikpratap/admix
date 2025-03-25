@@ -86,18 +86,13 @@ export class MainInvoiceComponent implements OnInit {
 
     this.auth.mainInvoiceCount().subscribe((res:any)=>{
       this.count = (res??0) + 1;
-      console.log("Count==>", this.count);
     });
     this.addRow();
-    
   }
-  
   constructor(private auth:AuthService,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private toastr: ToastrService){ }
-
   get rows() {
     return this.invoiceForm.get('rows') as FormArray;
   }
-
   addRow() {
     const row = this.fb.group({
       invoiceCateg: [''],
@@ -108,7 +103,6 @@ export class MainInvoiceComponent implements OnInit {
       amt: [{value: 0, disabled: true}]
     });
     this.rows.push(row);
-
     row.get('numOfVideos')?.valueChanges.subscribe(() => {
       this.calculateRowAmount(row);
     });

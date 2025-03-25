@@ -2,7 +2,6 @@ import { Component} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
-import { range } from 'rxjs';
 
 @Component({
   selector: 'app-sales-dashboard',
@@ -53,20 +52,16 @@ export class SalesDashboardComponent {
     });
  
     this.auth.getCustData().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;  
     });
     
-
     this.auth.getCompleteProjects().subscribe((completeList: any)=>{
-      console.log("completeList",completeList)
       this.completeData = completeList;
     }); 
  
     this.auth.getMonthEntriesEmp().subscribe((res : any)=>{
       this.totalEntry = res.totalEntries;
-      console.log("TOTALENTRY========>>", this.totalEntry);
       this.totalEntries = res.totalEntries.length;
       this.totalAmount = res.totalAmount;
       this.totalRecv = res.totalRecv;
@@ -76,19 +71,15 @@ export class SalesDashboardComponent {
     }); 
     this.auth.getDueAmount().subscribe((res:any)=>{
       this.dueData = res;
-      console.log("DUEDATA==========>>", this.dueData);
     });
     this.auth.getRestAmount().subscribe((res:any)=>{
       this.restData = res;
-      console.log("DUEDATA==========>>", this.restData);
     });
     this.auth.topPerformer().subscribe((res:any)=>{
       this.topPerformer = res;
-      console.log("TOP=====>>", this.topPerformer);
     });
 
     this.auth.getTodayEntriesEmp().subscribe((todayRes:any)=>{
-      console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
         this.todayEntry = totalDayEntry;
@@ -96,7 +87,6 @@ export class SalesDashboardComponent {
       }else{
         this.todayEntries = 0;
       }
-      
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
@@ -107,14 +97,11 @@ export class SalesDashboardComponent {
   }
 
   downloadRestAmountFile(){
-    console.log("ITS RUNNING");
     this.auth.getRestAmountDownload();
   }
   downloadDueAmountFile(){
-    console.log("ITS RUNNING");
     this.auth.getDueAmountDownload();
   }
-  
   onDate(){
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
@@ -124,7 +111,6 @@ export class SalesDashboardComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangedata:any)=>{
-        console.log("Data by Date Range==>", rangedata);
         this.rangeData = rangedata;
       },(error)=>{
         console.error('Error fetching data', error);
@@ -132,9 +118,7 @@ export class SalesDashboardComponent {
     }else{
       console.error("Start date and End Date is not Valid");
     }
-     
   }
-
   downloadRangeFile(){
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
@@ -146,7 +130,6 @@ export class SalesDashboardComponent {
       this.auth.downloadRangeFile(startDate, endDate);
     }
   }
-
   downloadDueFile(){
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
@@ -158,24 +141,20 @@ export class SalesDashboardComponent {
       this.auth.downloadDueFile(startDate, endDate);
     }
   }
-
   resetData(){
     location.reload(); 
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   bundles(){
     const url = `/salesHome/bundle-dashboard`;
     window.location.href = url;
-    //window.open(url,'_blank');
   }
   teamWork(){
     const url = `/salesHome/team-leader`;
     window.location.href = url;
-    //window.open(url,'_blank');
   }
 }
 

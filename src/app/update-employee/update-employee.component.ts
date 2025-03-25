@@ -28,7 +28,7 @@ export class UpdateEmployeeComponent {
     salesTeam : new FormControl(""),
     subsidiaryName: new FormControl(""),
     incentivePassword : new FormControl("") 
-  })
+  });
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
     this.auth.getProfile().subscribe((res:any)=>{
@@ -41,7 +41,6 @@ export class UpdateEmployeeComponent {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.auth.getEmployee(this.getId).subscribe((res: any)=>{
-      console.log("res ==>", res);
       this.empUpdateForm.patchValue({
         signupName : res['signupName'],
         signupUsername : res['signupUsername'],
@@ -62,7 +61,7 @@ export class UpdateEmployeeComponent {
     });
     this.auth.getSubsidiary().subscribe((res:any)=>{
       this.subsidiary = res;
-    })
+    });
   }
 
   getControls(name: any) : AbstractControl | null{
@@ -71,10 +70,9 @@ export class UpdateEmployeeComponent {
 
   onUpdate(){
     this.auth.updateEmployee(this.getId, this.empUpdateForm.value).subscribe((res:any)=>{
-      console.log("Data Updated Successfully");
       this.ngZone.run(()=>{this.router.navigateByUrl('/allEmployees')})
     },(err)=>{
       console.log(err)
-    })
+    });
   }
 }

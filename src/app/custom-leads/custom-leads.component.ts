@@ -37,7 +37,6 @@ export class CustomLeadsComponent {
       this.leadForm.get('leadsCreatedDate')!.setValue(dates || null)
     });
     this.auth.getWhatsAppCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
     });
 
@@ -79,6 +78,7 @@ export class CustomLeadsComponent {
         this.isProcess = false;
         this.message = res.message;
         this.className = 'alert alert-danger';
+        this.leadForm.reset();
       }
     },err =>{
       this.isProcess = false;

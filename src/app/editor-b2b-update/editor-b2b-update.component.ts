@@ -57,7 +57,6 @@ export class EditorB2bUpdateComponent implements OnInit {
     this.auth.getB2b(this.getId).subscribe((res: any) => {
       this.b2bUpdateForm.patchValue({
 
-
         b2bProjectCode: res['b2bProjectCode'],
         companyName: res['companyName'],
         b2bProjectName: res['b2bProjectName'],
@@ -90,7 +89,6 @@ export class EditorB2bUpdateComponent implements OnInit {
     });
     this.auth.allEmployee().subscribe((res: any) => {
       this.employee = res.filter((emp: any) => emp.signupRole === 'Editor')
-      console.log("Editorss===>", this.employee);
       this.allEmployee = res;
     });
     this.auth.getCompany().subscribe((res: any) => {
@@ -119,7 +117,6 @@ export class EditorB2bUpdateComponent implements OnInit {
     const sec: number = this.b2bUpdateForm.get('b2bVideoDurationSeconds')?.value || 0;
     this.totalSec = min * 60 + sec;
     this.b2bUpdateForm.get('videoDuration')?.setValue(this.totalSec);
-    console.log("TOTALSEC===>", this.totalSec);
 
     const CompName = this.b2bUpdateForm.get('companyName')?.value;
 
@@ -396,13 +393,11 @@ export class EditorB2bUpdateComponent implements OnInit {
     const currentDate = new Date().toISOString();
 
     this.auth.updateB2bbyEditor(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
-      console.log("Data Updated Successfully", res);
 
       const projectStatusControl = this.b2bUpdateForm.get('projectStatus');
       projectStatusControl?.valueChanges.subscribe(value => {
         if (value === 'Completed') {
           let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
-          console.log("SELECTED EMPLOYEE===>", selectedEmployee);
           let sales = this.b2bUpdateForm.get('salesPerson')?.value;
           let msgTitle = "B2b Project Complete";
           let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by Editor`;
@@ -415,7 +410,6 @@ export class EditorB2bUpdateComponent implements OnInit {
           });
         }
       });
-
       // Manually trigger the value change logic for projectStatus
       projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
 

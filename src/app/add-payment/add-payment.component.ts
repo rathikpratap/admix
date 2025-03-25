@@ -28,16 +28,6 @@ export class AddPaymentComponent {
     }); 
   }
 
-  // filterEmployeesByRole(role: string): any[] {
-  //   switch (role) {
-  //       case 'Script Writer': 
-  //           return this.emp.filter((employee:any) => employee.signupRole === 'Script Writer');
-  //       case 'EditorAndVo':
-  //           return this.emp.filter((employee:any) => employee.signupRole === 'Editor' || employee.signupRole === 'VO Artist');
-  //       default:
-  //           return []; // Return an empty array if no specific role is selected
-  //   }
-  // }
   filterEmployeesByRole(role: string): any[] {
     switch (role) {
       case 'Script Writer': 

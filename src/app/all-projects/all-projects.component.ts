@@ -51,22 +51,18 @@ export class AllProjectsComponent {
     });
 
     this.auth.allProjects().subscribe((list: any) => {
-      console.log("list", list)
       this.data = list;
     });
     this.auth.allPreviousProjects().subscribe((list: any) => {
-      console.log("list", list)
       this.Previousdata = list;
     });
     this.auth.allTwoPreviousProjects().subscribe((list: any) => {
-      console.log("list", list)
       this.TwoPreviousdata = list;
     });
 
     this.auth.allEmployee().subscribe((res: any) => {
-      console.log("employee==>", res);
       this.emp = res;
-    })
+    });
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
@@ -99,9 +95,7 @@ export class AllProjectsComponent {
     }
     this.auth.updateEditors([user]).subscribe((res: any) => { 
       if (res) {
-        //alert("Project Successfully Assigned");
         this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
-        console.log("Editor Updated List", res);
       }
       console.log("Successfully Assigned", res);
     });
@@ -118,10 +112,8 @@ export class AllProjectsComponent {
     this.auth.sendNotifications([selectedEmployee],[user], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
       if(res){
         this.toastr.success('Notification Send','Success');
-        //alert("Notification Send");
       }else{
         this.toastr.error('Error Sending Notification','Error')
-        //alert("Error Sending Notification");
       }
     });
   }
@@ -134,15 +126,12 @@ export class AllProjectsComponent {
   } 
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
 
   searchCustomer() {
     const mobile = this.searchForm.get('mobile')!.value;
-    console.log("NUMBER===>", mobile);
     this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any) => {
-      console.log("customer", customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -154,21 +143,18 @@ export class AllProjectsComponent {
 
   uploadFile(event: any) {
     this.selectedFile = event.target.files[0];
-    //this.uploadFileToServer(file);
   }
   async selectFile(): Promise<void> {
     if (this.selectedFile) {
       try {
         await this.auth.uploadFile(this.selectedFile);
         alert("File Upload Successful");
-        console.log("Upload Successful");
       } catch (error) {
         console.log("Error Uploading File", error);
       }
     } else {
       console.log("No File Selected")
     }
-
   }
 
   downloadFile() {
@@ -184,7 +170,6 @@ export class AllProjectsComponent {
 
     if (startDate && endDate) {
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData: any) => {
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
@@ -202,22 +187,6 @@ export class AllProjectsComponent {
     }
   }
 
-  // filterEmployeesByRole(projectStatus: string): any[] { 
-  //   switch (projectStatus) {
-  //     case 'Scripting':
-  //       return this.emp.filter((employee: any) => employee.signupRole === 'Script Writer');
-  //     case 'Video Editing':
-  //     case 'Video Changes':
-  //     case 'Video Done':
-  //       return this.emp.filter((employee: any) => employee.signupRole === 'Editor');
-  //     case 'Voice Over': 
-  //       return this.emp.filter((employee: any) => employee.signupRole === 'VO Artist');
-  //     case 'Graphic Designing':
-  //       return this.emp.filter((employee: any) => employee.signupRole === 'Graphic Designer')
-  //     default:
-  //       return []; // Return an empty array if no specific role is selected
-  //   }
-  // }
   filterEmployeesByRole(projectStatus: string): any[] { 
     switch (projectStatus) {
       case 'Scripting':
@@ -247,5 +216,4 @@ export class AllProjectsComponent {
     const url = `/main-invoice/${userId}`;
     window.open(url, '_blank');
   }
-
 }

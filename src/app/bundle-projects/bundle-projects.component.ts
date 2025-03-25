@@ -39,7 +39,6 @@ export class BundleProjectsComponent {
     });
     this.auth.bundleProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.bundlePreviousProjects().subscribe((res:any)=>{
       this.previousData = res;
@@ -59,9 +58,7 @@ export class BundleProjectsComponent {
   }
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
-    console.log("NUMBER===>", projectName);
     this.auth.searchCustomerbyProjectName(projectName).subscribe((customers: any)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -79,7 +76,6 @@ export class BundleProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyDatePassRangeEditor(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }

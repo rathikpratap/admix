@@ -35,7 +35,6 @@ export class ScriptProjectsComponent {
     });
     this.auth.scriptProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.scriptPreviousProjects().subscribe((res:any)=>{
       this.previousData = res;
@@ -55,9 +54,7 @@ export class ScriptProjectsComponent {
   }
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
-    console.log("NUMBER===>", projectName);
     this.auth.searchCustomerbyProjectName(projectName).subscribe((customers: any)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -75,7 +72,6 @@ export class ScriptProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyDatePassRange(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
       })
     }
@@ -83,6 +79,5 @@ export class ScriptProjectsComponent {
   openUpdatePanel(userId: string) {
     const url = `/script-home/script-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }

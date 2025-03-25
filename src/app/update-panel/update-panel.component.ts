@@ -19,16 +19,12 @@ export class UpdatePanelComponent {
   emp:any;
 
   codeInput!: ElementRef<HTMLInputElement>;
-  
-  
 
   ngAfterViewInit() {
-    console.log("Its Called");
     const inputElement = this.el.nativeElement.querySelector('input[type=text]');
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
     }
-    
   }
   
   safeVideoUrl: SafeResourceUrl | null = null;
@@ -87,7 +83,7 @@ export class UpdatePanelComponent {
       } else{
         this.safeVideoUrl = null;
       }
-      console.log("Video ID====>>", videoId);
+      //console.log("Video ID====>>", videoId);
     }else {
       this.safeVideoUrl = null;
     }
@@ -121,31 +117,23 @@ export class UpdatePanelComponent {
 
     this.auth.allEmployee().subscribe((res: any)=>{
       this.emp = res;
-      console.log("Emp===>", this.emp)
-    })
+    });
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
-      console.log("res ==>", res);
  
       if(res['custCode']){
-        console.log("COdee====>>", res['custCode']);
         this.updateForm.patchValue({
           custCode: res['custCode']
         });
       }else{
-        console.log("Code not found===>>");
         this.auth.dataLength().subscribe((length:any)=>{
           res['custCode']=length+1;
-          console.log("new Code==>", res['custCode']);
           this.updateForm.patchValue({
             custCode: res['custCode']
           });
-        })
+        });
       }
-
-      this.updateForm.patchValue({
-
-        
+      this.updateForm.patchValue({ 
         custName: res['custName'],
         custNumb: res['custNumb'],
         custBussiness: res['custBussiness'],
@@ -191,15 +179,12 @@ export class UpdatePanelComponent {
     });
 
     this.auth.getCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
-    })
-
-    this.auth.getCountries().subscribe((Countrydata: any) =>{
-      console.log("data==>", Countrydata);
-      this.countries = Countrydata;
     });
 
+    this.auth.getCountries().subscribe((Countrydata: any) =>{
+      this.countries = Countrydata;
+    });
   }
 
   formatDate(isoDate: string): string{
@@ -238,7 +223,6 @@ export class UpdatePanelComponent {
   onCountryChange(): void{
     const countryCode = this.updateForm.get('custCountry')?.value;
     this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
-      console.log("States==>", Statedata)
       this.states = Statedata;
     });
   }
@@ -247,7 +231,6 @@ export class UpdatePanelComponent {
     const stateCode = this.updateForm.get('custState')?.value;
     const countryCode = this.updateForm.get('custCountry')?.value;
     this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
-      console.log("Cities==>", Citydata);
       this.cities = Citydata;
     });
   }
@@ -255,4 +238,4 @@ export class UpdatePanelComponent {
   hasSalesPerson(): boolean {
     return this.updateForm.get('salesPerson')?.value === null;
   }
-} 
+}

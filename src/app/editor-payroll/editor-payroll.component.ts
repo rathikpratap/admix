@@ -36,7 +36,6 @@ export class EditorPayrollComponent {
   }
   searchPayment(){
     const editorCNR = this.searchForm.get('EditorCNR')!.value;
-    console.log("CNR===>", editorCNR);
     this.auth.searchPayment(editorCNR).subscribe((customers:any)=>{
       this.customers = customers;
       this.errorMessage = null;
@@ -54,9 +53,8 @@ export class EditorPayrollComponent {
 
     if(startDate && endDate){
       this.auth.getPayrollbyDatePassRangeEditor(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
-      })
+      });
     }
   }
 }

@@ -2,7 +2,7 @@ import { Component, ElementRef, NgZone, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-update-b2b',
@@ -18,7 +18,6 @@ export class UpdateB2bComponent {
 
   codeInput!: ElementRef<HTMLInputElement>;
   ngAfterViewInit() {
-    console.log("Its Called");
     const inputElement = this.el.nativeElement.querySelector('input[type=text]');
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
@@ -57,10 +56,6 @@ export class UpdateB2bComponent {
     })
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    // this.auth.allEmployee().subscribe((res: any) => {
-    //   this.employee = res.filter((emp: any) => emp.signupRole === 'Editor')
-    //   console.log("Editorss===>", this.employee); 
-    // });
     this.auth.allEmployee().subscribe((res: any) => {
       if (Array.isArray(res)) {
         this.employee = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Editor'));
@@ -76,8 +71,6 @@ export class UpdateB2bComponent {
 
     this.auth.getB2b(this.getId).subscribe((res: any) => {
       this.b2bUpdateForm.patchValue({
-
-
         b2bProjectCode: res['b2bProjectCode'],
         companyName: res['companyName'],
         b2bProjectName: res['b2bProjectName'],
@@ -111,7 +104,6 @@ export class UpdateB2bComponent {
   }
   onUpdate() {
     this.auth.updateB2b(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
-      console.log("Data Updated Successfully");
       this.ngZone.run(() => { this.router.navigateByUrl('/salesHome/b2b-dashboard') })
     }, (err) => {
       console.log(err)

@@ -49,7 +49,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value=>{
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
-      console.log("SalesPerson NAme=====>>", this.salesPerson_name);
       this.getData();
     });
   }
@@ -68,15 +67,12 @@ export class TeamLeaderProjectsComponent implements OnInit {
     });
  
     this.auth.allProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
     });
     this.auth.allPreviousProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataPreviousMonth = list;
     });
     this.auth.allTwoPreviousProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataTwoPreviousMonth = list;
     });
     this.auth.allEmployee().subscribe((res: any) => {
@@ -88,11 +84,8 @@ export class TeamLeaderProjectsComponent implements OnInit {
     });
     
     this.auth.getSalesTeam().subscribe((res:any)=>{
-      console.log("SALESTEAM=======>>", res);
       this.sales = res;
-    })
-
-
+    });
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
@@ -118,7 +111,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -127,11 +119,9 @@ export class TeamLeaderProjectsComponent implements OnInit {
       this.errorMessage = error.message;
     });
   }
-
   downloadFile(){
     this.auth.downloadFile();
   }
-
   onDate(){
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
@@ -141,7 +131,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
 
     if(startDate && endDate){
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }
@@ -169,7 +158,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
   invoice(userId: string){
@@ -185,7 +173,6 @@ export class TeamLeaderProjectsComponent implements OnInit {
 
     this.auth.updateEditors([user]).subscribe((res: any) => {
       if (res) {
-        //alert("Project Successfully Assigned");
         this.toastr.success(`Project Status Changed to ${user.projectStatus}`, 'Success');
       }
     });

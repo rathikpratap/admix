@@ -37,10 +37,6 @@ export class EditorDashboardComponent {
         this.auth.logout();
       }
     });
-    // this.auth.editorProjects().subscribe((res:any)=>{
-    //   this.data = res;
-    //   console.log("Data===>", res);
-    // });
     this.auth.urgentEditorProjects().subscribe((res:any)=>{
       this.urgent = res;
     });
@@ -51,7 +47,6 @@ export class EditorDashboardComponent {
       this.medium = res;
     });
     this.auth.getTodayEntriesEditor().subscribe((todayRes:any)=>{
-      console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
         this.todayEntries = totalDayEntry.length;
@@ -62,7 +57,6 @@ export class EditorDashboardComponent {
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.getEditorData().subscribe((list : any)=>{ 
-      console.log("list",list)
       this.data = list;
       this.dataLength = list.length;
     });
@@ -74,16 +68,13 @@ export class EditorDashboardComponent {
       this.allProjects = res.length;
     });
     this.auth.getNotif().subscribe((res:any)=>{
-      console.log("Notifications===>", res);
       this.unreadNotif = res.unReadNotif;
       this.readNotif = res.readNotif;
       this.unreadCount = res.unReadNotif.length;
     });
-
   }
   otherProjects(){
     const url = `/editor-home/editor-other`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
   bundles(){
@@ -92,7 +83,6 @@ export class EditorDashboardComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-update/${userId}`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
   markAsRead(notifId:any){

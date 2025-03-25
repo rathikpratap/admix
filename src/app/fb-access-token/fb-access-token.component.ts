@@ -25,8 +25,7 @@ export class FbAccessTokenComponent {
     });
     this.auth.getfbToken().subscribe((res:any[])=>{
       this.fbToken = res[0];
-      console.log("TOKEN==>", res)
-    })
+    });
   }
   accessTokenForm = new FormGroup({
     newAccessToken : new FormControl(""),

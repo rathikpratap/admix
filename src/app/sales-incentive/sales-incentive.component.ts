@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sales-incentive',
@@ -38,9 +38,6 @@ export class SalesIncentiveComponent implements OnInit {
         this.auth.logout();
       }
     });
-    // this.auth.salesIncentive().subscribe((res:any)=>{
-    //   this.result = res;
-    // });
   }
   fetchIncentive(){
     this.result = [];

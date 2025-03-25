@@ -20,13 +20,11 @@ export class AllEmployeesComponent {
       }
     })
     this.auth.allEmployee().subscribe((list : any)=>{
-      console.log("list", list)
       this.data = list;
     }) 
   }
 
   delete(id:any, i:any){
-    console.log(id);
     if(window.confirm("Are you Sure want to Delete?")){
       this.auth.deleteEmp(id).subscribe((res : any)=>{
         this.data.splice(i,1);

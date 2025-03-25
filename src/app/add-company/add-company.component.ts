@@ -25,8 +25,7 @@ export class AddCompanyComponent {
     });
     this.auth.getCompany().subscribe((res:any)=>{
       this.companies = res;
-      console.log("Companies===>", this.companies);
-    })
+    });
   }
   companyForm = new FormGroup({
     companyName : new FormControl("")

@@ -23,31 +23,20 @@ interface AttendanceData {
 })
 export class AuthService {
 
-  httpHeaders= new HttpHeaders().set('Content-Type','application/json')
+  httpHeaders = new HttpHeaders().set('Content-Type', 'application/json')
 
-  constructor(private http:HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  signup(data:any):Observable<any>{
+  signup(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/register`, data);
   }
+  signin(credentials: { loginUsername: string, loginPswd: string }): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
+  }
 
-  //  signin(loginData:any):Observable<any>{
-  //    return this.http.post(`${appConfig.apiUrl}/auth/login`, loginData);
-  //  }
-
-   signin(credentials: {loginUsername: string, loginPswd: string}):Observable<any>{
-     return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
-   }
- 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
-
-  // logout(): void {
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('role');
-  //   this.router.navigate(['/login']);
-  // }
 
   logout(): void {
     const token = localStorage.getItem('token'); // Get the JWT token from localStorage
@@ -92,605 +81,605 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  addcustomer(customerData:any):Observable<any>{
+  addcustomer(customerData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/customer`, customerData)
   }
-  addB2b(customerData:any):Observable<any>{
+  addB2b(customerData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/b2bProject`, customerData);
-  } 
-  addLead(customerData:any):Observable<any>{
+  }
+  addLead(customerData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/customLead`, customerData);
   }
-  addEstInvoice(data:any):Observable<any>{
+  addEstInvoice(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data);
   }
 
-  getCustData(){
+  getCustData() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/list`, {headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/list`, { headers });
   };
-  getCustDataB2b(){
+  getCustDataB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/listB2b`);
   }
-  getAllCustDataB2b(){
+  getAllCustDataB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/allListB2b`);
   }
-  getScriptData(){
+  getScriptData() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptActiveList`);
   }
-  getVoData(){
+  getVoData() {
     return this.http.get(`${appConfig.apiUrl}/auth/voActiveList`);
   }
-  getEditorData(){
+  getEditorData() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorActiveList`);
   }
-  getBundleData(){
+  getBundleData() {
     return this.http.get(`${appConfig.apiUrl}/auth/bundleActiveList`);
   }
-  getCompleteScriptData(){
+  getCompleteScriptData() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptCompleteList`);
   }
 
-  getEditorOtherData(){
+  getEditorOtherData() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorOtherActiveList`);
   }
-  getCompleteEditorOtherData(){
+  getCompleteEditorOtherData() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorOtherCompleteList`);
   }
-  getCompleteVoData(){
+  getCompleteVoData() {
     return this.http.get(`${appConfig.apiUrl}/auth/voCompleteList`);
   }
-  getCompleteEditorData(){
+  getCompleteEditorData() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorCompleteList`);
   }
-  getCompleteBundleData(){
+  getCompleteBundleData() {
     return this.http.get(`${appConfig.apiUrl}/auth/bundleCompleteList`);
   }
-  allProjectsSales(): Observable<any>{
+  allProjectsSales(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/allList`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/allList`, { headers });
   };
-  allProjectsAdmin(){
+  allProjectsAdmin() {
     return this.http.get(`${appConfig.apiUrl}/auth/allListAdmin`);
-  } 
-
-  getLeads(){
-    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);  
   }
-  fetchLeads(){
+
+  getLeads() {
+    return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);
+  }
+  fetchLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
   }
-  
-  salesFacebookLeads(){
+
+  salesFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/salesFacebook-leads`);
   }
 
-  salesSecondFacebookLeads(){
+  salesSecondFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/salesSecondFacebook-leads`);
   }
 
-  getSalesFacebookLeads(){
+  getSalesFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFacebook-leads`);
   }
 
-  updateSalesperson(data: any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`,{items: data});
+  updateSalesperson(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`, { items: data });
   }
 
   updateProjectStatus(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{items: data});
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: data });
   }
 
-  updateEditors(data: any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`,{items: data});
+  updateEditors(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
   }
   updateProjectStatusTeam(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`,{items: data});
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`, { items: data });
   }
 
-  getCompleteProjects(){
+  getCompleteProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
   }
 
-  getCompleteProjectsB2b(){
+  getCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProjectB2b`);
   }
-  getAllCompleteProjectsB2b(){
+  getAllCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjectB2b`);
   }
 
-  getAllProjects(){
+  getAllProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjects`);
   }
 
-  getAllCompleteProjects(){
+  getAllCompleteProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjects`);
   }
-  getremainingAmountProjects(){
+  getremainingAmountProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/remainingAmountProjects`);
   }
 
-  salesAllProjects(){
+  salesAllProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);
   }
 
-  salesPreviousMonthProjects(){
+  salesPreviousMonthProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`);
   }
-  salesPreviousTwoMonthProjects(){
+  salesPreviousTwoMonthProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
   }
 
-  empProjects(name:any):Observable<any>{
+  empProjects(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empProjects/${name}`);
   }
-  getSalesClosing(closing:any, person:any):Observable<any>{
+  getSalesClosing(closing: any, person: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/sales_closing/${closing}/${person}`);
   }
-  empStatus(status:any):Observable<any>{
+  empStatus(status: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empStatus/${status}`);
   }
-  getSalesClosingStatus(closing:any, person:any, status:any):Observable<any>{
+  getSalesClosingStatus(closing: any, person: any, status: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/sales_statusClosing/${closing}/${person}/${status}`);
   }
-  getClosingStatus(closing:any, status:any):Observable<any>{
+  getClosingStatus(closing: any, status: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/closing_status/${closing}/${status}`);
   }
-  getSalesStatus(person:any, status:any):Observable<any>{
+  getSalesStatus(person: any, status: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/sales_status/${person}/${status}`);
   }
 
-  empAllProjects(name:any):Observable<any>{
+  empAllProjects(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empAllProjects/${name}`);
   }
-  empAllPrevMonth(name:any):Observable<any>{
+  empAllPrevMonth(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empAllPrevProjects/${name}`);
   }
-  empAllPrevTwoMonth(name:any):Observable<any>{
+  empAllPrevTwoMonth(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empAllTwoPrevProjects/${name}`);
   }
-  closingData(name:any):Observable<any>{
+  closingData(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allCategProjects/${name}`);
   }
 
-  allProjects(){
+  allProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
   }
-  allPreviousProjects(){
+  allPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjectsAdmin`);
   }
-  allTwoPreviousProjects(){
+  allTwoPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjectsAdmin`);
   }
-  monthRestAmount(){
+  monthRestAmount() {
     return this.http.get(`${appConfig.apiUrl}/auth/totalRecvAmount`);
   }
 
-  dataLength(){
+  dataLength() {
     return this.http.get(`${appConfig.apiUrl}/auth/dataLength`);
   };
-  b2bDataLength(){
+  b2bDataLength() {
     return this.http.get(`${appConfig.apiUrl}/auth/b2bDataLength`);
   }
 
-  allEmployee(){
+  allEmployee() {
     return this.http.get(`${appConfig.apiUrl}/auth/allEmployee`);
   }
 
-  searchCustomerbyMobile(mobile:string): Observable<any>{
+  searchCustomerbyMobile(mobile: string): Observable<any> {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchCustomer/${mobile}`);
   }
 
-  searchCustomerbyMobileLeads(mobile:string): Observable<any>{
+  searchCustomerbyMobileLeads(mobile: string): Observable<any> {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchLeads/${mobile}`);
   }
 
-  searchCustomerbyProject(projectStatus:string): Observable<any>{
+  searchCustomerbyProject(projectStatus: string): Observable<any> {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/customerProject/${projectStatus}`);
   }
 
-  searchCustomerbyProjectName(projectName:string):Observable<any>{
+  searchCustomerbyProjectName(projectName: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/customerProjectName/${projectName}`);
   }
-  searchB2bByProjectName(projectName:string):Observable<any>{
+  searchB2bByProjectName(projectName: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/B2bProjectName/${projectName}`);
   }
-  searchPayment(editorCNR:string):Observable<any>{
+  searchPayment(editorCNR: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/editorPayroll/${editorCNR}`);
   }
-  searchPaymentAll(editorCNR:string):Observable<any>{
+  searchPaymentAll(editorCNR: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/payrollAll/${editorCNR}`);
   }
-  searchPaymentScript(editorCNR:string):Observable<any>{
+  searchPaymentScript(editorCNR: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptPayroll/${editorCNR}`);
   }
-  searchPaymentVo(editorCNR:string):Observable<any>{
+  searchPaymentVo(editorCNR: string): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/voPayroll/${editorCNR}`);
   }
 
-  getProfile(){
+  getProfile() {
     let headers = {
       'Authorization': "Bearer " + localStorage.getItem('token')
     }
-    return this.http.get(`${appConfig.apiUrl}/auth/profile`, {headers:headers})
+    return this.http.get(`${appConfig.apiUrl}/auth/profile`, { headers: headers })
   }
 
-  updateCustomer(id:any, data:any):Observable<any>{
+  updateCustomer(id: any, data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`${appConfig.apiUrl}/auth/update/${id}`, data, {headers});
+    return this.http.put(`${appConfig.apiUrl}/auth/update/${id}`, data, { headers });
   }
-  updateB2b(id:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updateB2b/${id}`, data, {headers:this.httpHeaders}).pipe(
+  updateB2b(id: any, data: any): Observable<any> {
+    return this.http.put(`${appConfig.apiUrl}/auth/updateB2b/${id}`, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     )
   }
 
-  updateCustomerbyEditor(id:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
+  updateCustomerbyEditor(id: any, data: any): Observable<any> {
+    return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     )
   }
 
-  updateB2bbyEditor(id:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updateB2bEditor/${id}`, data, {headers:this.httpHeaders}).pipe(
+  updateB2bbyEditor(id: any, data: any): Observable<any> {
+    return this.http.put(`${appConfig.apiUrl}/auth/updateB2bEditor/${id}`, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     )
   }
 
-  getCustomer(id:any) :Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/read-cust/${id}`,{headers:this.httpHeaders}).pipe(map((res:any)=>{
+  getCustomer(id: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/read-cust/${id}`, { headers: this.httpHeaders }).pipe(map((res: any) => {
       return res || {}
     }), catchError(this.handleError)
-  )}
-  getB2b(id:any) :Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/read-b2b/${id}`,{headers:this.httpHeaders}).pipe(map((res:any)=>{
+    )
+  }
+  getB2b(id: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/read-b2b/${id}`, { headers: this.httpHeaders }).pipe(map((res: any) => {
       return res || {}
     }), catchError(this.handleError)
-  )}
-
-  updateEmployee(id:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updateEmp/${id}`, data, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
+    )
   }
 
-  updatePayment(companyName:any, signupName:any,signupRole:any, videoType:any, data:any):Observable<any>{
-    return this.http.put(`${appConfig.apiUrl}/auth/updatePay/${companyName}/${signupName}/${signupRole}/${videoType}`,data);
+  updateEmployee(id: any, data: any): Observable<any> {
+    return this.http.put(`${appConfig.apiUrl}/auth/updateEmp/${id}`, data, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
   }
 
-  getEmployee(id:any):Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/read-emp/${id}`, {headers:this.httpHeaders}).pipe(map((res:any)=>{
+  updatePayment(companyName: any, signupName: any, signupRole: any, videoType: any, data: any): Observable<any> {
+    return this.http.put(`${appConfig.apiUrl}/auth/updatePay/${companyName}/${signupName}/${signupRole}/${videoType}`, data);
+  }
+
+  getEmployee(id: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/read-emp/${id}`, { headers: this.httpHeaders }).pipe(map((res: any) => {
       return res || {}
     }), catchError(this.handleError)
-  )}
-
-  deleteEmp(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-emp/${id}`, {headers:this.httpHeaders}).pipe( catchError(this.handleError))
+    )
   }
 
-  deleteCust(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-cust/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
-  }
-  deleteSalesLead(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-sales/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
-  }
-  deleteB2b(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-B2b/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  deleteEmp(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-emp/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
   }
 
-  getCountries(): Observable<any>{
+  deleteCust(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-cust/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
+  }
+  deleteSalesLead(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-sales/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
+  }
+  deleteB2b(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-B2b/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
+  }
+
+  getCountries(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/countries`);
   }
 
-  getStates(countryCode: any): Observable<any>{
+  getStates(countryCode: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/states/${countryCode}`);
   }
 
-  getCities(countryCode:any, stateCode: any): Observable<any>{
+  getCities(countryCode: any, stateCode: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/cities/${countryCode}/${stateCode}`);
   }
 
-  getMonthEntries(): Observable<any>{
+  getMonthEntries(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntries`);
   }
 
-  getMonthEntriesEmp(): Observable<any>{
+  getMonthEntriesEmp(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesEmp`, { headers });
   }
-  getDueAmount():Observable<any>{
+  getDueAmount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDue`);
   }
-  getRestAmount():Observable<any>{
+  getRestAmount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRest`);
   }
-  getRestAmountDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getRestAmountDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'restAmountCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getDueAmountDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getDueAmountDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'restAmountCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
 
-  getRestAmountDownload(){
-    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownload/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getRestAmountDownload() {
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownload/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'restAmountCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getDueAmountDownload(){
-    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownload/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getDueAmountDownload() {
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueDownload/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'restAmountCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getTodayEntryDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/todayEntriesDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getTodayEntryDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/todayEntriesDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'todayEntryCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getTotalEntryDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getTotalEntryDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'totalEntryCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getTotalOngoingDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getTotalOngoingDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'ActiveCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  getAllActiveDownloadAdmin(){
-    this.http.get(`${appConfig.apiUrl}/auth/allActiveProjectsDownloadAdmin/`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  getAllActiveDownloadAdmin() {
+    this.http.get(`${appConfig.apiUrl}/auth/allActiveProjectsDownloadAdmin/`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'AllActiveCustomers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
-  // getRestAmountDownload():Observable<any>{
-  //   return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestDownload`,{responseType: 'blob'});
-  // }
-  getDueAmountAdmin():Observable<any>{
+  getDueAmountAdmin(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesDueAdmin`);
   }
-  getRestAmountAdmin():Observable<any>{
+  getRestAmountAdmin(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesRestAdmin`);
   }
 
-  getMonthEntriesB2b(): Observable<any>{
+  getMonthEntriesB2b(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalEntriesB2b`);
   }
-  getPreviousMonthEntriesB2b(): Observable<any>{
+  getPreviousMonthEntriesB2b(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalPreviousEntriesB2b`);
   }
-  getTwoPreviousMonthEntriesB2b(): Observable<any>{
+  getTwoPreviousMonthEntriesB2b(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/totalTwoPreviousEntriesB2b`);
   }
-  getAllEntriesB2b(): Observable<any>{
+  getAllEntriesB2b(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allTotalEntriesB2b`);
   }
 
-  getTodayEntries(): Observable<any>{
+  getTodayEntries(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntries`);
   }
 
-  getTodayEntriesEmp(): Observable<any>{
+  getTodayEntriesEmp(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`, {headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEmp`, { headers });
   }
-  getTodayEntriesScript():Observable<any>{
+  getTodayEntriesScript(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesScript`);
   }
-  getTodayEntriesVo():Observable<any>{
+  getTodayEntriesVo(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesVo`);
   }
-  getTodayEntriesEditor():Observable<any>{
+  getTodayEntriesEditor(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEditor`);
   }
-  getTodayEntriesEditorOther():Observable<any>{
+  getTodayEntriesEditorOther(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesEditorOther`);
   }
 
-  rangeTotalRecv(startDate:Date, endDate: Date):Observable<any>{
+  rangeTotalRecv(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/rangeTotalRecvAmount/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  rangeTopPerformer(startDate: Date, endDate: Date): Observable<any>{
+  rangeTopPerformer(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/rangeTopPerformer/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getOngoingRangeData(startDate: Date, endDate: Date): Observable<any>{
+  getOngoingRangeData(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/onGoingRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getDatabyRange(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyRange(startDate: Date, endDate: Date): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`, {headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/dataByRange/${startDate.toISOString()}/${endDate.toISOString()}`, { headers });
   }
-  getDatabyCampaign(startDate: Date, endDate: Date, campaign: String): Observable<any>{
+  getDatabyCampaign(startDate: Date, endDate: Date, campaign: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/DataByCampaign/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`);
   }
-  getDataByClosingCamp(startDate: Date, endDate: Date, campaign: String): Observable<any>{
+  getDataByClosingCamp(startDate: Date, endDate: Date, campaign: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByClosingCamp/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`);
   }
-  getDatabyRangeB2b(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyRangeB2b(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDateB2b/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getDatabyDatePassRange(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyDatePassRange(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getDatabyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeVo/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getDatabyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditor/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getPayrollbyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any>{
+  getPayrollbyDatePassRangeEditor(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeEditor/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getPayrollbyDatePassRangeEditorAll(startDate: Date, endDate: Date): Observable<any>{
+  getPayrollbyDatePassRangeEditorAll(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeEditorAll/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getPayrollbyDatePassRangeScript(startDate: Date, endDate: Date): Observable<any>{
+  getPayrollbyDatePassRangeScript(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeScript/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getPayrollbyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any>{
+  getPayrollbyDatePassRangeVo(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/payrollByDatePassRangeVo/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getDatabyDatePassRangeEditorOther(startDate: Date, endDate: Date): Observable<any>{
+  getDatabyDatePassRangeEditorOther(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByDatePassRangeEditorOther/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getTmPay(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getTmPay(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByTm/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  getTmPayB2b(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getTmPayB2b(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByTmB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  getEditorDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getEditorDetails(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByEditorPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  getEditorDetailsB2b(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getEditorDetailsB2b(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByEditorPaymentB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  getScriptDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getScriptDetails(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByScriptPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  getVoDetails(startDate: Date, endDate: Date, tmName: String): Observable<any>{
+  getVoDetails(startDate: Date, endDate: Date, tmName: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/dataByVoPayment/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`);
   }
-  updatePayrollDetails(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+  updatePayrollDetails(startDate: Date, endDate: Date, tmName: String, data: any): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdate/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
   }
-  updatePayrollDetailsB2b(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+  updatePayrollDetailsB2b(startDate: Date, endDate: Date, tmName: String, data: any): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateB2b/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
   }
-  updatePayrollDetailsScript(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+  updatePayrollDetailsScript(startDate: Date, endDate: Date, tmName: String, data: any): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateScript/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
   }
-  updatePayrollDetailsVo(startDate: Date, endDate: Date, tmName: String, data:any): Observable<any>{
+  updatePayrollDetailsVo(startDate: Date, endDate: Date, tmName: String, data: any): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/editorPayrollUpdateVo/${startDate.toISOString()}/${endDate.toISOString()}/${tmName}`, data);
   }
-  payrollData():Observable<any>{
+  payrollData(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/editorPayroll`);
   }
-  allPayrollData():Observable<any>{
+  allPayrollData(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allPayroll`);
   }
-  payrollDataScript():Observable<any>{
+  payrollDataScript(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptPayroll`);
   }
-  payrollDataVo():Observable<any>{
+  payrollDataVo(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/voPayroll`);
   }
 
-  getLeadbyRange(startDate: Date, endDate: Date): Observable<any>{
+  getLeadbyRange(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/leadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getInvoice(startDate: Date, endDate: Date): Observable<any>{
+  getInvoice(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoice/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getSalesLeadbyRange(startDate: Date, endDate: Date, categ: String): Observable<any>{
+  getSalesLeadbyRange(startDate: Date, endDate: Date, categ: String): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}/${categ}`);
   }
-  getSalesLeadbyRangeSales(startDate: Date, endDate: Date): Observable<any>{
+  getSalesLeadbyRangeSales(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeSales/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
-  getSalesLeadbyRangeAdmin(startDate: Date, endDate: Date): Observable<any>{
+  getSalesLeadbyRangeAdmin(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeAdmin/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  uploadFile(file: File): Promise<any>{
+  uploadFile(file: File): Promise<any> {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<any>(`${appConfig.apiUrl}/auth/uploadFile`, formData).toPromise();
-  } 
+  }
 
-  downloadFile(){
+  downloadFile() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    this.http.get(`${appConfig.apiUrl}/auth/downloadFile`,{headers, responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    this.http.get(`${appConfig.apiUrl}/auth/downloadFile`, { headers, responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
@@ -701,9 +690,9 @@ export class AuthService {
     });
   }
 
-  downloadFileB2b(){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadFileB2b`,{responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  downloadFileB2b() {
+    this.http.get(`${appConfig.apiUrl}/auth/downloadFileB2b`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
@@ -714,368 +703,368 @@ export class AuthService {
     });
   };
 
-  downloadRangeFile(startDate: Date, endDate: Date){
+  downloadRangeFile(startDate: Date, endDate: Date) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {headers, responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, { headers, responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
+    }, error => {
+      console.error('Error Downloading File: ', error);
     });
   }
 
-  downloadCampaignLead(startDate: Date, endDate: Date, campaign: String){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadCampaignLead/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  downloadCampaignLead(startDate: Date, endDate: Date, campaign: String) {
+    this.http.get(`${appConfig.apiUrl}/auth/downloadCampaignLead/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'LeadsData.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
+    }, error => {
+      console.error('Error Downloading File: ', error);
     });
   }
 
-  downloadCategoryCamp(startDate: Date, endDate: Date, campaign: String){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadCategoryCamp/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, {responseType: 'blob'}).subscribe((res:any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  downloadCategoryCamp(startDate: Date, endDate: Date, campaign: String) {
+    this.http.get(`${appConfig.apiUrl}/auth/downloadCategoryCamp/${startDate.toISOString()}/${endDate.toISOString()}/${campaign}`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'ClosingData.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File:',error);
+    }, error => {
+      console.error('Error Downloading File:', error);
     });
   }
 
-  downloadRangeFileB2b(startDate: Date, endDate: Date){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFileB2b/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  downloadRangeFileB2b(startDate: Date, endDate: Date) {
+    this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFileB2b/${startDate.toISOString()}/${endDate.toISOString()}`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
+    }, error => {
+      console.error('Error Downloading File: ', error);
     });
   }
 
-  downloadSalesRangeFile(startDate: Date, endDate: Date){
-    this.http.get(`${appConfig.apiUrl}/auth/downloadSalesRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, {responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  downloadSalesRangeFile(startDate: Date, endDate: Date) {
+    this.http.get(`${appConfig.apiUrl}/auth/downloadSalesRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
+    }, error => {
+      console.error('Error Downloading File: ', error);
     });
   }
 
-  downloadDueFile(startDate: Date, endDate: Date){
+  downloadDueFile(startDate: Date, endDate: Date) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, {headers, responseType: 'blob'}).subscribe((res: any)=>{
-      const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    this.http.get(`${appConfig.apiUrl}/auth/downloadDueFile/${startDate.toISOString()}/${endDate.toISOString()}`, { headers, responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
       link.click();
       console.log("Download Done")
-    }, error =>{
-      console.error('Error Downloading File: ',error);
-    }); 
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
   }
 
-  newCategory(data:any):Observable<any>{
+  newCategory(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/newCategory`, data);
   }
-  newWhatsAppCategory(data:any):Observable<any>{
+  newWhatsAppCategory(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/newWhatsAppCategory`, data);
   }
-  
-  getCategory():Observable<any>{
+
+  getCategory(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCategory`);
   }
-  getWhatsAppCategory():Observable<any>{
+  getWhatsAppCategory(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getWhatsAppCategory`);
   }
 
-  newSalesTeam(data:any):Observable<any>{
+  newSalesTeam(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/newSalesTeam`, data);
   }
 
-  getSalesTeam():Observable<any>{
+  getSalesTeam(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeam`)
   }
 
-  newfbToken(data:any):Observable<any>{
+  newfbToken(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/fbToken`, data);
   }
-  getfbToken():Observable<any>{
+  getfbToken(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFbToken`);
   }
-  addCompany(data:any):Observable<any>{
+  addCompany(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/addCompany`, data);
   }
-  getCompany():Observable<any>{
+  getCompany(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCompany`);
   }
-  getCompanyPay(id:any):Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/getCompanyPay/${id}`, {headers:this.httpHeaders}).pipe(map((res:any)=>{
+  getCompanyPay(id: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getCompanyPay/${id}`, { headers: this.httpHeaders }).pipe(map((res: any) => {
       return res || {}
     }), catchError(this.handleError))
   }
 
-  deleteCompany(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-comp/${id}`, {headers: this.httpHeaders}).pipe( catchError(this.handleError))
+  deleteCompany(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-comp/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
   }
 
-  getSalesLeads(){
-    return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`); 
-  }
- 
-  getTeamLeads(name:any):Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`); 
-  }
-  getWhatsAppLeads(name:any):Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`); 
+  getSalesLeads() {
+    return this.http.get(`${appConfig.apiUrl}/auth/getSales-leads`);
   }
 
-  getCampaign():Observable<any>{
+  getTeamLeads(name: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`);
+  }
+  getWhatsAppLeads(name: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`);
+  }
+
+  getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
-  getClosing():Observable<any>{
+  getClosing(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getClosingNames`);
   }
-  allClosing():Observable<any>{
+  allClosing(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allClosing`);
   }
-  getIncentive():Observable<any>{
+  getIncentive(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allIncentive`);
   }
 
-  getEmpSalesTeamWork(name:any):Observable<any>{
+  getEmpSalesTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesTeamWork/${name}`);
   }
-  getEmpSalesYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesYesterdayTeamWork/${name}`);
   }
-  getEmpSalesOneYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesOneYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesOneYesterdayTeamWork/${name}`);
   }
-  getEmpSalesTwoYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesTwoYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesTwoYesterdayTeamWork/${name}`);
   }
-  getEmpSalesThreeYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesThreeYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesThreeYesterdayTeamWork/${name}`);
   }
-  getEmpSalesFourYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesFourYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesFourYesterdayTeamWork/${name}`);
   }
-  getEmpSalesFiveYesterdayTeamWork(name:any):Observable<any>{
+  getEmpSalesFiveYesterdayTeamWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getEmpSalesFiveYesterdayTeamWork/${name}`);
   }
 
-  getSalesTeamWork():Observable<any>{
+  getSalesTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeamWork`);
   }
-  getSalesWhatsAppWork(name:any):Observable<any>{
+  getSalesWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesWhatsAppWork/${name}`);
   }
 
-  getYesterdayTeamLeads(name:any):Observable<any>{
+  getYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`);
   }
-  getYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads/${name}`);
   }
 
-  getSalesYesterdayTeamWork():Observable<any>{
+  getSalesYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesYesterdayTeamWork`);
   }
-  getSalesYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesYesterdayWhatsAppWork/${name}`);
   }
 
-  getOneYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getOneYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayWhatsApp-leads/${name}`);
   }
-  getOneYesterdayTeamLeads(name:any):Observable<any>{
+  getOneYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads/${name}`);
   }
 
-  getSalesOneYesterdayTeamWork():Observable<any>{
+  getSalesOneYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesOneYesterdayTeamWork`);
   }
-  getSalesOneYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesOneYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesOneYesterdayWhatsAppWork/${name}`);
   }
 
-  getTwoYesterdayTeamLeads(name:any):Observable<any>{
+  getTwoYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`);
   }
-  getTwoYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getTwoYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads/${name}`);
   }
 
-  getSalesTwoYesterdayTeamWork():Observable<any>{
+  getSalesTwoYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTwoYesterdayTeamWork`);
   }
-  getSalesTwoYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesTwoYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTwoYesterdayWhatsAppWork/${name}`);
   }
 
-  getThreeYesterdayTeamLeads(name:any):Observable<any>{
+  getThreeYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`);
   }
-  getThreeYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getThreeYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads/${name}`);
   }
 
-  getSalesThreeYesterdayTeamWork():Observable<any>{
+  getSalesThreeYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesThreeYesterdayTeamWork`);
   }
-  getSalesThreeYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesThreeYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesThreeYesterdayWhatsAppWork/${name}`);
   }
 
-  getFourYesterdayTeamLeads(name:any):Observable<any>{
+  getFourYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`);
   }
-  getFourYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getFourYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads/${name}`);
   }
 
-  getSalesFourYesterdayTeamWork():Observable<any>{
+  getSalesFourYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFourYesterdayTeamWork`);
   }
-  getSalesFourYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesFourYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFourYesterdayWhatsAppWork/${name}`);
   }
 
-  getFiveYesterdayTeamLeads(name:any):Observable<any>{
+  getFiveYesterdayTeamLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`);
   }
-  getFiveYesterdayWhatsAppLeads(name:any):Observable<any>{
+  getFiveYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads/${name}`);
   }
 
-  getSalesFiveYesterdayTeamWork():Observable<any>{
+  getSalesFiveYesterdayTeamWork(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFiveYesterdayTeamWork`);
   }
-  getSalesFiveYesterdayWhatsAppWork(name:any):Observable<any>{
+  getSalesFiveYesterdayWhatsAppWork(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFiveYesterdayWhatsAppWork/${name}`);
   }
 
-  transferLeads():Observable<any>{
+  transferLeads(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/transferLeads`);
   }
 
-  getAdminLeads(){
+  getAdminLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/getAdmin-leads`);
   }
 
-  scriptProjects(){
+  scriptProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptProjects`);
   }
 
-  scriptPreviousProjects(){
+  scriptPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptPreviousProjects`)
   }
-  scriptTwoPreviousProjects(){
+  scriptTwoPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptTwoPreviousProjects`)
   }
-  allscriptProjects(){
+  allscriptProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allScriptProjects`)
   }
-  
 
-  editorProjects(){
+
+  editorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
   }
-  bundleProjects(){
+  bundleProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/bundleProjects`);
   }
 
-  editorPreviousProjects(){
+  editorPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorPreviousProjects`)
   }
-  editorTwoPreviousProjects(){
+  editorTwoPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorTwoPreviousProjects`)
   }
-  bundlePreviousProjects(){
+  bundlePreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/bundlePreviousProjects`)
   }
-  bundleTwoPreviousProjects(){
+  bundleTwoPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/bundleTwoPreviousProjects`)
   }
-  allEditorProjects(){
+  allEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allEditorProjects`)
   }
-  allBundleProjects(){
+  allBundleProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allBundleProjects`)
   }
 
-  editorOtherProjects(){
+  editorOtherProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjectsOther`);
   }
-  editorPreviousOtherProjects(){
+  editorPreviousOtherProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorPreviousOtherProjects`)
   }
-  editorTwoPreviousOtherProjects(){
+  editorTwoPreviousOtherProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorTwoPreviousOtherProjects`)
   }
-  allEditorOtherProjects(){
+  allEditorOtherProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allEditorOtherProjects`)
   }
 
-  voProjects(){
+  voProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/voProjects`);
   }
-  voPreviousProjects(){
+  voPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/voPreviousProjects`)
   }
-  voTwoPreviousProjects(){
+  voTwoPreviousProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/voTwoPreviousProjects`)
   }
-  allVoProjects(){
+  allVoProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allVoProjects`)
   }
 
-  quotes():Observable<any>{
+  quotes(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/quotes`);
   }
 
-  updateLead():Observable<any>{
+  updateLead(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/updateSalesTeam`);
   }
 
-  estInvoiceCount():Observable<any>{
+  estInvoiceCount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/estInvoiceCount`);
   }
-  mainInvoiceCount():Observable<any>{
+  mainInvoiceCount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount`);
   }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent){
+    if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
@@ -1084,25 +1073,25 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  getPreviousMonthName(): string{
+  getPreviousMonthName(): string {
     const today = new Date();
     const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
+      'July', 'August', 'September', 'October', 'November', 'December'];
     return monthNames[previousMonth.getMonth()];
   }
-  getPreviousTwoMonthName(): string{
+  getPreviousTwoMonthName(): string {
     const today = new Date();
     const previousMonth = new Date(today.getFullYear(), today.getMonth() - 2, 1);
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
+      'July', 'August', 'September', 'October', 'November', 'December'];
     return monthNames[previousMonth.getMonth()];
   }
-  getCurrentMonthName(): string{
+  getCurrentMonthName(): string {
     const today = new Date();
     const previousMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
+      'July', 'August', 'September', 'October', 'November', 'December'];
     return monthNames[previousMonth.getMonth()];
   }
 
@@ -1113,12 +1102,9 @@ export class AuthService {
     return date.toDateString();
   }
 
-  getAccessToken():Observable<any>{
+  getAccessToken(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getAccessToken`);
   };
-  // saveToken(token1: any): Observable<any> {
-  //   return this.http.post(`${appConfig.apiUrl}/auth/save-Token`, { token: token1 });
-  // }
 
   saveToken(token1: any): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1126,7 +1112,7 @@ export class AuthService {
       'content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-  
+
     return this.http.put(`${appConfig.apiUrl}/auth/save-Token/${token1}`, {}, { headers }).pipe(
       catchError((error) => {
         console.error('HTTP error occurred:', error);
@@ -1135,7 +1121,7 @@ export class AuthService {
     );
   }
 
-  sendNotification(data: any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+  sendNotification(data: any, msgTitle: any, msgBody: any, currentDate: any): Observable<any> {
     const body = {
       items: data,
       msgTitle: msgTitle,
@@ -1146,7 +1132,7 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/bell`, body);
   }
 
-  sendNotifications(data: any,sales:any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+  sendNotifications(data: any, sales: any, msgTitle: any, msgBody: any, currentDate: any): Observable<any> {
     const body = {
       items: data,
       sales: sales,
@@ -1157,7 +1143,7 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/bells`, body);
   }
 
-  sendNotificationsAdmin(data: any,sales:any, msgTitle: any, msgBody: any, currentDate:any): Observable<any> {
+  sendNotificationsAdmin(data: any, sales: any, msgTitle: any, msgBody: any, currentDate: any): Observable<any> {
     const body = {
       items: data,
       sales: sales,
@@ -1168,37 +1154,32 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/bellsAdmin`, body);
   }
 
-  // getNotif():Observable<any>{
-  //   return this.http.get(`${appConfig.apiUrl}/auth/getNotification`);
-  // }
-
-  getNotif():Observable<any>{
+  getNotif(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-
-    return this.http.get(`${appConfig.apiUrl}/auth/getNotification`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getNotification`, { headers });
   }
 
-  markRead(notifId:{id: string}):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/markRead`,notifId);
+  markRead(notifId: { id: string }): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/markRead`, notifId);
   }
 
-  topPerformer():Observable<any>{
+  topPerformer(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/topPerformer`);
   }
-  monthlyPerformer():Observable<any>{
+  monthlyPerformer(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/monthlyPerformer`);
   }
-  topCategory():Observable<any>{
+  topCategory(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/topProduct`);
   }
-  conversionRate():Observable<any>{
+  conversionRate(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/conversionRate`);
   }
-  conversionRateMonthly():Observable<any>{
+  conversionRateMonthly(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/conversionRateMonthly`);
   }
   getAttendance(year: number, month: number): Observable<any> {
@@ -1206,10 +1187,6 @@ export class AuthService {
   }
   // saveAttendance(year: number, month: number, attendanceData: any): Observable<any> {
   //   return this.http.post<any>(`${appConfig.apiUrl}/auth/update-attendance`, { year, month, attendanceData });
-  // }
-
-  // getAttendance1(year: number, month: number): Observable<any> {
-  //   return this.http.get<any>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
   // }
 
   getAttendance1(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
@@ -1226,120 +1203,120 @@ export class AuthService {
     });
   }
 
-  newSubsidiary(data:any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/newSubsidiary`,data);
+  newSubsidiary(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/newSubsidiary`, data);
   }
 
-  getSubsidiary():Observable<any>{
+  getSubsidiary(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSubsidiary`);
   }
 
-  urgentScriptProjects(){
+  urgentScriptProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/urgentScriptProjects`);
   }
-  highScriptProjects(){
+  highScriptProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/highScriptProjects`);
   }
-  mediumScriptProjects(){
+  mediumScriptProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/mediumScriptProjects`);
   }
-  
-  urgentEditorProjects(){
+
+  urgentEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/urgentEditorProjects`);
   }
-  highEditorProjects(){
+  highEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/highEditorProjects`);
   }
-  mediumEditorProjects(){
+  mediumEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/mediumEditorProjects`);
   }
 
-  urgentVoProjects(){
+  urgentVoProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/urgentVoProjects`);
   }
-  highVoProjects(){
+  highVoProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/highVoProjects`);
   }
-  mediumVoProjects(){
+  mediumVoProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/mediumVoProjects`);
   }
 
-  urgentGraphicProjects(){
+  urgentGraphicProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/urgentGraphicProjects`);
   }
-  pendingGraphicProjects(){
+  pendingGraphicProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/pendingGraphicProjects`);
   }
-  todayGraphicProjects(){
+  todayGraphicProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/todayGraphicProjects`);
   }
-  changesGraphicProjects(){
+  changesGraphicProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/changesGraphicProjects`);
   }
 
-  todayAssignedTask(){
+  todayAssignedTask() {
     return this.http.get(`${appConfig.apiUrl}/auth/todayAssignedTask`);
   }
-  pendingAssignedTask(){
+  pendingAssignedTask() {
     return this.http.get(`${appConfig.apiUrl}/auth/pendingAssignedTask`);
-  } 
+  }
 
-  getTodayEntriesGraphics():Observable<any>{
+  getTodayEntriesGraphics(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayEntriesGraphic`);
   }
-  getGraphicData(){
+  getGraphicData() {
     return this.http.get(`${appConfig.apiUrl}/auth/graphicActiveList`);
   }
-  getCompleteGraphicData(){
+  getCompleteGraphicData() {
     return this.http.get(`${appConfig.apiUrl}/auth/graphicCompleteList`);
   }
-  allGraphicProjects(){
+  allGraphicProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allGraphicProjects`);
   }
 
-  tasksDataLength(){
+  tasksDataLength() {
     return this.http.get(`${appConfig.apiUrl}/auth/taskDataLength`);
   }
-  addTask(taskData:any){
+  addTask(taskData: any) {
     return this.http.post(`${appConfig.apiUrl}/auth/addTask`, taskData);
   }
-  addIncentive(incentiveData:any){
+  addIncentive(incentiveData: any) {
     return this.http.put(`${appConfig.apiUrl}/auth/addIncentive`, incentiveData);
   }
-  transferToLeads(user:any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`,user);
+  transferToLeads(user: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`, user);
   }
-  transferCustomertoSales(user:any):Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/transferCustomerToSalesLead`,user);
+  transferCustomertoSales(user: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/transferCustomerToSalesLead`, user);
   }
   getUserAttendance(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`);
   }
-  allEmpIncentive(year: number, month: number):Observable<any>{
+  allEmpIncentive(year: number, month: number): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount?year=${year}&month=${month}`);
   }
-  salesIncentive(pass: any, year: number, month: number):Observable<any>{
+  salesIncentive(pass: any, year: number, month: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
     const params = new HttpParams().set('pass', pass);
-    return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive?year=${year}&month=${month}`, {headers, params});
+    return this.http.get(`${appConfig.apiUrl}/auth/salesIncentive?year=${year}&month=${month}`, { headers, params });
   }
-  todayAmount():Observable<any>{
+  todayAmount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/todayAmount`);
   }
-  receivedQr():Observable<any>{
+  receivedQr(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/receivedQr`);
   }
-  getSelectedInvoice(id:any):Observable<any>{
-    return this.http.get(`${appConfig.apiUrl}/auth/read-inv/${id}`, {headers: this.httpHeaders}).pipe(map((res:any)=>{
+  getSelectedInvoice(id: any): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/read-inv/${id}`, { headers: this.httpHeaders }).pipe(map((res: any) => {
       return res || {}
     }), catchError(this.handleError))
   }
 
-  getSalesData():Observable<any>{
+  getSalesData(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/sales-data`);
   }
 }

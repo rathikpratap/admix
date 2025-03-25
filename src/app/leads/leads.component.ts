@@ -30,34 +30,25 @@ export class LeadsComponent {
     })
 
      this.auth.getAdminLeads().subscribe((list : any)=>{
-       console.log("list==>",list)
        this.data = list;
-      
      });
 
     this.auth.getSalesTeam().subscribe((res : any)=>{
-      console.log("Sales Teams==>", res);
       this.emp = res;
-    })
+    });
   }
 
   getLeads(){
     this.auth.getAdminLeads().subscribe((list : any)=>{
-      console.log("list==>",list)
       this.data = list;
-      console.log(list.campaign_name)
-    })
+    });
   }
  
   updateSalesperson(){ 
-
     this.auth.updateSalesperson(this.rangeData).subscribe(( res: any)=>{
       if(this.rangeData){
         alert("Leads Successfully Transfered");
-        console.log("SalesPerson Updated Data", this.rangeData);
       }
-      
-      console.log("SalesPerson Updated Successfully", res);
     })
   }
 
@@ -76,7 +67,6 @@ export class LeadsComponent {
 
     if(startDate && endDate){
       this.auth.getLeadbyRange(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       })
     }

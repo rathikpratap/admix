@@ -59,13 +59,6 @@ export class NewB2bProjectsComponent {
       }
     });
 
-    // this.auth.allEmployee().subscribe((res:any)=>{
-    //   this.allEmployee = res;
-    //   this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor');
-    //   this.Graphicemp = res.filter((Gemp:any)=> Gemp.signupRole === 'Graphic Designer');
-    //   console.log("Editorss===>", this.employee);
-    //   console.log("Graphic Designer===>", this.Graphicemp);
-    // });
     this.auth.allEmployee().subscribe((res: any) => {
       if (Array.isArray(res)) {
         this.employee = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Editor'));
@@ -73,7 +66,6 @@ export class NewB2bProjectsComponent {
         console.error("Unexpected response format:", res);
       }
     });
-    
     this.auth.b2bDataLength().subscribe((list : any)=>{
       this.dataLength = list + 1; 
       if(this.dataLength){
@@ -102,21 +94,14 @@ export class NewB2bProjectsComponent {
         this.className = 'alert alert-success';
         this.b2bCustomerForm.reset();
         this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength + 1);
-        // this.router.navigate([this.router.url])
-        // .then(() => {
-        //   window.location.reload();
-        // });
         let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
-        console.log("SELECTED EMPLOYEE===>", selectedEmployee);
         let msgTitle = "New B2b Closing";
         let msgBody = `${custData.b2bProjectName} by ${this.tok.signupUsername}`;
         this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
           if(res){
             this.toastr.success("Notification Send","Success");
-            //alert("Notification Send");
           }else{
             this.toastr.error("Error Sending Notification","Error");
-            //alert("Error Sending Notification");
           }
         })
       }else{

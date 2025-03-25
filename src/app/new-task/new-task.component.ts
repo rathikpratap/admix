@@ -1,5 +1,5 @@
 import { Component,ElementRef, Renderer2 } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class NewTaskComponent {
   srInput!: ElementRef<HTMLInputElement>;
   Graphicemp:any;
  
-  constructor(private auth:AuthService, private router:Router, private renderer:Renderer2, private el:ElementRef, private toastr: ToastrService){
+  constructor(private auth:AuthService){
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;

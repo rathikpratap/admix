@@ -4,7 +4,6 @@ import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-update-customer',
   templateUrl: './update-customer.component.html',
@@ -20,26 +19,20 @@ export class UpdateCustomerComponent implements OnInit{
   tok:any;
   emp:any;
   companies: any;
-  
-
   codeInput!: ElementRef<HTMLInputElement>;
   
   ngOnInit(): void {
     this.updateForm.get('AdvPay')!.valueChanges.subscribe(value=>{
       this.updateForm.get('restAmount')!.setValue('0');
     })
-    
   }
 
   ngAfterViewInit() {
-    console.log("Its Called");
     const inputElement = this.el.nativeElement.querySelector('input[type=text]');
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
     }
-    
   }
-  
   safeVideoUrl: SafeResourceUrl | null = null;
 
   updateForm = new FormGroup({
@@ -79,7 +72,7 @@ export class UpdateCustomerComponent implements OnInit{
       } else{
         this.safeVideoUrl = null;
       }
-      console.log("Video ID====>>", videoId);
+      //console.log("Video ID====>>", videoId);
     }else {
       this.safeVideoUrl = null;
     }
@@ -90,8 +83,6 @@ export class UpdateCustomerComponent implements OnInit{
     const match = url.match(regExp);
     return match ? match[1] : null;
   }
-
-
   constructor(private router: Router, private ngZone: NgZone,private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
     
     this.auth.getProfile().subscribe((res:any)=>{
@@ -109,38 +100,28 @@ export class UpdateCustomerComponent implements OnInit{
       const restAmountValue = parseInt(values.restAmount || '0');
       const remainingAmount = closingPriceValue - AdvPayValue - restAmountValue;
 
-      this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());
-      
+      this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());   
     });
     
-
     this.auth.allEmployee().subscribe((res: any)=>{
       this.emp = res;
-      console.log("Emp===>", this.emp)
-    })
+    });
  
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
-      console.log("res ==>", res);
  
       if(res['custCode']){
-        console.log("COdee====>>", res['custCode']);
         this.updateForm.patchValue({
           custCode: res['custCode']
         });
       }else{
-        console.log("Code not found===>>");
         this.auth.dataLength().subscribe((length:any)=>{
           res['custCode']=length+1;
-          console.log("new Code==>", res['custCode']);
           this.updateForm.patchValue({
             custCode: res['custCode']
           }); 
-        })
+        });
       }
-
-      this.updateForm.patchValue({
-
-        
+      this.updateForm.patchValue({ 
         custName: res['custName'],
         custNumb: res['custNumb'],
         custNumb2: res['custNumb2'],
@@ -171,12 +152,10 @@ export class UpdateCustomerComponent implements OnInit{
     this.onRestAmountChange();
 
     this.auth.getCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
-    })
+    });
 
     this.auth.getCountries().subscribe((Countrydata: any) =>{
-      console.log("data==>", Countrydata);
       this.countries = Countrydata;
     });
     this.auth.getCompany().subscribe((res:any)=>{
@@ -217,13 +196,10 @@ export class UpdateCustomerComponent implements OnInit{
       this.updateForm.get('AdvPay')?.setValue(0); 
     }
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
-      console.log("Data Updated Successfully");
-      console.log("UPDATED DATA=====>>", this.updateForm.value);
       const projectStatusControl = this.updateForm.get('projectStatus');
         projectStatusControl?.valueChanges.subscribe(value => {
           if (value === 'Closing') {
             let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
-            console.log("SELECTED EMPLOYEE===>", selectedEmployee);
             let msgTitle = "New Closing";
             let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
             this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
@@ -235,10 +211,8 @@ export class UpdateCustomerComponent implements OnInit{
             });
           }
         });
-
         // Manually trigger the value change logic for projectStatus
         projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
-
       this.ngZone.run(() => { this.router.navigateByUrl('/salesHome/salesDashboard') })
     }, (err) => {
       console.log(err)
@@ -248,7 +222,6 @@ export class UpdateCustomerComponent implements OnInit{
   onCountryChange(): void{
     const countryCode = this.updateForm.get('custCountry')?.value;
     this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
-      console.log("States==>", Statedata)
       this.states = Statedata;
     });
   }
@@ -257,7 +230,6 @@ export class UpdateCustomerComponent implements OnInit{
     const stateCode = this.updateForm.get('custState')?.value;
     const countryCode = this.updateForm.get('custCountry')?.value;
     this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
-      console.log("Cities==>", Citydata);
       this.cities = Citydata;
     });
   }
@@ -266,4 +238,3 @@ export class UpdateCustomerComponent implements OnInit{
     return this.updateForm.get('salesPerson')?.value === null;
   }
 }
- 

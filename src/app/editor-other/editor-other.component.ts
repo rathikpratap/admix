@@ -25,10 +25,8 @@ export class EditorOtherComponent {
     })
     this.auth.editorOtherProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.getTodayEntriesEditorOther().subscribe((todayRes:any)=>{
-      console.log('Response Data:', todayRes);
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){
         this.todayEntries = totalDayEntry.length;
@@ -39,8 +37,7 @@ export class EditorOtherComponent {
     },(error)=>{
       console.error('Error Fetching today Entreis', error);
     });
-    this.auth.getEditorOtherData().subscribe((list : any)=>{ 
-      console.log("list",list)
+    this.auth.getEditorOtherData().subscribe((list : any)=>{
       this.data = list;
       this.dataLength = list.length;
     });
@@ -55,11 +52,9 @@ export class EditorOtherComponent {
   otherProjects(){
     const url = `/editor-home/editor-dashboard`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-b2b-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }

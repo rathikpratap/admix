@@ -49,37 +49,26 @@ export class AllCustomersComponent {
     });
  
     this.auth.salesAllProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.data = list;
     });
     this.auth.salesPreviousMonthProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataPreviousMonth = list;
     });
     this.auth.salesPreviousTwoMonthProjects().subscribe((list : any)=>{
-      console.log("list",list)
       this.dataTwoPreviousMonth = list;
     });
-    // this.auth.allEmployee().subscribe((res:any)=>{
-    //   this.GraphicEmp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
-    //   this.bundleEmp = res.filter((empB: any) => empB.signupRoles && empB.signupRoles.includes('Bundle Handler'));
-    //   console.log("BUNDELERDNDJKN======>>", this.bundleEmp);
-    // });
     this.auth.allEmployee().subscribe((res: any) => {
       if (Array.isArray(res)) {
         this.GraphicEmp = res.filter((emp: any) => emp.signupRole && emp.signupRole.includes('Graphic Designer'));
         this.bundleEmp = res.filter((empB: any) => empB.signupRole && empB.signupRole.includes('Bundle Handler'));
-        console.log("Bundle Handlers:", this.bundleEmp);
       } else {
         console.error("Unexpected response format:", res);
       }
     });
     
     this.auth.getSalesTeam().subscribe((res:any)=>{
-      console.log("SALESTEAM=======>>", res);
       this.sales = res;
-    })
-
+    });
 
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
@@ -94,7 +83,6 @@ export class AllCustomersComponent {
   searchCustomer(){
     const mobile = this.searchForm.get('mobile')!.value;
     this.auth.searchCustomerbyMobile(mobile).subscribe((customers)=>{
-      console.log("customer",customers)
       this.customers = customers;
       this.errorMessage = null;
     },
@@ -117,9 +105,8 @@ export class AllCustomersComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyRange(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
-      })
+      });
     }
   }
 
@@ -145,7 +132,6 @@ export class AllCustomersComponent {
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
-    //window.open(url, '_blank');
     window.location.href = url;
   }
   invoice(userId: string){
@@ -209,8 +195,7 @@ export class AllCustomersComponent {
     };
     this.auth.transferCustomertoSales(transferData).subscribe((res:any)=>{
       this.toastr.success("Transferred successfully","Success");
-      console.log("Customer transferred successfully", res);
-    })
+    });
   }
  
 }

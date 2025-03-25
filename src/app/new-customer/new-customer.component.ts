@@ -17,6 +17,7 @@ export class NewCustomerComponent {
   className = 'd-none'
   tok!:any;
   dataLength!:any;
+  b2bdataLength!:any;
   countries: any;
   states: any; 
   cities: any;
@@ -65,9 +66,9 @@ export class NewCustomerComponent {
     }); 
 
     this.auth.b2bDataLength().subscribe((list : any)=>{
-      this.dataLength = list + 1; 
+      this.b2bdataLength = list + 1; 
       if(this.dataLength){
-        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength);
+        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.b2bdataLength);
       }
     })
 
@@ -82,12 +83,10 @@ export class NewCustomerComponent {
     });
 
     this.auth.getCountries().subscribe((Countrydata: any) =>{
-      console.log("data==>", Countrydata);
       this.countries = Countrydata;
     });
 
     this.auth.getCategory().subscribe((category:any)=>{
-      console.log("Categories===>>", category);
       this.Category = category;
     })
     this.auth.getCompany().subscribe((res:any)=>{
@@ -103,8 +102,6 @@ export class NewCustomerComponent {
       this.allEmployee = res;
       this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor');
       this.Graphicemp = res.filter((Gemp:any)=> Gemp.signupRole === 'Graphic Designer');
-      console.log("Editorss===>", this.employee);
-      console.log("Graphic Designer===>", this.Graphicemp);
     });
   }
 
@@ -165,7 +162,6 @@ export class NewCustomerComponent {
   onCountryChange(): void{
     const countryCode = this.customerForm.get('custCountry')?.value;
     this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
-      console.log("States==>", Statedata)
       this.states = Statedata;
     }); 
   }
@@ -174,7 +170,6 @@ export class NewCustomerComponent {
     const stateCode = this.customerForm.get('custState')?.value;
     const countryCode = this.customerForm.get('custCountry')?.value;
     this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
-      console.log("Cities==>", Citydata);
       this.cities = Citydata;
     });
   }
@@ -193,7 +188,6 @@ export class NewCustomerComponent {
         this.customerForm.reset();
         this.customerForm.get('custCode')!.setValue(this.dataLength + 1);
         let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
-        console.log("SELECTED EMPLOYEE===>", selectedEmployee);
         let msgTitle = "New Closing";
         let msgBody = `${custData.custBussiness} by ${this.tok.signupUsername}`;
         this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
@@ -226,22 +220,19 @@ export class NewCustomerComponent {
         this.isProcess = false;
         this.message = "Customer Added";
         this.className = 'alert alert-success';
-        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.dataLength + 1);
+        this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.b2bdataLength + 1);
         this.router.navigate([this.router.url])
         .then(() => {
           window.location.reload();
         });
         let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
-        console.log("SELECTED EMPLOYEE===>", selectedEmployee);
         let msgTitle = "New B2b Closing";
         let msgBody = `${custData.b2bProjectName} by ${this.tok.signupUsername}`;
         this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
           if(res){
             this.toastr.success("Notification Send","Success");
-            //alert("Notification Send");
           }else{
             this.toastr.error("Error Sending Notification","Error");
-            //alert("Error Sending Notification");
           }
         })
       }else{

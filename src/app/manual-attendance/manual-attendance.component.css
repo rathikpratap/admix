@@ -14,11 +14,10 @@
 }
 
 .table-scroll {
-    /* width: 100%;*/
     position: relative;
-    max-height: 500px; /* Limit the table container height */
-    overflow-y: auto;  /* Enable vertical scrolling */
-    overflow-x: auto;  /* Enable horizontal scrolling for wide tables */
+    max-height: 500px;
+    overflow-y: auto; 
+    overflow-x: auto; 
     margin-top: 20px;
 }
 
@@ -33,7 +32,6 @@ th, td {
     border: 1px solid #ddd;
 }
 
-/* Present, Absent, and Half-Day status colors */
 .present-day {
     background-color: #e0ffe0;
     color: #2c662d;
@@ -48,13 +46,12 @@ th, td {
     background-color: rgb(222, 239, 147);
 }
 
-/* Header styling */
 .sticky-header{
     position: sticky;
     top: 0;
-    background-color: white; /* Optional: Ensure the header stands out */
-    z-index: 100; /* Ensure the header stays on top of other content */
-    border-bottom: 2px solid #dee2e6; /* Optional: Add a border for clarity */
+    background-color: white;
+    z-index: 100;
+    border-bottom: 2px solid #dee2e6;
 }
 thead tr {
     position: sticky;
@@ -62,25 +59,22 @@ thead tr {
     z-index: 3;
 }
 
-/* Sticky first column styling */
 tbody td:first-child {
     position: sticky;
     left: 0;
-    background-color: #f9f9f9; /* Optional background to differentiate */
-    z-index: 2; /* Ensures first column stays on top of other rows */
+    background-color: #f9f9f9;
+    z-index: 2;
 }
 
-/* Striped table rows */
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
 tbody {
-    height: 300px; /* Set height for the scrollable area */
-    overflow-y: auto; /* Enables vertical scrolling */
+    height: 300px;
+    overflow-y: auto;
 }
 
-/* Remove borders from dropdowns */
 select {
     border: none;
     background: none;
@@ -91,7 +85,6 @@ select {
     color: #666;
 }
 
-/* Month navigation styles */
 .month-navigation {
     display: flex;
     justify-content: space-between;

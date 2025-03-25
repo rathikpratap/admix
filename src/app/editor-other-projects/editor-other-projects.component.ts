@@ -35,7 +35,6 @@ export class EditorOtherProjectsComponent {
     });
     this.auth.editorOtherProjects().subscribe((res:any)=>{
       this.data = res;
-      console.log("Data===>", res);
     });
     this.auth.editorPreviousOtherProjects().subscribe((res:any)=>{
       this.previousData = res;
@@ -55,9 +54,7 @@ export class EditorOtherProjectsComponent {
   }
   searchCustomer(){
     const projectName = this.searchForm.get('projectName')!.value;
-    console.log("NUMBER===>", projectName);
     this.auth.searchB2bByProjectName(projectName).subscribe((customers: any)=>{
-      console.log("customer",customers)
       this.customers = customers; 
       this.errorMessage = null;
     },
@@ -75,19 +72,16 @@ export class EditorOtherProjectsComponent {
 
     if(startDate && endDate){
       this.auth.getDatabyDatePassRangeEditorOther(startDate, endDate).subscribe((rangeData:any)=>{
-        console.log("Data by Date Range===>>", rangeData);
         this.rangeData = rangeData;
-      })
+      });
     }
   }
   otherProjects(){
     const url = `/editor-home/editor-projects`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
   openUpdatePanel(userId: string) {
     const url = `/editor-home/editor-b2b-update/${userId}`;
     window.location.href = url;
-    //window.open(url, '_blank');
   }
 }

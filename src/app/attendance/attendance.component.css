@@ -2,7 +2,7 @@
     font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.calendar {
+/* .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
@@ -46,16 +46,12 @@
 
 .present-day {
     background-color: #e0ffe0;
-    /* Light green for present days */
     color: #2c662d;
-    /* Darker green text */
 }
 
 .absent-day {
     background-color: #ffe0e0;
-    /* Light red for absent days */
     color: #662c2c;
-    /* Darker red text */
 }
 .half-day{
     background-color: rgb(222, 239, 147);
@@ -83,4 +79,89 @@ h2 {
 
 .month-navigation h2 {
     margin: 0;
+} */
+
+.calendar-container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #4a4a4a;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.current-time {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.nav-button {
+    background: #e0e0e0;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.week-day {
+    font-weight: bold;
+    background: #222;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.calendar-day {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+/* Attendance Colors */
+.present {
+    background: #d4edda;
+    color: #155724;
+}
+
+.absent {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.select {
+    background: #fefefe;
+    color: #333;
+}
+
+/* Highlight Today's Date */
+.today {
+    border: 3px solid #ff9800;
+    background: #fff3e0;
+    font-weight: bold;
 }

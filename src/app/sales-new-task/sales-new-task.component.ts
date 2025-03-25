@@ -51,7 +51,6 @@ export class SalesNewTaskComponent {
 
   addTask(){
     const currentDate = new Date().toISOString();
-
     this.taskForm.get('assignedDate')!.setValue(currentDate);
     this.taskForm.get('graphicStatus')!.setValue('Not Completed');
     this.taskForm.get('assignedBy')!.setValue(this.tok.signupUsername);
