@@ -39,6 +39,7 @@ export class TeamLeadsComponent implements OnInit {
   transferName: any;
   campaign_names: any;
   campaignName: any;
+  dynamicFields: any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -80,6 +81,7 @@ export class TeamLeadsComponent implements OnInit {
     this.auth.getCampaign().subscribe((res:any)=>{
       this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
       index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
+      //console.log("CAMPAIGN NAmes======>>", this.campaign_names);
     });
     
     this.todayDate = this.auth.getDate();
@@ -105,8 +107,10 @@ export class TeamLeadsComponent implements OnInit {
 
   getgetData(){
     this.auth.getTeamLeads(this.campaignName).subscribe((res:any)=>{
-      this.data = res; 
-    });  
+      this.data = res;
+      // Extract dynamic fields
+    this.dynamicFields = this.getDynamicFields(res);
+    });
 
     this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataYesterday = res;
@@ -132,6 +136,15 @@ export class TeamLeadsComponent implements OnInit {
       this.dataFiveYesterday = res;
     });
   }
+  getDynamicFields(data: any[]): string[] {
+    let fields = new Set<string>();
+    data.forEach(item => {
+        if (item.additionalFields) {
+            Object.keys(item.additionalFields).forEach(field => fields.add(field));
+        }
+    });
+    return Array.from(fields);
+}
 
   refreshPage(){
     window.location.reload();

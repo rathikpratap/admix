@@ -86,6 +86,7 @@
                         <th scope="col">Mobile</th>
                         <th scope="col">Created Date</th>
                         <th scope="col">Email</th>
+                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
                         <th scope="col">Bussiness</th>
                         <th scope="col">State</th>
                         <th scope="col">Project Status</th>
@@ -102,6 +103,7 @@
                         <td>{{customer.custNumb}}</td>
                         <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
+                        <td *ngFor="let field of dynamicFields">{{ customer.additionalFields?.[field] || 'N/A' }}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
                         <td>{{customer.projectStatus}}</td>
@@ -130,6 +132,7 @@
                         <th scope="col">Mobile</th>
                         <th scope="col">Created Date</th>
                         <th scope="col">Email</th>
+                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
                         <th scope="col">Bussiness</th>
                         <th scope="col">State</th>
                         <th scope="col">Project Status</th>
@@ -146,6 +149,7 @@
                         <td>{{customer.custNumb}}</td>
                         <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{customer.custEmail}}</td>
+                        <td *ngFor="let field of dynamicFields">{{ customer.additionalFields?.[field] || 'N/A' }}</td>
                         <td>{{customer.custBussiness}}</td>
                         <td>{{customer.state}}</td>
                         <td>{{customer.projectStatus}}</td>
@@ -178,6 +182,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Business </th>
                             <th scope="col"> Project Status </th>
@@ -195,6 +200,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -282,6 +288,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -299,6 +306,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -343,6 +351,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -360,6 +369,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -405,6 +415,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -422,6 +433,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -467,6 +479,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -484,6 +497,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -529,6 +543,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -546,6 +561,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -591,6 +607,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -608,6 +625,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
@@ -653,6 +671,7 @@
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
                             <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
                             <th scope="col"> Project Status </th>
@@ -670,6 +689,7 @@
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
                             <td>{{list.custEmail}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
