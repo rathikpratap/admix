@@ -116,36 +116,37 @@ export class TeamLeadsComponent implements OnInit {
       this.data = res;
       // Extract dynamic fields
     this.dynamicFields = this.getDynamicFields(res);
+    console.log("DYNAMIC LEADS===========>>", this.dynamicFields);
     });
 
     this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
  
     this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataOneYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataTwoYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataThreeYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataFourYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataFiveYesterday = res;
-      this.dynamicFields = this.getDynamicFields(res);
+      //this.dynamicFields = this.getDynamicFields(res);
     });
   }
   getDynamicFields(data: any[]): string[] {
@@ -155,6 +156,7 @@ export class TeamLeadsComponent implements OnInit {
             Object.keys(item.additionalFields).forEach(field => fields.add(field));
         }
     });
+    console.log("DYNAMIC FIELDS============>>",fields);
     return Array.from(fields);
 }
 
