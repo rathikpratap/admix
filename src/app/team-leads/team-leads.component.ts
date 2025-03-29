@@ -54,6 +54,7 @@ export class TeamLeadsComponent implements OnInit {
   ngOnInit(): void {
     this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
       this.campaignName = this.categForm.get('campaign_name')?.value;
+      console.log("CHANGED CAMPAIGN========>>", this.campaignName);
       this.getgetData();
     });
   }
@@ -81,8 +82,13 @@ export class TeamLeadsComponent implements OnInit {
     this.auth.getCampaign().subscribe((res:any)=>{
       this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
       index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
-      //console.log("CAMPAIGN NAmes======>>", this.campaign_names);
+      console.log("CAMPAIGN NAmes======>>", this.campaign_names);
     });
+
+    // this.auth.getCampaign().subscribe((res: any) => {
+    //   this.campaign_names = res;
+    //   console.log("Recent Campaign Names: ", this.campaign_names);
+    // });
     
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
@@ -114,26 +120,32 @@ export class TeamLeadsComponent implements OnInit {
 
     this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
  
     this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataOneYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataTwoYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataThreeYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataFourYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
 
     this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
       this.dataFiveYesterday = res;
+      this.dynamicFields = this.getDynamicFields(res);
     });
   }
   getDynamicFields(data: any[]): string[] {
