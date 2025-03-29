@@ -40,6 +40,8 @@ export class TeamLeadsComponent implements OnInit {
   campaign_names: any;
   campaignName: any;
   dynamicFields: any;
+  editing: boolean[] = []; // Tracks which campaign is being edited
+  editedNames: string[] = []; // Stores edited campaign names
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -79,16 +81,17 @@ export class TeamLeadsComponent implements OnInit {
     this.auth.salesSecondFacebookLeads().subscribe((res:any)=>{
       this.secondFbLeads = res;
     });
-    this.auth.getCampaign().subscribe((res:any)=>{
-      this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
-      index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
-      console.log("CAMPAIGN NAmes======>>", this.campaign_names);
-    });
-
-    // this.auth.getCampaign().subscribe((res: any) => {
-    //   this.campaign_names = res;
-    //   console.log("Recent Campaign Names: ", this.campaign_names);
+    // this.auth.getCampaign().subscribe((res:any)=>{
+    //   this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
+    //   index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
+    //   console.log("CAMPAIGN NAmes======>>", this.campaign_names);
     // });
+
+    this.auth.getCampaign().subscribe((res: any) => {
+      this.campaign_names = res;
+      console.log("Recent Campaign Names: ", this.campaign_names);
+    });
+    
     
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);

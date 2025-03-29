@@ -66,7 +66,7 @@
                 <span class="categ-left"> Campaign Name: </span>
                 <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
                     <option value="null"> Select Campaign</option>
-                    <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">{{camp.campaign_Name}}</option>
+                    <option *ngFor="let camp of campaign_names" value="{{camp}}">{{camp}}</option>
                 </select>
             </form>
         </div>
