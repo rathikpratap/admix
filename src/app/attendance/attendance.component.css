@@ -153,6 +153,10 @@ h2 {
     background: #f8d7da;
     color: #721c24;
 }
+.half-day {
+    background: red;
+    color: #222;
+}
 
 .select {
     background: #fefefe;

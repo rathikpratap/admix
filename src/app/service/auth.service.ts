@@ -849,6 +849,9 @@ export class AuthService {
   getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
+  getAllCampaign(): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getAllCampaignNames`);
+  }
   getClosing(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getClosingNames`);
   }

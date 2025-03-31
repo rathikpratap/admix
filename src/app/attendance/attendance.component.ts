@@ -97,7 +97,7 @@ export class AttendanceComponent implements OnInit {
   //     this.month++;
   //   }
   //   this.fetchAttendance();
-  // }
+  // } 
   year: number;
   month: number;
   today: Date = new Date();

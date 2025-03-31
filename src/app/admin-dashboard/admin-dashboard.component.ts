@@ -493,7 +493,7 @@ export class AdminDashboardComponent implements OnInit {
       this.restAmount = res.restTotals;
     });
 
-    this.auth.getCampaign().subscribe((res: any) => {
+    this.auth.getAllCampaign().subscribe((res: any) => {
       this.campaign_names = res.filter((campaign: any, index: number, self: any[]) =>
         index === self.findIndex((c: any) => c.campaign_Name === campaign.campaign_Name));
     });
