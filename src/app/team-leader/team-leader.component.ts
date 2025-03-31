@@ -65,6 +65,9 @@ export class TeamLeaderComponent implements OnInit {
   errorMessage: any;
   rangeSearchData: any;
   remainAmtPro: any
+  searchedClosingData:any;
+  search_closing_data:any;
+  mobile:any;
 
   isAscending: { [key: string]: boolean } = {
     customer: true,
@@ -90,6 +93,9 @@ export class TeamLeaderComponent implements OnInit {
   closingForm = new FormGroup({
     closing_name: new FormControl("null")
   });
+  searchedClosingForm = new FormGroup({
+    searched_closing: new FormControl("null")
+  });
   salesForm = new FormGroup({
     salesperson_name: new FormControl("null")
   });
@@ -104,6 +110,10 @@ export class TeamLeaderComponent implements OnInit {
       this.getData();
       this.check();
       this.checkTwo();
+    });
+    this.searchedClosingForm.get('searched_closing')?.valueChanges.subscribe(value => {
+      this.searchedClosingData = this.searchedClosingForm.get('searched_closing')?.value;
+      this.getSearchedClosingData();
     });
     this.salesForm.get('salesperson_name')?.valueChanges.subscribe(value => {
       this.salesPerson_name = this.salesForm.get('salesperson_name')?.value;
@@ -264,6 +274,11 @@ export class TeamLeaderComponent implements OnInit {
       this.cloDatat = list;
     })
   };
+  getSearchedClosingData(){
+    this.auth.searchedClosingData(this.searchedClosingData, this.mobile).subscribe((list:any)=>{
+      this.search_closing_data = list; 
+    })
+  }
   getSalesData() {
     this.auth.empProjects(this.salesPerson_name).subscribe((list: any) => {
       this.empData = list;
@@ -430,8 +445,8 @@ export class TeamLeaderComponent implements OnInit {
   }
 
   searchCustomer() {
-    const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers) => {
+    this.mobile = this.searchForm.get('mobile')!.value;
+    this.auth.searchCustomerbyMobile(this.mobile).subscribe((customers) => {
       this.customers = customers;
       this.errorMessage = null;
     },

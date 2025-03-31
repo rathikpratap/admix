@@ -159,7 +159,7 @@ export class AttendanceComponent implements OnInit {
     }
 
     for (let day = 1; day <= lastDate; day++) {
-      const date = new Date(this.year, this.month - 1, day).toISOString().split('T')[0];
+      const date = new Date(this.year, this.month - 1, day + 1).toISOString().split('T')[0];
       const attendance = this.attendanceData?.[0]?.attendance?.find((att:any) => att.date === date);
       const isToday = this.today.getFullYear() === this.year &&
                       this.today.getMonth() + 1 === this.month &&

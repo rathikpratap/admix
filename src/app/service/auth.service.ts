@@ -249,6 +249,9 @@ export class AuthService {
   closingData(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allCategProjects/${name}`);
   }
+  searchedClosingData(name: any, mobile:any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/searchCategProjects/${name}/${mobile}`);
+  }
 
   allProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjectsAdmin`);
