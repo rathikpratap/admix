@@ -200,6 +200,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjects`);
   }
 
+  getAllProjectsExcludingLogo(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsExcludingLogo`);
+  }
+  getAllProjectsIncludingLogo(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsIncludingLogo`);
+  }
+
   getAllCompleteProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjects`);
   }
@@ -849,6 +856,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`);
   }
 
+  assignCampaign(data: {campaignName: string, employees: string[]}):Observable<any>{
+    return this.http.put(`${appConfig.apiUrl}/auth/assign-campaign`, data)
+  }
+  getAssignedCampaigns(): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/get-assigned-campaigns`);
+}
   getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }

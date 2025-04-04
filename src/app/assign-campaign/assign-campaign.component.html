@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="searchCustomer">
+            <div class="nameCard">
+                <div class="title-heading">
+                    <h6>Assign Campaign</h6>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Campaign Name</th>
+                            <th scope="col">SalesPerson 1</th>
+                            <th scope="col">SalesPerson 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let camp of campaigns">
+                            <td>{{camp.name}}</td>
+                            <td>
+                                <select class="form-select" [(ngModel)]="camp.salesPerson1" (change)="assign(camp)">
+                                    <option value="">Select Employee</option>
+                                    <option *ngFor="let emp of salesEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-select" [(ngModel)]="camp.salesPerson2" (change)="assign(camp)">
+                                    <option value="">Select Employee</option>
+                                    <option *ngFor="let emp of salesEmp" value="{{emp.signupUsername}}">{{emp.signupUsername}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

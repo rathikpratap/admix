@@ -88,6 +88,7 @@ import { TeamLeaderComponent } from './team-leader/team-leader.component';
 import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-projects.component';
 import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
 import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
+import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
 
 const routes: Routes = [
   {
@@ -243,6 +244,10 @@ const routes: Routes = [
       {
         path: 'update-b2b/:id',
         component: UpdateB2bComponent
+      },
+      {
+        path: 'assign-campaign',
+        component: AssignCampaignComponent
       }
     ]
   },

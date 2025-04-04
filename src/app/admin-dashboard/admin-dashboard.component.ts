@@ -158,7 +158,8 @@ export class AdminDashboardComponent implements OnInit {
   statusData: any;
   allClosings:any;
   salesEmp:any;
-  remainAmtPro: any
+  remainAmtPro: any;
+  onlyLogo:any;
 
   salesData: any[] = [];
   chartLabels: string[] = [];
@@ -434,8 +435,14 @@ export class AdminDashboardComponent implements OnInit {
     });
     this.auth.getAllProjects().subscribe((allList: any) => {
       console.log("allList", allList)
-      this.data = allList;
+      //this.data = allList;
       this.dataLength = allList.length;
+    });
+    this.auth.getAllProjectsExcludingLogo().subscribe((notLogo:any) => {
+      this.data = notLogo;
+    });
+    this.auth.getAllProjectsIncludingLogo().subscribe((onlyLogo:any) => {
+      this.onlyLogo = onlyLogo;
     });
 
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
@@ -664,6 +671,10 @@ export class AdminDashboardComponent implements OnInit {
     const url = `/b2b-dashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
+  }
+  assignCampaign(){
+    const url = `/assign-campaign`;
+    window.location.href = url;
   }
 
   toggleHighlight(user: any) {

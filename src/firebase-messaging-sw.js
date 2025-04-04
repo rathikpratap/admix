@@ -24,7 +24,8 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
       body: payload.notification.body,
-      icon: '/firebase-logo.png'
+      icon: '/firebase-logo.png',
+      //sound: 'admix-software/src/notification.mp3'
     };
   
     self.registration.showNotification(notificationTitle, notificationOptions);

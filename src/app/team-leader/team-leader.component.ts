@@ -68,6 +68,7 @@ export class TeamLeaderComponent implements OnInit {
   searchedClosingData:any;
   search_closing_data:any;
   mobile:any;
+  onlyLogo:any;
 
   isAscending: { [key: string]: boolean } = {
     customer: true,
@@ -170,8 +171,14 @@ export class TeamLeaderComponent implements OnInit {
       }
     });
     this.auth.getAllProjects().subscribe((allList: any) => {
-      this.data = allList;
+      //this.data = allList;
       this.dataLength = allList.length;
+    });
+    this.auth.getAllProjectsExcludingLogo().subscribe((notLogo:any) => {
+      this.data = notLogo;
+    });
+    this.auth.getAllProjectsIncludingLogo().subscribe((onlyLogo:any) => {
+      this.onlyLogo = onlyLogo;
     });
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
       this.allData = allProject;

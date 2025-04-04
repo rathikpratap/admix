@@ -52,7 +52,14 @@ export class MessagingService {
   listen(messaging: Messaging) {
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
+      this.playNotificationSound();
       this.messageSource.next(payload);
     });
+  }
+
+  playNotificationSound() {
+    const audio = new Audio('/assets/notification.mp3'); // Place the sound file in `src/assets/`
+    audio.volume = 1.0; // Max volume
+    audio.play().catch(err => console.error("🔇 Sound play blocked:", err));
   }
 }
