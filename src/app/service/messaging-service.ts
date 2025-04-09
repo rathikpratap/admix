@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MessagingService {
   private messageSource = new BehaviorSubject<any>(null);
   currentMessage = this.messageSource.asObservable();
@@ -46,8 +47,6 @@ export class MessagingService {
       }
     );
   }
-
-
 
   listen(messaging: Messaging) {
     onMessage(messaging, (payload) => {

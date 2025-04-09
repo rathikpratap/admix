@@ -28,7 +28,7 @@
 		</form>
 
 		<!-- STEP 2: Enter OTP -->
-		<form [formGroup]="otpForm" (ngSubmit)="loginUser()" *ngIf="otpSent">
+		<form [formGroup]="otpForm" (ngSubmit)="loginUser()" *ngIf="otpSent && !isAdmin">
 			<h2>Enter OTP</h2>
 			<div class="login__field">
 				<i class="login__icon fas fa-key"></i>
