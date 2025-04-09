@@ -48,6 +48,7 @@ export class UpdateCustomerComponent implements OnInit{
     billType: new FormControl("null"),
     AdvPay: new FormControl(),
     remainingAmount: new FormControl(""),
+    customerType: new FormControl(""),
     custCity: new FormControl(""),
     custState: new FormControl(""),
     custCountry: new FormControl(""),
@@ -144,7 +145,8 @@ export class UpdateCustomerComponent implements OnInit{
         restPaymentDate: this.formatDate(res['restPaymentDate']),
         leadsCreatedDate: res['leadsCreatedDate'],
         companyName: res['companyName'],
-        Qr: res['Qr']
+        Qr: res['Qr'],
+        customerType: res['customerType']
       })
       this.updateEmbeddedVideoUrl();
     });

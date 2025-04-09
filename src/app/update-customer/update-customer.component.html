@@ -184,6 +184,20 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Customer Type:</span>
+                            <select class="form-select" formControlName="customerType" aria-label="Default select example" [ngClass]="{error: getControls('customerType')?.errors && getControls('customerType')?.touched}">
+                                <option value="">Select Customer Type</option>
+                                <option value="New Lead">New Lead</option>
+                                <option value="Follow Up">Follow Up</option>
+                                <option value="Returning Customer">Returning Customer</option>
+                            </select>
+                            <div *ngIf="getControls('customerType')?.errors">
+                                <label class="text-danger" *ngIf="getControls('customerType')?.errors?.['required']">Selection Required</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Customer Country: </span>
                             <select formControlName="custCountry" (change)="onCountryChange()"
                                 [ngClass]="{error:getControls('custCountry')?.errors && getControls('custCountry')?.touched}">

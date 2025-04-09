@@ -118,6 +118,7 @@ export class NewCustomerComponent {
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
     restAmount : new FormControl(""), 
+    customerType : new FormControl(""),
     custCountry : new FormControl("null"),
     custCity : new FormControl("null"),
     custState : new FormControl("null"),
