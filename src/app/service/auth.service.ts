@@ -36,6 +36,7 @@ export class AuthService {
   signin(credentials: { username: string, otp?: string | null}): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
   }
+  
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
