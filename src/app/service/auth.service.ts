@@ -1342,4 +1342,8 @@ export class AuthService {
   getSalesData(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/sales-data`);
   }
+
+  impersonateUser(userId: string): Observable<any> {
+    return this.http.post<any>(`${appConfig.apiUrl}/auth/impersonate`, { userId });
+  }
 }

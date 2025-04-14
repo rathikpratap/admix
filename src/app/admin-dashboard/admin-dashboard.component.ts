@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale, ChartType, Color } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -195,6 +196,9 @@ export class AdminDashboardComponent implements OnInit {
   });
   statusForm = new FormGroup({
     project_status: new FormControl("null")
+  });
+  select_salesForm = new FormGroup({
+    select_salesperson : new FormControl("null")
   });
 
   // Array of predefined colors
@@ -419,7 +423,42 @@ export class AdminDashboardComponent implements OnInit {
     return color;
   }
 
-  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService) {
+  onSalespersonChange(){
+    const selectedUsername = this.select_salesForm.get('select_salesperson')?.value;
+    console.log("SELECTED USERNAME========>>", selectedUsername);
+
+    if(selectedUsername === 'null') {
+      const originalAdminToken = localStorage.getItem('adminToken');
+      if(originalAdminToken){
+        localStorage.setItem('token', originalAdminToken);
+        this.session.handleLoginResponse({
+          success: true,
+          token : originalAdminToken,
+          role: ['Admin']
+        });
+      } else {
+        alert('No stored admin session!');
+      }
+      return;
+    }
+
+    const selectedUser = this.salesEmp.find((emp:any) => emp.signupUsername === selectedUsername);
+    if(!selectedUser) return alert('User not found!');
+
+    const currentToken = localStorage.getItem('token');
+    if(currentToken) {
+      localStorage.setItem('adminToken', currentToken);
+    }
+    this.auth.impersonateUser(selectedUser._id).subscribe({
+      next: (res) => this.session.handleLoginResponse(res),
+      error: (err) => {
+        console.error('Impersonation failed', err);
+        alert('Failed to impersonate user');
+      }
+    });
+  }
+
+  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private session: SessionService) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
     });

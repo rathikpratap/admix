@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   isAdmin = false;
   username = '';
 
-  constructor(private auth:AuthService, private router:Router) {
+  constructor(private auth:AuthService, private router:Router, private session: SessionService) {
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data
@@ -47,12 +48,12 @@ export class LoginComponent {
         this.isAdmin = res.isAdmin;
         if(this.isAdmin){
           this.auth.signin({ username: this.username, otp: null}).subscribe((res: any) => {
-            this.handleLoginResponse(res);
+            this.session.handleLoginResponse(res);
           }, err => {
             alert('Login Failed');
           });
         }else if (res.token) {
-          this.handleLoginResponse(res);
+          this.session.handleLoginResponse(res);
         }else{
           this.otpSent = true;
         alert('OTP sent to your registered email!');
@@ -65,43 +66,43 @@ export class LoginComponent {
     });
   }
 
-  handleLoginResponse(res: any) {
-    if (res.success) {
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('roles', JSON.stringify(res.role));
-      const roles = res.role || [];
-      const team = res.team;
+  // handleLoginResponse(res: any) {
+  //   if (res.success) {
+  //     localStorage.setItem('token', res.token);
+  //     localStorage.setItem('roles', JSON.stringify(res.role));
+  //     const roles = res.role || [];
+  //     const team = res.team;
   
-      if (roles.includes('Admin') || roles.includes('Manager')) {
-        this.router.navigateByUrl('/admin-dashboard');
-      } else if (roles.includes('Sales Team')) {
-        if (team === 'Shiva Development') {
-          this.router.navigateByUrl('/salesHome/b2b-dashboard');
-        } else {
-          this.router.navigateByUrl('/salesHome/salesDashboard');
-        }
-      } else if (roles.includes('Script Writer')) {
-        this.router.navigateByUrl('/script-home/script-dashboard');
-      } else if (roles.includes('Editor')) {
-        this.router.navigateByUrl('/editor-home/editor-dashboard');
-      } else if (roles.includes('VO Artist')) {
-        this.router.navigateByUrl('/vo-home/vo-dashboard');
-      } else if (roles.includes('Graphic Designer')) {
-        this.router.navigateByUrl('/graphic-home/graphic-dashboard');
-      } else {
-        alert('No matching role found!');
-      }
-    } else {
-      alert(res.message);
-    }
-  }
+  //     if (roles.includes('Admin') || roles.includes('Manager')) {
+  //       this.router.navigateByUrl('/admin-dashboard');
+  //     } else if (roles.includes('Sales Team')) {
+  //       if (team === 'Shiva Development') {
+  //         this.router.navigateByUrl('/salesHome/b2b-dashboard');
+  //       } else {
+  //         this.router.navigateByUrl('/salesHome/salesDashboard');
+  //       }
+  //     } else if (roles.includes('Script Writer')) {
+  //       this.router.navigateByUrl('/script-home/script-dashboard');
+  //     } else if (roles.includes('Editor')) {
+  //       this.router.navigateByUrl('/editor-home/editor-dashboard');
+  //     } else if (roles.includes('VO Artist')) {
+  //       this.router.navigateByUrl('/vo-home/vo-dashboard');
+  //     } else if (roles.includes('Graphic Designer')) {
+  //       this.router.navigateByUrl('/graphic-home/graphic-dashboard');
+  //     } else {
+  //       alert('No matching role found!');
+  //     }
+  //   } else {
+  //     alert(res.message);
+  //   }
+  // }
 
   loginUser() {
     const otp = this.otpForm.value.otp;
     if (!otp) return alert('Please enter OTP');
   
     this.auth.signin({ username: this.username, otp }).subscribe((res: any) => {
-      this.handleLoginResponse(res);
+      this.session.handleLoginResponse(res);
     }, err => {
       alert('Login Failed!');
     });

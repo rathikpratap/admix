@@ -1,3 +1,6 @@
+<div *ngIf="isImpersonating" class="alert alert-info text-center">
+    🔍 You are impersonating a salesperson. <button class="btn btn-sm btn-outline-dark" (click)="backToAdmin()">Return to Admin</button>
+  </div>
 <div class="row">
     <div class="col-lg-12 d-flex justify-content-end">
         <button class="btn btn-success getButton" (click)="teamWork()" *ngIf="tok?.signupRole?.includes('Team Leader')">Team Work</button>

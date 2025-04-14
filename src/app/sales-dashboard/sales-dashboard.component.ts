@@ -1,14 +1,15 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-sales-dashboard',
   templateUrl: './sales-dashboard.component.html',
   styleUrls: ['./sales-dashboard.component.css']
 })
-export class SalesDashboardComponent {
+export class SalesDashboardComponent implements OnInit {
 
   tok:any;
   data:any; 
@@ -29,13 +30,20 @@ export class SalesDashboardComponent {
   restData: any;
   topPerformer:any;
 
+  isImpersonating = false;
+
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
     endDate: new FormControl("")
   }); 
 
+  ngOnInit(): void {
+    
+    // If there's an adminToken saved, it means admin is impersonating
+    this.isImpersonating = !!localStorage.getItem('adminToken');
+  }
 
-  constructor(private auth: AuthService,private messagingService: MessagingService){
+  constructor(private auth: AuthService,private messagingService: MessagingService, private session: SessionService){
 
     this.auth.getAccessToken().subscribe((res:any)=>{
       this.accessToken = res;
@@ -155,6 +163,25 @@ export class SalesDashboardComponent {
   teamWork(){
     const url = `/salesHome/team-leader`;
     window.location.href = url;
+  }
+
+  backToAdmin() {
+    const adminToken = localStorage.getItem('adminToken');
+
+    if (!adminToken) {
+      alert('Admin session not found!');
+      return;
+    }
+
+    // Clear impersonation
+    localStorage.setItem('token', adminToken);
+    localStorage.removeItem('adminToken');
+
+    this.session.handleLoginResponse({
+      success: true,
+      token: adminToken,
+      role: ['Admin']
+    });
   }
 }
 
