@@ -869,6 +869,9 @@ export class AuthService {
   getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
+  getWhatsAppCampaign(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsAppCampaignNames`);
+  }
   getAllCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getAllCampaignNames`);
   }

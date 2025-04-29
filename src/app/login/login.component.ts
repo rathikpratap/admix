@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
 import { SessionService } from '../service/session.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent {
   isAdmin = false;
   username = '';
 
-  constructor(private auth:AuthService, private router:Router, private session: SessionService) {
+  constructor(private auth:AuthService, private session: SessionService, private toastr: ToastrService) {
 
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data
@@ -56,7 +56,7 @@ export class LoginComponent {
           this.session.handleLoginResponse(res);
         }else{
           this.otpSent = true;
-        alert('OTP sent to your registered email!');
+          this.toastr.success("OTP sent to your registered email!", "Success");
         }
       } else {
         alert(res.message);

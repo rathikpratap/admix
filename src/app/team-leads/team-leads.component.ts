@@ -9,18 +9,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./team-leads.component.css']
 })
 export class TeamLeadsComponent implements OnInit {
- 
-  data:any; 
+
+  data: any;
   dataYesterday: any;
   dataOneYesterday: any;
   dataTwoYesterday: any;
   dataThreeYesterday: any;
   dataFourYesterday: any;
   dataFiveYesterday: any;
-  dataLength:any;
+  dataLength: any;
   rangeData: any;
   searchForm: FormGroup;
-  customers :any[] = [];
+  customers: any[] = [];
   projects: any[] = [];
   errorMessage: any;
   tok: any;
@@ -33,39 +33,68 @@ export class TeamLeadsComponent implements OnInit {
   threeYesterdayDate: string;
   fourYesterdayDate: string;
   fiveYesterdayDate: string;
-  fbLeads: any; 
-  modifyCount:any;
-  secondFbLeads:any;
+  fbLeads: any;
+  modifyCount: any;
+  secondFbLeads: any;
   transferName: any;
   campaign_names: any;
+  whatsApp_campaign: any;
   campaignName: any;
+  whatsAppCampaignName: any;
   dynamicFields: any;
   editing: boolean[] = []; // Tracks which campaign is being edited
   editedNames: string[] = []; // Stores edited campaign names
 
   dateRangeForm = new FormGroup({
-    startDate : new FormControl(""),
+    startDate: new FormControl(""),
     endDate: new FormControl("")
   });
   categForm = new FormGroup({
     campaign_name: new FormControl("null")
   });
+  whatsAppCateg = new FormGroup({
+    whatsApp_campaign_name: new FormControl("null")
+  });
 
   updateButtonVisible: boolean = true;
 
+  // ngOnInit(): void {
+  //   this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
+  //     this.campaignName = value;
+  //     //this.whatsAppCateg.get('whatsApp_campaign_name')?.setValue('null');
+  //     this.getgetData();
+  //   });
+  //   this.whatsAppCateg.get('whatsApp_campaign_name')?.valueChanges.subscribe(value => {
+  //     this.whatsAppCampaignName = value;
+  //     //this.categForm.get('campaign_name')?.setValue('null');
+  //     this.getWhatsAppData();
+  //   });
+  // }
+
   ngOnInit(): void {
-    this.categForm.get('campaign_name')?.valueChanges.subscribe(value=>{
+    this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
       this.campaignName = this.categForm.get('campaign_name')?.value;
-      console.log("CHANGED CAMPAIGN========>>", this.campaignName);
-      this.getgetData();
+      if (this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null') {
+        this.whatsAppCateg.get('whatsApp_campaign_name')?.setValue('null', { emitEvent: false });
+      }
+      this.getgetData(); 
+    });
+  
+    this.whatsAppCateg.get('whatsApp_campaign_name')?.valueChanges.subscribe(value => {
+      this.whatsAppCampaignName = value;
+      if (this.categForm.get('campaign_name')?.value !== 'null') {
+        this.categForm.get('campaign_name')?.setValue('null', { emitEvent: false });
+      }
+      this.getWhatsAppData();
     });
   }
+  
 
-  constructor(private auth: AuthService,private formBuilder: FormBuilder, private toastr: ToastrService){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService) {
 
-    this.auth.getProfile().subscribe((res:any)=>{
+    this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data.salesTeam;
-      if(!this.tok){
+      if (!this.tok) {
         alert("Session Expired, Please Login Again");
         this.auth.logout();
       }
@@ -75,24 +104,21 @@ export class TeamLeadsComponent implements OnInit {
       projectStatus: [''],
       mobile: ['']
     });
-    this.auth.salesFacebookLeads().subscribe((res:any)=>{
+    this.auth.salesFacebookLeads().subscribe((res: any) => {
       this.fbLeads = res;
     });
-    this.auth.salesSecondFacebookLeads().subscribe((res:any)=>{
+    this.auth.salesSecondFacebookLeads().subscribe((res: any) => {
       this.secondFbLeads = res;
     });
-    // this.auth.getCampaign().subscribe((res:any)=>{
-    //   this.campaign_names = res.filter((campaign: any, index: number, self:any[])=>
-    //   index === self.findIndex((c:any)=> c.campaign_Name === campaign.campaign_Name));
-    //   console.log("CAMPAIGN NAmes======>>", this.campaign_names);
-    // });
 
     this.auth.getCampaign().subscribe((res: any) => {
       this.campaign_names = res;
       console.log("Recent Campaign Names: ", this.campaign_names);
     });
-    
-    
+    this.auth.getWhatsAppCampaign().subscribe((res: any) => {
+      this.whatsApp_campaign = res;
+    });
+
     this.todayDate = this.auth.getDate();
     this.yesterdayDate = this.auth.getDate(-1);
     this.oneYesterdayDate = this.auth.getDate(-2);
@@ -101,151 +127,145 @@ export class TeamLeadsComponent implements OnInit {
     this.fourYesterdayDate = this.auth.getDate(-5);
     this.fiveYesterdayDate = this.auth.getDate(-6);
 
-    this.auth.dataLength().subscribe((res:any)=>{
+    this.auth.dataLength().subscribe((res: any) => {
       this.dataLength = res;
     });
 
-    this.auth.getCategory().subscribe((category:any)=>{
+    this.auth.getCategory().subscribe((category: any) => {
       this.Category = category;
     });
 
-    this.auth.getSalesTeam().subscribe((res : any)=>{
+    this.auth.getSalesTeam().subscribe((res: any) => {
       this.emp = res;
     });
   }
 
-  getgetData(){
-    this.auth.getTeamLeads(this.campaignName).subscribe((res:any)=>{
+  getgetData() {
+    this.auth.getTeamLeads(this.campaignName).subscribe((res: any) => {
       this.data = res;
       // Extract dynamic fields
-    this.dynamicFields = this.getDynamicFields(res);
-    console.log("DYNAMIC LEADS===========>>", this.dynamicFields);
+      this.dynamicFields = this.getDynamicFields(res);
+      //console.log("DYNAMIC LEADS===========>>", this.dynamicFields);
     });
 
-    this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+    this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
- 
-    this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+
+    this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataOneYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
 
-    this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+    this.auth.getTwoYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataTwoYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
 
-    this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+    this.auth.getThreeYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataThreeYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
 
-    this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+    this.auth.getFourYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataFourYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
 
-    this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res:any)=>{
+    this.auth.getFiveYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataFiveYesterday = res;
-      //this.dynamicFields = this.getDynamicFields(res);
     });
   }
   getDynamicFields(data: any[]): string[] {
     let fields = new Set<string>();
     data.forEach(item => {
-        if (item.additionalFields) {
-            Object.keys(item.additionalFields).forEach(field => fields.add(field));
-        }
+      if (item.additionalFields) {
+        Object.keys(item.additionalFields).forEach(field => fields.add(field));
+      }
     });
-    console.log("DYNAMIC FIELDS============>>",fields);
+    //console.log("DYNAMIC FIELDS============>>",fields);
     return Array.from(fields);
-}
+  }
 
-  refreshPage(){
+  refreshPage() {
     window.location.reload();
   }
 
-  onDate(){
+  onDate() {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
     const categ = this.categForm.value.campaign_name;
 
-    const startDate = startDateValue? new Date(startDateValue) : null;
-    const endDate = endDateValue? new Date(endDateValue) : null;
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
 
-    if(startDate && endDate && categ){
-      this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData:any)=>{
+    if (startDate && endDate && categ) {
+      this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData: any) => {
         this.rangeData = rangeData.rangeTotalData;
       })
     }
   }
 
-  searchCustomer(){
+  searchCustomer() {
     const projectStatus = this.searchForm.get('projectStatus')!.value;
-    this.auth.searchCustomerbyProject(projectStatus).subscribe((customers)=>{
+    this.auth.searchCustomerbyProject(projectStatus).subscribe((customers) => {
       this.projects = customers;
-      this.errorMessage = null; 
+      this.errorMessage = null;
     },
-    error=>{
-      this.projects = [];
-      this.errorMessage = error.message;
-    });
+      error => {
+        this.projects = [];
+        this.errorMessage = error.message;
+      });
   }
   openUpdatePanel(userId: string) {
     const url = `/salesHome/updateCustomer/${userId}`;
     window.location.href = url;
   }
-  invoice(userId: string){
+  invoice(userId: string) {
     const url = `/salesHome/est-invoice/${userId}`;
-    window.open(url,'_blank');
+    window.open(url, '_blank');
   }
 
-  updateProjectStatus(dataa: any){ 
-    this.auth.updateProjectStatus(dataa).subscribe(( res: any)=>{
-      if(dataa){
-        alert("Data Project Status Successfully Transfered");
+  updateProjectStatus(dataa: any) {
+    this.auth.updateProjectStatus(dataa).subscribe((res: any) => {
+      if (dataa) {
+        // alert("Data Project Status Successfully Transfered");
+        this.toastr.success("Data stored Successfully", "Success");
       }
-      
       console.log("SalesPerson Updated Successfully", res);
     })
   }
 
-  downloadRangeFile(){
+  downloadRangeFile() {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
 
-    const startDate = startDateValue? new Date(startDateValue) : null;
-    const endDate = endDateValue? new Date(endDateValue) : null;
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
 
-    if(startDate && endDate){
+    if (startDate && endDate) {
       this.auth.downloadSalesRangeFile(startDate, endDate);
     }
   }
-  customLeads(){
+  customLeads() {
     const url = `/salesHome/custom-leads`;
     window.location.href = url;
   }
-  updateLeads(){
-    this.auth.updateLead().subscribe((res:any)=>{
+  updateLeads() {
+    this.auth.updateLead().subscribe((res: any) => {
       this.modifyCount = res;
     });
   }
-  whatsAppLeads(){
+  whatsAppLeads() {
     const url = `/salesHome/whatsApp-leads`;
     window.location.href = url;
   }
-  delete(id:any, i:any){
-    if(window.confirm("Are you Sure want to Delete?")){
-      this.auth.deleteSalesLead(id).subscribe((res : any)=>{
-        this.data.splice(i,1);
+  delete(id: any, i: any) {
+    if (window.confirm("Are you Sure want to Delete?")) {
+      this.auth.deleteSalesLead(id).subscribe((res: any) => {
+        this.data.splice(i, 1);
         alert("Data Delete Successfully");
         window.location.reload();
       })
     }
   }
-  transferLead(user:any,newSalesTeam:any){
+  transferLead(user: any, newSalesTeam: any) {
     const currentDate = new Date().toISOString();
     const transferData = {
       custId: user._id,              // Updated key name to match backend
@@ -253,20 +273,57 @@ export class TeamLeadsComponent implements OnInit {
       closingDate: currentDate,       // Pass the current date as closing date
       name: this.transferName
     };
-    this.auth.transferToLeads(transferData).subscribe((res:any)=>{
-      this.toastr.success("Transferred Successfully","Success");
+    this.auth.transferToLeads(transferData).subscribe((res: any) => {
+      this.toastr.success("Transferred Successfully", "Success");
     })
   }
 
-  searchCustomerByName(){
+  searchCustomerByName() {
     const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers)=>{
+    this.auth.searchCustomerbyMobileLeads(mobile).subscribe((customers) => {
       this.customers = customers;
       this.errorMessage = null;
     },
-    error=>{
-      this.customers = [];
-      this.errorMessage = error.message;
+      error => {
+        this.customers = [];
+        this.errorMessage = error.message;
+      });
+  }
+
+  getWhatsAppData() {
+    this.auth.getTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.data = res;
+      // Extract dynamic fields
+      //this.dynamicFields = this.getDynamicFields(res);
+      //console.log("DYNAMIC LEADS===========>>", this.dynamicFields);
     });
+
+    this.auth.getYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataYesterday = res;
+    });
+
+    this.auth.getOneYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataOneYesterday = res;
+    });
+
+    this.auth.getTwoYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataTwoYesterday = res;
+    });
+
+    this.auth.getThreeYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataThreeYesterday = res;
+    });
+
+    this.auth.getFourYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataFourYesterday = res;
+    });
+
+    this.auth.getFiveYesterdayTeamLeads(this.whatsAppCampaignName).subscribe((res: any) => {
+      this.dataFiveYesterday = res;
+    });
+  }
+  openchat(phone: number){
+    const subscriberId = phone;
+    window.open(`https://app.whatsmarketing.in/whatsapp/livechat?subscriber_id=${subscriberId}-71834`);
   }
 }
