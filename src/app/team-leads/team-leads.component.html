@@ -104,6 +104,7 @@
                         <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                         </th>
                         <th scope="col">Follow Ups</th>
+                        <th scope="col">Set Reminder</th>
                         <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null' && this.campaignName === 'null'">View Chat</th>
                         <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
@@ -215,6 +216,9 @@
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate" (change)="updateProjectStatus(data)">
+                        </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="openchat(customer.custNumb)">View
                                 Chat</button></td>
                         <td>
@@ -252,6 +256,7 @@
                         <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                         </th>
                         <th scope="col">Follow Ups</th>
+                        <th scope="col">Set Reminder</th>
                         <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null'">View Chat</th>
                         <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
@@ -363,6 +368,9 @@
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate" (change)="updateProjectStatus(data)">
+                        </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="openchat(customer.custNumb)">View
                                 Chat</button></td>
                         <td>
@@ -404,6 +412,7 @@
                         <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                         </th>
                         <th scope="col">Follow Ups</th>
+                        <th scope="col">Set Reminder</th>
                         <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null'">View Chat</th>
                         <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
@@ -515,6 +524,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -578,6 +590,8 @@
             <button class="btn btn-sm btn-outline-warning" (click)="whatsAppLeads()">
                 WhatsApp Lead
             </button>
+            <input class="file_input" type="file" (change)="onFileChange($event)"/>
+            <button class="btn btn-sm btn-primary" (click)="upload()">Upload</button>
         </p>
         <div class="collapse show" id="today">
             <div class="table-scroll table-responsive">
@@ -585,11 +599,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -597,8 +609,9 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
-                            <th scope="col">Transfer To</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
                         </tr>
@@ -606,11 +619,9 @@
                     <tbody>
                         <tr *ngFor="let list of data; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -709,14 +720,17 @@
                                 </div>
                             </td>
                             <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                                Chat</button></td>
+                            <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
                                     <option value="">Select</option>
                                     <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
                                         {{team.salesTeamName}}</option>
                                 </select>
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
-                                    Chat</button></td>
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button>
                             </td>
                             <td>
@@ -735,11 +749,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -747,6 +759,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -756,11 +769,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -858,6 +869,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -885,11 +899,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -897,6 +909,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -906,11 +919,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataOneYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -1008,6 +1019,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -1035,11 +1049,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -1047,6 +1059,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -1056,11 +1069,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataTwoYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -1158,6 +1169,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -1185,11 +1199,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -1197,6 +1209,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -1206,11 +1219,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataThreeYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -1308,6 +1319,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -1335,11 +1349,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -1347,6 +1359,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -1356,11 +1369,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataFourYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -1458,6 +1469,9 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                            </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
@@ -1485,11 +1499,9 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
                             <th scope="col"> Closing Date </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Number </th>
-                            <th scope="col"> Email </th>
                             <th *ngFor="let field of dynamicFields">{{ field }}</th>
                             <th scope="col"> State </th>
                             <th scope="col"> Bussiness </th>
@@ -1497,6 +1509,7 @@
                             <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
                             </th>
                             <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
                             <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
@@ -1506,11 +1519,9 @@
                     <tbody>
                         <tr *ngFor="let list of dataFiveYesterday; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
@@ -1607,6 +1618,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>

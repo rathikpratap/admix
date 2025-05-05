@@ -187,6 +187,9 @@ tr input{
 .switch input:checked ~ .switch {
     background-color: #4CAF50 !important;
 }
+.file_input{
+    width: 7%;
+}
 @media only screen and (max-width: 500px){
     .searchData2 select{
         width: 59%;

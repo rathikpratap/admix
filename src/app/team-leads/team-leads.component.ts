@@ -57,6 +57,7 @@ export class TeamLeadsComponent implements OnInit {
   });
 
   updateButtonVisible: boolean = true;
+  selectedFile: File | null = null;
 
   // ngOnInit(): void {
   //   this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
@@ -326,4 +327,27 @@ export class TeamLeadsComponent implements OnInit {
     const subscriberId = phone;
     window.open(`https://app.whatsmarketing.in/whatsapp/livechat?subscriber_id=${subscriberId}-71834`);
   }
+
+  onFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  upload(){
+    if( !this.selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.auth.uploadLead(formData).subscribe({
+      next: (res) => {
+        this.toastr.success('File Upload Successful', "Success");
+        window.location.reload();
+      },
+      error: (err) => {
+        this.toastr.error('Error Uploading File', "Error");
+        console.error('Upload error', err);
+      }
+    });
+  }
+  
 }

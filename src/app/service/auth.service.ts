@@ -178,8 +178,17 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`, { items: data });
   }
 
-  updateProjectStatus(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: data });
+  // updateProjectStatus(data: any): Observable<any> {
+  //   return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: data });
+  // }
+
+  updateProjectStatus(data:any){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{ items: data}, {headers});
   }
 
   updateEditors(data: any): Observable<any> {
@@ -1348,5 +1357,13 @@ export class AuthService {
 
   impersonateUser(userId: string): Observable<any> {
     return this.http.post<any>(`${appConfig.apiUrl}/auth/impersonate`, { userId });
+  }
+
+  uploadLead(formData:FormData):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${appConfig.apiUrl}/auth/uploadLead`,formData,{headers});
   }
 }

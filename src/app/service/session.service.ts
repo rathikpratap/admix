@@ -12,6 +12,7 @@ export class SessionService {
     if (res.success) {
       localStorage.setItem('token', res.token);
       localStorage.setItem('roles', JSON.stringify(res.role));
+      localStorage.setItem('name', res.name);
       const roles = res.role || [];
       const team = res.team;
 
