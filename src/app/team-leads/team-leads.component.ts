@@ -3,6 +3,8 @@ import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-team-leads',
   templateUrl: './team-leads.component.html',
@@ -58,6 +60,11 @@ export class TeamLeadsComponent implements OnInit {
 
   updateButtonVisible: boolean = true;
   selectedFile: File | null = null;
+
+  isUploading: boolean = false;
+  uploadStatus: string = '';
+  
+
 
   // ngOnInit(): void {
   //   this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
@@ -332,22 +339,53 @@ export class TeamLeadsComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  upload(){
-    if( !this.selectedFile) return;
+  // upload(){
+  //   if( !this.selectedFile) return;
 
+  //   const formData = new FormData();
+  //   formData.append('file', this.selectedFile);
+
+  //   this.auth.uploadLead(formData).subscribe({
+  //     next: (res) => {
+  //       this.toastr.success('File Upload Successful', "Success");
+  //       window.location.reload();
+  //     },
+  //     error: (err) => {
+  //       this.toastr.error('Error Uploading File', "Error");
+  //       console.error('Upload error', err);
+  //     }
+  //   });
+  // }
+  
+  upload() {
+    if (!this.selectedFile) return;
+  
+    this.isUploading = true;
+    this.uploadStatus = 'Uploading...';
+  
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('uploadModal')!);
+    modal.show();
+  
     const formData = new FormData();
     formData.append('file', this.selectedFile);
-
+  
     this.auth.uploadLead(formData).subscribe({
       next: (res) => {
+        this.uploadStatus = 'Uploaded Successfully';
         this.toastr.success('File Upload Successful', "Success");
-        window.location.reload();
+        this.isUploading = false;
+        setTimeout(() => {
+          modal.hide();
+          window.location.reload();
+        }, 1500);
       },
       error: (err) => {
+        this.uploadStatus = 'Upload Failed';
         this.toastr.error('Error Uploading File', "Error");
-        console.error('Upload error', err);
+        this.isUploading = false;
       }
     });
-  }
+  }  
   
 }
