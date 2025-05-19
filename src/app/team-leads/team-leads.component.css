@@ -188,7 +188,8 @@ tr input{
     background-color: #4CAF50 !important;
 }
 .file_input{
-    width: 7%;
+    width: 27%;
+    color: white;
 }
 @media only screen and (max-width: 500px){
     .searchData2 select{

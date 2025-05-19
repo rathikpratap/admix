@@ -1366,4 +1366,19 @@ export class AuthService {
     });
     return this.http.post(`${appConfig.apiUrl}/auth/uploadLead`,formData,{headers});
   }
+
+  dateCamapign(selectDate:string, name: string):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaign/${name}`,{
+      params: {
+        selectDate
+      }
+    });
+  }
+  // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{
+  //   return this.http.get(`${appConfig.apiUrl}/auth/getDateWhatsAppCampaign/${name}`,{
+  //     params:{
+  //       selectDate
+  //     }
+  //   });
+  // }
 }

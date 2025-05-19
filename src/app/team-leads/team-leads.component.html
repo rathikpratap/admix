@@ -1,22 +1,22 @@
 <!-- Upload Status Modal -->
 <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-center p-4">
-        <div *ngIf="isUploading">
-          <div class="spinner-border text-primary mb-3" role="status">
-            <span class="visually-hidden">Uploading...</span>
-          </div>
-          <h5>{{ uploadStatus }}</h5>
+        <div class="modal-content text-center p-4">
+            <div *ngIf="isUploading">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Uploading...</span>
+                </div>
+                <h5>{{ uploadStatus }}</h5>
+            </div>
+            <div *ngIf="!isUploading">
+                <h5>{{ uploadStatus }}</h5>
+                <button class="btn btn-primary mt-3" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div *ngIf="!isUploading">
-          <h5>{{ uploadStatus }}</h5>
-          <button class="btn btn-primary mt-3" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
-  
-  
+</div>
+
+
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-6 col-6">
         <div class="nameCard">
@@ -124,7 +124,8 @@
                         </th>
                         <th scope="col">Follow Ups</th>
                         <th scope="col">Set Reminder</th>
-                        <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null' && this.campaignName === 'null'">View Chat</th>
+                        <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null' && this.campaignName === 'null'">
+                            View Chat</th>
                         <th scope="col">Transfer To</th>
                         <th scope="col"> Create Invoice</th>
                         <th scope="col"> Action </th>
@@ -236,12 +237,14 @@
                             </div>
                         </td>
                         <td>
-                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate" (change)="updateProjectStatus(data)">
+                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate"
+                                (change)="updateProjectStatus(data)">
                         </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="openchat(customer.custNumb)">View
                                 Chat</button></td>
                         <td>
-                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
+                            <select [(ngModel)]="customer.newSalesTeam"
+                                (change)="transferLead(customer,customer.newSalesTeam)">
                                 <option value="">Select</option>
                                 <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
                                     {{team.salesTeamName}}</option>
@@ -310,8 +313,7 @@
                             </select>
                         </td>
                         <td>
-                            <textarea [(ngModel)]="customer.remark"
-                                (change)="updateProjectStatus(projects)"></textarea>
+                            <textarea [(ngModel)]="customer.remark" (change)="updateProjectStatus(projects)"></textarea>
                         </td>
                         <td>
                             <div style="display: flex; align-items: center; gap: 10px;">
@@ -388,12 +390,14 @@
                             </div>
                         </td>
                         <td>
-                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate" (change)="updateProjectStatus(data)">
+                            <input type="datetime-local" [(ngModel)]="customer.callReminderDate"
+                                (change)="updateProjectStatus(data)">
                         </td>
                         <td> <button class="btn btn-sm btn-primary" (click)="openchat(customer.custNumb)">View
                                 Chat</button></td>
                         <td>
-                            <select [(ngModel)]="customer.newSalesTeam" (change)="transferLead(customer,customer.newSalesTeam)">
+                            <select [(ngModel)]="customer.newSalesTeam"
+                                (change)="transferLead(customer,customer.newSalesTeam)">
                                 <option value="">Select</option>
                                 <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
                                     {{team.salesTeamName}}</option>
@@ -419,23 +423,23 @@
                     <thead>
                         <tr>
                             <th scope="col"> No. </th>
-                        <th scope="col"> Campaign Name </th>
-                        <th scope="col"> Closing Date </th>
-                        <th scope="col"> Customer Name </th>
-                        <th scope="col"> Number </th>
-                        <th scope="col"> Email </th>
-                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
-                        <th scope="col"> State </th>
-                        <th scope="col"> Bussiness </th>
-                        <th scope="col"> Project Status </th>
-                        <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
-                        </th>
-                        <th scope="col">Follow Ups</th>
-                        <th scope="col">Set Reminder</th>
-                        <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null'">View Chat</th>
-                        <th scope="col">Transfer To</th>
-                        <th scope="col"> Create Invoice</th>
-                        <th scope="col"> Action </th>
+                            <th scope="col"> Campaign Name </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th scope="col"> Email </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
+                            <th scope="col"> State </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
+                            </th>
+                            <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
+                            <th scope="col" *ngIf="this.whatsAppCampaignName !== 'null'">View Chat</th>
+                            <th scope="col">Transfer To</th>
+                            <th scope="col"> Create Invoice</th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -544,7 +548,8 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
                             <td> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
@@ -600,6 +605,19 @@
                 data-bs-target="#fiveYesterday" aria-expanded="false" aria-controls="collapseExample">
                 {{fiveYesterdayDate}}
             </button>
+            <!-- Collapse Button -->
+            <button class="btn btn-sm btn-primary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#selectedDate" aria-expanded="false" aria-controls="collapseExample">
+                {{ leadDateForm.get('selectDate')?.value || 'Select Date' }}
+            </button>
+        </p>
+            <form [formGroup]="leadDateForm" class="d-inline-flex gap-1 dateBlock">
+                <div class="searchData">
+                    <div class="details">
+                        <input type="date" formControlName="selectDate" (change)="sendDataToBackend()">
+                    </div>
+                </div>
+            </form>
+        <p class="d-inline-flex gap-1 dateBlock">
             <button class="btn btn-sm btn-outline-warning" (click)="customLeads()">
                 Add New Lead
             </button>
@@ -609,7 +627,7 @@
             <button class="btn btn-sm btn-outline-warning" (click)="whatsAppLeads()">
                 WhatsApp Lead
             </button>
-            <input class="file_input" type="file" (change)="onFileChange($event)"/>
+            <input class="file_input" type="file" (change)="onFileChange($event)" />
             <button class="btn btn-sm btn-primary" (click)="upload()">Upload</button>
         </p>
         <div class="collapse show" id="today">
@@ -629,7 +647,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -661,8 +680,7 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(data)"></textarea>
+                                <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -739,10 +757,12 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
-                                Chat</button></td>
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                                    Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
                                     <option value="">Select</option>
@@ -779,7 +799,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -889,9 +910,11 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
@@ -929,7 +952,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -1039,9 +1063,11 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
@@ -1079,7 +1105,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -1189,9 +1216,11 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
@@ -1229,7 +1258,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -1339,9 +1369,11 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
@@ -1379,7 +1411,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -1489,9 +1522,11 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
@@ -1529,7 +1564,8 @@
                             </th>
                             <th scope="col">Follow Ups</th>
                             <th scope="col">Set Reminder</th>
-                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">View Chat</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col"> Create Invoice</th>
                             <th scope="col"> Action </th>
@@ -1639,9 +1675,164 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="datetime-local" [(ngModel)]="list.callReminderDate" (change)="updateProjectStatus(data)">
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
                             </td>
-                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
+                                    Chat</button></td>
+                            <td>
+                                <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
+                                        {{team.salesTeamName}}</option>
+                                </select>
+                            </td>
+                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button>
+                            </td>
+                            <td>
+                                <button *ngIf="!updateButtonVisible" class="btn btn-sm btn-primary"
+                                    (click)="openUpdatePanel(list._id)"> Update Page</button>
+                                <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)"> Delete </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="collapse" id="selectedDate">
+            <div class="table-scroll table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> No. </th>
+                            <th scope="col"> Closing Date </th>
+                            <th scope="col"> Customer Name </th>
+                            <th scope="col"> Number </th>
+                            <th *ngFor="let field of dynamicFields">{{ field }}</th>
+                            <th scope="col"> State </th>
+                            <th scope="col"> Bussiness </th>
+                            <th scope="col"> Project Status </th>
+                            <th scope="col" (change)="updateButtonVisible = data.projectStatus !== 'Closing'"> Remark
+                            </th>
+                            <th scope="col">Follow Ups</th>
+                            <th scope="col">Set Reminder</th>
+                            <th scope="col" *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'">
+                                View Chat</th>
+                            <th scope="col">Transfer To</th>
+                            <th scope="col"> Create Invoice</th>
+                            <th scope="col"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of dateData; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.custName}}</td>
+                            <td>{{list.custNumb}}</td>
+                            <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
+                            <td>{{list.state}}</td>
+                            <!-- <td>{{list.custBussiness}}</td> -->
+                            <td>
+                                <input type="text" [(ngModel)]="list.custBussiness"
+                                    (change)="updateProjectStatus(dataFiveYesterday)" placeholder="Enter Bussiness">
+                            </td>
+                            <td>
+                                <select [(ngModel)]="list.projectStatus"
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFiveYesterday)">
+                                    <option value="Null"> Null</option>
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Not Pick">Not Pick</option>
+                                    <option value="Switch Off">Switch Off</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                </select>
+                            </td>
+                            <td>
+                                <textarea type="text" [(ngModel)]="list.remark"
+                                    (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                            </td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <label class="switch">
+                                        <input type="checkbox" [(ngModel)]="list.showFollow">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="accordion" id="accordionExample" *ngIf="list.showFollow">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    Follow up #1
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <textarea style="color: black;" [(ngModel)]="list.followup1"
+                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    Follow up #2
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <textarea style="color: black;" [(ngModel)]="list.followup2"
+                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    Follow up #3
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <textarea style="color: black;" [(ngModel)]="list.followup3"
+                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">
+                                                    Follow up #4
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFour" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <textarea style="color: black;" [(ngModel)]="list.followup4"
+                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                    (change)="updateProjectStatus(data)">
+                            </td>
+                            <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
+                                    class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
                                     Chat</button></td>
                             <td>
                                 <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">

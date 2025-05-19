@@ -46,6 +46,7 @@ export class TeamLeadsComponent implements OnInit {
   dynamicFields: any;
   editing: boolean[] = []; // Tracks which campaign is being edited
   editedNames: string[] = []; // Stores edited campaign names
+  dateData: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -56,6 +57,9 @@ export class TeamLeadsComponent implements OnInit {
   });
   whatsAppCateg = new FormGroup({
     whatsApp_campaign_name: new FormControl("null")
+  });
+  leadDateForm = new FormGroup({
+    selectDate: new FormControl("null")
   });
 
   updateButtonVisible: boolean = true;
@@ -94,6 +98,10 @@ export class TeamLeadsComponent implements OnInit {
         this.categForm.get('campaign_name')?.setValue('null', { emitEvent: false });
       }
       this.getWhatsAppData();
+    });
+     // Listen for changes on the selectDate form control
+    this.leadDateForm.get('selectDate')?.valueChanges.subscribe((date: string | null) => {
+      console.log('Selected Date:', date);
     });
   }
   
@@ -153,11 +161,15 @@ export class TeamLeadsComponent implements OnInit {
       this.data = res;
       // Extract dynamic fields
       this.dynamicFields = this.getDynamicFields(res);
+      console.log("CAMPAIGN NAMEEEEEhui====================>>", this.campaignName);
+      console.log("CAMPAIGN DATAAAAAAAAAAAAhui======================>>", this.data);
       //console.log("DYNAMIC LEADS===========>>", this.dynamicFields);
     });
 
     this.auth.getYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
       this.dataYesterday = res;
+            console.log("CAMPAIGN NAMEEEEEhui hui====================>>", this.campaignName);
+      console.log("CAMPAIGN DATAAAAAAAAAAAAhui hui======================>>", this.dataYesterday);
     });
 
     this.auth.getOneYesterdayTeamLeads(this.campaignName).subscribe((res: any) => {
@@ -386,6 +398,35 @@ export class TeamLeadsComponent implements OnInit {
         this.isUploading = false;
       }
     });
-  }  
-  
+  }
+  sendDataToBackend(){
+    const selectDate = this.leadDateForm.get('selectDate')?.value;
+    const selectedCampaign = this.categForm.get('campaign_name')?.value;
+    const selectedWhatsAppCampaign = this. whatsAppCateg.get('whatsApp_campaign_name')?.value;
+
+    if(selectDate && selectedCampaign){
+      this.auth.dateCamapign(selectDate, selectedCampaign).subscribe((res:any) => {
+        this.dateData = res;
+      }, (err)=>{
+        console.error('API Error: ', err);
+      });
+    }else{
+      console.warn('Missing selection: Please ensure date and campaign');
+    }
+
+    if(selectDate && selectedWhatsAppCampaign){
+      // this.auth.dateWhatsAppCampaign(selectDate, selectedWhatsAppCampaign).subscribe((res:any)=>{
+      //   this.dateData = res;
+      // },(err)=>{
+      //   console.error('API Error: ',err);
+      // });
+      this.auth.dateCamapign(selectDate, selectedWhatsAppCampaign).subscribe((res:any) => {
+        this.dateData = res;
+      }, (err)=>{
+        console.error('API Error: ', err);
+      });
+    }else{
+        console.warn('Missing selection: Please wnsure date and whatsApp Campaign');
+    }
+  }
 }
