@@ -1,9 +1,9 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="Attendance">
             <h5> Attendance for {{year}}</h5>
         </div>
-
+ 
         <div class="month-navigation">
             <button class="btn btn-secondary" (click)="prevMonth()">&#8592; Prev</button>
             <h2>{{monthNames[month-1]}}</h2>
@@ -28,4 +28,32 @@
     <ng-template #noData>
         <p>No attendance data available for this month.</p>
     </ng-template>
+</div> -->
+
+<div class="calendar-container">
+    <div class="calendar-header">
+        <button class="nav-button" (click)="prevMonth()">&#8592; Prev</button>
+        <h2>{{ monthNames[month - 1] }} {{ year }}</h2>
+        <button class="nav-button" (click)="nextMonth()">Next &#8594;</button>
+    </div>
+
+    <div class="current-time">
+        🕒 Current Time: <span>{{ currentTime }}</span>
+    </div>
+
+    <div class="calendar-grid">
+        <div class="week-day" *ngFor="let dayName of weekDays">{{ dayName }}</div>
+    
+        <div *ngFor="let day of calendarDays" class="calendar-day"
+            [ngClass]="{
+                'present': day?.status === 'Present',
+                'absent': day?.status === 'Absent',
+                'select': day?.status === 'Select',
+                'today': day?.isToday
+            }">
+            <div class="date-label">{{ day?.date }}</div>
+            <span>{{ day?.status }}</span>
+        </div>
+    </div>
+    
 </div>

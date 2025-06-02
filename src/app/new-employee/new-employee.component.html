@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box" *ngIf="registrationForm.get('signupRole')?.value === 'Sales Team'">
+                    <div class="input-box" *ngIf="registrationForm.get('signupRole')?.value?.includes('Sales Team')">
                         <div class="form-group">
                             <span class="details"> Sales Team: </span>
                             <select class="form-select" formControlName="salesTeam" aria-label="Default select example">
@@ -115,6 +115,19 @@
                             <div *ngIf="getControls('salesTeam')?.errors && getControls('salesTeam')?.touched">
                                 <label class="text-danger" *ngIf="getControls('salesTeam')?.errors?.['required']"> Sales Team is Required </label>
                             </div> 
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="registrationForm.get('signupRole')?.value?.includes('Editor')">
+                        <div class="form-group">
+                            <span class="details">Editor Type:</span>
+                            <select class="form-select" formControlName="editorType" aria-label="Default select example">
+                                <option value="null">Select Freelancer/In-house</option>
+                                <option value="Freelancer">Freelancer</option>
+                                <option value="In-house">In-house</option>
+                            </select>
+                            <div *ngIf="getControls('editorType')?.errors && getControls('editorType')?.touched">
+                                <label class="text-danger" *ngIf="getControls('editorType')?.errors?.['required']">Editor Type is Required</label>
+                            </div>
                         </div>
                     </div>
                     <div class="input-box">

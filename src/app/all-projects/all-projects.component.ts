@@ -1,15 +1,17 @@
-import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ViewChild, Renderer2, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-all-projects',
   templateUrl: './all-projects.component.html',
   styleUrls: ['./all-projects.component.css']
 })
-export class AllProjectsComponent {
+export class AllProjectsComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput: any;
   selectedFile: File | null = null;
@@ -31,13 +33,72 @@ export class AllProjectsComponent {
   Previousdata: any;
   TwoPreviousdata: any;
   isExpanded: boolean = false;
+  allClosings: any;
+  closingData: any;
+  cloData: any;
+  cloDataPrev: any;
+  cloTwoDataPrev: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
     endDate: new FormControl("")
   });
+  closingForm = new FormGroup({
+    closing_name: new FormControl("null")
+  });
   rangeData: any;
 
+  ngOnInit(): void {
+    this.searchForm = this.formBuilder.group({
+      mobile: ['']
+    });
+
+    this.searchForm.get('mobile')!.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(value => {
+          const searchValue = value?.trim();
+          if (searchValue === '') {
+            // Option 1: Clear the list if input is empty
+            this.customers = [];
+            return []; // return empty observable
+          }
+          return this.auth.searchCustomerbyMobile(searchValue);
+        })
+      )
+      .subscribe({
+        next: (customers: any[]) => {
+          this.customers = customers;
+          this.errorMessage = null;
+
+          if (customers.length === 0) {
+            this.toastr.warning('No customer found', 'Search Result');
+          }
+        },
+        error: (error) => {
+          this.customers = [];
+          this.errorMessage = error.message;
+          this.toastr.error('Error while searching', 'Search Error');
+        }
+      });
+
+    this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
+      this.closingData = this.closingForm.get('closing_name')?.value;
+      this.getData();
+    })
+  }
+  getData(){
+    this.auth.closingDataCurrentMonth(this.closingData).subscribe((list: any) => {
+      this.cloData = list;
+    });
+    this.auth.closingDataPrevMonth(this.closingData).subscribe((list: any) => {
+      this.cloDataPrev = list;
+    });
+    this.auth.closingDataTwoPrevMonth(this.closingData).subscribe((list: any) => {
+      this.cloTwoDataPrev = list;
+    })
+  }
   constructor(private auth: AuthService, private formBuilder: FormBuilder, private renderer: Renderer2, private router: Router, private toastr: ToastrService) {
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
@@ -63,6 +124,9 @@ export class AllProjectsComponent {
     this.auth.allEmployee().subscribe((res: any) => {
       this.emp = res;
     });
+    this.auth.allClosing().subscribe((res: any) => {
+      this.allClosings = res;
+    });
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
@@ -74,15 +138,15 @@ export class AllProjectsComponent {
 
   highlightRow(index: number) {
     this.selectedRowIndex = index;
-  }  
+  }
 
   updateEditors(user: any) {
     const currentDate = new Date().toISOString().split('T')[0];
-    let selectedEmployee:any;
+    let selectedEmployee: any;
     if (user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction') {
       // Update the scriptPassDate for the specific user
       user.scriptPassDate = currentDate;
-      selectedEmployee = this.emp.find((employee:any)=> employee.signupUsername === user.scriptWriter);
+      selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.scriptWriter);
     } else if (user.projectStatus === 'Voice Over') {
       user.voicePassDate = currentDate;
       selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.voiceOverArtist);
@@ -93,53 +157,53 @@ export class AllProjectsComponent {
       user.graphicPassDate = currentDate;
       selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.graphicDesigner);
     }
-    this.auth.updateEditors([user]).subscribe((res: any) => { 
+    this.auth.updateEditors([user]).subscribe((res: any) => {
       if (res) {
-        this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
+        this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`, 'Success');
       }
       console.log("Successfully Assigned", res);
     });
-    let msgTitle='';
-    let msgBody='';
-    if(user.projectStatus === 'Scripting' || user.projectStatus === 'voice Over' || user.projectStatus === 'Video Editing' || user.projectStatus === 'Graphic Design'){
+    let msgTitle = '';
+    let msgBody = '';
+    if (user.projectStatus === 'Scripting' || user.projectStatus === 'voice Over' || user.projectStatus === 'Video Editing' || user.projectStatus === 'Graphic Design') {
       msgTitle = 'Project Assigned';
       msgBody = `Project number ${user.custCode} assigned`;
-    }else if(user.projectStatus === 'Script Correction' || user.projectStatus === 'Video Changes'){
+    } else if (user.projectStatus === 'Script Correction' || user.projectStatus === 'Video Changes') {
       msgTitle = 'Project Correction Assigned';
       msgBody = `Project number ${user.custCode} Correction Assigned`;
     }
 
-    this.auth.sendNotifications([selectedEmployee],[user], msgTitle, msgBody, currentDate).subscribe((res:any)=>{
-      if(res){
-        this.toastr.success('Notification Send','Success');
-      }else{
-        this.toastr.error('Error Sending Notification','Error')
+    this.auth.sendNotifications([selectedEmployee], [user], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success('Notification Send', 'Success');
+      } else {
+        this.toastr.error('Error Sending Notification', 'Error')
       }
     });
   }
-  updatePriority(user:any,priority:any){
-    this.auth.updateEditors([user]).subscribe((res:any)=>{
-      if(res) {
-        this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`,'Success');
+  updatePriority(user: any, priority: any) {
+    this.auth.updateEditors([user]).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success(`Project ${user.custName} Priority Set to ${priority}`, 'Success');
       }
     });
-  } 
+  }
   openUpdatePanel(userId: string) {
     const url = `/update-panel/${userId}`;
     window.location.href = url;
   }
 
-  searchCustomer() {
-    const mobile = this.searchForm.get('mobile')!.value;
-    this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any) => {
-      this.customers = customers;
-      this.errorMessage = null;
-    },
-      error => {
-        this.customers = [];
-        this.errorMessage = error.message;
-      });
-  }
+  // searchCustomer() {
+  //   const mobile = this.searchForm.get('mobile')!.value;
+  //   this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any) => {
+  //     this.customers = customers;
+  //     this.errorMessage = null;
+  //   },
+  //     error => {
+  //       this.customers = [];
+  //       this.errorMessage = error.message;
+  //     });
+  // }
 
   uploadFile(event: any) {
     this.selectedFile = event.target.files[0];
@@ -187,31 +251,31 @@ export class AllProjectsComponent {
     }
   }
 
-  filterEmployeesByRole(projectStatus: string): any[] { 
+  filterEmployeesByRole(projectStatus: string): any[] {
     switch (projectStatus) {
       case 'Scripting':
-        return this.emp.filter((employee: any) => 
+        return this.emp.filter((employee: any) =>
           employee.signupRole && employee.signupRole.includes('Script Writer')
         );
       case 'Video Editing':
       case 'Video Changes':
       case 'Video Done':
-        return this.emp.filter((employee: any) => 
+        return this.emp.filter((employee: any) =>
           employee.signupRole && employee.signupRole.includes('Editor')
         );
-      case 'Voice Over': 
-        return this.emp.filter((employee: any) => 
+      case 'Voice Over':
+        return this.emp.filter((employee: any) =>
           employee.signupRole && employee.signupRole.includes('VO Artist')
         );
       case 'Graphic Designing':
-        return this.emp.filter((employee: any) => 
+        return this.emp.filter((employee: any) =>
           employee.signupRole && employee.signupRole.includes('Graphic Designer')
         );
       default:
         return []; // Return an empty array if no specific role is selected
     }
   }
-  
+
   invoice(userId: string) {
     const url = `/main-invoice/${userId}`;
     window.open(url, '_blank');

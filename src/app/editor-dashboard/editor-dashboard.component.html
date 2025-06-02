@@ -89,6 +89,9 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#all" aria-controls="collapseExample">
                     All
                 </button>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#changes" aria-controls="collapseExample">
+                    Changes
+                </button>
             </p>
             <hr>
             <div class="collapse" id="urgent">
@@ -234,6 +237,43 @@
                             </tr>
                         </tbody>
                     </div>
+                </div>
+            </div>
+            <div class="collapse" id="changes">
+                <div class="table-scroll">
+                    <div class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Assigned Date</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Video Type</th>
+                                <th scope="col">Delivery Date</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of changes; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.editorPassDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.videoDurationMinutes}}:{{user.videoDurationSeconds}}</td>
+                                <td>{{user.videoType}}</td>
+                                <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.priority}}</td>
+                                <td>{{user.editorStatus}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+
                 </div>
             </div>
         </div>

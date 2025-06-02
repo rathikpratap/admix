@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { MessagingService } from '../service/messaging-service';
 
@@ -22,8 +22,9 @@ export class EditorDashboardComponent {
   urgent:any;
   medium:any;
   high:any;
+  changes:any;
 
-  constructor(private auth: AuthService,private renderer: Renderer2,private messagingService: MessagingService){
+  constructor(private auth: AuthService,private messagingService: MessagingService){
     
     this.auth.getAccessToken().subscribe((res:any)=>{
       this.accessToken = res;
@@ -46,6 +47,9 @@ export class EditorDashboardComponent {
     this.auth.mediumEditorProjects().subscribe((res:any)=>{
       this.medium = res;
     });
+    this.auth.changesEditorProjects().subscribe((res:any)=>{
+      this.changes = res;
+    })
     this.auth.getTodayEntriesEditor().subscribe((todayRes:any)=>{
       const totalDayEntry = todayRes.totalDayEntry;
       if(Array.isArray(totalDayEntry)){

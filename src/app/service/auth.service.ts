@@ -269,6 +269,15 @@ export class AuthService {
   closingData(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allCategProjects/${name}`);
   }
+  closingDataCurrentMonth(name: any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/closingCurrentMonth/${name}`);
+  }
+  closingDataPrevMonth(name: any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/closingPrevMonth/${name}`);
+  }
+  closingDataTwoPrevMonth(name:any): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/closingTwoPrevMonth/${name}`);
+  }
   searchedClosingData(name: any, mobile:any): Observable<any>{
     return this.http.get(`${appConfig.apiUrl}/auth/searchCategProjects/${name}/${mobile}`);
   }
@@ -1029,7 +1038,6 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/allScriptProjects`)
   }
 
-
   editorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorProjects`);
   }
@@ -1264,6 +1272,9 @@ export class AuthService {
   }
   mediumEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/mediumEditorProjects`);
+  }
+  changesEditorProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/changesEditorProjects`);
   }
 
   urgentVoProjects() {
