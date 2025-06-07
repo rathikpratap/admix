@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder,FormControl,FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editor-projects',
@@ -24,8 +25,9 @@ export class EditorProjectsComponent {
     endDate: new FormControl("")
   });
   rangeData: any;
+  emp:any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -34,16 +36,16 @@ export class EditorProjectsComponent {
       }
     });
     this.auth.editorProjects().subscribe((res:any)=>{
-      this.data = res;
+      this.data = res.list;
     });
     this.auth.editorPreviousProjects().subscribe((res:any)=>{
-      this.previousData = res;
+      this.previousData = res.list;
     });
     this.auth.editorTwoPreviousProjects().subscribe((res:any)=>{
-      this.twoPreviousData = res;
+      this.twoPreviousData = res.list;
     });
     this.auth.allEditorProjects().subscribe((res:any)=>{
-      this.allData = res;
+      this.allData = res.list;
     });
     this.searchForm = this.formBuilder.group({
       projectName: ['']

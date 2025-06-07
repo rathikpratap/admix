@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
@@ -161,6 +161,8 @@ export class AdminDashboardComponent implements OnInit {
   salesEmp:any;
   remainAmtPro: any;
   onlyLogo:any;
+  productionProjects: any;
+  isExpanded: boolean = false;
 
   salesData: any[] = [];
   chartLabels: string[] = [];
@@ -458,7 +460,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private session: SessionService) {
+  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private session: SessionService, private renderer: Renderer2) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
     });
@@ -482,6 +484,9 @@ export class AdminDashboardComponent implements OnInit {
     });
     this.auth.getAllProjectsIncludingLogo().subscribe((onlyLogo:any) => {
       this.onlyLogo = onlyLogo;
+    });
+    this.auth.getProductionProjects().subscribe((production:any) => {
+      this.productionProjects = production;
     });
 
     this.auth.getAllCompleteProjects().subscribe((allProject: any) => {
@@ -719,6 +724,11 @@ export class AdminDashboardComponent implements OnInit {
   toggleHighlight(user: any) {
     user.isHighlighted = !user.isHighlighted;
     this.updateProjectStatus(user);
+  }
+
+  ToggleExpanded(){
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 
   updateProjectStatus(dataa: any) {

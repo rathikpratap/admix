@@ -47,6 +47,9 @@
                                 <option value="null">Select Category</option>
                                 <option value="Video Development">Video Development</option>
                                 <option value="VoiceOver Edit">VoiceOver Edit</option>
+                                <option value="Advertisement Video">Advertisement Video</option>
+                                <option value="UGC/Model">UGC/Model</option>
+                                <option value="CGI">CGI</option>
                             </select>
                             <div *ngIf="getB2bCustomerFormControl('b2bCategory')?.errors && getB2bCustomerFormControl('b2bCategory')?.touched">
                                 <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bCategory')?.errors?.['required']"> Project Status is Required </label>
@@ -91,6 +94,47 @@
                                 placeholder="Enter Project Price">
                             <div *ngIf="getB2bCustomerFormControl('b2bProjectPrice')?.errors && getB2bCustomerFormControl('b2bProjectPrice')?.touched">
                                 <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bProjectPrice')?.errors?.['required']"> Project Price is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Advance Payment:</span>
+                            <input type="text" class="form-control" formControlName="b2bAdvanceAmount"
+                                [ngClass]="{error:getB2bCustomerFormControl('b2bAdvanceAmount')?.errors && getB2bCustomerFormControl('b2bAdvanceAmount')?.touched}"
+                                placeholder="Enter Advance Amount">
+                            <div *ngIf="getB2bCustomerFormControl('b2bAdvanceAmount')?.errors && getB2bCustomerFormControl('b2bAdvanceAmount')?.touched">
+                                <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bAdvanceAmount')?.errors?.['required']"> Project Price is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Remaining Amount:</span>
+                            <input type="text" class="form-control" formControlName="b2bRemainingAmount"
+                                [ngClass]="{error:getB2bCustomerFormControl('b2bRemainingAmount')?.errors && getB2bCustomerFormControl('b2bRemainingAmount')?.touched}"
+                                placeholder="Remaining Amount">
+                            <div *ngIf="getB2bCustomerFormControl('b2bRemainingAmount')?.errors && getB2bCustomerFormControl('b2bRemainingAmount')?.touched">
+                                <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bRemainingAmount')?.errors?.['required']"> Project Price is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Rest Payment:</span>
+                            <input type="text" class="form-control" formControlName="b2bRestAmount"
+                                [ngClass]="{error:getB2bCustomerFormControl('b2bRestAmount')?.errors && getB2bCustomerFormControl('b2bRestAmount')?.touched}"
+                                placeholder="Rest Amount">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Rest Payment Date:</span>
+                            <input type="date" class="form-control" formControlName="b2bRestAmountDate"
+                                [ngClass]="{error:getB2bCustomerFormControl('b2bRestAmountDate')?.errors && getB2bCustomerFormControl('b2bRestAmountDate')?.touched}"
+                                placeholder="Enter Project Date">
+                            <div *ngIf="getB2bCustomerFormControl('b2bProjectDate')?.errors && getB2bCustomerFormControl('b2bProjectDate')?.touched">
+                                <label class="text-danger" *ngIf="getB2bCustomerFormControl('b2bProjectDate')?.errors?.['required']"> Project Date is Required </label>
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,11 @@ export class UpdateB2bComponent {
     editorPayment: new FormControl(0),
     editorOtherChanges: new FormControl(""),
     editorChangesPayment: new FormControl(0),
-    numberOfVideos: new FormControl("")
+    numberOfVideos: new FormControl(""),
+    b2bRestAmount: new FormControl(),
+    b2bRemainingAmount: new FormControl(),
+    b2bAdvanceAmount: new FormControl(),
+    b2bRestAmountDate: new FormControl("")
   });
 
 
@@ -89,7 +93,11 @@ export class UpdateB2bComponent {
         editorPayment: res['editorPayment'],
         editorOtherChanges: res['editorOtherChanges'],
         editorChangesPayment: res['editorChangesPayment'],
-        numberOfVideos: res['numberOfVideos']
+        numberOfVideos: res['numberOfVideos'],
+        b2bRestAmount: res['b2bRestAmount'],
+        b2bRemainingAmount: res['b2bRemainingAmount'],
+        b2bAdvanceAmount: res['b2bAdvanceAmount'],
+        b2bRestAmountDate: res['b2bRestAmountDate']
       })
     })
   }

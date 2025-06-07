@@ -150,6 +150,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -162,10 +164,17 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bAdvanceAmount}}</td>
+                            <td>{{user.b2bRemainingAmount}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="user.b2bEditor" (change)="updateb2b(user)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{user.projectStatus}}</td>
                         </tr>
                     </tbody>
@@ -203,7 +212,7 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
                             <td>{{user.b2bEditor}}</td>

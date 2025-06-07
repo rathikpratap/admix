@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MessagingService } from '../service/messaging-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-b2b-dashboard',
@@ -21,8 +22,9 @@ export class B2bDashboardComponent {
   MonthlyAmount:any;
   completeData:any;
   accessToken:any;
+  emp:any;
 
-  constructor(private auth: AuthService,private messagingService: MessagingService){
+  constructor(private auth: AuthService,private messagingService: MessagingService, private toastr: ToastrService){
     this.auth.getAccessToken().subscribe((res:any)=>{
       this.accessToken = res;
     });
@@ -58,6 +60,25 @@ export class B2bDashboardComponent {
     });
     this.auth.getAllCompleteProjectsB2b().subscribe((res:any)=>{
       this.allComplete = res.length;
+    });
+    this.auth.allEmployee().subscribe((res:any)=>{
+      this.emp = res;
+    });
+  }
+  filterEmployeeByRole(){
+    return this.emp.filter((employee: any) =>
+    employee.signupRole && employee.signupRole.includes('Editor'));
+  }
+  updateb2b(user: any){
+    const currentDate = new Date().toISOString().split('T')[0];
+    user.b2bEditorPassDate = currentDate;
+    let selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.b2bEditor);
+  
+    this.auth.updateB2bEditorname([user]).subscribe((res: any) => {
+      if(res){
+        this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
+      }
+      console.log("SUCCESSFULL", res);
     })
   }
   admix(){

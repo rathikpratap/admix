@@ -426,12 +426,16 @@
                 </div>
                 <p class="d-line-flex">
                     <button class="btn btn-primary getButton" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#allProjects" aria-controls="collapseExample">
+                        data-bs-target="#allProjects" aria-expanded="true" aria-controls="collapseExample">
                         All Projects
                     </button>
                     <button class="btn btn-primary getButton" type="button" data-bs-toggle="collapse"
                         data-bs-target="#logoAnimation" aria-controls="collapseExample">
                         Logo Animation
+                    </button>
+                    <button class="btn btn-primary getButton" type="button" data-bs-toggle="collapse"
+                         data-bs-target="#production" aria-controls="collapseExample">
+                        Production Projects
                     </button>
                 </p>
             </div>
@@ -511,6 +515,99 @@
                                 <td>{{user.AdvPay + user.restAmount}}</td>
                                 <td>{{user.remainingAmount}}</td>
                                 <td>{{user.projectStatus}}</td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <label class="switch">
+                                            <input type="checkbox" [(ngModel)]="user.showRemark">
+                                            <span class="slider"></span>
+                                        </label>
+                                        <textarea *ngIf="user.showRemark" type="text" [(ngModel)]="user.remark"
+                                            (change)="updateProjectStatus(user)"></textarea>
+                                    </div>
+                                </td>
+                                <td>{{user.salesPerson}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="collapse" id="production">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead class="sticky-header">
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">⭐</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">
+                                    <form [formGroup]="closingForm">
+                                        <select class="form-select closing_categ-right" formControlName="closing_name"
+                                            aria-label="Default select example">
+                                            <option value="null">Project Category</option>
+                                            <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
+                                                {{camp.categoryName}}
+                                            </option>
+                                        </select>
+                                    </form>
+                                </th>
+                                <th scope="col">Closing Date
+                                    <button (click)="sortByClosingDate('data')">
+                                        {{ isAscending['data'] ? '&uarr;' : "&darr;" }}
+                                    </button>
+                                </th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">
+                                    <form [formGroup]="statusForm">
+                                        <select class="form-select closing_categ-right" formControlName="project_status"
+                                            aria-label="Default select example">
+                                            <option value="null">Project Status</option>
+                                            <option value="Closing">Closing</option>
+                                            <option value="Scripting">Scripting</option>
+                                            <option value="Script Correction">Script Correction</option>
+                                            <option value="Voice Over">Voice Over</option>
+                                            <option value="Model Shooting">Model Shooting</option>
+                                            <option value="Video Editing">Video Editing</option>
+                                            <option value="Video Changes">Video Changes</option>
+                                            <option value="Video Done">Video Done</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                    </form>
+                                </th>
+                                <th scope="col">Editor</th>
+                                <th scope="col">Remark</th>
+                                <th scope="col">
+                                    <form [formGroup]="salesForm">
+                                        <select class="form-select closing_categ-right"
+                                            formControlName="salesperson_name" aria-label="Default select example">
+                                            <option value="null">Sales Person</option>
+                                            <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                                {{empS.signupUsername}}
+                                            </option>
+                                        </select>
+                                    </form>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of sortedImportant(productionProjects)"
+                                [ngClass]="{'highlighted': user.isHighlighted}">
+                                <td>{{user.custCode}}</td>
+                                <td>
+                                    <span class="star-btn" [class.active]="user.isHighlighted"
+                                        (click)="toggleHighlight(user)">&#9733;</span>
+                                </td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                                <td>{{user.editor}}</td>
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 10px;">
                                         <label class="switch">

@@ -1,6 +1,7 @@
 import { Component, ViewChild,Renderer2 } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-b2b-projects',
@@ -23,6 +24,7 @@ export class B2bProjectsComponent {
   dataPreviousMonth: any=[];
   dataTwoPreviousMonth:any=[];
   isExpanded: boolean = false;
+  emp:any;
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -30,7 +32,7 @@ export class B2bProjectsComponent {
   });
   rangeData: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2){
+  constructor(private auth: AuthService, private formBuilder: FormBuilder,private renderer: Renderer2,private toastr: ToastrService){
     this.auth.getProfile().subscribe((res:any)=>{
       this.tok = res?.data;
       if(!this.tok){
@@ -51,6 +53,9 @@ export class B2bProjectsComponent {
     this.auth.getTwoPreviousMonthEntriesB2b().subscribe((list : any)=>{
       this.dataTwoPreviousMonth = list;
     });
+    this.auth.allEmployee().subscribe((res:any)=>{
+      this.emp = res;
+    });
 
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
@@ -60,6 +65,25 @@ export class B2bProjectsComponent {
   ToggleExpanded() {
     this.isExpanded = !this.isExpanded;
     this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
+  }
+
+  filterEmployeeByRole(){
+    return this.emp.filter((employee: any)=>
+    employee.signupRole && employee.signupRole.includes('Editor'));
+  }
+  updateb2b(user:any){
+    const currentDate = new Date().toISOString().split('T')[0];
+    user.b2bEditorPassDate = currentDate;
+    let selectedEmployee = this.emp.find((employee: any) => employee.signupUsername === user.b2bEditor);
+    
+
+    this.auth.updateB2bEditorname([user]).subscribe((res:any) => {
+      if(res){
+        this.toastr.success(`Project Successfully Assigned to ${selectedEmployee.signupUsername}`,'Success');
+      } else{
+        this.toastr.error('Failed to assign Project', 'Error');
+      }
+    });
   }
 
   searchCustomer(){

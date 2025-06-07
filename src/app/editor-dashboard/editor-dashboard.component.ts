@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Renderer2} from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { MessagingService } from '../service/messaging-service';
 
@@ -23,8 +23,9 @@ export class EditorDashboardComponent {
   medium:any;
   high:any;
   changes:any;
+  isExpanded: boolean = false;
 
-  constructor(private auth: AuthService,private messagingService: MessagingService){
+  constructor(private auth: AuthService,private messagingService: MessagingService, private renderer: Renderer2){
     
     this.auth.getAccessToken().subscribe((res:any)=>{
       this.accessToken = res;
@@ -61,15 +62,17 @@ export class EditorDashboardComponent {
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.getEditorData().subscribe((list : any)=>{ 
-      this.data = list;
-      this.dataLength = list.length;
+      this.data = [...list.products, ...list.b2bProducts];
+      this.dataLength = this.data.length;
     });
     this.auth.getCompleteEditorData().subscribe((list:any)=>{
-      this.completed = list;
-      this.completeLength = list.length;
+      // this.completed = list;
+      // this.completeLength = this.completed.length;
+      this.completed = [...list.products, ...list.b2bProducts];
+      this.completeLength = this.completed.length;
     });
     this.auth.allEditorProjects().subscribe((res:any)=>{
-      this.allProjects = res.length;
+      this.allProjects = res.list.length;
     });
     this.auth.getNotif().subscribe((res:any)=>{
       this.unreadNotif = res.unReadNotif;
@@ -85,9 +88,15 @@ export class EditorDashboardComponent {
     const url = `/editor-home/bundle-dashboard`;
     window.open(url,'_blank');
   }
-  openUpdatePanel(userId: string) {
-    const url = `/editor-home/editor-update/${userId}`;
+  openUpdatePanel(userId: string, type: string) {
+    if(type === 'Customer'){
+      const url = `/editor-home/editor-update/${userId}`;
     window.location.href = url;
+    } else if(type === 'b2b'){
+      const url = `/editor-home/editor-b2b-update/${userId}`;
+    window.location.href = url;
+    }
+    
   }
   markAsRead(notifId:any){
     this.auth.markRead({id: notifId}).subscribe((res:any)=>{
@@ -99,5 +108,9 @@ export class EditorDashboardComponent {
         this.unreadCount = this.unreadNotif.length;
       }
     })
+  }
+    ToggleExpanded(){
+    this.isExpanded = !this.isExpanded;
+    this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
 }

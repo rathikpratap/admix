@@ -48,6 +48,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -61,10 +63,17 @@
                             <td>{{customer.b2bProjectName}}</td>
                             <td>{{customer.b2bCategory}}</td>
                             <td>{{customer.b2bVideoType}}</td>
-                            <td>{{customer.b2bProjectDate}}</td> 
+                            <td>{{customer.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{customer.b2bProjectPrice}}</td>
+                            <td>{{customer.b2bAdvanceAmount}}</td>
+                            <td>{{customer.b2bRemainingAmount}}</td>
                             <td>{{customer.b2bVideoDurationMinutes}}:{{customer.b2bVideoDurationSeconds}}</td>
-                            <td>{{customer.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="customer.b2bEditor" (change)="updateb2b(customer)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{customer.projectStatus}}</td>
                     </tr>
                 </tbody>
@@ -86,6 +95,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -100,10 +111,17 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bAdvanceAmount}}</td>
+                            <td>{{user.b2bRemainingAmount}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="user.b2bEditor" (change)="updateb2b(user)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{user.projectStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
@@ -142,6 +160,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -156,10 +176,17 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bAdvanceAmount}}</td>
+                            <td>{{user.b2bRemainingAmount}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="user.b2bEditor" (change)="updateb2b(user)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">
@@ -185,6 +212,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -199,10 +228,17 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bAdvanceAmount}}</td>
+                            <td>{{user.b2bRemainingAmount}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="user.b2bEditor" (change)="updateb2b(user)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">
@@ -228,6 +264,8 @@
                             <th scope="col">Video Type</th>
                             <th scope="col">Closing Date</th>
                             <th scope="col">Closing Payment</th>
+                            <th scope="col">Received Amount</th>
+                            <th scope="col">Remaining Payment</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Editor</th>
                             <th scope="col">Project Status</th>
@@ -242,10 +280,17 @@
                             <td>{{user.b2bProjectName}}</td>
                             <td>{{user.b2bCategory}}</td>
                             <td>{{user.b2bVideoType}}</td>
-                            <td>{{user.b2bProjectDate}}</td> 
+                            <td>{{user.b2bProjectDate | date:'dd-MM-yyyy'}}</td> 
                             <td>{{user.b2bProjectPrice}}</td>
+                            <td>{{user.b2bAdvanceAmount}}</td>
+                            <td>{{user.b2bRemainingAmount}}</td>
                             <td>{{user.b2bVideoDurationMinutes}}:{{user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.b2bEditor}}</td>
+                            <td>
+                                <select [(ngModel)]="user.b2bEditor" (change)="updateb2b(user)">
+                                    <option value="none">None</option>
+                                    <option *ngFor="let employee of filterEmployeeByRole()" [value]="employee.signupUsername">{{employee.signupUsername}}</option>
+                                </select>
+                            </td>
                             <td>{{user.projectStatus}}</td>
                             <td>
                                 <div class="buttons">

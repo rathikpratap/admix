@@ -80,11 +80,9 @@ export class AuthService {
       this.router.navigate(['/login']);
     }
   }
-
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
   addcustomer(customerData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/customer`, customerData)
   }
@@ -97,7 +95,6 @@ export class AuthService {
   addEstInvoice(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data);
   }
-
   getCustData() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -127,7 +124,6 @@ export class AuthService {
   getCompleteScriptData() {
     return this.http.get(`${appConfig.apiUrl}/auth/scriptCompleteList`);
   }
-
   getEditorOtherData() {
     return this.http.get(`${appConfig.apiUrl}/auth/editorOtherActiveList`);
   }
@@ -154,26 +150,21 @@ export class AuthService {
   allProjectsAdmin() {
     return this.http.get(`${appConfig.apiUrl}/auth/allListAdmin`);
   }
-
   getLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/getFacebook-leads`);
   }
   fetchLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/facebook-leads`);
   }
-
   salesFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/salesFacebook-leads`);
   }
-
   salesSecondFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/salesSecondFacebook-leads`);
   }
-
   getSalesFacebookLeads() {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesFacebook-leads`);
   }
-
   updateSalesperson(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/update-salespersons`, { items: data });
   }
@@ -190,54 +181,51 @@ export class AuthService {
     });
     return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{ items: data}, {headers});
   }
-
   updateEditors(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
+  }
+  updateB2bEditorname(data:any): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/updateB2bEditorname`,{items: data});
   }
   updateProjectStatusTeam(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`, { items: data });
   }
-
   getCompleteProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
   }
-
   getCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProjectB2b`);
   }
   getAllCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjectB2b`);
   }
-
   getAllProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjects`);
   }
-
   getAllProjectsExcludingLogo(){
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsExcludingLogo`);
   }
   getAllProjectsIncludingLogo(){
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsIncludingLogo`);
   }
-
+  getProductionProjects(){
+    return this.http.get(`${appConfig.apiUrl}/auth/allProductionProjects`);
+  }
   getAllCompleteProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allCompleteProjects`);
   }
   getremainingAmountProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/remainingAmountProjects`);
   }
-
   salesAllProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);
   }
-
   salesPreviousMonthProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`);
   }
   salesPreviousTwoMonthProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
   }
-
   empProjects(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empProjects/${name}`);
   }

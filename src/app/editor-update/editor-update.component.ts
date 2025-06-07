@@ -40,6 +40,7 @@ export class EditorUpdateComponent implements OnInit {
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer,private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+    //const type = this.activatedRoute.snapshot.paramMap.get('type');
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
 
@@ -60,8 +61,51 @@ export class EditorUpdateComponent implements OnInit {
         numberOfVideos: res['numberOfVideos'],
         companyName: res['companyName'],
         salesPerson: res['salesPerson']
-      })
-    })
+      });
+    });
+
+    // if(type === 'customer'){
+    //   this.auth.getCustomer(this.getId).subscribe((res: any) => {
+
+    //   this.updateForm.patchValue({
+    //     custCode: res['custCode'],
+    //     custBussiness: res['custBussiness'],
+    //     videoDuration: res['videoDuration'],
+    //     videoDeliveryDate: this.formatDate(res['videoDeliveryDate']),
+    //     videoType: res['videoType'],
+    //     editorPayment: res['editorPayment'],
+    //     editorStatus: res['editorStatus'],
+    //     editorOtherChanges: res['editorOtherChanges'],
+    //     editorChangesPayment: res['editorChangesPayment'],
+    //     totalEditorPayment: res['totalEditorPayment'],
+    //     youtubeLink: res['youtubeLink'],
+    //     videoDurationMinutes: res['videoDurationMinutes'],
+    //     videoDurationSeconds: res['videoDurationSeconds'],
+    //     numberOfVideos: res['numberOfVideos'],
+    //     companyName: res['companyName'],
+    //     salesPerson: res['salesPerson']
+    //   });
+    // });
+    // } else if(type === 'b2b'){
+    //   this.auth.getB2b(this.getId).subscribe((res:any)=>{
+    //     this.updateForm.patchValue({
+    //       custCode: res['b2bProjectCode'],
+    //       videoDuration: res['videoDuration'],
+    //       videoDeliveryDate: this.formatDate(res['b2bProjectDate']),
+    //       videoType: res['b2bVideoType'],
+    //       editorStatus: res['projectStatus'],
+    //       editorOtherChanges: res['editorOtherChanges'],
+    //       youtubeLink: res['youtubeLink'],
+    //       videoDurationMinutes: res['b2bVideoDurationMinutes'],
+    //       videoDurationSeconds: res['b2bVideoDurationSeconds'],
+    //       numberOfVideos: res['numberOfVideos'],
+    //       companyName: res['companyName'],
+    //       editorPayment: res['editorPayment'],
+    //       editorChangesPayment: res['editorChangesPayment'],
+    //       totalEditorPayment: res['totalEditorPayment']
+    //     });
+    //   });
+    // }
 
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;

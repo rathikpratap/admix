@@ -68,7 +68,7 @@
 }
 .table-scroll{
     overflow: scroll;
-    height: 550px;  
+    height: 550px;
 }
 .sticky-header th{
     position: sticky;
@@ -310,6 +310,9 @@ tr textarea{
 .getButton{
     /* margin-right: 20px; */
     margin-left: 20px;
+}
+.btn[aria-expanded="true"] {
+    background-color: green;
 }
 @media (max-width: 500px){
     .form-container{

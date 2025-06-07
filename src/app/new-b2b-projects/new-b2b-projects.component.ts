@@ -38,7 +38,7 @@ export class NewB2bProjectsComponent {
     b2bVideoType: new FormControl("null", [Validators.required]),
     b2bProjectDate: new FormControl(""),
     b2bBillType: new FormControl("null", [Validators.required]),
-    b2bProjectPrice: new FormControl(""),
+    b2bProjectPrice: new FormControl(),
     b2bVideoDurationMinutes: new FormControl(""),
     b2bVideoDurationSeconds: new FormControl(""),
     b2bEditor: new FormControl(""),
@@ -46,17 +46,29 @@ export class NewB2bProjectsComponent {
     b2bRemark: new FormControl(""),
     salesPerson: new FormControl(""),
     salesTeam: new FormControl(""),
-    projectStatus: new FormControl("")
+    projectStatus: new FormControl("null"),
+    b2bRestAmount: new FormControl(),
+    b2bRemainingAmount: new FormControl(),
+    b2bAdvanceAmount: new FormControl()
   });
 
   constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef, private toastr: ToastrService){
     
+    this.b2bCustomerForm.get('b2bRestAmount')!.setValue(0);
+
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
       if (!this.tok) {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
+    });
+
+    this.b2bCustomerForm.valueChanges.subscribe(values =>{
+      const projectAmount = parseFloat(values.b2bProjectPrice || 0);
+      const advanceAmount = parseFloat(values.b2bAdvanceAmount || 0);
+      const remainingAmount = projectAmount - advanceAmount;
+      this.b2bCustomerForm.get('b2bRemainingAmount')!.setValue(remainingAmount);
     });
 
     this.auth.allEmployee().subscribe((res: any) => {
