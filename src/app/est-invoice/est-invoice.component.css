@@ -60,7 +60,7 @@ hr{
     align-items: center;
 }
 .custForm-inline input.inline-input {
-    margin-left: 10px; /* Adjust the margin as needed */
+    margin-left: 10px;
   }
   .inline-input2{
     margin-left: 130px;
@@ -96,6 +96,18 @@ table{
 .est-amt p{
     font-size: 20px;
 }
+.bottom-txt {
+  width: 100%;
+  resize: none;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
 .sub-total{
     display: flex;
     justify-content:space-around;
@@ -195,9 +207,9 @@ strong {
 }
 .inline-fields {
     display: flex;
-    gap: 10px; /* Adds space between the fields */
+    gap: 10px; 
 }
 
 .inline-fields .form-control {
-    width: calc(50% - 5px); /* Ensures each input shares the row evenly */
+    width: calc(50% - 5px);
 }

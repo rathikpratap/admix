@@ -66,6 +66,12 @@ export class SalesSideNavComponent {
       name: 'Incentive',
       icon: 'bi bi-currency-rupee',
       route: '/salesHome/sales-incentive'
+    },
+    {
+      number: '10',
+      name: 'Edit Invoice',
+      icon: 'bi bi-pencil-square',
+      route: '/salesHome/download_invoice'
     }
   ];
   

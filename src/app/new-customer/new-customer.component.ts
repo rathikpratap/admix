@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import {Router} from '@angular/router';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './new-customer.component.html',
   styleUrls: ['./new-customer.component.css']
 })
-export class NewCustomerComponent {
+export class NewCustomerComponent implements OnInit {
 
   integerRegex = '^((\\+91-?)|0)?[0-9]{10}$';
   message:string = '';
@@ -29,6 +29,10 @@ export class NewCustomerComponent {
 
   codeInput!: ElementRef<HTMLInputElement>;
   codeInput2!: ElementRef<HTMLInputElement>;
+
+  ngOnInit(): void {
+    this.onCountryChange();
+  }
   
   ngAfterViewInit() {
     console.log("Its Called");
@@ -118,10 +122,10 @@ export class NewCustomerComponent {
     AdvPay : new FormControl("", [Validators.required]),
     remainingAmount : new FormControl("",[Validators.required]),
     restAmount : new FormControl(""), 
-    customerType : new FormControl(""),
-    custCountry : new FormControl("null"),
+    customerType : new FormControl("",[Validators.required]),
+    custCountry : new FormControl("IN"),
     custCity : new FormControl("null"),
-    custState : new FormControl("null"),
+    custState : new FormControl("",[Validators.required]),
     projectStatus : new FormControl("null",[Validators.required]),
     salesPerson : new FormControl("",[Validators.required]),
     youtubeLink : new FormControl(""),

@@ -172,3 +172,30 @@ strong {
 .inline-fields .form-control {
     width: calc(50% - 5px); /* Ensures each input shares the row evenly */
 }
+/* Hide calendar icon in Chrome, Safari, Edge */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Hide calendar icon in Firefox */
+input[type="date"]::-moz-focus-inner {
+  border: 0;
+}
+.no-calendar::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.no-calendar::-moz-focus-inner {
+  border: 0;
+}
+.no-calendar{
+    font-size: 22px;
+}
+/* .mb-0{
+    margin-top: -10px;
+} */
+.discount{
+    width: 70px;
+}

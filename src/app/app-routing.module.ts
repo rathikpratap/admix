@@ -213,14 +213,14 @@ const routes: Routes = [
         path: 'new-task',
         component: NewTaskComponent
       },
-      {
-        path: 'download_invoice',
-        component: DownloadInvoiceComponent
-      },
-      {
-        path: 'viewInvoice/:id',
-        component: ViewInvoiceComponent
-      },
+      // {
+      //   path: 'download_invoice',
+      //   component: DownloadInvoiceComponent
+      // },
+      // {
+      //   path: 'viewInvoice/:id',
+      //   component: ViewInvoiceComponent
+      // },
       {
         path: 'incentive',
         component: IncentiveComponent
@@ -339,6 +339,14 @@ const routes: Routes = [
       {
         path: 'sales-workTeam',
         component: SalesWorkTeamComponent
+      },
+      {
+        path: 'download_invoice',
+        component: DownloadInvoiceComponent
+      },
+      {
+        path: 'viewInvoice/:id',
+        component: ViewInvoiceComponent
       }
     ]
   },

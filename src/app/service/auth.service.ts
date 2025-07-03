@@ -95,6 +95,9 @@ export class AuthService {
   addEstInvoice(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data);
   }
+  updateInvoice(data: any): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data);
+  }
   getCustData() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -300,6 +303,10 @@ export class AuthService {
 
   searchCustomerbyMobileLeads(mobile: string): Observable<any> {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchLeads/${mobile}`);
+  }
+
+  searchInvoice(mobile: string): Observable<any>{
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/searchInvoice/${mobile}`);
   }
 
   searchCustomerbyProject(projectStatus: string): Observable<any> {
@@ -1089,9 +1096,13 @@ export class AuthService {
   estInvoiceCount(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/estInvoiceCount`);
   }
-  mainInvoiceCount(): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount`);
-  }
+  // mainInvoiceCount(): Observable<any> {
+  //   return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount`);
+  // }
+  mainInvoiceCount(financialYear: string) {
+  return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount?clientFY=${financialYear}`);
+}
+
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';

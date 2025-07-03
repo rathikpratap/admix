@@ -136,7 +136,8 @@ export class AllCustomersComponent {
   }
   invoice(userId: string){
     const url = `/salesHome/main-invoice/${userId}`;
-    window.open(url,'_blank');
+    //window.open(url,'_blank');
+    window.location.href = url;
   }
 
   updateDesigner(user:any,designer:any){

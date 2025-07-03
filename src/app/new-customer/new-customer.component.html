@@ -184,7 +184,7 @@
                         <div class="form-group">
                             <span class="details"> Customer Country: </span>
                             <select formControlName="custCountry" (change)="onCountryChange()" [ngClass]="{error:getControls('custCountry')?.errors && getControls('custCountry')?.touched}">
-                                <option value="null">Select Country</option>
+                                <option value="">Select Country</option>
                                 <option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</option>
                             </select>
                             <div *ngIf="getControls('custCountry')?.errors && getControls('custCountry')?.touched">
@@ -196,10 +196,10 @@
                         <div class="form-group">
                             <span class="details"> Customer State: </span>
                             <select formControlName="custState"(change)="onStateChange()" [ngClass]="{error:getControls('custState')?.errors && getControls('custState')?.touched}">
-                                <option value="null">Select State</option>
+                                <option value="">Select State</option>
                                 <option *ngFor="let state of states" [value]="state.isoCode">{{state.name}}</option>
                             </select>
-                            <div *ngIf="getControls('custState')?.errors && getControls('custState')?.touched">
+                            <div *ngIf="getControls('custState')?.errors">
                                 <label class="text-danger" *ngIf="getControls('custState')?.errors?.['required']"> State is Required </label>
                             </div>
                         </div>

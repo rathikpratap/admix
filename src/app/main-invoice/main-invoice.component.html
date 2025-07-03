@@ -4,15 +4,15 @@
             <select class="form-select" formControlName="billType" aria-label="Default select example">
                 <option value="null">Select Bill Type</option>
                 <option value="GST">GST</option>
-                <option value="Non-GST">Non-GST</option> 
+                <option value="Non-GST">Non-GST</option>
             </select>
             <select class="form-select" formControlName="gstType" aria-label="Default select example">
-                <option value="null">UP</option>
+                <option value="UP">UP</option>
                 <option value="Other">Not UP</option>
             </select>
-        </form>    
+        </form>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-6">     
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
         <button class="btn btn-sm btn-primary" (click)="downloadPdf()">Download Invoice PDF</button>
     </div>
 </div>
@@ -48,43 +48,53 @@
                 <div class="mid-txt">
                     <div class="name-txt">
                         <h4>Invoice To: </h4>
-                        <!-- <h3>{{name}}</h3>
-                        <p><strong>Contact No.:</strong> +{{number}}</p> -->
                         <form [formGroup]="custForm" class="form-container">
                             <div class="form-group">
-                                <input type="text" class="form-control topName-txt" formControlName="custName" placeholder="Customer Name">
+                                <input type="text" class="form-control topName-txt" formControlName="custName"
+                                    placeholder="Customer Name">
                             </div>
                             <div class="form-group">
                                 <label for="contactNo"><strong>Contact No:</strong></label>
-                                <input type="text" id="contactNo" class="form-control" formControlName="custNumb" placeholder="Enter contact number">
+                                <input type="text" id="contactNo" class="form-control" formControlName="custNumb"
+                                    placeholder="Enter contact number">
                             </div>
                             <div class="form-group">
                                 <label for="gstNumber"><strong>GST Number:</strong></label>
-                                <input type="text" id="gstNumber" class="form-control" formControlName="custGST" placeholder="Enter customer GST" name="custGST">
+                                <input type="text" id="gstNumber" class="form-control" formControlName="custGST"
+                                    placeholder="Enter customer GST" name="custGST">
                             </div>
                             <div class="form-group">
                                 <label for="customerAddress"><strong>Customer Address:</strong></label>
                                 <div class="inline-fields">
-                                    <input type="text" id="customerAddressLine1" class="form-control" formControlName="custAddLine1" placeholder="Address Line 1" name="custAdd1">
-                                    <input type="text" class="form-control" formControlName="custAddLine2" placeholder="Address Line 2" name="custAdd2">
+                                    <input type="text" id="customerAddressLine1" class="form-control"
+                                        formControlName="custAddLine1" placeholder="Address Line 1" name="custAdd1">
+                                    <input type="text" class="form-control" formControlName="custAddLine2"
+                                        placeholder="Address Line 2" name="custAdd2">
                                 </div>
-                                <input type="text" class="form-control" formControlName="custAddLine3" placeholder="Address Line 3" name="custAdd3">
+                                <input type="text" class="form-control" formControlName="custAddLine3"
+                                    placeholder="Address Line 3" name="custAdd3">
                             </div>
-                            <!-- <p class="custForm-inline"><strong>GST number: </strong><input type="text" class="form-control inline-input" formControlName="custGST" placeholder="Enter customer GST"
-                                name="custGST"></p>
-                            <p class="custForm-inline"><strong>Customer Address: </strong> -->
-                                <!-- <textarea rows="3" cols="40" name="custADD" formControlName="custADD" placeholder="Enter customer Address"></textarea></p> -->
-                                <!-- <input type="text" class="form-control" formControlName="custAddLine1" placeholder="Address Line 1" name="custAdd1">
-                            </p>
-                            <input type="text" class="form-control inline-input2" formControlName="custAddLine2" placeholder="Address Line 2" name="custAdd2">
-                            <input type="text" class="form-control inline-input2" formControlName="custAddLine3" placeholder="Address Line 3" name="custAdd3"> -->
                         </form>
                     </div>
-                
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <p><strong>Invoice No.</strong> {{110+count}}</p>
-                        <p><strong>Date:</strong> {{currentDate}}</p>
+                        <ng-container *ngIf="billFormat === 'Main'; else nonGstBlock">
+                            <p><strong>Invoice No.</strong> {{ 'ADM-' + financialYear + '/' + count }}</p>
+                        </ng-container>
+                        <ng-template #nonGstBlock>
+                            <p><strong>Invoice No.</strong> {{ 'ADM-' + financialYear + '/' + countNonGST }}</p>
+                        </ng-template>
+                        <div [formGroup]="invoiceForm">
+                            <div class="d-flex align-items-center gap-2">
+                                <p class="mb-0"><strong>Date:</strong></p>
+                                <!-- Display plain text for PDF -->
+                                <p *ngIf="isGeneratingPdf">{{ getFormattedInvoiceDate() }}</p>
+
+                                <!-- Show input normally on screen -->
+                                <input *ngIf="!isGeneratingPdf" type="date" formControlName="invoiceDate"
+                                    class="form-control no-calendar" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <form [formGroup]="invoiceForm">
@@ -108,17 +118,18 @@
                                             aria-label="Default select example"
                                             *ngIf="row.get('invoiceCateg')?.value !== 'Other'">
                                             <option value="null">Select Category</option>
-                                            <option *ngFor="let category of Category"
-                                                [value]="category.categoryName">{{category.categoryName}}</option>
+                                            <option *ngFor="let category of Category" [value]="category.categoryName">
+                                                {{category.categoryName}}</option>
                                             <option value="Other">Other</option>
                                         </select>
                                         <div *ngIf="row.get('invoiceCateg')?.value === 'Other'" class="otherCategory">
-                                            <textarea formControlName="customCateg" cols="50" placeholder="enter"></textarea>
+                                            <textarea formControlName="customCateg" cols="50"
+                                                placeholder="enter"></textarea>
                                         </div>
                                     </td>
 
                                     <td><input type="number" class="form-control" formControlName="numOfVideos"
-                                                placeholder="Enter Number of Videos" name="qty"></td>
+                                            placeholder="Enter Number of Videos" name="qty"></td>
                                     <td class="inline-elements">
                                         &#8377; <input type="number" class="form-control"
                                             formControlName="priceOfVideos" placeholder="Enter Price of Videos"
@@ -141,7 +152,7 @@
                         </table>
                     </div>
                 </form>
-                
+
             </div>
         </div>
         <div class="col-lg-12">
@@ -150,20 +161,29 @@
                     <p><strong>Invoice Amount in Words</strong></p>
                     <p>{{wordsAmt | uppercase}} ONLY</p>
                 </div>
-                <div class="sub-total">
-                    <div class="sub-total-title">
-                        <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
-                        <p *ngIf="invoiceForm.get('gstType')?.value === 'Other'"><strong>IGST &#64;18%:</strong>₹{{this.gstAmount}} </p>
+                <div [formGroup]="invoiceForm">
+                    <div class="sub-total">
+                        <div class="sub-total-title">
+                            <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
+                            <div class="d-flex align-items-center gap-2">
+                                <p class="mb-0"><strong>Discount:</strong></p>
+                                <input type="number" class="form-control discount" formControlName="discountValue"
+                                    placeholder="Enter discount">
+                            </div>
+                            <p *ngIf="invoiceForm.get('gstType')?.value === 'Other'"><strong>IGST
+                                    &#64;18%:</strong>₹{{this.gstAmount}} </p>
                             <div *ngIf="invoiceForm.get('gstType')?.value !== 'Other'">
                                 <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
                                 <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
                             </div>
-                        <p class="bottom-total"><strong>Total: </strong>₹ {{this.totalAmount}} </p>
+                            <p class="bottom-total"><strong>Total: </strong>₹ {{this.afterDiscountTotal}} </p>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-lg-4">
                 <div class="qr-code" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
@@ -193,7 +213,8 @@
                 <div class="footer">
                     <h6>Declaration</h6>
                     <ul>
-                        <li>We declare that this invoice shows the actual price of the goods described and that all perticulars are true and correct.</li>
+                        <li>We declare that this invoice shows the actual price of the goods described and that all
+                            perticulars are true and correct.</li>
                         <li>This is a Computer Generated Invoice.</li>
                     </ul>
                 </div>

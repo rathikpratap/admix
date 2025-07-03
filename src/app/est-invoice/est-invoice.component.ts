@@ -6,6 +6,7 @@ import html2canvas from 'html2canvas';
 import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-est-invoice',
@@ -34,10 +35,12 @@ export class EstInvoiceComponent implements OnInit {
   totalNumOfVideoss: number = 0;
   totalGSTT: any;
   grandTotalAmountt: any;
+  financialYear: any;
+  afterDiscountTotal: number =0;
 
   invoiceForm = new FormGroup({
-    billType: new FormControl("null"),
-    gstType: new FormControl("null"),
+    billType: new FormControl("GST"),
+    gstType: new FormControl("UP"),
     invoiceCateg: new FormControl("null"),
     customCateg: new FormControl("null"),
     billFormat: new FormControl(""),
@@ -45,6 +48,7 @@ export class EstInvoiceComponent implements OnInit {
     totalAmount: new FormControl(),
     GSTAmount: new FormControl(),
     billNumber: new FormControl(),
+    discountValue: new FormControl(0),
     rows: this.fb.array([]),
   });
   custForm = new FormGroup({
@@ -59,10 +63,15 @@ export class EstInvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.date = new Date();
     this.currentDate = this.formatDate(this.date);
-    this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
-      this.Bill = value;
+    this.financialYear = this.getFinancialYear(this.date);
+    // this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
+    //   this.Bill = value;
+    //   this.calculateGrandTotal();
+    // });
+
+    this.invoiceForm.get('discountValue')?.valueChanges.subscribe(()=>{
       this.calculateGrandTotal();
-    });
+    })
 
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
@@ -83,6 +92,15 @@ export class EstInvoiceComponent implements OnInit {
       this.custForm.patchValue({
         custName: this.name,
         custNumb: this.number
+      });
+      this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
+        this.Bill = value;
+          // Recalculate each row since billType affects GST
+        this.rows.controls.forEach(control => {
+           const row = control as FormGroup;
+          this.calculateRowAmount(row);
+        });
+        this.calculateGrandTotal();
       });
     });
     this.auth.estInvoiceCount().subscribe((res: any) => {
@@ -130,8 +148,8 @@ export class EstInvoiceComponent implements OnInit {
 
     const totalAmount = amount + gst;
 
-    row.get('amt')?.setValue(totalAmount);
-    //row.get('amt')?.setValue(totalAmount.toFixed(2));
+    //row.get('amt')?.setValue(totalAmount);
+    row.get('amt')?.setValue(parseFloat(totalAmount.toFixed(2)));
     row.get('gst')?.setValue(parseFloat(gst.toFixed(2)));
     //row.get('gst')?.setValue(gst);
 
@@ -152,10 +170,17 @@ export class EstInvoiceComponent implements OnInit {
       totalGst += gst;
       totalNumOfVideos += numOfVideos;
     });
+
+    const discountValue = Number(this.invoiceForm.get('discountValue')?.value || 0);
     this.totalAmount = Math.round(totalAmount);
+
+    this.afterDiscountTotal = this.totalAmount - discountValue;
     this.gstAmount = totalGst;
     this.totalNumOfVideoss = Math.round(totalNumOfVideos);
+
+    //Amount before GST (net amount)
     this.amount = parseFloat((this.totalAmount - this.gstAmount).toFixed(2));
+    
     console.log('Total Amount:', this.totalAmount); // Debug log
     console.log('GST Amount:', this.gstAmount); // Debug log
     //this.wordsAmt = numWords(this.totalAmount || 0);
@@ -168,81 +193,6 @@ export class EstInvoiceComponent implements OnInit {
       this.wordsAmt = 'Error';
     }
   }
-
-  // downloadPdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       // const pdf = new jsPDF('p', 'mm', 'a4');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p', 
-  //         unit: 'mm', 
-  //         format: [210 * 1.5, 297 * 1.5]  // A4 size increased by 1.5 times
-  //       });
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       const fileName = `invoice_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  //   // Add rows data
-  //   const rowsData = this.rows.controls.map(row => {
-  //     return {
-  //       invoiceCateg: row.get('invoiceCateg')?.value || '',
-  //       customCateg: row.get('customCateg')?.value || '',
-  //       numOfVideos: row.get('numOfVideos')?.value || 0,
-  //       priceOfVideos: row.get('priceOfVideos')?.value || 0,
-  //       gst: row.get('gst')?.value || 0,
-  //       amt: row.get('amt')?.value || 0
-  //     };
-  //   });
-
-  //   //this.custForm.get('custName')?.setValue(this.name);
-  //   this.invoiceForm.get('invoiceDate')?.setValue(this.date);
-  //   this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
-  //   this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
-  //   //this.invoiceForm.get('custNumb')?.setValue(this.number);
-  //   this.invoiceForm.get('billFormat')?.setValue('Estimate');
-  //   this.invoiceForm.get('billNumber')?.setValue(this.count);
-  //   this.invoiceForm.get('rows')?.setValue(rowsData);
-
-  //   const invoiceData = this.invoiceForm.value;
-  //   const custData = this.custForm.value;
-  //   const combinedData = {...custData, ...invoiceData};
-  //   // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-  //   //   if(res.success){
-  //   //     alert('Invoice saved successfully');
-  //   //   }else{
-  //   //     alert('error saving invoice');
-  //   //   }
-  //   // });
-  //   this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-  //     if (res.success) {
-  //       alert('Invoice saved successfully');
-  //     } else if (res.dataExists) {
-  //       // Ask user for confirmation to save a new invoice
-  //       const userConfirmed = confirm(res.message); // Prompt the user
-  //       if (userConfirmed) {
-  //         console.log("CLICKED YES");
-  //         this.auth.addEstInvoice({ ...combinedData, allowDuplicate: true }).subscribe((res: any) => {
-  //           if (res.success) {
-  //             alert('New invoice saved successfully');
-  //           } else {
-  //             alert('Error saving invoice 12');
-  //           }
-  //         });
-  //       }
-  //     } else {
-  //       alert('Error saving invoice');
-  //     }
-  //   });
-
-  // }
 
   downloadPdf() {
     const rowsData = this.rows.controls.map(row => {
@@ -259,31 +209,41 @@ export class EstInvoiceComponent implements OnInit {
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
     this.invoiceForm.get('billFormat')?.setValue('Estimate');
-    this.invoiceForm.get('billNumber')?.setValue(this.count);
+    this.invoiceForm.get('billNumber')?.setValue(160+this.count);
     this.invoiceForm.get('rows')?.setValue(rowsData);
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData };
+    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear };
 
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
-        this.toastr.success('Quotation saved Successfully','Success');
+        this.toastr.success('Quotation saved Successfully', 'Success');
         this.generatePdf();
       } else if (res.dataExists) {
-        const userConfirmed = confirm(res.message);
-        if (userConfirmed) {
-          this.auth.addEstInvoice({ ...combinedData, allowDuplicate: true }).subscribe((res: any) => {
-            if (res.success) {
-              this.toastr.success('New Quotation Saved Successfully','Success');
-              this.generatePdf();
-            } else {
-              this.toastr.error('Error Saving Quotation','Error');
-            }
-          });
-        }
+        Swal.fire({
+          title: 'Quotation Already Exists',
+          text: res.message,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, Update it',
+          cancelButtonText: 'No, Cancel'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+              if (res.success) {
+                this.toastr.success('New Quotation Saved Successfully', 'Success');
+                this.generatePdf();
+              } else {
+                this.toastr.error('Error Saving Quotation', 'Error');
+              }
+            });
+          } else {
+            this.toastr.error('Update Cancelled', 'Info');
+          }
+        });
       } else {
-        this.toastr.error('Error Saving New Quotation','Error');
+        this.toastr.error('Error Saving New Quotation', 'Error');
       }
     });
   }
@@ -304,7 +264,7 @@ export class EstInvoiceComponent implements OnInit {
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        const fileName = `invoice_${this.name}.pdf`.replace(/\s+/g, '_');
+        const fileName = `quotation_${this.name}.pdf`.replace(/\s+/g, '_');
         pdf.save(fileName);
       });
     }
@@ -315,5 +275,16 @@ export class EstInvoiceComponent implements OnInit {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
+  }
+
+  getFinancialYear(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    if (month >= 4) {
+      return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
+    } else {
+      return `${year - 1}-${(year).toString().slice(-2)}`;
+    }
   }
 }
