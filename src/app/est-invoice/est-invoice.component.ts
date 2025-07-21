@@ -205,7 +205,13 @@ export class EstInvoiceComponent implements OnInit {
         amt: row.get('amt')?.value || 0
       };
     });
-    this.invoiceForm.get('invoiceDate')?.setValue(this.date);
+
+    // Normalize invoice date to midnight UTC (00:00:00.000Z)
+    const normalizedDate = new Date(this.date);
+    normalizedDate.setUTCHours(0, 0, 0, 0); // Ensures consistent format
+    this.invoiceForm.get('invoiceDate')?.setValue(normalizedDate.toISOString());
+
+    // this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
     this.invoiceForm.get('billFormat')?.setValue('Estimate');
@@ -216,35 +222,88 @@ export class EstInvoiceComponent implements OnInit {
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear };
 
-    this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-      if (res.success) {
-        this.toastr.success('Quotation saved Successfully', 'Success');
-        this.generatePdf();
-      } else if (res.dataExists) {
-        Swal.fire({
-          title: 'Quotation Already Exists',
-          text: res.message,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Update it',
-          cancelButtonText: 'No, Cancel'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
-              if (res.success) {
-                this.toastr.success('New Quotation Saved Successfully', 'Success');
-                this.generatePdf();
-              } else {
-                this.toastr.error('Error Saving Quotation', 'Error');
-              }
-            });
-          } else {
-            this.toastr.error('Update Cancelled', 'Info');
-          }
-        });
-      } else {
-        this.toastr.error('Error Saving New Quotation', 'Error');
-      }
+    // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.toastr.success('Quotation saved Successfully', 'Success');
+    //     this.generatePdf();
+    //   } else if (res.dataExists) {
+    //     Swal.fire({
+    //       title: 'Quotation Already Exists',
+    //       text: res.message,
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonText: 'Yes, Update it',
+    //       cancelButtonText: 'No, Cancel'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+    //           if (res.success) {
+    //             this.toastr.success('New Quotation Saved Successfully', 'Success');
+    //             this.generatePdf();
+    //           } else {
+    //             this.toastr.error('Error Saving Quotation', 'Error');
+    //           }
+    //         });
+    //       } else {
+    //         this.toastr.error('Update Cancelled', 'Info');
+    //       }
+    //     });
+    //   } else {
+    //     this.toastr.error('Error Saving New Quotation', 'Error');
+    //   }
+     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
+    if (res.success) {
+      this.toastr.success('Quotation saved Successfully', 'Success');
+      this.generatePdf();
+    }else if (res.sameDateExists) {
+      // Case: Same Date – Ask to update
+      Swal.fire({
+        title: 'Quotation Already Exists on Same Date',
+        text: res.message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Update It',
+        cancelButtonText: 'No, Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+            if (res.success) {
+              this.toastr.success('Quotation Updated Successfully', 'Success');
+              this.generatePdf();
+            } else {
+              this.toastr.error('Error Updating Quotation', 'Error');
+            }
+          });
+        } else {
+          this.toastr.info('Update Cancelled', 'Info');
+        }
+      });
+    }else if (res.differentDateExists) {
+      // Case: Different date in same month – Ask to save new entry
+      Swal.fire({
+        title: 'Quotation Already Exists This Month',
+        text: res.message,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Save New Entry',
+        cancelButtonText: 'No, Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
+            if (res.success) {
+              this.toastr.success('New Quotation Saved Successfully', 'Success');
+              this.generatePdf();
+            } else {
+              this.toastr.error('Error Saving New Quotation', 'Error');
+            }
+          });
+        } else {
+          this.toastr.info('Save Cancelled', 'Info');
+        }
+      });
+    }else {
+      this.toastr.error('Error Saving Quotation', 'Error');
+    }
     });
   }
 

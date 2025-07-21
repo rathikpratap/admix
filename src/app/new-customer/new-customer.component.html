@@ -15,7 +15,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Client Code: </span>
-                            <input type="text" class="form-control" formControlName="custCode"
+                            <input type="number" class="form-control" formControlName="custCode"
                                 [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
                                 placeholder="Enter Client Code" #codeInput>
                             <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
@@ -95,6 +95,24 @@
                             <div *ngIf="getControls('closingCateg')?.errors && getControls('closingCateg')?.touched">
                                 <label class="text-danger" *ngIf="getControls('closingCateg')?.errors?.['required']"> Closing Category is Required </label>
                             </div>
+                        </div>
+                    </div>
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Graphics Count</span>
+                            <input type="number" class="form-control" formControlName="graphicsCount" placeholder="Enter number of graphics">
+                        </div>
+                    </div>
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Video Count</span>
+                            <input type="number" class="form-control" formControlName="videosCount" placeholder="Enter number of graphics">
+                        </div>
+                    </div>
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Reels Count</span>
+                            <input type="number" class="form-control" formControlName="reelsCount" placeholder="Enter number of graphics">
                         </div>
                     </div>
                     <div class="input-box">

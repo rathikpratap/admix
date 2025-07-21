@@ -24,7 +24,7 @@ export class EditorDashboardComponent {
   high:any;
   changes:any;
   isExpanded: boolean = false;
-
+ 
   constructor(private auth: AuthService,private messagingService: MessagingService, private renderer: Renderer2){
     
     this.auth.getAccessToken().subscribe((res:any)=>{
@@ -72,7 +72,7 @@ export class EditorDashboardComponent {
       this.completeLength = this.completed.length;
     });
     this.auth.allEditorProjects().subscribe((res:any)=>{
-      this.allProjects = res.list.length;
+      this.allProjects = res.list.length; 
     });
     this.auth.getNotif().subscribe((res:any)=>{
       this.unreadNotif = res.unReadNotif;

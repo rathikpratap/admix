@@ -334,7 +334,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -356,110 +357,235 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data; let i = index" [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Graphic Designing">Graphic Designing</option>
-                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td><select *ngIf="user.projectStatus === 'Graphic Designing'"
-                                    [(ngModel)]="user.graphicDesigner" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Graphic Designing'" [(ngModel)]="user.graphicDesigner">
-                                {{user.graphicStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let user of data; let i = index"
+                            [class.highlighted]="selectedRowIndex === i">
+                            <tr>
+                                <td>
+                                    <!-- <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                        <span
+                                            [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                    </button>
+                                    {{i+1}} -->
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Graphic Designing">Graphic Designing</option>
+                                        <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td><select *ngIf="user.projectStatus === 'Graphic Designing'"
+                                        [(ngModel)]="user.graphicDesigner"
+                                        (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Graphic Designing'"
+                                    [(ngModel)]="user.graphicDesigner">
+                                    {{user.graphicStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
             <div class="table-scroll" *ngIf="this.closingForm.get('closing_name')?.value !== 'null'">
-               <table class="table table-striped table-responsive">
+                <table class="table table-striped table-responsive">
                     <thead class="sticky-header">
                         <tr>
                             <th scope="col">No.</th>
@@ -469,7 +595,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -491,107 +618,227 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloData; let i = index" [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Graphic Designing">Graphic Designing</option>
-                                    <option value="Graphic Designing Changes">Graphic Designing Changes</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td><select *ngIf="user.projectStatus === 'Graphic Designing'"
-                                    [(ngModel)]="user.graphicDesigner" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user); highlightRow(i)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Graphic Designing'" [(ngModel)]="user.graphicDesigner">
-                                {{user.graphicStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let user of cloData; let i = index"
+                            [class.highlighted]="selectedRowIndex === i">
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Graphic Designing">Graphic Designing</option>
+                                        <option value="Graphic Designing Changes">Graphic Designing Changes</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td><select *ngIf="user.projectStatus === 'Graphic Designing'"
+                                        [(ngModel)]="user.graphicDesigner"
+                                        (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user); highlightRow(i)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Graphic Designing'"
+                                    [(ngModel)]="user.graphicDesigner">
+                                    {{user.graphicStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
-                </table> 
+                </table>
             </div>
         </div>
         <div class="collapse" id="previousMonth">
@@ -606,7 +853,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -628,94 +876,211 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of Previousdata; let i = index"
+                        <ng-container *ngFor="let user of Previousdata; let i = index"
                             [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </div>
             </div>
@@ -730,7 +1095,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -752,94 +1118,211 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloDataPrev; let i = index"
+                        <ng-container *ngFor="let user of cloDataPrev; let i = index"
                             [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </div>
             </div>
@@ -856,7 +1339,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -878,95 +1362,212 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of TwoPreviousdata; let i = index"
+                        <ng-container *ngFor="let user of TwoPreviousdata; let i = index"
                             [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
 
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </div>
             </div>
@@ -981,7 +1582,8 @@
                             <th scope="col">Client Business</th>
                             <th scope="col">
                                 <form [formGroup]="closingForm">
-                                    <select class="form-select closing_categ-right" formControlName="closing_name" aria-label="Default select example">
+                                    <select class="form-select closing_categ-right" formControlName="closing_name"
+                                        aria-label="Default select example">
                                         <option value="null">Project Category</option>
                                         <option *ngFor="let camp of allClosings" value="{{camp.categoryName}}">
                                             {{camp.categoryName}}
@@ -1003,95 +1605,212 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of cloTwoDataPrev; let i = index"
+                        <ng-container *ngFor="let user of cloTwoDataPrev; let i = index"
                             [class.highlighted]="selectedRowIndex === i">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode}}</td>
-                            <td>{{user.custName}}</td>
-                            <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                            <td>{{user.custBussiness}}</td>
-                            <td>{{user.closingCateg}}</td>
-                            <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.closingPrice}}</td>
-                            <td>{{user.AdvPay + user.restAmount}}</td>
-                            <td>{{user.remainingAmount}}</td>
-                            <td>{{user.salesPerson}}</td>
-                            <td>
-                                <select [(ngModel)]="user.projectStatus"
-                                    (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
-                                    <option value="Not Interested">Not Interested</option>
-                                    <option value="Interested">Interested</option>
-                                    <option value="Closing">Closing</option>
-                                    <option value="Scripting">Scripting</option>
-                                    <option value="Script Correction">Script Correction</option>
-                                    <option value="Voice Over">Voice Over</option>
-                                    <option value="Video Editing">Video Editing</option>
-                                    <option value="Video Changes">Video Changes</option>
-                                    <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select
-                                    *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                    [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select
-                                    *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                    [(ngModel)]="user.editor" (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                                <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
-                                    (change)="updateEditors(user)">
-                                    <option value="none">None</option>
-                                    <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
-                                        [value]="employee.signupUsername">
-                                        {{employee.signupUsername}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
-                                [(ngModel)]="user.scriptWriter">
-                                {{user.scriptStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
-                                [(ngModel)]="user.editor">
-                                {{user.editorStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
-                                {{user.voiceOverStatus}}
-                            </td>
-                            <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
-                                {{user.projectStatus}}
-                            </td>
-                            <td>
-                                <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                    <option value="none">Select</option>
-                                    <option value="Urgent">Urgent</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                            </td>
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay + user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.salesPerson}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.projectStatus"
+                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateEditors(user); highlightRow(i)">
+                                        <option value="Not Interested">Not Interested</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Closing">Closing</option>
+                                        <option value="Scripting">Scripting</option>
+                                        <option value="Script Correction">Script Correction</option>
+                                        <option value="Voice Over">Voice Over</option>
+                                        <option value="Video Editing">Video Editing</option>
+                                        <option value="Video Changes">Video Changes</option>
+                                        <option value="Video Done">Video Done</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                        [(ngModel)]="user.scriptWriter" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select
+                                        *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                        [(ngModel)]="user.editor" (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                    <select *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver"
+                                        (change)="updateEditors(user)">
+                                        <option value="none">None</option>
+                                        <option *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                            [value]="employee.signupUsername">
+                                            {{employee.signupUsername}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Scripting' || user.projectStatus === 'Script Correction'"
+                                    [(ngModel)]="user.scriptWriter">
+                                    {{user.scriptStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Video Editing' || user.projectStatus === 'Video Changes' || user.projectStatus === 'Video Done' "
+                                    [(ngModel)]="user.editor">
+                                    {{user.editorStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Voice Over'" [(ngModel)]="user.voiceOver">
+                                    {{user.voiceOverStatus}}
+                                </td>
+                                <td *ngIf="user.projectStatus === 'Closing' || user.projectStatus === 'Completed'">
+                                    {{user.projectStatus}}
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="none">Select</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </td>
 
-                            <td>
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                        View</button>
-                                </div>
-                            </td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            View</button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th scope="col">Project Status</th>
+                                                <th scope="col">Select T.M</th>
+                                                <th scope="col">T.M Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td>
+                                                    <select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateEditorVisible = (user.projectStatus === 'closing'); updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="Not Interested">Not Interested</option>
+                                                        <option value="Interested">Interested</option>
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Graphic Designing">Graphic Designing</option>
+                                                        <option value="Graphic Designing Changes">Graphic Designing
+                                                            Changes</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Script Correction">Script Correction</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Video Changes">Video Changes</option>
+                                                        <option value="Video Done">Video Done</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </td>
+                                                <td><select *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                        [(ngModel)]="sub.graphicDesigner"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Graphic Designing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                        [(ngModel)]="sub.scriptWriter"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Scripting')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select
+                                                        *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                        [(ngModel)]="sub.editor"
+                                                        (change)="updateSubEntryStatus(user,sub); highlightRow(i)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Video Editing')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                    <select *ngIf="sub.projectStatus === 'Voice Over'"
+                                                        [(ngModel)]="sub.voiceOver"
+                                                        (change)="updateSubEntryStatus(user,sub)">
+                                                        <option value="none">None</option>
+                                                        <option
+                                                            *ngFor="let employee of filterEmployeesByRole('Voice Over')"
+                                                            [value]="employee.signupUsername">
+                                                            {{employee.signupUsername}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction'"
+                                                    [(ngModel)]="sub.scriptWriter">
+                                                    {{sub.scriptStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done' "
+                                                    [(ngModel)]="sub.editor">
+                                                    {{sub.editorStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Voice Over'"
+                                                    [(ngModel)]="sub.voiceOver">
+                                                    {{sub.voiceOverStatus}}
+                                                </td>
+                                                <td *ngIf="sub.projectStatus === 'Graphic Designing'"
+                                                    [(ngModel)]="sub.graphicDesigner">
+                                                    {{sub.graphicStatus}}
+                                                </td>
+                                                <td
+                                                    *ngIf="sub.projectStatus === 'Closing' || sub.projectStatus === 'Completed'">
+                                                    {{sub.projectStatus}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </div>
             </div>

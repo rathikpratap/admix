@@ -43,24 +43,25 @@ export class EditorUpdateComponent implements OnInit {
     //const type = this.activatedRoute.snapshot.paramMap.get('type');
 
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
+      console.log("READCUST======>>", res);
 
       this.updateForm.patchValue({
-        custCode: res['custCode'],
-        custBussiness: res['custBussiness'],
-        videoDuration: res['videoDuration'],
-        videoDeliveryDate: this.formatDate(res['videoDeliveryDate']),
-        videoType: res['videoType'],
-        editorPayment: res['editorPayment'],
-        editorStatus: res['editorStatus'],
-        editorOtherChanges: res['editorOtherChanges'],
-        editorChangesPayment: res['editorChangesPayment'],
-        totalEditorPayment: res['totalEditorPayment'],
-        youtubeLink: res['youtubeLink'],
-        videoDurationMinutes: res['videoDurationMinutes'],
-        videoDurationSeconds: res['videoDurationSeconds'],
-        numberOfVideos: res['numberOfVideos'],
-        companyName: res['companyName'],
-        salesPerson: res['salesPerson']
+        custCode: res['custCode'] || res?._doc?.custCode,
+        custBussiness: res['custBussiness'] || res?._doc?.custBussiness,
+        videoDuration: res['videoDuration'] || res?._doc?.videoDuration,
+        videoDeliveryDate: this.formatDate(res['videoDeliveryDate'] || res?._doc?.videoDeliveryDate),
+        videoType: res['videoType'] || res?._doc?.videoType,
+        editorPayment: res['editorPayment'] || res?._doc?.editorPayment,
+        editorStatus: res['editorStatus'] || res?._doc?.editorStatus,
+        editorOtherChanges: res['editorOtherChanges'] || res?._doc?.editorOtherChanges,
+        editorChangesPayment: res['editorChangesPayment'] || res?._doc?.editorChangesPayment,
+        totalEditorPayment: res['totalEditorPayment'] || res?._doc?.totalEditorPayment,
+        youtubeLink: res['youtubeLink'] || res?._doc?.youtubeLink,
+        videoDurationMinutes: res['videoDurationMinutes'] || res?._doc?.videoDurationMinutes,
+        videoDurationSeconds: res['videoDurationSeconds'] || res?._doc?.videoDurationSeconds,
+        numberOfVideos: res['numberOfVideos'] || res?._doc?.numberOfVideos,
+        companyName: res['companyName'] || res?._doc?.companyName,
+        salesPerson: res['salesPerson'] || res?._doc?.salesPerson
       });
     });
 
@@ -145,7 +146,6 @@ export class EditorUpdateComponent implements OnInit {
 
   onUpdate() {
 
-    console.log("duration==>", this.updateForm.get('videoDurationSeconds')?.value);
     const Minsec: number = this.updateForm.get('videoDurationMinutes')?.value || 0;
     const sec: number = this.updateForm.get('videoDurationSeconds')?.value || 0;
     this.totalSec = Minsec * 60 + sec;
@@ -416,6 +416,9 @@ export class EditorUpdateComponent implements OnInit {
     const editorChangesPayment1: number = this.updateForm.get('editorChangesPayment')?.value;
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
+
+    // Earned Points Calculation
+    
 
     const currentDate = new Date().toISOString();
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {

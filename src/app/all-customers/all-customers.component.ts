@@ -49,13 +49,22 @@ export class AllCustomersComponent {
     });
  
     this.auth.salesAllProjects().subscribe((list : any)=>{
-      this.data = list;
+      this.data = list.map((entry: any) => ({
+        ...entry,
+        showSub: false
+      }));
     });
     this.auth.salesPreviousMonthProjects().subscribe((list : any)=>{
-      this.dataPreviousMonth = list;
+      this.dataPreviousMonth = list.map((entry: any)=>({
+        ...entry,
+        showSub: false
+      }));
     });
     this.auth.salesPreviousTwoMonthProjects().subscribe((list : any)=>{
-      this.dataTwoPreviousMonth = list;
+      this.dataTwoPreviousMonth = list.map((entry: any)=>({
+        ...entry,
+        showSub: false
+      }));
     });
     this.auth.allEmployee().subscribe((res: any) => {
       if (Array.isArray(res)) {

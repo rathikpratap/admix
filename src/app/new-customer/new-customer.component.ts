@@ -110,7 +110,7 @@ export class NewCustomerComponent implements OnInit {
   }
 
   customerForm = new FormGroup({
-    custCode : new FormControl("", [Validators.required]),
+    custCode : new FormControl(0, [Validators.required]),
     custName : new FormControl("", [Validators.required]),
     custNumb : new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
     custNumb2 : new FormControl(""),
@@ -134,7 +134,10 @@ export class NewCustomerComponent implements OnInit {
     companyName : new FormControl(""),
     graphicDesigner : new FormControl(""),
     graphicPassDate : new FormControl(""),
-    Qr : new FormControl("",[Validators.required])
+    Qr : new FormControl("",[Validators.required]),
+    graphicsCount: new FormControl(0),
+    videosCount: new FormControl(0),
+    reelsCount: new FormControl(0)
   });
 
   b2bCustomerForm = new FormGroup({

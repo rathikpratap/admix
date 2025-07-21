@@ -36,6 +36,7 @@ export class EditorProjectsComponent {
       }
     });
     this.auth.editorProjects().subscribe((res:any)=>{
+      console.log("SUBENTRIES========>>", res.list);
       this.data = res.list;
     });
     this.auth.editorPreviousProjects().subscribe((res:any)=>{
@@ -82,8 +83,13 @@ export class EditorProjectsComponent {
     const url = `/editor-home/editor-otherProjects`;
     window.location.href = url;
   }
-  openUpdatePanel(userId: string) {
-    const url = `/editor-home/editor-update/${userId}`;
-    window.location.href = url;
+  openUpdatePanel(userId: string, type: string) {
+    if(type === 'Customer'){
+      const url = `/editor-home/editor-update/${userId}`;
+      window.location.href = url;
+    }else if(type === 'b2b'){
+      const url = `/editor-home/editor-b2b-update/${userId}`;
+      window.location.href = url;
+    }
   }
 } 

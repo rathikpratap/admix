@@ -3,8 +3,8 @@
         <div class="nameCard">
             <div class="ProjectCard">
                 <h6> All Projects </h6>
-            </div> 
-        </div>   
+            </div>
+        </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-6">
         <div class="searchCard">
@@ -29,7 +29,7 @@
                     <button type="submit" class="btn btn-sm btn-primary"> Submit</button>
                 </div>
             </div>
-        </form> 
+        </form>
     </div>
     <!-- <div class="col-lg-2 col-md-12 col-sm-12 col-12 move-to-new-row2">
         <button class="btn btn-sm btn-primary getButton" (click)="otherProjects()">Other Projects</button>
@@ -56,14 +56,17 @@
                     <tr *ngFor="let customer of customers; let i = index">
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode || customer.b2bProjectCode}}</td>
-                            <td>{{customer.custBussiness || customer.b2bProjectName}}</td>
-                            <td>{{customer.editorPassDate || customer.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{customer.videoDurationMinutes || customer.b2bVideoDurationMinutes}}:{{customer.videoDurationSeconds || customer.b2bVideoDurationSeconds}}</td>
-                            <td>{{customer.videoType || customer.b2bVideoType}}</td>
-                            <td>{{customer.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{customer.editorStatus || customer.projectStatus}}</td>
+                        <td>{{customer.custBussiness || customer.b2bProjectName}}</td>
+                        <td>{{customer.editorPassDate || customer.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{customer.videoDurationMinutes ||
+                            customer.b2bVideoDurationMinutes}}:{{customer.videoDurationSeconds ||
+                            customer.b2bVideoDurationSeconds}}</td>
+                        <td>{{customer.videoType || customer.b2bVideoType}}</td>
+                        <td>{{customer.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{customer.editorStatus || customer.projectStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
+                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id, customer.type)">
+                                Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -88,14 +91,17 @@
                     <tr *ngFor="let customer of rangeData; let i = index">
                         <td>{{i+1}}</td>
                         <td>{{customer.custCode || customer.b2bProjectCode}}</td>
-                            <td>{{customer.custBussiness || customer.b2bProjectName}}</td>
-                            <td>{{customer.editorPassDate || customer.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{customer.videoDurationMinutes || customer.b2bVideoDurationMinutes}}:{{customer.videoDurationSeconds || customer.b2bVideoDurationSeconds}}</td>
-                            <td>{{customer.videoType || customer.b2bVideoType}}</td>
-                            <td>{{customer.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{customer.editorStatus || customer.projectStatus}}</td>
+                        <td>{{customer.custBussiness || customer.b2bProjectName}}</td>
+                        <td>{{customer.editorPassDate || customer.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{customer.videoDurationMinutes ||
+                            customer.b2bVideoDurationMinutes}}:{{customer.videoDurationSeconds ||
+                            customer.b2bVideoDurationSeconds}}</td>
+                        <td>{{customer.videoType || customer.b2bVideoType}}</td>
+                        <td>{{customer.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{customer.editorStatus || customer.projectStatus}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id)"> Update</button>
+                            <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id, customer.type)">
+                                Update</button>
                         </td>
                     </tr>
                 </tbody>
@@ -106,16 +112,20 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <p class="d-line-flex dateButton">
-            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#previousTwoMonth" aria-controls="collapseExample">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#previousTwoMonth" aria-controls="collapseExample">
                 {{previousTwoMonthName}}
             </button>
-            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#previousMonth" aria-controls="collapseExample">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#previousMonth" aria-controls="collapseExample">
                 {{previousMonthName}}
             </button>
-            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#currentMonth" aria-expanded="true" aria-controls="collapseExample">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#currentMonth" aria-expanded="true" aria-controls="collapseExample">
                 {{currentMonthName}}
             </button>
-            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#allProjects" aria-controls="collapseExample">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#allProjects"
+                aria-controls="collapseExample">
                 All Projects
             </button>
         </p>
@@ -136,19 +146,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of data; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{user.custCode || user.b2bProjectCode}}</td>
-                            <td>{{user.custBussiness || user.b2bProjectName}}</td>
-                            <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
-                            <td>{{user.videoType || user.b2bVideoType}}</td>
-                            <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.editorStatus || user.projectStatus}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let user of data; let i = index">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td>{{user.custCode || user.b2bProjectCode}}</td>
+                                <td>{{user.custBussiness || user.b2bProjectName}}</td>
+                                <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.videoDurationMinutes ||
+                                    user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds ||
+                                    user.b2bVideoDurationSeconds}}</td>
+                                <td>{{user.videoType || user.b2bVideoType}}</td>
+                                <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.editorStatus || user.projectStatus}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)">
+                                        Update</button>
+                                </td>
+                            </tr>
+                            
+                        </ng-container>
                     </tbody>
                 </div>
             </div>
@@ -175,12 +191,15 @@
                             <td>{{user.custCode || user.b2bProjectCode}}</td>
                             <td>{{user.custBussiness || user.b2bProjectName}}</td>
                             <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
+                            <td>{{user.videoDurationMinutes ||
+                                user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds ||
+                                user.b2bVideoDurationSeconds}}</td>
                             <td>{{user.videoType || user.b2bVideoType}}</td>
                             <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.editorStatus || user.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)">
+                                    Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -209,12 +228,15 @@
                             <td>{{user.custCode || user.b2bProjectCode}}</td>
                             <td>{{user.custBussiness || user.b2bProjectName}}</td>
                             <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
+                            <td>{{user.videoDurationMinutes ||
+                                user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds ||
+                                user.b2bVideoDurationSeconds}}</td>
                             <td>{{user.videoType || user.b2bVideoType}}</td>
                             <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.editorStatus || user.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)">
+                                    Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -243,12 +265,15 @@
                             <td>{{user.custCode || user.b2bProjectCode}}</td>
                             <td>{{user.custBussiness || user.b2bProjectName}}</td>
                             <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
+                            <td>{{user.videoDurationMinutes ||
+                                user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds ||
+                                user.b2bVideoDurationSeconds}}</td>
                             <td>{{user.videoType || user.b2bVideoType}}</td>
                             <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{user.editorStatus || user.projectStatus}}</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)"> Update</button>
+                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)">
+                                    Update</button>
                             </td>
                         </tr>
                     </tbody>
@@ -257,5 +282,3 @@
         </div>
     </div>
 </div>
-
-

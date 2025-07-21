@@ -167,6 +167,21 @@ td{
     top: 0;
     background: rgba(37,37, 37, 1);
 }
+.btn-link{
+     color: yellow;
+  text-decoration: none;
+}
+.arrow-down::after {
+  content: ' ▼';
+}
+
+.arrow-up::after {
+  content: ' ▲';
+}
+
+.sub-entry-table th, .sub-entry-table td {
+  font-size: 0.875rem;
+}
 @media only screen and (max-width: 534px){
     .move-to-new-row {
         flex-basis: 100%; /* Full width for medium and small screens */

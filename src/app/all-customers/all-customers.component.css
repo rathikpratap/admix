@@ -22,6 +22,21 @@
     border-bottom: 2px solid #D1D1D4;
     transition: all 0.3s ease;
 }
+.btn-link{
+     color: yellow;
+  text-decoration: none;
+}
+.arrow-down::after {
+  content: ' ▼';
+}
+
+.arrow-up::after {
+  content: ' ▲';
+}
+
+.sub-entry-table th, .sub-entry-table td {
+  font-size: 0.875rem;
+}
 
 .title-heading{
     color: #fff;

@@ -1,0 +1,35 @@
+<div class="points">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="new-heading">
+                <h2>Points Table</h2>
+            </div>
+            <form [formGroup]="pointsForm" (ngSubmit)="pointsForm.status !== 'INVALID' && submitPoints()">
+                <div [ngClass]="className" role="alert">
+                    {{message}}
+                </div>
+                <div class="user-details">
+                    <div formArrayName="points" class="input-box">
+                        <div *ngFor="let point of points.controls; let i=index" [formGroupName]="i" class="form-group">
+                            <span class="details">Upto Seconds {{ i === 0 ? '0' : points.at(i - 1).value.minute}} to {{point.value.minute}}</span>
+                            <input type="number" formControlName="minute" class="for-control" min="0">
+
+                            <span class="details"> Points of Minutes {{i + 1}}</span>
+                            <input type="number" formControlName="points" class="form-control" min="0" value="0" step=".01">
+
+                            <button type="button" (click)="removePoint(i)" *ngIf="points.length > 1" class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" (click)="addPoints()" class="btn btn-secondary">Add More</button>
+                    <input type="submit" [disabled]="pointsForm.status === 'INVALID'" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+
+        </div>
+    </div>
+</div>

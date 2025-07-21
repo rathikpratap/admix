@@ -89,6 +89,7 @@ import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-
 import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
 import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
+import { PointsTableComponent } from './points-table/points-table.component';
 
 const routes: Routes = [
   {
@@ -248,6 +249,10 @@ const routes: Routes = [
       {
         path: 'assign-campaign',
         component: AssignCampaignComponent
+      },
+      {
+        path: 'points-table',
+        component: PointsTableComponent
       }
     ]
   },

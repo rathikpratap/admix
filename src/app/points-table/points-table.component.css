@@ -1,10 +1,10 @@
-* {
+ * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: "Mona Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.incentive{
+.points{
     margin-top: 15px;
 }
 form{
@@ -36,7 +36,7 @@ form{
     border-radius: 15px;
     padding: 1px;
 }
-.incentive form .user-details{
+.points form .user-details{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

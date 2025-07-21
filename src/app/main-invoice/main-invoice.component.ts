@@ -286,36 +286,86 @@ export class MainInvoiceComponent implements OnInit {
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear };
 
+    // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.toastr.success('Invoice saved Successfully', 'Success');
+    //     this.generatePdf();
+    //   } else if (res.dataExists) {
+    //     Swal.fire({
+    //       title: 'Invoice Already Exists',
+    //       text: res.message,
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonText: 'Yes, Update it',
+    //       cancelButtonText: 'No, Cancel'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+    //           if (res.success) {
+    //             this.toastr.success('New Invoice Saved Successfully', 'Success');
+    //             this.generatePdf();
+    //           } else {
+    //             this.toastr.error('Error Saving Invoice', 'Error');
+    //           }
+    //         });
+    //       } else {
+    //         this.toastr.error('Update Cancelled', 'Info');
+    //       }
+    //     });
+    //   } else {
+    //     this.toastr.error('Error Saving New Invoice', 'Error');
+    //   }
+    // });
+
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-      if (res.success) {
-        this.toastr.success('Invoice saved Successfully', 'Success');
-        this.generatePdf();
-      } else if (res.dataExists) {
-        Swal.fire({
-          title: 'Invoice Already Exists',
-          text: res.message,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Update it',
-          cancelButtonText: 'No, Cancel'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
-              if (res.success) {
-                this.toastr.success('New Invoice Saved Successfully', 'Success');
-                this.generatePdf();
-              } else {
-                this.toastr.error('Error Saving Invoice', 'Error');
-              }
-            });
+  if (res.success) {
+    this.toastr.success('Invoice saved successfully', 'Success');
+    this.generatePdf();
+  } else if (res.sameDateExists) {
+    Swal.fire({
+      title: 'Invoice Exists on Same Date',
+      text: res.message,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Update it',
+      cancelButtonText: 'No, Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+          if (res.success) {
+            this.toastr.success('Invoice Updated Successfully', 'Success');
+            this.generatePdf();
           } else {
-            this.toastr.error('Update Cancelled', 'Info');
+            this.toastr.error('Update Failed', 'Error');
           }
         });
-      } else {
-        this.toastr.error('Error Saving New Invoice', 'Error');
       }
     });
+  } else if (res.differentDateExists) {
+    Swal.fire({
+      title: 'Invoice Already Exists This Month',
+      text: res.message,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Save New Entry',
+      cancelButtonText: 'No, Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
+          if (res.success) {
+            this.toastr.success('New Invoice Saved Successfully', 'Success');
+            this.generatePdf();
+          } else {
+            this.toastr.error('Failed to Save New Invoice', 'Error');
+          }
+        });
+      }
+    });
+  } else {
+    this.toastr.error('Unknown error occurred', 'Error');
+  }
+});
+
   }
   // generatePdf() {
   //   const invoiceElement = document.getElementById('invoice');

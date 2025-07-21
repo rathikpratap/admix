@@ -83,13 +83,7 @@ export class SideNavComponent {
       route:'/manual-attendance'
     },
     {
-      number: '12',
-      name: 'Download Invoice',
-      icon: 'bi bi-receipt-cutoff',
-      route: '/download_invoice'
-    },
-    {
-      number:'13',
+      number:'12',
       name: 'Incentive',
       icon: 'bi bi-wallet-fill',
       route: '/incentive'

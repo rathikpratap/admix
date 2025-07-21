@@ -187,6 +187,13 @@ export class AuthService {
   updateEditors(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
   }
+  updateSubEntry(parentId: string, subEntry: any): Observable<any> {
+  return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntry`, {
+    parentId,
+    subEntry
+  });
+}
+
   updateB2bEditorname(data:any): Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/updateB2bEditorname`,{items: data});
   }
@@ -1327,6 +1334,9 @@ export class AuthService {
   }
   addIncentive(incentiveData: any) {
     return this.http.put(`${appConfig.apiUrl}/auth/addIncentive`, incentiveData);
+  }
+  addPoint(pointData: any) {
+    return this.http.put(`${appConfig.apiUrl}/auth/addPoint`, pointData);
   }
   transferToLeads(user: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`, user);
