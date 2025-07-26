@@ -157,12 +157,15 @@ export class AdminDashboardComponent implements OnInit {
   cloDatat: any;
   empData: any;
   statusData: any;
-  allClosings:any;
-  salesEmp:any;
+  allClosings: any;
+  salesEmp: any;
   remainAmtPro: any;
-  onlyLogo:any;
+  onlyLogo: any;
   productionProjects: any;
   isExpanded: boolean = false;
+
+  currentMonthPoints: number = 0;
+  editorList: any[] = [];
 
   salesData: any[] = [];
   chartLabels: string[] = [];
@@ -200,7 +203,7 @@ export class AdminDashboardComponent implements OnInit {
     project_status: new FormControl("null")
   });
   select_salesForm = new FormGroup({
-    select_salesperson : new FormControl("null")
+    select_salesperson: new FormControl("null")
   });
 
   // Array of predefined colors
@@ -374,7 +377,7 @@ export class AdminDashboardComponent implements OnInit {
       let currentMonth = new Date().getMonth() + 1;
       let lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
 
-      data.forEach((item:any) => {
+      data.forEach((item: any) => {
         const salesPerson = item._id.salesPerson;
         const month = item._id.month;
         const totalSales = item.totalSales;
@@ -425,17 +428,17 @@ export class AdminDashboardComponent implements OnInit {
     return color;
   }
 
-  onSalespersonChange(){
+  onSalespersonChange() {
     const selectedUsername = this.select_salesForm.get('select_salesperson')?.value;
     console.log("SELECTED USERNAME========>>", selectedUsername);
 
-    if(selectedUsername === 'null') {
+    if (selectedUsername === 'null') {
       const originalAdminToken = localStorage.getItem('adminToken');
-      if(originalAdminToken){
+      if (originalAdminToken) {
         localStorage.setItem('token', originalAdminToken);
         this.session.handleLoginResponse({
           success: true,
-          token : originalAdminToken,
+          token: originalAdminToken,
           role: ['Admin']
         });
       } else {
@@ -444,11 +447,11 @@ export class AdminDashboardComponent implements OnInit {
       return;
     }
 
-    const selectedUser = this.salesEmp.find((emp:any) => emp.signupUsername === selectedUsername);
-    if(!selectedUser) return alert('User not found!');
+    const selectedUser = this.salesEmp.find((emp: any) => emp.signupUsername === selectedUsername);
+    if (!selectedUser) return alert('User not found!');
 
     const currentToken = localStorage.getItem('token');
-    if(currentToken) {
+    if (currentToken) {
       localStorage.setItem('adminToken', currentToken);
     }
     this.auth.impersonateUser(selectedUser._id).subscribe({
@@ -479,13 +482,13 @@ export class AdminDashboardComponent implements OnInit {
       //this.data = allList;
       this.dataLength = allList.length;
     });
-    this.auth.getAllProjectsExcludingLogo().subscribe((notLogo:any) => {
+    this.auth.getAllProjectsExcludingLogo().subscribe((notLogo: any) => {
       this.data = notLogo;
     });
-    this.auth.getAllProjectsIncludingLogo().subscribe((onlyLogo:any) => {
+    this.auth.getAllProjectsIncludingLogo().subscribe((onlyLogo: any) => {
       this.onlyLogo = onlyLogo;
     });
-    this.auth.getProductionProjects().subscribe((production:any) => {
+    this.auth.getProductionProjects().subscribe((production: any) => {
       this.productionProjects = production;
     });
 
@@ -566,6 +569,11 @@ export class AdminDashboardComponent implements OnInit {
     this.auth.getremainingAmountProjects().subscribe((res: any) => {
       console.log("Remainig Projects", res);
       this.remainAmtPro = res;
+    });
+
+    this.auth.getAllEditorMonthlyPoints().subscribe((res: any) => {
+      this.editorList = res.editors;
+      console.log("TOTAL POINTS========>>", res);
     });
   }
 
@@ -666,7 +674,7 @@ export class AdminDashboardComponent implements OnInit {
     if (startDate && endDate) {
       this.auth.downloadRangeFile(startDate, endDate);
     }
-  } 
+  }
 
   downloadCampaignLead() {
     const startDateValue = this.categForm.value.categStartDate;
@@ -711,12 +719,12 @@ export class AdminDashboardComponent implements OnInit {
   resetData() {
     location.reload();
   }
-  other(){
+  other() {
     const url = `/b2b-dashboard`;
     window.location.href = url;
     //window.open(url,'_blank');
   }
-  assignCampaign(){
+  assignCampaign() {
     const url = `/assign-campaign`;
     window.location.href = url;
   }
@@ -726,7 +734,7 @@ export class AdminDashboardComponent implements OnInit {
     this.updateProjectStatus(user);
   }
 
-  ToggleExpanded(){
+  ToggleExpanded() {
     this.isExpanded = !this.isExpanded;
     this.renderer.setAttribute(document.querySelector('.btn'), 'aria-expanded', this.isExpanded.toString());
   }
@@ -751,7 +759,15 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isAscending[dataSet] = !this.isAscending[dataSet]; // Toggle sort order
   }
+  // sortedImportant(dataArray: any[]) {
+  //   return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  // }
   sortedImportant(dataArray: any[]) {
+    if (!Array.isArray(dataArray)) {
+      return [];
+    }
+
     return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
   }
+
 }

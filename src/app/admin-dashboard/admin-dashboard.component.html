@@ -183,13 +183,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h6> Today's Received Amount</h6>
+                            <h6> Today's Received &#8377;</h6>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#todayRecv">
@@ -200,13 +200,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="card1">
             <div class="card-body">
                 <div class="form-container2">
                     <div class="card-txt">
                         <div class="card-bg">
-                            <h6> Previous Received Amount</h6>
+                            <h6> Previous Received &#8377;</h6>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#todayRestRecv">
@@ -223,7 +223,7 @@
                 <div class="form-container2">
                     <div class="card-txt">
                         <div class="card-bg2">
-                            <h6> Monthly Top Performer </h6>
+                            <h6> Monthly Top SalesPerson </h6>
                         </div>
                         <button type="button" class="btn btn-primary" *ngIf="rangeTop; else elseBlockTop">
                             {{rangeTop}}
@@ -234,6 +234,32 @@
                                 {{topPerformer[0]?._id}}
                             </button>
                         </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6> Monthly Top Editor </h6>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#allPoints">
+                                {{editorList[0]?.username}}
+                            </button>
+                        <!-- <button type="button" class="btn btn-primary" *ngIf="rangeTop; else elseBlockTop">
+                            {{editorList[0]?.username}}
+                        </button>
+                        <ng-template #elseBlockTop>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#topPerformer">
+                                {{editorList[0]?.username}}
+                            </button>
+                        </ng-template> -->
                     </div>
                 </div>
             </div>
@@ -500,7 +526,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(onlyLogo)"
+                            <tr *ngFor="let user of sortedImportant(onlyLogo || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -592,7 +618,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(productionProjects)"
+                            <tr *ngFor="let user of sortedImportant(productionProjects || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -685,7 +711,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(data)"
+                            <tr *ngFor="let user of sortedImportant(data || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -775,7 +801,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(cloDatat)"
+                            <tr *ngFor="let user of sortedImportant(cloDatat || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -865,7 +891,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(empData)"
+                            <tr *ngFor="let user of sortedImportant(empData || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -955,7 +981,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(combineTwo)"
+                            <tr *ngFor="let user of sortedImportant(combineTwo || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1045,7 +1071,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(statusData)"
+                            <tr *ngFor="let user of sortedImportant(statusData || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1135,7 +1161,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(combineThree)"
+                            <tr *ngFor="let user of sortedImportant(combineThree || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1225,7 +1251,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(closingStatus)"
+                            <tr *ngFor="let user of sortedImportant(closingStatus || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1315,7 +1341,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(salesStatus)"
+                            <tr *ngFor="let user of sortedImportant(salesStatus || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1418,7 +1444,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let users of sortedImportant(remainAmtPro)"
+                        <tr *ngFor="let users of sortedImportant(remainAmtPro || [])"
                             [ngClass]="{'highlighted': users.isHighlighted}">
                             <td>{{users.custCode}}</td>
                             <td>
@@ -2053,6 +2079,36 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="allPoints" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">All Editors Points</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Editor Name</th>
+                                <th scope="col">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let editor of editorList; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{editor.username}}</td>
+                                <td>{{editor.points}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

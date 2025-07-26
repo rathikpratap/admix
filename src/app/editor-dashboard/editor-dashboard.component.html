@@ -59,6 +59,21 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+        <div class="card1">
+            <div class="form-container">
+                <div class="card-txt">
+                    <div class="card-bg">
+                        <h6>Points</h6>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#allPoints">
+                        {{currentMonthPoints}}
+                    </button>
+                    <!-- <h2>{{currentMonthPoints}}</h2> -->
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-2 col-md-12 col-sm-12 col-12 move-to-new-row2">
         <!-- <button class="btn btn-sm btn-primary getButton" (click)="otherProjects()">Other Projects</button> -->
         <button class="btn btn-warning getButton" (click)="bundles()" *ngIf="tok?.signupRole?.includes('Bundle Handler')">Bundles</button>
@@ -80,18 +95,23 @@
                 <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#urgent" aria-controls="collapseExample">
                     Urgent
                 </button>
+                <span class="badge">{{urgentLength}}</span>
                 <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#high" aria-controls="collapseExample">
                     High
                 </button>
+                <span class="badge">{{highLength}}</span>
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#medium" aria-controls="collapseExample">
                     Medium
                 </button>
+                <span class="badge">{{mediumLength}}</span>
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#all" aria-expanded="true" aria-controls="collapseExample">
                     All
                 </button>
+                <span class="badge">{{dataLength}}</span>
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#changes" aria-controls="collapseExample">
                     Changes
                 </button>
+                <span class="badge">{{changesLength}}</span>
             </p>
             <hr>
             <div class="collapse" id="urgent">
@@ -313,6 +333,35 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="allPoints" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">All Editors Points</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Editor Name</th>
+                                <th scope="col">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let editor of editorList">
+                                <td>{{editor.username}}</td>
+                                <td>{{editor.points}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

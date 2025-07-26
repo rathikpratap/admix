@@ -24,11 +24,37 @@
 .getButton{
     margin-right: 10px;
 }
+.card-txt button{
+    background: none;
+    border: none;
+    font-size: 28px;
+}
+.modal{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+}
+.modal-content{
+    background-color: rgba(0,0, 0, 0.3);
+    color: white;
+}
+.modal-content th{
+    border: none;
+    color: white;
+}
+.modal-content td{
+    border: none;
+    color: white;
+}
+.modal-header .btn-close{
+    background-color: aliceblue;
+}
 hr{
     color: #fff;
 }
 .dateButton button{
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .card1{
     background-color: rgba(255,255, 255, 0.13);
@@ -66,6 +92,15 @@ hr{
     width: fit-content;
     padding: 5px;
     border-radius: 25px;
+}
+.badge{
+    position: absolute;
+    margin-top: -5px;
+    margin-left: -10px;
+    border-radius: 50%;
+    background-color: #9b33da;
+    color: white; 
+    font-size: 14px;
 }
 .table-scroll{
     overflow: scroll;

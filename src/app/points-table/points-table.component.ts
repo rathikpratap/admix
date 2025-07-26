@@ -44,7 +44,7 @@ export class PointsTableComponent {
   }
   addPoints(){
     const pointsGroup = this.fb.group({
-      minute: [0],
+      second: [0],
       points: [0]
     });
     this.points.push(pointsGroup);

@@ -19,6 +19,7 @@ export class EditorB2bUpdateComponent implements OnInit {
   employee: any;
   allEmployee: any;
   allCompany: any;
+  pointTable: { second: number, points: number}[] = [];
 
   b2bUpdateForm = new FormGroup({
     b2bProjectCode: new FormControl("", [Validators.required]),
@@ -41,7 +42,9 @@ export class EditorB2bUpdateComponent implements OnInit {
     editorChangesPayment: new FormControl(),
     totalEditorPayment: new FormControl(0),
     numberOfVideos: new FormControl(""),
-    videoDuration: new FormControl(0)
+    videoDuration: new FormControl(0),
+    pointsEarned: new FormControl(),
+    pointsCalculated: new FormControl()
   });
 
   handleSpecialCases(videoType: string): string {
@@ -96,6 +99,9 @@ export class EditorB2bUpdateComponent implements OnInit {
         index === self.findIndex((c: any) => c.companyName === company.companyName)
       );
       this.allCompany = res;
+    });
+    this.auth.getPoint().subscribe((res:any)=>{
+      this.pointTable = res.data;
     });
   }
   getB2bCustomerFormControl(b2bName: any): AbstractControl | null {
@@ -389,6 +395,23 @@ export class EditorB2bUpdateComponent implements OnInit {
     const editorChangesPayment1: number = this.b2bUpdateForm.get('editorChangesPayment')?.value;
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.b2bUpdateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
+
+    let matchedPoint = 0;
+    for(let i=0; i<this.pointTable.length; i++){
+      if(this.totalSec <= this.pointTable[i].second){
+        matchedPoint = this.pointTable[i].points;
+        break;
+      }
+    }
+    if(matchedPoint === 0 && this.pointTable.length > 0){
+      matchedPoint = this.pointTable[this.pointTable.length - 1].points;
+    }
+    if(this.b2bUpdateForm.get('b2bVideoType')?.value !== 'Normal Graphics'){
+      matchedPoint += 0.25;
+    }
+    this.b2bUpdateForm.get('pointsEarned')?.setValue(matchedPoint);
+    this.b2bUpdateForm.get('pointsCalculated')?.setValue(true);
+    console.log(`SECONDS=======>> ${this.totalSec}, Points======>> ${matchedPoint}`);
 
     const currentDate = new Date().toISOString();
 

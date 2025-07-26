@@ -1338,6 +1338,16 @@ export class AuthService {
   addPoint(pointData: any) {
     return this.http.put(`${appConfig.apiUrl}/auth/addPoint`, pointData);
   }
+  getPoint(){
+    return this.http.get(`${appConfig.apiUrl}/auth/getPoints`);
+  }
+  updateEditorMonthlyPoints(editorName: string) {
+    return this.http.post<any>(`${appConfig.apiUrl}/auth/update-editor-monthly-points`, { editorName });
+  }
+  getAllEditorMonthlyPoints() {
+  return this.http.get<any>(`${appConfig.apiUrl}/auth/all-editor-monthly-points`);
+  }
+
   transferToLeads(user: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/transferNewLeads`, user);
   }

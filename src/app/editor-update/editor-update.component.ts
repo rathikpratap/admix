@@ -18,6 +18,7 @@ export class EditorUpdateComponent implements OnInit {
   totalSec: any;
   numberOfVideos: any;
   company: any;
+  pointTable: { second: number, points: number }[] = [];
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -35,7 +36,9 @@ export class EditorUpdateComponent implements OnInit {
     videoDurationSeconds: new FormControl(0),
     numberOfVideos: new FormControl(""),
     companyName: new FormControl(""),
-    salesPerson: new FormControl("")
+    salesPerson: new FormControl(""),
+    pointsEarned: new FormControl(),
+    pointsCalculated: new FormControl()
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer,private toastr: ToastrService) {
@@ -121,7 +124,11 @@ export class EditorUpdateComponent implements OnInit {
     });
     this.auth.getCompany().subscribe((res: any) => {
       this.company = res;
-    })
+    });
+    this.auth.getPoint().subscribe((res:any)=>{
+      this.pointTable = res.data;
+      console.log('Point Table:', this.pointTable);
+    });
   }
   formatDate(isoDate: string): string{
     if(!isoDate) return '';
@@ -418,7 +425,23 @@ export class EditorUpdateComponent implements OnInit {
     this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
     // Earned Points Calculation
-    
+    let matchedPoint = 0;
+    for(let i=0; i<this.pointTable.length; i++){
+      if(this.totalSec <= this.pointTable[i].second){
+        matchedPoint = this.pointTable[i].points;
+        break;
+      }
+    }
+    if(matchedPoint === 0 && this.pointTable.length > 0){
+      matchedPoint = this.pointTable[this.pointTable.length - 1].points;
+    }
+    if(this.updateForm.get('videoType')?.value !== 'Normal Graphics'){
+      matchedPoint += 0.25;
+    }
+
+    this.updateForm.get('pointsEarned')?.setValue(matchedPoint);
+    this.updateForm.get('pointsCalculated')?.setValue(true);
+    console.log(`SECONDS=======>> ${this.totalSec}, Points======>> ${matchedPoint}`);
 
     const currentDate = new Date().toISOString();
     this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
