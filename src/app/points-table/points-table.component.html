@@ -12,6 +12,20 @@
                     {{message}}
                 </div>
                 <div class="user-details">
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Video Type:</span>
+                            <select class="form-select" formControlName="videoType">
+                                <option value="">Select Video Type</option>
+                                <option value="Normal Graphics">Normal Graphics</option>
+                                <option value="Motion Graphics">Motion Graphics</option>
+                                <option value="Green Screen">Green Screen</option>
+                                <option value="UGC">UGC</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-details">
                     <div formArrayName="points" class="input-box">
                         <div *ngFor="let point of points.controls; let i=index" [formGroupName]="i" class="form-group">
                             <span class="details">Upto Seconds {{ i === 0 ? '0' : points.at(i - 1).value.second}} to {{point.value.second}}</span>

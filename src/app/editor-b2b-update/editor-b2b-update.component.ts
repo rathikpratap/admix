@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { ToastrService} from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -19,7 +20,7 @@ export class EditorB2bUpdateComponent implements OnInit {
   employee: any;
   allEmployee: any;
   allCompany: any;
-  pointTable: { second: number, points: number}[] = [];
+  pointTable: { second: number, points: number }[] = [];
 
   b2bUpdateForm = new FormGroup({
     b2bProjectCode: new FormControl("", [Validators.required]),
@@ -54,7 +55,7 @@ export class EditorB2bUpdateComponent implements OnInit {
     return videoType;
   }
 
-  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService) {
+  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.auth.getB2b(this.getId).subscribe((res: any) => {
@@ -100,7 +101,7 @@ export class EditorB2bUpdateComponent implements OnInit {
       );
       this.allCompany = res;
     });
-    this.auth.getPoint().subscribe((res:any)=>{
+    this.auth.getPoint().subscribe((res: any) => {
       this.pointTable = res.data;
     });
   }
@@ -396,50 +397,66 @@ export class EditorB2bUpdateComponent implements OnInit {
     const totalEditorPayment1: number = editorPayment1 + editorChangesPayment1;
     this.b2bUpdateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
-    let matchedPoint = 0;
-    for(let i=0; i<this.pointTable.length; i++){
-      if(this.totalSec <= this.pointTable[i].second){
-        matchedPoint = this.pointTable[i].points;
-        break;
-      }
+    //Earned Points Calculation
+    const videoType = this.b2bUpdateForm.get('b2bVideoType')?.value;
+    if (!videoType || videoType === 'null') {
+      this.toastr.warning('Please select a Video Type');
+      return;
     }
-    if(matchedPoint === 0 && this.pointTable.length > 0){
-      matchedPoint = this.pointTable[this.pointTable.length - 1].points;
-    }
-    if(this.b2bUpdateForm.get('b2bVideoType')?.value !== 'Normal Graphics'){
-      matchedPoint += 0.25;
-    }
-    this.b2bUpdateForm.get('pointsEarned')?.setValue(matchedPoint);
-    this.b2bUpdateForm.get('pointsCalculated')?.setValue(true);
-    console.log(`SECONDS=======>> ${this.totalSec}, Points======>> ${matchedPoint}`);
+    this.auth.getPointsByVideoType(videoType).subscribe((res: any) => {
+      if (res.success && res.data?.points) {
+        const pointTable = res.data.points;
 
-    const currentDate = new Date().toISOString();
+        let matchedPoint = 0;
 
-    this.auth.updateB2bbyEditor(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
+        for (let i = 0; i < pointTable.length; i++) {
+          if (this.totalSec <= pointTable[i].second) {
+            matchedPoint = pointTable[i].points;
+            break;
+          }
+        }
+        if (matchedPoint === 0 && pointTable.length > 0) {
+          matchedPoint = pointTable[pointTable.length - 1].points;
+        }
+        this.b2bUpdateForm.get('pointsEarned')?.setValue(matchedPoint);
+        this.b2bUpdateForm.get('pointsCalculated')?.setValue(true);
 
-      const projectStatusControl = this.b2bUpdateForm.get('projectStatus');
-      projectStatusControl?.valueChanges.subscribe(value => {
-        if (value === 'Completed') {
-          let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
-          let sales = this.b2bUpdateForm.get('salesPerson')?.value;
-          let msgTitle = "B2b Project Complete";
-          let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by Editor`;
-          this.auth.sendNotificationsAdmin([selectedEmployee], sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
-            if (res) {
-              alert("Notification Sent");
-            } else {
-              alert("Error Sending Notification");
+        this.toastr.success(`Points calculated: ${matchedPoint}`);
+
+        const currentDate = new Date().toISOString();
+
+        this.auth.updateB2bbyEditor(this.getId, this.b2bUpdateForm.value).subscribe((res: any) => {
+
+          const projectStatusControl = this.b2bUpdateForm.get('projectStatus');
+          projectStatusControl?.valueChanges.subscribe(value => {
+            if (value === 'Completed') {
+              let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
+              let sales = this.b2bUpdateForm.get('salesPerson')?.value;
+              let msgTitle = "B2b Project Complete";
+              let msgBody = `${this.b2bUpdateForm.get('b2bProjectName')?.value} by Editor`;
+              this.auth.sendNotificationsAdmin([selectedEmployee], sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
+                if (res) {
+                  alert("Notification Sent");
+                } else {
+                  alert("Error Sending Notification");
+                }
+              });
             }
           });
-        }
-      });
-      // Manually trigger the value change logic for projectStatus
-      projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+          // Manually trigger the value change logic for projectStatus
+          projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
 
-      this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-other') })
-    }, (err) => {
-      console.log(err)
-    })
+          this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-dashboard') })
+        }, (err) => {
+          console.log(err)
+        });
+      }else{
+        this.toastr.warning('No points found for selected video type.');
+      }
+    },err => {
+      console.error('Error fetching point table:',err);
+      this.toastr.error('Failed to fetch points. Try Again');
+    });
   }
 
   onChange(event: any) {

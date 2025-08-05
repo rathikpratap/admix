@@ -1341,6 +1341,10 @@ export class AuthService {
   getPoint(){
     return this.http.get(`${appConfig.apiUrl}/auth/getPoints`);
   }
+  getPointsByVideoType(videoType: string) {
+  return this.http.get(`${appConfig.apiUrl}/auth/getPoint/${videoType}`);
+}
+
   updateEditorMonthlyPoints(editorName: string) {
     return this.http.post<any>(`${appConfig.apiUrl}/auth/update-editor-monthly-points`, { editorName });
   }

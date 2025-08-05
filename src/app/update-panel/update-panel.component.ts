@@ -70,7 +70,8 @@ export class UpdatePanelComponent {
     voiceDurationSeconds: new FormControl(),
     totalScriptPayment: new FormControl(),
     totalVoicePayment: new FormControl(),
-    totalEditorPayment: new FormControl()
+    totalEditorPayment: new FormControl(),
+    pointsEarned: new FormControl()
   })
 
   updateEmbeddedVideoUrl() {
@@ -173,7 +174,8 @@ export class UpdatePanelComponent {
         voiceDurationSeconds: res['voiceDurationSeconds'],
         totalScriptPayment: res['totalScriptPayment'],
         totalVoicePayment: res['totalVoicePayment'],
-        totalEditorPayment: res['totalEditorPayment']
+        totalEditorPayment: res['totalEditorPayment'],
+        pointsEarned: res['pointsEarned']
       })
       this.updateEmbeddedVideoUrl();
     });

@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import {ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editor-update',
@@ -22,7 +22,7 @@ export class EditorUpdateComponent implements OnInit {
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
-    custBussiness : new FormControl(""),
+    custBussiness: new FormControl(""),
     videoDuration: new FormControl(0),
     videoDeliveryDate: new FormControl(""),
     videoType: new FormControl("null"),
@@ -41,7 +41,7 @@ export class EditorUpdateComponent implements OnInit {
     pointsCalculated: new FormControl()
   })
 
-  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer,private toastr: ToastrService) {
+  constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer, private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
     //const type = this.activatedRoute.snapshot.paramMap.get('type');
 
@@ -125,13 +125,13 @@ export class EditorUpdateComponent implements OnInit {
     this.auth.getCompany().subscribe((res: any) => {
       this.company = res;
     });
-    this.auth.getPoint().subscribe((res:any)=>{
+    this.auth.getPoint().subscribe((res: any) => {
       this.pointTable = res.data;
       console.log('Point Table:', this.pointTable);
     });
   }
-  formatDate(isoDate: string): string{
-    if(!isoDate) return '';
+  formatDate(isoDate: string): string {
+    if (!isoDate) return '';
     return isoDate.split('T')[0];
   }
 
@@ -160,15 +160,15 @@ export class EditorUpdateComponent implements OnInit {
 
     const CompName = this.updateForm.get('companyName')?.value;
 
-    this.company.forEach((comp: { companyName: string, signupName: string,payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
+    this.company.forEach((comp: { companyName: string, signupName: string, payment30Sec: number, payment45Sec: number, payment60Sec: number, payment90Sec: number, payment120Sec: number, payment150Sec: number, payment180Sec: number, paymentTwoVideo: number, paymentThreeVideo: number }) => {
       if (comp.companyName === CompName && comp.signupName === this.tok.signupUsername) {
         switch (this.updateForm.get('videoType')?.value) {
           case 'Normal Graphics':
             switch (this.updateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -185,9 +185,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -204,9 +204,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -229,9 +229,9 @@ export class EditorUpdateComponent implements OnInit {
           case 'Motion Graphics':
             switch (this.updateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -248,9 +248,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -267,9 +267,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -292,9 +292,9 @@ export class EditorUpdateComponent implements OnInit {
           case 'Green Screen':
             switch (this.updateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -311,9 +311,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -330,9 +330,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -352,12 +352,12 @@ export class EditorUpdateComponent implements OnInit {
                 this.updateForm.get('editorPayment')?.setValue(0);
             }
             break;
-            case 'Voice Over Edit':
+          case 'Voice Over Edit':
             switch (this.updateForm.get('numberOfVideos')?.value) {
               case 'One':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec);
@@ -374,9 +374,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Two':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentTwoVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentTwoVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentTwoVideo);
@@ -393,9 +393,9 @@ export class EditorUpdateComponent implements OnInit {
                 }
                 break;
               case 'Three':
-                if (this.totalSec > 0 && this.totalSec <= 30){
+                if (this.totalSec > 0 && this.totalSec <= 30) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment30Sec + comp.paymentThreeVideo);
-                } else if (this.totalSec > 30 && this.totalSec <= 45){
+                } else if (this.totalSec > 30 && this.totalSec <= 45) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment45Sec + comp.paymentThreeVideo);
                 } else if (this.totalSec > 45 && this.totalSec <= 60) {
                   this.updateForm.get('editorPayment')?.setValue(comp.payment60Sec + comp.paymentThreeVideo);
@@ -425,49 +425,70 @@ export class EditorUpdateComponent implements OnInit {
     this.updateForm.get('totalEditorPayment')?.setValue(totalEditorPayment1);
 
     // Earned Points Calculation
-    let matchedPoint = 0;
-    for(let i=0; i<this.pointTable.length; i++){
-      if(this.totalSec <= this.pointTable[i].second){
-        matchedPoint = this.pointTable[i].points;
-        break;
-      }
+    const videoType = this.updateForm.get('videoType')?.value;
+    if (!videoType || videoType === 'null') {
+      this.toastr.warning('Please select a Video Type');
+      return;
     }
-    if(matchedPoint === 0 && this.pointTable.length > 0){
-      matchedPoint = this.pointTable[this.pointTable.length - 1].points;
-    }
-    if(this.updateForm.get('videoType')?.value !== 'Normal Graphics'){
-      matchedPoint += 0.25;
-    }
+    this.auth.getPointsByVideoType(videoType).subscribe((res: any) => {
+      if (res.success && res.data?.points) {
+        const pointTable = res.data.points;
 
-    this.updateForm.get('pointsEarned')?.setValue(matchedPoint);
-    this.updateForm.get('pointsCalculated')?.setValue(true);
-    console.log(`SECONDS=======>> ${this.totalSec}, Points======>> ${matchedPoint}`);
+        let matchedPoint = 0;
 
-    const currentDate = new Date().toISOString();
-    this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
-      this.toastr.success('Data Updated Successfully','Success');
-      const projectStatusControl = this.updateForm.get('editorStatus');
-        projectStatusControl?.valueChanges.subscribe(value => {
-          if (value === 'Completed') {
-            let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
-            let sales = this.updateForm.get('salesPerson')?.value;
-            let msgTitle = "Project Complete";
-            let msgBody = `${this.updateForm.get('custBussiness')?.value} by Editor`;
-            this.auth.sendNotificationsAdmin([selectedEmployee],sales,  msgTitle, msgBody, currentDate).subscribe((res: any) => {
-              if (res) {
-                this.toastr.success('Notification Send', 'Success'); 
-              } else {
-                this.toastr.error('Error Sending Notification','Error');
-              }
-            });
+        for (let i = 0; i < pointTable.length; i++) {
+          if (this.totalSec <= pointTable[i].second) {
+            matchedPoint = pointTable[i].points;
+            break;
           }
+        }
+
+        if (matchedPoint === 0 && pointTable.length > 0) {
+          matchedPoint = pointTable[pointTable.length - 1].points;
+        }
+        console.log("POINTS EARNED=======>>", matchedPoint);
+        // Set in form
+        this.updateForm.get('pointsEarned')?.setValue(matchedPoint);
+        this.updateForm.get('pointsCalculated')?.setValue(true);
+
+        this.toastr.success(`Points calculated: ${matchedPoint}`);
+
+        // Proceed with your actual form submission logic here
+        // e.g., this.auth.submitVideoForm(this.updateForm.value).subscribe(...)
+
+
+        const currentDate = new Date().toISOString();
+        this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
+          this.toastr.success('Data Updated Successfully', 'Success');
+          const projectStatusControl = this.updateForm.get('editorStatus');
+          projectStatusControl?.valueChanges.subscribe(value => {
+            if (value === 'Completed') {
+              let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
+              let sales = this.updateForm.get('salesPerson')?.value;
+              let msgTitle = "Project Complete";
+              let msgBody = `${this.updateForm.get('custBussiness')?.value} by Editor`;
+              this.auth.sendNotificationsAdmin([selectedEmployee], sales, msgTitle, msgBody, currentDate).subscribe((res: any) => {
+                if (res) {
+                  this.toastr.success('Notification Send', 'Success');
+                } else {
+                  this.toastr.error('Error Sending Notification', 'Error');
+                }
+              });
+            }
+          });
+          // Manually trigger the value change logic for projectStatus
+          projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+          this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-dashboard') })
+        }, (err) => {
+          console.log(err)
         });
-        // Manually trigger the value change logic for projectStatus
-        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
-      this.ngZone.run(() => { this.router.navigateByUrl('/editor-home/editor-dashboard') })
-    }, (err) => {
-      console.log(err)
-    })
+      } else {
+        this.toastr.warning('No points found for selected video type.');
+      }
+    }, err => {
+      console.error('Error fetching point table:', err);
+      this.toastr.error('Failed to fetch points. Try again.');
+    });
   }
 
   onChange(event: any) {

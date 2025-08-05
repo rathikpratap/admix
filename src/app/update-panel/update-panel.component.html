@@ -327,6 +327,12 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details"> Points: </span>
+                            <input type="text" class="form-control" formControlName="pointsEarned" placeholder="Enter points">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Remark: </span>
                             <textarea type="text" class="form-control" formControlName="remark"
                                 [ngClass]="{error:getControls('remark')?.errors && getControls('remark')?.touched}"
