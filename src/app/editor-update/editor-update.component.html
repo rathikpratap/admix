@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-12">
 
-        </div> 
+        </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="new-heading">
                 <h2> Enter Project Details </h2>
-            </div> 
+            </div>
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
                 <div class="user-details">
                     <div class="input-box">
@@ -16,18 +16,21 @@
                                 [ngClass]="{error:getControls('custCode')?.errors && getControls('custCode')?.touched}"
                                 placeholder="Enter Client Code">
                             <div *ngIf="getControls('custCode')?.errors && getControls('custCode')?.touched">
-                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client Code is Required </label>
+                                <label class="text-danger" *ngIf="getControls('custCode')?.errors?.['required']"> Client
+                                    Code is Required </label>
                             </div>
                         </div>
                     </div>
-                    <div class="input-box2"> 
+                    <div class="input-box2">
                         <div class="form-group2">
                             <span class="details"> Duration: </span>
                             <div class="input-flex">
-                                <input type="number" class="form-control" formControlName="videoDurationMinutes" placeholder="Enter" min="0">
+                                <input type="number" class="form-control" formControlName="videoDurationMinutes"
+                                    placeholder="Enter" min="0">
                                 <span class="details"> Minutes </span>
 
-                                <input type="number" class="form-control" formControlName="videoDurationSeconds" placeholder="Enter" min="0" max="59">
+                                <input type="number" class="form-control" formControlName="videoDurationSeconds"
+                                    placeholder="Enter" min="0" max="59">
                                 <span class="details"> Seconds </span>
                             </div>
                         </div>
@@ -35,7 +38,8 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Delivery Date: </span>
-                            <input type="date" class="form-control" formControlName="videoDeliveryDate" placeholder="Enter Delivery Date">
+                            <input type="date" class="form-control" formControlName="videoDeliveryDate"
+                                placeholder="Enter Delivery Date">
                         </div>
                     </div>
                     <div class="input-box">
@@ -53,18 +57,22 @@
                                 <!-- <option value="CGI">CGI</option> -->
                             </select>
                         </div>
-                    </div> 
+                    </div>
                     <div class="input-box1">
                         <div class="form-group">
-                            <span class="details"> Select Number of Videos </span>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One" id="one">
+                            <span class="details"> Select Number of Video Format </span>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="One"
+                                id="one">
                             <label for="one">One</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two" id="two">
-                            <label for="one">Two</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three" id="three">
-                            <label for="one">Three</label>
-                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="more than three" id="more">
-                            <label for="one">More than three</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Two"
+                                id="two">
+                            <label for="two">Two</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos" value="Three"
+                                id="three">
+                            <label for="three">Three</label>
+                            <input class="form-check-input" type="radio" formControlName="numberOfVideos"
+                                value="more than three" id="more">
+                            <label for="more">More than three</label>
                         </div>
                     </div>
                     <!-- <div class="input-box">
@@ -76,23 +84,27 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Project Status: </span>
-                            <select class="form-select" formControlName="editorStatus" aria-label="Default select example"
-                            [ngClass]="{error:getControls('editorStatus')?.errors && getControls('editorStatus')?.touched}">
-                            <option value="null">Select Project Status</option>
-                            <option value="Not Complete">Not Complete</option> 
-                            <option value="Completed">Completed</option>
-                        </select>
-                    <div *ngIf="getControls('editorStatus')?.errors && getControls('editorStatus')?.touched">
-                        <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']"> Project Status is Required </label>
-                    </div>
+                            <select class="form-select" formControlName="editorStatus"
+                                aria-label="Default select example"
+                                [ngClass]="{error:getControls('editorStatus')?.errors && getControls('editorStatus')?.touched}">
+                                <option value="null">Select Project Status</option>
+                                <option value="Not Complete">Not Complete</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <div *ngIf="getControls('editorStatus')?.errors && getControls('editorStatus')?.touched">
+                                <label class="text-danger" *ngIf="getControls('editorStatus')?.errors?.['required']">
+                                    Project Status is Required </label>
+                            </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="input-box1">
                         <div class="form-group">
                             <span class="details">Any Other Changes?(Only If their is any unneccessary Changes)</span>
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="yes" (change)="onChange($event)" id="yes">
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges"
+                                value="yes" (change)="onChange($event)" id="yes">
                             <label for="yes">Yes</label>
-                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no" (change)="onChange($event)" id="no">
+                            <input class="form-check-input" type="radio" formControlName="editorOtherChanges" value="no"
+                                (change)="onChange($event)" id="no">
                             <label for="no">No</label>
                         </div>
                     </div>
@@ -105,10 +117,11 @@
                     <div class="input-box hidden">
                         <div class="form-group">
                             <span class="details"> Company Name: </span>
-                            <input type="text" class="form-control" formControlName="companyName" placeholder="Company Name">
+                            <input type="text" class="form-control" formControlName="companyName"
+                                placeholder="Company Name">
                         </div>
                     </div>
-                    <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
+                    <!-- <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>
                             <textarea type="text" class="form-control" formControlName="youtubeLink" [ngClass]="{error:getControls('youtubeLink')?.errors && getControls('youtubeLink')?.touched}" placeholder="Enter youtubeLink"></textarea> 
@@ -116,7 +129,20 @@
                                 <label class="text-danger" *ngIf="getControls('youtubeLink')?.errors?.['required']"> Youtube Link is required</label>
                             </div> 
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed'">
+                        <div class="form-group">
+                            <span class="details">Upload Final Video File:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink">
+                                <a [href]="fileLink" target="_blank">View Uploaded File</a>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
                 <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
             </form>

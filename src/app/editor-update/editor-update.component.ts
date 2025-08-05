@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+// import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-editor-update',
@@ -19,6 +20,9 @@ export class EditorUpdateComponent implements OnInit {
   numberOfVideos: any;
   company: any;
   pointTable: { second: number, points: number }[] = [];
+  // uploading = false;
+  // uploadError = '';
+  // fileLink = '';
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -445,6 +449,13 @@ export class EditorUpdateComponent implements OnInit {
 
         if (matchedPoint === 0 && pointTable.length > 0) {
           matchedPoint = pointTable[pointTable.length - 1].points;
+        }
+        // 🔽 Add extra points based on number of videos
+        const numberOfVideos = this.updateForm.get('numberOfVideos')?.value;
+        if (numberOfVideos === 'Two') {
+          matchedPoint += 0.25;
+        } else if (numberOfVideos === 'Three') {
+          matchedPoint += 0.5;
         }
         console.log("POINTS EARNED=======>>", matchedPoint);
         // Set in form
