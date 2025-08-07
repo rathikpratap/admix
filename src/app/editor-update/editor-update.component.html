@@ -7,6 +7,19 @@
             <div class="new-heading">
                 <h2> Enter Project Details </h2>
             </div>
+            <!-- Spinner Overlay -->
+            <div *ngIf="uploading" class="upload-overlay">
+  <div class="upload-dialog">
+    <div class="spinner"></div>
+    <p>Uploading... {{ uploadProgress }}%</p>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+    </div>
+
+    <button class="cancel-button" (click)="cancelUpload()">Cancel Upload</button>
+  </div>
+</div>
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
                 <div class="user-details">
                     <div class="input-box">
@@ -121,7 +134,7 @@
                                 placeholder="Company Name">
                         </div>
                     </div>
-                    <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
+                    <!-- <div class="input-box" *ngIf=" updateForm.get('editorStatus')?.value === 'Completed'">
                         <div class="form-group">
                             <span class="details"> Youtube Video Link: </span>
                             <textarea type="text" class="form-control" formControlName="youtubeLink" [ngClass]="{error:getControls('youtubeLink')?.errors && getControls('youtubeLink')?.touched}" placeholder="Enter youtubeLink"></textarea> 
@@ -129,8 +142,8 @@
                                 <label class="text-danger" *ngIf="getControls('youtubeLink')?.errors?.['required']"> Youtube Link is required</label>
                             </div> 
                         </div>
-                    </div>
-                    <!-- <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed'">
+                    </div> -->
+                    <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed'">
                         <div class="form-group">
                             <span class="details">Upload Final Video File:</span>
                             <input type="file" class="form-control" (change)="onFileSelected($event)" />
@@ -141,6 +154,18 @@
                             <div *ngIf="fileLink">
                                 <a [href]="fileLink" target="_blank">View Uploaded File</a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('youtubeLink')?.value">
+                        <div class="form-group">
+                            <span class="details">Final Video Link:</span>
+                            <input type="text" class="form-control" placeholder="youtubeLink"
+                                [value]="updateForm.get('youtubeLink')?.value" readonly>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="uploading" class="progress-container">
+                        <div class="progress-bar" [style.width.%]="uploadProgress">
+                            {{ uploadProgress }}%
                         </div>
                     </div> -->
                 </div>

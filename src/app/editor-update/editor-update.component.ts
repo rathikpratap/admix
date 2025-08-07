@@ -4,7 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-// import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-editor-update',
@@ -20,9 +22,13 @@ export class EditorUpdateComponent implements OnInit {
   numberOfVideos: any;
   company: any;
   pointTable: { second: number, points: number }[] = [];
-  // uploading = false;
-  // uploadError = '';
-  // fileLink = '';
+  uploading = false;
+  uploadError: string | null = null;
+  fileLink = '';
+  uploadProgress = 0;
+  tempFilePath: string = '';
+  uploadSub?: Subscription;
+  uploadId: any;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -154,6 +160,121 @@ export class EditorUpdateComponent implements OnInit {
   getControls(name: any): AbstractControl | null {
     return this.updateForm.get(name)
   }
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (!file) return;
+
+  //   this.uploading = true;
+
+  //   const formData: FormData = new FormData();
+  //   formData.append('file', file);
+
+  //   const existingLink = this.updateForm.get('youtubeLink')?.value;
+  //   if (existingLink) {
+  //     formData.append('existingLink', existingLink);
+  //   }
+
+  //   this.auth.uploadToDrive(formData).subscribe({
+  //     next: (res: any) => {
+  //       this.uploading = false;
+
+  //       if (res.success && res.webViewLink) {
+  //         this.fileLink = res.webViewLink;
+  //         this.updateForm.get('youtubeLink')?.setValue(res.webViewLink);
+  //         this.toastr.success('File uploaded and link saved');
+  //       } else {
+  //         this.uploadError = 'Upload Failed';
+  //         this.toastr.error('Upload Failed');
+  //       }
+  //     },
+  //     error: (err: any) => {
+  //       this.uploading = false;
+  //       this.uploadError = 'Upload Error';
+  //       console.error(err);
+  //       this.toastr.error('Upload Error');
+  //     }
+  //   });
+  // }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    this.uploading = true;
+    this.uploadProgress = 0;
+    this.uploadError = null;
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    const uploadId = uuidv4();  // 🆕 unique ID
+    this.uploadId = uploadId;   // store for cancel
+    formData.append('uploadId', uploadId);
+
+    const existingLink = this.updateForm.get('youtubeLink')?.value;
+    if (existingLink) {
+      formData.append('existingLink', existingLink);
+    }
+
+    this.uploadSub = this.auth.uploadToDrive(formData).subscribe({
+      next: (event: HttpEvent<any>) => {
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+          this.uploadProgress = Math.round((event.loaded / event.total) * 100);
+        }
+
+        if (event.type === HttpEventType.Response) {
+          this.uploading = false;
+          const res = event.body;
+          //this.tempFilePath = res.tempFilePath;
+
+          if (res.success && res.webViewLink) {
+            this.fileLink = res.webViewLink;
+            this.updateForm.get('youtubeLink')?.setValue(res.webViewLink);
+
+            if (res.oldFileDeleted) {
+              this.toastr.info('Old file deleted');
+            }
+            this.toastr.success('New file uploaded successfully!');
+          } else {
+            this.toastr.error('Upload Failed');
+          }
+        }
+      },
+      error: (err) => {
+        this.uploading = false;
+        this.uploadProgress = 0;
+        this.toastr.error('Upload Error');
+        console.error(err);
+      }
+    });
+  }
+
+  cancelUpload() {
+    if (this.uploadSub) {
+      this.uploadSub.unsubscribe();
+      this.uploading = false;
+      this.uploadProgress = 0;
+      this.toastr.warning('Upload Cancelled');
+
+      // Tell backend to delete temp file
+      if (this.uploadId) {
+        this.auth.cancelUpload(this.uploadId).subscribe({
+          next: () => {
+            console.log('Temp file deleted');
+          },
+          error: (err) => {
+            console.error('Failed to delete temp file:', err);
+          }
+        });
+      }
+    }
+  }
+  ngOnDestroy() {
+  if (this.uploadSub) {
+    this.uploadSub.unsubscribe();
+  }
+}
 
   onUpdate() {
 

@@ -360,6 +360,19 @@ export class AuthService {
     )
   }
 
+  uploadToDrive(formData: any): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/uploadToDrive`, formData,{
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+  // uploadToDrive(formData: any): Observable<any>{
+  //   return this.http.post(`${appConfig.apiUrl}/auth/uploadToDrive`, formData);
+  // }
+  cancelUpload(uploadId: string): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/cancelUpload`, { uploadId });
+  }
+
   updateCustomerbyEditor(id: any, data: any): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/updateEditor/${id}`, data, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
