@@ -220,7 +220,7 @@ export class TeamLeadsComponent implements OnInit {
         this.rangeData = rangeData.rangeTotalData;
       })
     }
-  }
+  } 
 
   searchCustomer() {
     const projectStatus = this.searchForm.get('projectStatus')!.value;

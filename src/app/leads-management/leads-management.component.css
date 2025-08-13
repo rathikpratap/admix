@@ -1,0 +1,213 @@
+* {	
+	font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.nameCard{
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.title-heading{
+    color: #fff;
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+	border: 2px solid rgba(255,255,255,0.1);
+	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border-radius: 15px;
+    padding: 5px 10px 0px 10px;
+    width: fit-content;
+}
+/* .searchData{
+    display: flex;
+    justify-content: flex-end;
+}
+.searchData .details{
+    margin-right: 15px;
+     
+}*/
+.searchData .details input{
+    background: rgba(255,255, 255, 0.2);
+    color: #fff;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData .details label{
+    font-weight: 500;
+    color: #fff;
+    margin-right: 10px;
+}
+.searchData2 select{
+    background: rgba(255,255, 255, 0.2);
+    color: black;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData2 input{
+    background: rgba(255,255, 255, 0.2);
+    color: white;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 65%;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.searchData2 label{
+    color: white;
+}
+/* .searchData2{
+    margin-bottom: 30px;
+} */
+.assign-campaign {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.assign-campaign .form-group {
+  min-width: 200px; /* har dropdown ka minimum size */
+  flex: 1;
+}
+.categ form{
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.categ-left {
+    margin-right: 10px; /* Space between the label and the select box */
+    color: #fff;
+}
+
+.categ-right {
+     /* Make the select box take the remaining space */
+    
+    background: rgba(255,255, 255, 0);
+    color: #fff;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    transition: all 0.3s ease;
+}
+.categ form select option{
+    color: black;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Wrap on small screens */
+  gap: 1rem;       /* Space between items */
+  align-items: center; /* Align items by bottom edge */
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: center;
+  gap: 0.5rem;
+}
+.filter-item form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-item label {
+  white-space: nowrap; /* Prevent labels from breaking into two lines */
+}
+
+.filter-item select,
+.filter-item input[type="date"] {
+  color: white;
+  background-color: black;
+    min-width: 150px; /* Prevent too small dropdowns */
+}
+
+.searchData {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchData .details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn[aria-expanded="true"] {
+    background-color: green;
+}
+
+th{
+    background-color: rgba(255,255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+td{
+    background-color: rgba(255,255, 255, 0);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: none;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.table-scroll{
+    background-color: rgba(255,255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    margin-top: 25px;
+    overflow: scroll;
+}
+tr select{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+}
+tr select option{
+    color: black;
+}
+tr td textarea{
+    background-color: rgba(255,255, 255, 0.13);
+    color: #fff;
+}
+tr input{
+    background-color: rgba(255,255,255, 0.13);
+    color: #fff;
+}
+.pagination-controls{
+    text-align:center;
+    margin-top: 15px;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+  .assign-campaign {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -898,7 +898,7 @@ export class AuthService {
   }
   getAssignedCampaigns(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/get-assigned-campaigns`);
-}
+  }
   getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
@@ -1421,6 +1421,16 @@ export class AuthService {
       }
     });
   }
+  getSalesLeadbyFilter(filters: any):Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/filter`, filters);
+  }
+  allSalesLead():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/allSalesLeads`);
+  }
+  transferLeadtoSalesPerson(transferData:any):Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/transferLeadtoSalesPerson`, transferData);
+  }
+
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{
   //   return this.http.get(`${appConfig.apiUrl}/auth/getDateWhatsAppCampaign/${name}`,{
   //     params:{

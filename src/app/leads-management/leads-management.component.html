@@ -1,0 +1,655 @@
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Search By Name/No</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-12 col-12">
+        <div class="searchData2">
+            <form [formGroup]="searchForm" (ngSubmit)="searchCustomerByName()">
+                <input type="text" formControlName="mobile" placeholder="Enter Mobile / Name">
+                <button class="btn btn-sm btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Assign Campaign</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+        <div class="assign-campaign d-flex flex-wrap gap-3 align-items-end">
+
+            <!-- Campaign Select -->
+            <div class="form-group flex-fill searchData2">
+                <label><strong>Select Campaign</strong></label>
+                <select class="form-select" [(ngModel)]="selectedCampaign" (change)="onCampaignChange()">
+                    <option value="">-- Select Campaign --</option>
+                    <option *ngFor="let camp of campaigns" [ngValue]="camp">{{ camp.name }}</option>
+                </select>
+            </div>
+
+            <!-- SalesPerson 1 -->
+            <div class="form-group flex-fill searchData2" *ngIf="selectedCampaign">
+                <label>SalesPerson 1</label>
+                <select class="form-select" [(ngModel)]="selectedCampaign.salesPerson1">
+                    <option value="">Select Employee</option>
+                    <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{ emp.signupUsername }}</option>
+                </select>
+            </div>
+
+            <!-- SalesPerson 2 -->
+            <div class="form-group flex-fill searchData2" *ngIf="selectedCampaign">
+                <label>SalesPerson 2</label>
+                <select class="form-select" [(ngModel)]="selectedCampaign.salesPerson2">
+                    <option value="">Select Employee</option>
+                    <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{ emp.signupUsername }}</option>
+                </select>
+            </div>
+
+            <!-- Assign Button -->
+            <div *ngIf="selectedCampaign">
+                <button class="btn btn-primary" (click)="assign(selectedCampaign)">
+                    Assign
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-lg-1 col-md-2 col-sm-6 col-6">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Select Tag</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+        <div class="searchData2">
+            <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
+                <select formControlName="projectStatus">
+                    <option value="Null">Null</option>
+                    <option value="Null">Not Interested</option>
+                    <option value="Not Pick">Not Pick</option>
+                    <option value="Switch Off">Switch Off</option>
+                    <option value="Busy">Busy</option>
+                    <option value="Interested">Interested</option>
+                    <option value="Closing">Closing</option>
+                </select>
+                <button class="btn btn-sm btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-10 col-11">
+        <form [formGroup]="dateRangeForm" (submit)="onDate()" class="search-Form">
+            <div class="searchData">
+                <div class="details">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" formControlName="startDate" id="startDate">
+                </div>
+                <div class="details">
+                    <label for="endDate">End Date</label>
+                    <input type="date" formControlName="endDate" id="endDate">
+                </div>
+                <div class="details">
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+        <div class="categ">
+            <form [formGroup]="categForm">
+                <span class="categ-left"> Campaign Name:</span>
+                <select class="form-select categ-right" formControlName="campaign_name" aria-label="Default select example">
+                    <option value="null">Select Campaign</option>
+                    <option *ngFor="let camp of campaign_names" value="{{camp}}">{{camp}}</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-12 col-12">
+        <div class="categ">
+            <form [formGroup]="salesForm">
+                <span class="categ-left"> Sales Person:</span>
+                <select class="form-select categ-right" formControlName="salesPerson_name" aria-label="Default select example">
+                    <option value="null">Select Sales Person</option>
+                    <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{emp.signupUsername}}</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</div> -->
+<div class="filters-container">
+    <!-- Tag -->
+    <div class="filter-item">
+        <div class="nameCard title-heading">
+            <h6>Select Tag</h6>
+        </div>
+    </div>
+
+    <!-- Project Status -->
+    <div class="filter-item searchData2">
+        <form [formGroup]="searchForm">
+            <select formControlName="projectStatus">
+                <option value="">Null</option>
+                <option value="New Lead">New Lead</option>
+                <option value="Not Interested">Not Interested</option>
+                <option value="Not Pick">Not Pick</option>
+                <option value="Switch Off">Switch Off</option>
+                <option value="Busy">Busy</option>
+                <option value="Interested">Interested</option>
+                <option value="Closing">Closing</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Campaign -->
+    <div class="filter-item">
+        <form [formGroup]="categForm">
+            <!-- <span class="categ-left">Campaign Name:</span> -->
+            <select class="form-select categ-right" formControlName="campaign_name">
+                <option value="null">Select Campaign</option>
+                <option *ngFor="let camp of campaign_names" [value]="camp">{{camp}}</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Sales Person -->
+    <div class="filter-item">
+        <form [formGroup]="salesForm">
+            <!-- <span class="categ-left">Sales Person:</span> -->
+            <select class="form-select categ-right" formControlName="salesPerson_name">
+                <option value="null">Select Sales Person</option>
+                <option value="Unassigned">Unassigned</option>
+                <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{emp.signupUsername}}</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Date Range -->
+    <div class="filter-item">
+        <form [formGroup]="dateRangeForm" (submit)="onDate()" class="search-Form">
+            <div class="searchData">
+                <div class="details">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" formControlName="startDate" id="startDate">
+                </div>
+                <div class="details">
+                    <label for="endDate">End Date</label>
+                    <input type="date" formControlName="endDate" id="endDate">
+                </div>
+                <div class="details">
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="filter-item" *ngIf="this.selectedLeads.length > 0">
+        <form [formGroup]="salesForm" (ngSubmit)="transferLead()">
+            <span class="categ-left">Sales Person to transfer Lead:</span>
+            <select class="form-select categ-right" formControlName="transferSalesPerson_name">
+                <option value="null">Select Sales Person</option>
+                <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{emp.signupUsername}}</option>
+            </select>
+            <button class="btn btn-sm btn-primary" type="submit">Transfer</button>
+        </form>
+    </div>
+</div>
+<div class="row" *ngIf="this.rangeData">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col"> No. </th>
+                        <th scope="col"> Closing Date </th>
+                        <th scope="col"> Customer Name </th>
+                        <th scope="col"> Number </th>
+                        <th scope="col">SalesPerson</th>
+                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th scope="col"> State </th>
+                        <th scope="col"> Bussiness </th>
+                        <th scope="col"> Project Status </th>
+                        <th scope="col"> Remark </th>
+                        <th scope="col">Follow Ups</th>
+                        <th scope="col"> Create Quotation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of rangeData; let i = index">
+                        <td>
+                            <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{list.custName}}</td>
+                        <td>{{list.custNumb}}</td>
+                        <td>{{list.salesPerson}}</td>
+                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td>{{list.state}}</td>
+                        <!-- <td>{{list.custBussiness}}</td> -->
+                        <td>
+                            <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
+                                placeholder="Enter Bussiness">
+                        </td>
+                        <td>{{list.projectStatus}}</td>
+                        <td>{{list.remark}}
+                            <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="list.showFollow">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="accordion" id="accordionExample" *ngIf="list.showFollow">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Follow up #1
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup1"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                Follow up #2
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup2"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                Follow up #3
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup3"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                aria-expanded="false" aria-controls="collapseFour">
+                                                Follow up #4
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup4"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                (change)="updateProjectStatus(data)">
+                        </td> -->
+                        <!-- <td>
+                            <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                <option value="">Select</option>
+                                <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
+                                    {{team.salesTeamName}}</option>
+                            </select>
+                        </td> -->
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination-controls">
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage - 1)"
+                    [disabled]="currentPage === 1">
+                    Previous
+                </button>
+
+                <span style="margin: 0 10px;">
+                    Page {{currentPage}} of {{totalPages}}
+                </span>
+
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage + 1)"
+                    [disabled]="currentPage === totalPages">
+                    Next
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="this.customers">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col"> No. </th>
+                        <th scope="col"> Closing Date </th>
+                        <th scope="col"> Customer Name </th>
+                        <th scope="col"> Number </th>
+                        <th scope="col">SalesPerson</th>
+                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th scope="col"> State </th>
+                        <th scope="col"> Bussiness </th>
+                        <th scope="col"> Project Status </th>
+                        <th scope="col"> Remark </th>
+                        <th scope="col">Follow Ups</th>
+                        <th scope="col"> Create Quotation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of customers; let i = index">
+                        <td>
+                            <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{list.custName}}</td>
+                        <td>{{list.custNumb}}</td>
+                        <td>{{list.salesPerson}}</td>
+                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td>{{list.state}}</td>
+                        <!-- <td>{{list.custBussiness}}</td> -->
+                        <td>
+                            <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
+                                placeholder="Enter Bussiness">
+                        </td>
+                        <td>{{list.projectStatus}}</td>
+                        <td>{{list.remark}}
+                            <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="list.showFollow">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="accordion" id="accordionExample" *ngIf="list.showFollow">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Follow up #1
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup1"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                Follow up #2
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup2"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                Follow up #3
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup3"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                aria-expanded="false" aria-controls="collapseFour">
+                                                Follow up #4
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup4"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                (change)="updateProjectStatus(data)">
+                        </td> -->
+                        <!-- <td>
+                            <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                <option value="">Select</option>
+                                <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
+                                    {{team.salesTeamName}}</option>
+                            </select>
+                        </td> -->
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination-controls">
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage - 1)"
+                    [disabled]="currentPage === 1">
+                    Previous
+                </button>
+
+                <span style="margin: 0 10px;">
+                    Page {{currentPage}} of {{totalPages}}
+                </span>
+
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage + 1)"
+                    [disabled]="currentPage === totalPages">
+                    Next
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col"> No. </th>
+                        <th scope="col"> Closing Date </th>
+                        <th scope="col"> Customer Name </th>
+                        <th scope="col"> Number </th>
+                        <th scope="col">SalesPerson</th>
+                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th scope="col"> State </th>
+                        <th scope="col"> Bussiness </th>
+                        <th scope="col"> Project Status </th>
+                        <th scope="col"> Remark </th>
+                        <th scope="col">Follow Ups</th>
+                        <th scope="col"> Create Quotation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of paginatedLeads; let i = index">
+                        <td>
+                            <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{list.custName}}</td>
+                        <td>{{list.custNumb}}</td>
+                        <td>{{list.salesPerson}}</td>
+                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td>{{list.state}}</td>
+                        <!-- <td>{{list.custBussiness}}</td> -->
+                        <td>
+                            <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
+                                placeholder="Enter Bussiness">
+                        </td>
+                        <td>{{list.projectStatus}}</td>
+                        <td>{{list.remark}}
+                            <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="list.showFollow">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="accordion" id="accordionExample" *ngIf="list.showFollow">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Follow up #1
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup1"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                Follow up #2
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup2"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                Follow up #3
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup3"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                aria-expanded="false" aria-controls="collapseFour">
+                                                Follow up #4
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <textarea style="color: black;" [(ngModel)]="list.followup4"
+                                                    (change)="updateProjectStatus(list)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <input type="datetime-local" [(ngModel)]="list.callReminderDate"
+                                (change)="updateProjectStatus(data)">
+                        </td> -->
+                        <!-- <td>
+                            <select [(ngModel)]="list.newSalesTeam" (change)="transferLead(list,list.newSalesTeam)">
+                                <option value="">Select</option>
+                                <option *ngFor="let team of emp" value="{{team.salesTeamName}}">
+                                    {{team.salesTeamName}}</option>
+                            </select>
+                        </td> -->
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(list._id)">Create</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination-controls">
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage - 1)"
+                    [disabled]="currentPage === 1">
+                    Previous
+                </button>
+
+                <span style="margin: 0 10px;">
+                    Page {{currentPage}} of {{totalPages}}
+                </span>
+
+                <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage + 1)"
+                    [disabled]="currentPage === totalPages">
+                    Next
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

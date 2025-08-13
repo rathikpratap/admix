@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-//import { AuthService } from '../service/auth.service';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,7 @@ export class SalesSideNavComponent {
 
   tok: any;
   currentTeam: any;
+  signupRole: any;
   @Input() salesSideNavStatus: boolean = false;
   list1 = [
     {
@@ -57,8 +58,8 @@ export class SalesSideNavComponent {
     },
     {
       number: '8',
-      name: 'Attendance', 
-      icon:'bi bi-postcard',
+      name: 'Attendance',
+      icon: 'bi bi-postcard',
       route: '/salesHome/attendance'
     },
     {
@@ -72,9 +73,15 @@ export class SalesSideNavComponent {
       name: 'Edit Invoice',
       icon: 'bi bi-pencil-square',
       route: '/salesHome/download_invoice'
+    },
+    {
+      number: '11',
+      name: 'Leads Management',
+      icon: 'bi bi-incognito',
+      route: '/salesHome/leads-management'
     }
   ];
-  
+
   list3 = [
     {
       number: '1',
@@ -110,21 +117,33 @@ export class SalesSideNavComponent {
     }
   ];
   list = this.list1;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
+
+    this.auth.getProfile().subscribe((res: any) => {
+      this.signupRole = res?.data?.signupRole || '';
+      console.log("SIDE SIGHUPROLE=========>>", this.signupRole);
+
+      if (!this.signupRole.includes('Lead Manager')) {
+        this.list1 = this.list1.filter(item => item.number !== '11');
+      }
+      this.updateListBasedOnRoute();
+    })
+    // const signupRole = localStorage.getItem('signupRole') || '';
+
     this.router.events.subscribe(() => {
       this.updateListBasedOnRoute();
     });
-    this.updateListBasedOnRoute();
+    // this.updateListBasedOnRoute();
   }
   private updateListBasedOnRoute(): void {
     const currentUrl = this.router.url;
-    if(currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects'){
+    if (currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects') {
       this.list = this.list3;
-    }else if(currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam'){
+    } else if (currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam') {
       this.list = this.list4;
-    }else{
+    } else {
       this.list = this.list1;
     }
   }

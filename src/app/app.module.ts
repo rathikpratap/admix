@@ -86,6 +86,7 @@ import { TeamLeaderProjectsComponent } from './team-leader-projects/team-leader-
 import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.component';
 import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
+import { LeadsManagementComponent } from './leads-management/leads-management.component';
 
  
 @NgModule({
@@ -161,7 +162,8 @@ import { AssignCampaignComponent } from './assign-campaign/assign-campaign.compo
     TeamLeaderProjectsComponent,
     SalesWorkTeamComponent,
     NewB2bProjectsComponent,
-    AssignCampaignComponent
+    AssignCampaignComponent,
+    LeadsManagementComponent
     ],
   imports: [
     BrowserModule,

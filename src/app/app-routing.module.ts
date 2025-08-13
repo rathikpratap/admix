@@ -90,6 +90,7 @@ import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.compon
 import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
 import { PointsTableComponent } from './points-table/points-table.component';
+import { LeadsManagementComponent } from './leads-management/leads-management.component';
 
 const routes: Routes = [
   {
@@ -352,6 +353,10 @@ const routes: Routes = [
       {
         path: 'viewInvoice/:id',
         component: ViewInvoiceComponent
+      },
+      {
+        path: 'leads-management',
+        component: LeadsManagementComponent
       }
     ]
   },
