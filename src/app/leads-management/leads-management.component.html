@@ -1,3 +1,9 @@
+<div class="upload-container">
+    <h2>📂 Upload Leads Excel</h2>
+    <input type="file" (change)="onFileSelected($event)" accept=".xlsx,.xls" />
+    <button (click)="uploadFile()">Upload</button>
+    <p>{{ message }}</p>
+</div>
 <div class="row">
     <div class="col-lg-2 col-md-3 col-sm-12 col-12">
         <div class="nameCard">
@@ -49,6 +55,42 @@
                     <option value="">Select Employee</option>
                     <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{ emp.signupUsername }}</option>
                 </select>
+            </div>
+
+            <!-- Add Tag -->
+            <div class="form-group flex-fill searchData2" *ngIf="selectedCampaign">
+                <label>Select Tag</label>
+                <select class="form-select" [(ngModel)]="selectedCampaign.tag" (change)="onTagChange($event)">
+                    <option value="">Select Tag</option>
+                    <option value="New Tag">Add New Tag</option>
+                    <option *ngFor="let tag of tagNames" [value]="tag.tagName">{{ tag.tagName }}</option>
+                </select>
+            </div>
+
+            <!-- Bootstrap Modal -->
+            <div class="modal fade modal-style" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form [formGroup]="tagForm" (ngSubmit)="saveTag()">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="tagModalLabel">Add New Tag</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div [ngClass]="className" role="alert">{{message}}</div>
+                                <div class="form-group">
+                                    <label>Tag Name</label>
+                                    <input type="text" class="form-control" formControlName="tagName"
+                                        placeholder="Enter Tag Name">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success" [disabled]="isProcess">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <!-- Assign Button -->
@@ -138,6 +180,9 @@
             <select formControlName="projectStatus">
                 <option value="">Null</option>
                 <option value="New Lead">New Lead</option>
+                <option value="Contacted">Contacted</option>
+                    <option value="Demo Sent">Demo Sent</option>
+                    <option value="Maybe Later">Maybe Later</option>
                 <option value="Not Interested">Not Interested</option>
                 <option value="Not Pick">Not Pick</option>
                 <option value="Switch Off">Switch Off</option>
@@ -208,6 +253,7 @@
                     <tr>
                         <th scope="col">Select</th>
                         <th scope="col"> No. </th>
+                        <th scope="col">Tag</th>
                         <th scope="col"> Closing Date </th>
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
@@ -227,6 +273,7 @@
                             <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
                         </td>
                         <td>{{i+1}}</td>
+                        <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
@@ -359,6 +406,7 @@
                     <tr>
                         <th scope="col">Select</th>
                         <th scope="col"> No. </th>
+                        <th scope="col">Tag</th>
                         <th scope="col"> Closing Date </th>
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
@@ -378,6 +426,7 @@
                             <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
                         </td>
                         <td>{{i+1}}</td>
+                        <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
@@ -510,6 +559,7 @@
                     <tr>
                         <th scope="col">Select</th>
                         <th scope="col"> No. </th>
+                        <th scope="col">Tag</th>
                         <th scope="col"> Closing Date </th>
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
@@ -529,6 +579,7 @@
                             <input type="checkbox" [checked]="isSelected(list)" (change)="toggleRowSelection(list)">
                         </td>
                         <td>{{i+1}}</td>
+                        <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>

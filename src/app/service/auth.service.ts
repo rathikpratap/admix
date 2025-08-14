@@ -887,7 +887,12 @@ export class AuthService {
   }
 
   getTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`, {headers});
   }
   getWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`);
@@ -948,7 +953,12 @@ export class AuthService {
   }
 
   getYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`,{headers});
   }
   getYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads/${name}`);
@@ -965,7 +975,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayWhatsApp-leads/${name}`);
   }
   getOneYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads/${name}`,{headers});
   }
 
   getSalesOneYesterdayTeamWork(): Observable<any> {
@@ -976,7 +991,12 @@ export class AuthService {
   }
 
   getTwoYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`,{headers});
   }
   getTwoYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads/${name}`);
@@ -990,7 +1010,12 @@ export class AuthService {
   }
 
   getThreeYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`,{headers});
   }
   getThreeYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads/${name}`);
@@ -1004,7 +1029,12 @@ export class AuthService {
   }
 
   getFourYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`,{headers});
   }
   getFourYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads/${name}`);
@@ -1018,7 +1048,12 @@ export class AuthService {
   }
 
   getFiveYesterdayTeamLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`,{headers});
   }
   getFiveYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads/${name}`);
@@ -1415,8 +1450,13 @@ export class AuthService {
   }
 
   dateCamapign(selectDate:string, name: string):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
     return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaign/${name}`,{
-      params: {
+      headers, params: {
         selectDate
       }
     });
@@ -1429,6 +1469,86 @@ export class AuthService {
   }
   transferLeadtoSalesPerson(transferData:any):Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/transferLeadtoSalesPerson`, transferData);
+  }
+
+  uploadExcel(file: File): Observable<Blob> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post(`${appConfig.apiUrl}/auth/upload-excel`, formData, {
+      responseType: 'blob' // expect file back
+    });
+  }
+
+  newTag(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/newTag`, data);
+  }
+  getTag(): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getTagNames`);
+  }
+  getTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWo`,{ headers});
+  }
+  getYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoYes`,{headers});
+  }
+  getOneYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoOne`,{headers});
+  }
+  getTwoYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoTwo`,{headers});
+  }
+  getThreeYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWothree`,{headers});
+  }
+  getFourYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFour`,{headers});
+  }
+  getFiveYesterdayTeamLeadWo(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFive`,{headers});
+  }
+  dateWo(selectDate:string):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaignWo`,{headers, params:{selectDate}});
   }
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{

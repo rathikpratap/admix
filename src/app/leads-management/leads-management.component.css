@@ -204,7 +204,12 @@ tr input{
     margin-top: 15px;
     color: #fff;
 }
-
+.upload-container{
+    color: white;
+}
+.modal-style{
+    margin-top: 50px;
+}
 @media (max-width: 768px) {
   .assign-campaign {
     flex-direction: column;

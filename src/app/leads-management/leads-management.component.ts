@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+declare var bootstrap: any; // If using plain Bootstrap JS
 
 @Component({
   selector: 'app-leads-management',
@@ -46,6 +47,18 @@ export class LeadsManagementComponent implements OnInit {
     transferSalesPerson_name: new FormControl("null")
   });
 
+  file: File | null = null;
+  message = '';
+
+  Tagmessage = '';
+  className = '';
+  isProcess = false;
+  tagNames:any;
+
+  tagForm = new FormGroup({
+    tagName: new FormControl("")
+  });
+
   ngOnInit() {
     this.auth.allSalesLead().subscribe((res: any) => {
       this.allSalesLead = res;
@@ -83,7 +96,8 @@ export class LeadsManagementComponent implements OnInit {
         name: camp.campaignName,
         assignedEmployees: camp.employees || [],
         salesPerson1: camp.employees?.[0] || "",
-        salesPerson2: camp.employees?.[1] || ""
+        salesPerson2: camp.employees?.[1] || "",
+        tag: camp.tag || []
       }));
       console.log("ASSIGNED CAMPAIGNS=====>>", this.campaigns);
     });
@@ -96,6 +110,9 @@ export class LeadsManagementComponent implements OnInit {
       this.allSalesLead = res;
       this.dynamicFields = this.getDynamicFields(res);
       console.log("ALL LEADS=======>>", this.allSalesLead);
+    });
+    this.auth.getTag().subscribe((res:any) => {
+      this.tagNames = res;
     });
   }
 
@@ -120,7 +137,8 @@ export class LeadsManagementComponent implements OnInit {
     }
     const payload = {
       campaignName: camp.name,
-      employees: selectedEmployees
+      employees: selectedEmployees,
+      tag: camp.tag
     }
     this.auth.assignCampaign(payload).subscribe((res: any) => {
       this.toastr.success("Campaign Assigned Successfully", 'success');
@@ -193,11 +211,11 @@ export class LeadsManagementComponent implements OnInit {
 
     const targetSalesPerson = this.salesForm.value.transferSalesPerson_name;
 
-    if(!targetSalesPerson || targetSalesPerson === "null"){
+    if (!targetSalesPerson || targetSalesPerson === "null") {
       this.toastr.error("Please select a sales person to transfer");
       return;
     }
-    if(this.selectedLeads.length === 0){
+    if (this.selectedLeads.length === 0) {
       this.toastr.error(" Please select at least One Lead");
       return;
     }
@@ -206,14 +224,14 @@ export class LeadsManagementComponent implements OnInit {
       leadIds: this.selectedLeads.map(lead => lead._id),
       transferTo: targetSalesPerson
     };
-    
+
     this.auth.transferLeadtoSalesPerson(transferData).subscribe({
-      next: (res:any)=>{
+      next: (res: any) => {
         this.toastr.success("Transfer Successfully", "Success");
 
         this.selectedLeads = [];
         this.selectAllOnPage = false;
-      }, error: (err) =>{
+      }, error: (err) => {
         this.toastr.error("Transfer Fail", 'Error');
         console.error(err);
       }
@@ -263,5 +281,82 @@ export class LeadsManagementComponent implements OnInit {
 
     // Update "select all" checkbox status
     this.selectAllOnPage = this.paginatedLeads.every(lead => this.isSelected(lead));
+  }
+
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (!this.file) {
+      this.message = "⚠️ Please select a file first!";
+      return;
+    }
+
+    this.auth.uploadExcel(this.file).subscribe({
+      next: (res: Blob) => {
+        if (res.type === 'application/json') {
+          // text response (all matched)
+          this.message = "✅ All leads matched and updated!";
+        } else {
+          // file response (unmatched leads Excel)
+          const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'unmatched_leads.xlsx';
+          link.click();
+          this.message = "⚠️ Some leads unmatched. File downloaded!";
+        }
+      },
+      error: (err) => {
+        this.message = "❌ Error uploading file.";
+      }
+    });
+  }
+
+  onTagChange(event: any) {
+    if (event.target.value === 'New Tag') {
+      // Open Bootstrap modal
+      let modal = new bootstrap.Modal(document.getElementById('tagModal'));
+      modal.show();
+    }
+  }
+
+  saveTag() {
+    this.isProcess = true;
+    const data = this.tagForm.value;
+
+    this.auth.newTag(data).subscribe({
+      next: (res: any) => {
+        this.isProcess = false;
+        if (res.success) {
+          this.Tagmessage = "Tag has been Created!!";
+          this.className = 'alert alert-success';
+
+          // Add new tag to list
+          const newTag = { tagName: data.tagName };
+          this.tagNames.push(newTag);
+
+          // Select new tag automatically
+          this.selectedCampaign.tag = data.tagName;
+
+          // Close modal
+          let modal = bootstrap.Modal.getInstance(document.getElementById('tagModal'));
+          modal.hide();
+
+          // Reset form
+          this.tagForm.reset();
+        } else {
+          this.Tagmessage = res.message;
+          this.className = 'alert alert-danger';
+        }
+      },
+      error: () => {
+        this.isProcess = false;
+        this.Tagmessage = "Server Error";
+        this.className = 'alert alert-danger';
+      }
+    });
   }
 }
