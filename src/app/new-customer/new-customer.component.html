@@ -249,7 +249,8 @@
                                 <option value="Video Editing">Video Editing</option>
                                 <option value="Video Changes">Video Changes</option> 
                                 <option value="Video Done">Video Done</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Payment Pending">Payment Pending</option>
+                                <option value="Completed" [disabled]="+(customerForm.get('remainingAmount')?.value || 0) > 0">Completed</option>
                             </select>
                             <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
                                 <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']"> Project Status is Required </label>

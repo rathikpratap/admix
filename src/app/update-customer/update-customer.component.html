@@ -107,6 +107,24 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Graphics Count</span>
+                            <input type="number" class="form-control" formControlName="graphicsCount" placeholder="Enter number of graphics">
+                        </div>
+                    </div>
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Video Count</span>
+                            <input type="number" class="form-control" formControlName="videosCount" placeholder="Enter number of graphics">
+                        </div>
+                    </div>
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                        <div class="form-group">
+                            <span class="details">Reels Count</span>
+                            <input type="number" class="form-control" formControlName="reelsCount" placeholder="Enter number of graphics">
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Bill Type: </span>
@@ -257,7 +275,8 @@
                                 <option value="Video Editing">Video Editing</option>
                                 <option value="Video Changes">Video Changes</option>
                                 <option value="Video Done">Video Done</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Payment Pending">Payment Pending</option>
+                                <option value="Completed" [disabled]="+(updateForm.get('remainingAmount')?.value || 0) > 0">Completed</option>
                             </select>
                             <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
                                 <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']">

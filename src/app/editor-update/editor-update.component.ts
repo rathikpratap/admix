@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-editor-update',
@@ -29,6 +29,8 @@ export class EditorUpdateComponent implements OnInit {
   tempFilePath: string = '';
   uploadSub?: Subscription;
   uploadId: any;
+  isCustomer: boolean = false;
+  isTask: boolean = false;
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
@@ -58,68 +60,31 @@ export class EditorUpdateComponent implements OnInit {
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
       console.log("READCUST======>>", res);
 
+      if (res.custCode || res?._doc?.custCode) {
+        this.isCustomer = true;
+      } else if (res.taskName) {
+        this.isTask = true;
+      }
+
       this.updateForm.patchValue({
-        custCode: res['custCode'] || res?._doc?.custCode,
-        custBussiness: res['custBussiness'] || res?._doc?.custBussiness,
-        videoDuration: res['videoDuration'] || res?._doc?.videoDuration,
-        videoDeliveryDate: this.formatDate(res['videoDeliveryDate'] || res?._doc?.videoDeliveryDate),
-        videoType: res['videoType'] || res?._doc?.videoType,
-        editorPayment: res['editorPayment'] || res?._doc?.editorPayment,
-        editorStatus: res['editorStatus'] || res?._doc?.editorStatus,
-        editorOtherChanges: res['editorOtherChanges'] || res?._doc?.editorOtherChanges,
-        editorChangesPayment: res['editorChangesPayment'] || res?._doc?.editorChangesPayment,
-        totalEditorPayment: res['totalEditorPayment'] || res?._doc?.totalEditorPayment,
-        youtubeLink: res['youtubeLink'] || res?._doc?.youtubeLink,
-        videoDurationMinutes: res['videoDurationMinutes'] || res?._doc?.videoDurationMinutes,
-        videoDurationSeconds: res['videoDurationSeconds'] || res?._doc?.videoDurationSeconds,
-        numberOfVideos: res['numberOfVideos'] || res?._doc?.numberOfVideos,
-        companyName: res['companyName'] || res?._doc?.companyName,
-        salesPerson: res['salesPerson'] || res?._doc?.salesPerson
+        custCode: res['custCode'] || res?._doc?.custCode || res?.SrNo,
+        custBussiness: res['custBussiness'] || res?._doc?.custBussiness || res?.taskName,
+        videoDuration: res['videoDuration'] || res?._doc?.videoDuration || res?.taskDuration,
+        videoDeliveryDate: this.formatDate(res['videoDeliveryDate'] || res?._doc?.videoDeliveryDate || res?.taskDeliveryDate),
+        videoType: res['videoType'] || res?._doc?.videoType || res?.taskVideoType,
+        editorPayment: res['editorPayment'] || res?._doc?.editorPayment || res?.taskEditorPayment,
+        editorStatus: res['editorStatus'] || res?._doc?.editorStatus || res?.graphicStatus,
+        editorOtherChanges: res['editorOtherChanges'] || res?._doc?.editorOtherChanges || res?.taskEditorOtherChanges,
+        editorChangesPayment: res['editorChangesPayment'] || res?._doc?.editorChangesPayment || res?.taskEditorChangespayment,
+        totalEditorPayment: res['totalEditorPayment'] || res?._doc?.totalEditorPayment || res?.taskTotalEditorPayment,
+        youtubeLink: res['youtubeLink'] || res?._doc?.youtubeLink || res?.taskYoutubeLink,
+        videoDurationMinutes: res['videoDurationMinutes'] || res?._doc?.videoDurationMinutes || res?.taskVideoDurationMinutes,
+        videoDurationSeconds: res['videoDurationSeconds'] || res?._doc?.videoDurationSeconds || res?.taskVideoDurationSeconds,
+        numberOfVideos: res['numberOfVideos'] || res?._doc?.numberOfVideos || res?.taskNumberOfVideos,
+        companyName: res['companyName'] || res?._doc?.companyName || res?.taskCompanyName,
+        salesPerson: res['salesPerson'] || res?._doc?.salesPerson || res?.graphicDesigner
       });
     });
-
-    // if(type === 'customer'){
-    //   this.auth.getCustomer(this.getId).subscribe((res: any) => {
-
-    //   this.updateForm.patchValue({
-    //     custCode: res['custCode'],
-    //     custBussiness: res['custBussiness'],
-    //     videoDuration: res['videoDuration'],
-    //     videoDeliveryDate: this.formatDate(res['videoDeliveryDate']),
-    //     videoType: res['videoType'],
-    //     editorPayment: res['editorPayment'],
-    //     editorStatus: res['editorStatus'],
-    //     editorOtherChanges: res['editorOtherChanges'],
-    //     editorChangesPayment: res['editorChangesPayment'],
-    //     totalEditorPayment: res['totalEditorPayment'],
-    //     youtubeLink: res['youtubeLink'],
-    //     videoDurationMinutes: res['videoDurationMinutes'],
-    //     videoDurationSeconds: res['videoDurationSeconds'],
-    //     numberOfVideos: res['numberOfVideos'],
-    //     companyName: res['companyName'],
-    //     salesPerson: res['salesPerson']
-    //   });
-    // });
-    // } else if(type === 'b2b'){
-    //   this.auth.getB2b(this.getId).subscribe((res:any)=>{
-    //     this.updateForm.patchValue({
-    //       custCode: res['b2bProjectCode'],
-    //       videoDuration: res['videoDuration'],
-    //       videoDeliveryDate: this.formatDate(res['b2bProjectDate']),
-    //       videoType: res['b2bVideoType'],
-    //       editorStatus: res['projectStatus'],
-    //       editorOtherChanges: res['editorOtherChanges'],
-    //       youtubeLink: res['youtubeLink'],
-    //       videoDurationMinutes: res['b2bVideoDurationMinutes'],
-    //       videoDurationSeconds: res['b2bVideoDurationSeconds'],
-    //       numberOfVideos: res['numberOfVideos'],
-    //       companyName: res['companyName'],
-    //       editorPayment: res['editorPayment'],
-    //       editorChangesPayment: res['editorChangesPayment'],
-    //       totalEditorPayment: res['totalEditorPayment']
-    //     });
-    //   });
-    // }
 
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
@@ -160,42 +125,6 @@ export class EditorUpdateComponent implements OnInit {
   getControls(name: any): AbstractControl | null {
     return this.updateForm.get(name)
   }
-
-  // onFileSelected(event: any) {
-  //   const file: File = event.target.files[0];
-  //   if (!file) return;
-
-  //   this.uploading = true;
-
-  //   const formData: FormData = new FormData();
-  //   formData.append('file', file);
-
-  //   const existingLink = this.updateForm.get('youtubeLink')?.value;
-  //   if (existingLink) {
-  //     formData.append('existingLink', existingLink);
-  //   }
-
-  //   this.auth.uploadToDrive(formData).subscribe({
-  //     next: (res: any) => {
-  //       this.uploading = false;
-
-  //       if (res.success && res.webViewLink) {
-  //         this.fileLink = res.webViewLink;
-  //         this.updateForm.get('youtubeLink')?.setValue(res.webViewLink);
-  //         this.toastr.success('File uploaded and link saved');
-  //       } else {
-  //         this.uploadError = 'Upload Failed';
-  //         this.toastr.error('Upload Failed');
-  //       }
-  //     },
-  //     error: (err: any) => {
-  //       this.uploading = false;
-  //       this.uploadError = 'Upload Error';
-  //       console.error(err);
-  //       this.toastr.error('Upload Error');
-  //     }
-  //   });
-  // }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -271,12 +200,16 @@ export class EditorUpdateComponent implements OnInit {
     }
   }
   ngOnDestroy() {
-  if (this.uploadSub) {
-    this.uploadSub.unsubscribe();
+    if (this.uploadSub) {
+      this.uploadSub.unsubscribe();
+    }
   }
-}
 
   onUpdate() {
+
+    //new
+    const payload = this.updateForm.value;
+    let finalPayload: any = {};
 
     const Minsec: number = this.updateForm.get('videoDurationMinutes')?.value || 0;
     const sec: number = this.updateForm.get('videoDurationSeconds')?.value || 0;
@@ -588,9 +521,52 @@ export class EditorUpdateComponent implements OnInit {
         // Proceed with your actual form submission logic here
         // e.g., this.auth.submitVideoForm(this.updateForm.value).subscribe(...)
 
+        if (this.isCustomer) {
+          finalPayload = {
+            custCode: payload.custCode,
+            custBussiness: payload.custBussiness,
+            videoDurationMinutes: payload.videoDurationMinutes,
+            videoDurationSeconds: payload.videoDurationSeconds,
+            videoDeliveryDate: payload.videoDeliveryDate,
+            videoType: payload.videoType,
+            editorPayment: payload.editorPayment,
+            editorStatus: payload.editorStatus,
+            editorOtherChanges: payload.editorOtherChanges,
+            editorChangesPayment: payload.editorChangesPayment,
+            totalEditorPayment: payload.totalEditorPayment,
+            youtubeLink: payload.youtubeLink,
+            numberOfVideos: payload.numberOfVideos,
+            companyName: payload.companyName,
+            salesPerson: payload.salesPerson,
+            pointsEarned: this.updateForm.get('pointsEarned')?.value,
+            pointsCalculated: true
+          };
+        }
+
+        if (this.isTask) {
+          finalPayload = {
+            SrNo: payload.custCode,
+            taskName: payload.custBussiness,
+            taskVideoDurationMinutes: payload.videoDurationMinutes,
+            taskVideoDurationSeconds: payload.videoDurationSeconds,
+            taskDeliveryDate: payload.videoDeliveryDate,
+            taskVideoType: payload.videoType,
+            taskEditorPayment: payload.editorPayment,
+            graphicStatus: payload.editorStatus,
+            taskEditorOtherChanges: payload.editorOtherChanges,
+            taskEditorChangesPayment: payload.editorChangesPayment,
+            taskTotalEditorPayment: payload.totalEditorPayment,
+            taskYoutubeLink: payload.youtubeLink,
+            taskNumberOfVideos: payload.numberOfVideos,
+            taskCompanyName: payload.companyName,
+            graphicDesigner: payload.salesPerson,
+            pointsEarned: this.updateForm.get('pointsEarned')?.value,
+            pointsCalculated: true
+          };
+        }
 
         const currentDate = new Date().toISOString();
-        this.auth.updateCustomerbyEditor(this.getId, this.updateForm.value).subscribe((res: any) => {
+        this.auth.updateCustomerbyEditor(this.getId, finalPayload).subscribe((res: any) => {
           this.toastr.success('Data Updated Successfully', 'Success');
           const projectStatusControl = this.updateForm.get('editorStatus');
           projectStatusControl?.valueChanges.subscribe(value => {

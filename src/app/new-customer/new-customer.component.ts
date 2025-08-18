@@ -137,7 +137,7 @@ export class NewCustomerComponent implements OnInit {
     Qr : new FormControl("",[Validators.required]),
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
-    reelsCount: new FormControl(0)
+    reelsCount: new FormControl(0) 
   });
 
   b2bCustomerForm = new FormGroup({

@@ -76,8 +76,8 @@ export class EditorDashboardComponent implements OnInit {
       this.mediumLength = res.length;
     });
     this.auth.changesEditorProjects().subscribe((res: any) => {
-      this.changes = res;
-      this.changesLength = res.length;
+      this.changes = [...res.changesProjects, ...res.task];
+      this.changesLength = this.changes.length;
     });
 
     this.auth.getTodayEntriesEditor().subscribe((todayRes: any) => {
@@ -91,13 +91,13 @@ export class EditorDashboardComponent implements OnInit {
       console.error('Error Fetching today Entreis', error);
     });
     this.auth.getEditorData().subscribe((list: any) => {
-      this.data = [...list.products, ...list.b2bProducts];
+      this.data = [...list.products, ...list.b2bProducts, ...list.task];
       this.dataLength = this.data.length;
-    });
+    }); 
     this.auth.getCompleteEditorData().subscribe((list: any) => {
       // this.completed = list;
       // this.completeLength = this.completed.length;
-      this.completed = [...list.products, ...list.b2bProducts];
+      this.completed = [...list.products, ...list.b2bProducts, ...list.task];
       this.completeLength = this.completed.length;
     });
     this.auth.allEditorProjects().subscribe((res: any) => {
@@ -123,6 +123,9 @@ export class EditorDashboardComponent implements OnInit {
       window.location.href = url;
     } else if (type === 'b2b') {
       const url = `/editor-home/editor-b2b-update/${userId}`;
+      window.location.href = url;
+    }else {
+      const url = `/editor-home/editor-update/${userId}`
       window.location.href = url;
     }
 

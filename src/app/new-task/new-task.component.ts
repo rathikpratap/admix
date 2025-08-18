@@ -38,7 +38,8 @@ export class NewTaskComponent {
       }
     });
     this.auth.allEmployee().subscribe((res:any)=>{
-      this.Graphicemp = res.filter((emp:any)=> emp.signupRole === 'Graphic Designer');
+      this.Graphicemp = res.filter((emp:any)=> emp.signupRole && emp.signupRole.includes('Graphic Designer') || emp.signupRole.includes('Editor'));
+      console.log("GRAPHIC======>>", this.Graphicemp);
     });
   }
 

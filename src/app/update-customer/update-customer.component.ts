@@ -60,7 +60,10 @@ export class UpdateCustomerComponent implements OnInit{
     restPaymentDate: new FormControl("", [Validators.required]), 
     leadsCreatedDate: new FormControl(""),
     companyName: new FormControl(""),
-    Qr: new FormControl("",[Validators.required])
+    Qr: new FormControl("",[Validators.required]),
+    graphicsCount: new FormControl(0),
+    videosCount: new FormControl(0),
+    reelsCount: new FormControl(0)
   })
 
   updateEmbeddedVideoUrl() {

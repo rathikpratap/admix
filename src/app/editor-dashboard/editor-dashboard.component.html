@@ -243,14 +243,14 @@
                         <tbody>
                             <tr *ngFor="let user of data; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{user.custCode || user.b2bProjectCode}}</td>
-                                <td>{{user.custBussiness || user.b2bProjectName}}</td>
-                                <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
-                                <td>{{user.videoType || user.b2bVideoType}}</td>
-                                <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.custCode || user.b2bProjectCode || user.SrNo}}</td>
+                                <td>{{user.custBussiness || user.b2bProjectName || user.taskName}}</td>
+                                <td>{{user.editorPassDate || user.b2bEditorPassDate || user.assignedDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes || user.taskVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds || user.taskVideoDurationSeconds}}</td>
+                                <td>{{user.videoType || user.b2bVideoType || user.taskVideoType}}</td>
+                                <td>{{user.videoDeliveryDate || user.taskDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.editorStatus || user.projectStatus}}</td>
+                                <td>{{user.editorStatus || user.projectStatus || user.graphicStatus}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)"> Update</button>
                                 </td>
@@ -279,14 +279,14 @@
                         <tbody>
                             <tr *ngFor="let user of changes; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{user.custCode || user.b2bProjectCode}}</td>
-                                <td>{{user.custBussiness || user.b2bProjectName}}</td>
-                                <td>{{user.editorPassDate || user.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds}}</td>
-                                <td>{{user.videoType || user.b2bVideoType}}</td>
-                                <td>{{user.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.custCode || user.b2bProjectCode || user.SrNo}}</td>
+                                <td>{{user.custBussiness || user.b2bProjectName || user.taskName}}</td>
+                                <td>{{user.editorPassDate || user.b2bEditorPassDate || user.assignedDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes || user.taskVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds || user.taskVideoDurationSeconds}}</td>
+                                <td>{{user.videoType || user.b2bVideoType || user.taskVideoType}}</td>
+                                <td>{{user.videoDeliveryDate || user.taskDeliveryDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{user.priority}}</td>
-                                <td>{{user.editorStatus || user.projectStatus}}</td>
+                                <td>{{user.editorStatus || user.projectStatus || user.graphicStatus}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id, user.type)">Update</button> 
                                 </td>
@@ -320,13 +320,13 @@
                     <tbody>
                         <tr *ngFor="let customer of completed; let i = index">
                             <td>{{i+1}}</td>
-                                <td>{{customer.custCode || customer.b2bProjectCode}}</td>
-                                <td>{{customer.custBussiness || customer.b2bProjectName}}</td>
-                                <td>{{customer.editorPassDate || customer.b2bEditorPassDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{customer.videoDurationMinutes || customer.b2bVideoDurationMinutes}}:{{customer.videoDurationSeconds || customer.b2bVideoDurationSeconds}}</td>
-                                <td>{{customer.videoType || customer.b2bVideoType}}</td>
-                                <td>{{customer.videoDeliveryDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{customer.editorStatus || customer.projectStatus}}</td>
+                                <td>{{customer.custCode || customer.b2bProjectCode || customer.SrNo}}</td>
+                                <td>{{customer.custBussiness || customer.b2bProjectName || customer.taskName}}</td>
+                                <td>{{customer.editorPassDate || customer.b2bEditorPassDate || customer.assignedDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{customer.videoDurationMinutes || customer.b2bVideoDurationMinutes || customer.taskVideoDurationMinutes}}:{{customer.videoDurationSeconds || customer.b2bVideoDurationSeconds || customer.taskVideoDurationSeconds}}</td>
+                                <td>{{customer.videoType || customer.b2bVideoType || customer.taskVideoType}}</td>
+                                <td>{{customer.videoDeliveryDate || customer.taskDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{customer.editorStatus || customer.projectStatus || customer.graphicStatus}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(customer._id, customer.type)">Update</button>
                             </td>

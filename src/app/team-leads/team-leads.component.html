@@ -699,7 +699,7 @@
                                 <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(data)"
                                     placeholder="Enter Bussiness">
                             </td>
-                            <td>
+                            <td> 
                                 <select [(ngModel)]="list.projectStatus"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data)">
                                     <option value="Null"> Null</option>
@@ -2027,12 +2027,12 @@
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
-                                <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(data)"
+                                <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(data1)"
                                     placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data1)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2047,7 +2047,7 @@
                                 </select>
                             </td>
                             <td>
-                                <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea>
+                                <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data1)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2068,7 +2068,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(data)"></textarea>
+                                                        (change)="updateProjectStatus(data1)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2084,7 +2084,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(data)"></textarea>
+                                                        (change)="updateProjectStatus(data1)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2100,7 +2100,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(data)"></textarea>
+                                                        (change)="updateProjectStatus(data1)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2116,7 +2116,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(data)"></textarea>
+                                                        (change)="updateProjectStatus(data1)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2125,7 +2125,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(data1)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2186,11 +2186,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(yesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(yesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2206,7 +2206,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataYesterday)"></textarea>
+                                    (change)="updateProjectStatus(yesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2227,7 +2227,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(yesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2243,7 +2243,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(yesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2259,7 +2259,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(yesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2275,7 +2275,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(yesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2284,7 +2284,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(yesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2345,11 +2345,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataOneYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(oneYesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataOneYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(oneYesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2365,7 +2365,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataOneYesterday)"></textarea>
+                                    (change)="updateProjectStatus(oneYesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2386,7 +2386,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataOneYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(oneYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2402,7 +2402,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataOneYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(oneYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2418,7 +2418,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataOneYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(oneYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2434,7 +2434,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataOneYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(oneYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2443,7 +2443,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(oneYesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2504,11 +2504,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataTwoYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(twoYesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataTwoYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(twoYesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2524,7 +2524,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
+                                    (change)="updateProjectStatus(twoYesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2545,7 +2545,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(twoYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2561,7 +2561,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(twoYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2577,7 +2577,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(twoYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2593,7 +2593,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataTwoYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(twoYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2602,7 +2602,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(twoYesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2663,11 +2663,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataThreeYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(threeYesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataThreeYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(threeYesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2683,7 +2683,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
+                                    (change)="updateProjectStatus(threeYesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2704,7 +2704,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(threeYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2720,7 +2720,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(threeYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2736,7 +2736,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(threeYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2752,7 +2752,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataThreeYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(threeYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2761,7 +2761,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(threeYesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2822,11 +2822,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataFourYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(fourYesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFourYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(fourYesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -2842,7 +2842,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataFourYesterday)"></textarea>
+                                    (change)="updateProjectStatus(fourYesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -2863,7 +2863,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataFourYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fourYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2879,7 +2879,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataFourYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fourYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2895,7 +2895,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataFourYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fourYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2911,7 +2911,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataFourYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fourYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -2920,7 +2920,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(fourYesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -2981,11 +2981,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataFiveYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(fiveYesData)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFiveYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(fiveYesData)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -3001,7 +3001,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                    (change)="updateProjectStatus(fiveYesData)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -3022,7 +3022,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fiveYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3038,7 +3038,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fiveYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3054,7 +3054,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fiveYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3070,7 +3070,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(fiveYesData)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3079,7 +3079,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(fiveYesData)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View
@@ -3140,11 +3140,11 @@
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
                                 <input type="text" [(ngModel)]="list.custBussiness"
-                                    (change)="updateProjectStatus(dataFiveYesterday)" placeholder="Enter Bussiness">
+                                    (change)="updateProjectStatus(dateDataWo)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
-                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFiveYesterday)">
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dateDataWo)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
@@ -3160,7 +3160,7 @@
                             </td>
                             <td>
                                 <textarea type="text" [(ngModel)]="list.remark"
-                                    (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                    (change)="updateProjectStatus(dateDataWo)"></textarea>
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -3181,7 +3181,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup1"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(dateDataWo)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3197,7 +3197,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup2"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(dateDataWo)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3213,7 +3213,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup3"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(dateDataWo)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3229,7 +3229,7 @@
                                                 data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <textarea style="color: black;" [(ngModel)]="list.followup4"
-                                                        (change)="updateProjectStatus(dataFiveYesterday)"></textarea>
+                                                        (change)="updateProjectStatus(dateDataWo)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -3238,7 +3238,7 @@
                             </td>
                             <td>
                                 <input type="datetime-local" [(ngModel)]="list.callReminderDate"
-                                    (change)="updateProjectStatus(data)">
+                                    (change)="updateProjectStatus(dateDataWo)">
                             </td>
                             <td *ngIf="this.whatsAppCateg.get('whatsApp_campaign_name')?.value !== 'null'"> <button
                                     class="btn btn-sm btn-primary" (click)="openchat(list.custNumb)">View

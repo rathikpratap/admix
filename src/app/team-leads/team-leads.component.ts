@@ -284,12 +284,16 @@ export class TeamLeadsComponent implements OnInit {
   }
 
   updateProjectStatus(dataa: any) {
+    console.log("Sending data:", dataa);
     this.auth.updateProjectStatus(dataa).subscribe((res: any) => {
       if (dataa) {
         // alert("Data Project Status Successfully Transfered");
         this.toastr.success("Data stored Successfully", "Success");
       }
       console.log("SalesPerson Updated Successfully", res);
+    },
+    (err) => {
+      console.error("API error:", err);
     })
   }
 

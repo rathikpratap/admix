@@ -9,17 +9,17 @@
             </div>
             <!-- Spinner Overlay -->
             <div *ngIf="uploading" class="upload-overlay">
-  <div class="upload-dialog">
-    <div class="spinner"></div>
-    <p>Uploading... {{ uploadProgress }}%</p>
+                <div class="upload-dialog">
+                    <div class="spinner"></div>
+                    <p>Uploading... {{ uploadProgress }}%</p>
 
-    <div class="progress-bar-container">
-      <div class="progress-bar" [style.width.%]="uploadProgress"></div>
-    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+                    </div>
 
-    <button class="cancel-button" (click)="cancelUpload()">Cancel Upload</button>
-  </div>
-</div>
+                    <button class="cancel-button" (click)="cancelUpload()">Cancel Upload</button>
+                </div>
+            </div>
             <form [formGroup]="updateForm" (ngSubmit)="updateForm.status !=='INVALID' && onUpdate()">
                 <div class="user-details">
                     <div class="input-box">
