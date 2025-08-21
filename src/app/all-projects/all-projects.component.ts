@@ -38,6 +38,7 @@ export class AllProjectsComponent implements OnInit {
   cloData: any;
   cloDataPrev: any;
   cloTwoDataPrev: any;
+  pointsUpdate: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -88,7 +89,7 @@ export class AllProjectsComponent implements OnInit {
       this.getData();
     })
   }
-  getData(){
+  getData() {
     this.auth.closingDataCurrentMonth(this.closingData).subscribe((list: any) => {
       this.cloData = list;
     });
@@ -112,19 +113,19 @@ export class AllProjectsComponent implements OnInit {
     });
 
     this.auth.allProjects().subscribe((list: any) => {
-      this.data = list.map((entry:any)=>({
+      this.data = list.map((entry: any) => ({
         ...entry,
         showSub: false
       }));
     });
     this.auth.allPreviousProjects().subscribe((list: any) => {
-      this.Previousdata = list.map((entry:any)=>({
+      this.Previousdata = list.map((entry: any) => ({
         ...entry,
         showSub: false
       }));
     });
     this.auth.allTwoPreviousProjects().subscribe((list: any) => {
-      this.TwoPreviousdata = list.map((entry:any)=>({
+      this.TwoPreviousdata = list.map((entry: any) => ({
         ...entry,
         showSub: false
       }));
@@ -139,6 +140,11 @@ export class AllProjectsComponent implements OnInit {
     this.previousMonthName = this.auth.getPreviousMonthName();
     this.previousTwoMonthName = this.auth.getPreviousTwoMonthName();
     this.currentMonthName = this.auth.getCurrentMonthName();
+
+    this.auth.getPointsUpdate().subscribe((res: any) => {
+      this.pointsUpdate = res.list;
+      console.log("PAGAL ");
+    });
   }
   ToggleExpanded() {
     this.isExpanded = !this.isExpanded;
@@ -203,43 +209,43 @@ export class AllProjectsComponent implements OnInit {
   }
 
   updateSubEntryStatus(user: any, sub: any): void {
-  const currentDate = new Date().toISOString().split('T')[0];
-  let selectedEmployee: any;
+    const currentDate = new Date().toISOString().split('T')[0];
+    let selectedEmployee: any;
 
-  if (sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction') {
-    sub.scriptPassDate = currentDate;
-    selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.scriptWriter);
-  } else if (sub.projectStatus === 'Voice Over') {
-    sub.voicePassDate = currentDate;
-    selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.voiceOver);
-  } else if (sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done') {
-    sub.editorPassDate = currentDate;
-    selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.editor);
-  } else if (sub.projectStatus === 'Graphic Designing') {
-    sub.graphicPassDate = currentDate;
-    selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.graphicDesigner);
-  }
-
-  this.auth.updateSubEntry(user._id, sub).subscribe((res: any) => {
-    if (res) {
-      this.toastr.success(`Sub-entry assigned to ${selectedEmployee?.signupUsername || 'user'}`, 'Success');
-    } else {
-      this.toastr.error('Error updating sub-entry', 'Error');
+    if (sub.projectStatus === 'Scripting' || sub.projectStatus === 'Script Correction') {
+      sub.scriptPassDate = currentDate;
+      selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.scriptWriter);
+    } else if (sub.projectStatus === 'Voice Over') {
+      sub.voicePassDate = currentDate;
+      selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.voiceOver);
+    } else if (sub.projectStatus === 'Video Editing' || sub.projectStatus === 'Video Changes' || sub.projectStatus === 'Video Done') {
+      sub.editorPassDate = currentDate;
+      selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.editor);
+    } else if (sub.projectStatus === 'Graphic Designing') {
+      sub.graphicPassDate = currentDate;
+      selectedEmployee = this.emp.find((e: any) => e.signupUsername === sub.graphicDesigner);
     }
-  });
 
-  let msgTitle = '';
-  let msgBody = '';
-  if (['Scripting', 'Voice Over', 'Video Editing', 'Graphic Designing'].includes(sub.projectStatus)) {
-    msgTitle = 'Project Assigned';
-    msgBody = `Project number ${sub.custCode} assigned`;
-  } else if (['Script Correction', 'Video Changes'].includes(sub.projectStatus)) {
-    msgTitle = 'Project Correction Assigned';
-    msgBody = `Project number ${sub.custCode} Correction Assigned`;
+    this.auth.updateSubEntry(user._id, sub).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success(`Sub-entry assigned to ${selectedEmployee?.signupUsername || 'user'}`, 'Success');
+      } else {
+        this.toastr.error('Error updating sub-entry', 'Error');
+      }
+    });
+
+    let msgTitle = '';
+    let msgBody = '';
+    if (['Scripting', 'Voice Over', 'Video Editing', 'Graphic Designing'].includes(sub.projectStatus)) {
+      msgTitle = 'Project Assigned';
+      msgBody = `Project number ${sub.custCode} assigned`;
+    } else if (['Script Correction', 'Video Changes'].includes(sub.projectStatus)) {
+      msgTitle = 'Project Correction Assigned';
+      msgBody = `Project number ${sub.custCode} Correction Assigned`;
+    }
+
+    this.auth.sendNotifications([selectedEmployee], [sub], msgTitle, msgBody, currentDate).subscribe();
   }
-
-  this.auth.sendNotifications([selectedEmployee], [sub], msgTitle, msgBody, currentDate).subscribe();
-}
 
 
   // searchCustomer() {
@@ -328,5 +334,18 @@ export class AllProjectsComponent implements OnInit {
   invoice(userId: string) {
     const url = `/main-invoice/${userId}`;
     window.open(url, '_blank');
+  }
+
+  updatePoints(point: any) {
+    console.log("POIN POINT");
+    this.auth.updatePoint(point).subscribe((res: any) => {
+      if (point) {
+        this.toastr.success("Point Updated", "Seccess");
+      }
+    },
+      (err) => {
+        this.toastr.error("Failed to update points", "Error");
+        console.log("POINT Error====>>", err);
+      })
   }
 }

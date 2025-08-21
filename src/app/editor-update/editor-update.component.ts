@@ -25,6 +25,8 @@ export class EditorUpdateComponent implements OnInit {
   uploading = false;
   uploadError: string | null = null;
   fileLink = '';
+  fileLink2 = '';
+  fileLink3 = '';
   uploadProgress = 0;
   tempFilePath: string = '';
   uploadSub?: Subscription;
@@ -44,13 +46,16 @@ export class EditorUpdateComponent implements OnInit {
     editorChangesPayment: new FormControl(),
     totalEditorPayment: new FormControl(0),
     youtubeLink: new FormControl(""),
+    youtubeLink2: new FormControl(""),
+    youtubeLink3: new FormControl(""),
     videoDurationMinutes: new FormControl(0),
     videoDurationSeconds: new FormControl(0),
     numberOfVideos: new FormControl(""),
     companyName: new FormControl(""),
     salesPerson: new FormControl(""),
     pointsEarned: new FormControl(),
-    pointsCalculated: new FormControl()
+    pointsCalculated: new FormControl(),
+    updateMorePoints: new FormControl()
   })
 
   constructor(private router: Router, private ngZone: NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer, private toastr: ToastrService) {
@@ -78,6 +83,8 @@ export class EditorUpdateComponent implements OnInit {
         editorChangesPayment: res['editorChangesPayment'] || res?._doc?.editorChangesPayment || res?.taskEditorChangespayment,
         totalEditorPayment: res['totalEditorPayment'] || res?._doc?.totalEditorPayment || res?.taskTotalEditorPayment,
         youtubeLink: res['youtubeLink'] || res?._doc?.youtubeLink || res?.taskYoutubeLink,
+        youtubeLink2: res['youtubeLink2'] || res?._doc?.youtubeLink2 || res?.taskYoutubeLink2,
+        youtubeLink3: res['youtubeLink3'] || res?._doc?.youtubeLink3 || res?.taskYoutubeLink3,
         videoDurationMinutes: res['videoDurationMinutes'] || res?._doc?.videoDurationMinutes || res?.taskVideoDurationMinutes,
         videoDurationSeconds: res['videoDurationSeconds'] || res?._doc?.videoDurationSeconds || res?.taskVideoDurationSeconds,
         numberOfVideos: res['numberOfVideos'] || res?._doc?.numberOfVideos || res?.taskNumberOfVideos,
@@ -126,7 +133,7 @@ export class EditorUpdateComponent implements OnInit {
     return this.updateForm.get(name)
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any, index: number) {
     const file: File = event.target.files[0];
     if (!file) return;
 
@@ -141,7 +148,10 @@ export class EditorUpdateComponent implements OnInit {
     this.uploadId = uploadId;   // store for cancel
     formData.append('uploadId', uploadId);
 
-    const existingLink = this.updateForm.get('youtubeLink')?.value;
+    let existingLink = '';
+    if(index === 1) existingLink = this.updateForm.get('youtubeLink')?.value ?? '';
+    if(index === 2) existingLink = this.updateForm.get('youtubeLink2')?.value ?? '';
+    if(index === 3) existingLink = this.updateForm.get('youtubeLink3')?.value ?? '';
     if (existingLink) {
       formData.append('existingLink', existingLink);
     }
@@ -158,8 +168,20 @@ export class EditorUpdateComponent implements OnInit {
           //this.tempFilePath = res.tempFilePath;
 
           if (res.success && res.webViewLink) {
+            if (index === 1) {
             this.fileLink = res.webViewLink;
             this.updateForm.get('youtubeLink')?.setValue(res.webViewLink);
+          }
+          if (index === 2) {
+            this.fileLink2 = res.webViewLink;
+            this.updateForm.get('youtubeLink2')?.setValue(res.webViewLink);
+          }
+          if (index === 3) {
+            this.fileLink3 = res.webViewLink;
+            this.updateForm.get('youtubeLink3')?.setValue(res.webViewLink);
+          }
+            // this.fileLink = res.webViewLink;
+            // this.updateForm.get('youtubeLink')?.setValue(res.webViewLink);
 
             if (res.oldFileDeleted) {
               this.toastr.info('Old file deleted');
@@ -493,6 +515,7 @@ export class EditorUpdateComponent implements OnInit {
         const pointTable = res.data.points;
 
         let matchedPoint = 0;
+        let updateMorePoints = false; // 🔽 new flag
 
         for (let i = 0; i < pointTable.length; i++) {
           if (this.totalSec <= pointTable[i].second) {
@@ -501,9 +524,18 @@ export class EditorUpdateComponent implements OnInit {
           }
         }
 
-        if (matchedPoint === 0 && pointTable.length > 0) {
-          matchedPoint = pointTable[pointTable.length - 1].points;
+        // if (matchedPoint === 0 && pointTable.length > 0) {
+        //   matchedPoint = pointTable[pointTable.length - 1].points;
+        // }
+        // 🔽 agar totalSec last ke second se bhi bada hai
+        if (this.totalSec > pointTable[pointTable.length - 1].second) {
+          matchedPoint = 0;
+          updateMorePoints = true;
+          this.updateForm.get('pointsCalculated')?.setValue(false);
+        }else{
+          this.updateForm.get('pointsCalculated')?.setValue(true);
         }
+
         // 🔽 Add extra points based on number of videos
         const numberOfVideos = this.updateForm.get('numberOfVideos')?.value;
         if (numberOfVideos === 'Two') {
@@ -514,7 +546,8 @@ export class EditorUpdateComponent implements OnInit {
         console.log("POINTS EARNED=======>>", matchedPoint);
         // Set in form
         this.updateForm.get('pointsEarned')?.setValue(matchedPoint);
-        this.updateForm.get('pointsCalculated')?.setValue(true);
+        // this.updateForm.get('pointsCalculated')?.setValue(true);
+        this.updateForm.get('updateMorePoints')?.setValue(updateMorePoints); // 🔽 save flag
 
         this.toastr.success(`Points calculated: ${matchedPoint}`);
 
@@ -535,11 +568,14 @@ export class EditorUpdateComponent implements OnInit {
             editorChangesPayment: payload.editorChangesPayment,
             totalEditorPayment: payload.totalEditorPayment,
             youtubeLink: payload.youtubeLink,
+            youtubeLink2: payload.youtubeLink2,
+            youtubeLink3: payload.youtubeLink3,
             numberOfVideos: payload.numberOfVideos,
             companyName: payload.companyName,
             salesPerson: payload.salesPerson,
             pointsEarned: this.updateForm.get('pointsEarned')?.value,
-            pointsCalculated: true
+            pointsCalculated: this.updateForm.get('pointsCalculated')?.value,
+            updateMorePoints: this.updateForm.get('updateMorePoints')?.value
           };
         }
 
@@ -557,11 +593,14 @@ export class EditorUpdateComponent implements OnInit {
             taskEditorChangesPayment: payload.editorChangesPayment,
             taskTotalEditorPayment: payload.totalEditorPayment,
             taskYoutubeLink: payload.youtubeLink,
+            taskYoutubeLink2: payload.youtubeLink2,
+            taskYoutubeLink3: payload.youtubeLink3,
             taskNumberOfVideos: payload.numberOfVideos,
             taskCompanyName: payload.companyName,
             graphicDesigner: payload.salesPerson,
             pointsEarned: this.updateForm.get('pointsEarned')?.value,
-            pointsCalculated: true
+            pointsCalculated: true,
+            updateMorePoints: payload.updateMorePoints
           };
         }
 

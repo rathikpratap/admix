@@ -1551,6 +1551,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaignWo`,{headers, params:{selectDate}});
   }
 
+  getPointsUpdate():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getPointsUpdate`);
+  }
+  updatePoint(point:any){
+    return this.http.post(`${appConfig.apiUrl}/auth/update-point`,{item: point});
+  }
+
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{
   //   return this.http.get(`${appConfig.apiUrl}/auth/getDateWhatsAppCampaign/${name}`,{
   //     params:{

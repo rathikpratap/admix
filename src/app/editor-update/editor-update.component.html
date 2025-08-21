@@ -143,10 +143,10 @@
                             </div> 
                         </div>
                     </div> -->
-                    <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed'">
+                    <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed' && updateForm.get('numberOfVideos')?.value === 'One'">
                         <div class="form-group">
                             <span class="details">Upload Final Video File:</span>
-                            <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 1)" />
 
                             <div *ngIf="uploading">Uploading... Please wait.</div>
                             <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
@@ -156,11 +156,81 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed' && updateForm.get('numberOfVideos')?.value === 'Two'">
+                        <div class="form-group">
+                            <span class="details">Upload Final Video File 1:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 1)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink">
+                                <a [href]="fileLink" target="_blank">View Uploaded File</a>
+                            </div>
+
+                            <span class="details">Upload Final Video File 2:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 2)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink2">
+                                <a [href]="fileLink2" target="_blank">View Uploaded File</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('editorStatus')?.value === 'Completed' && updateForm.get('numberOfVideos')?.value === 'Three'">
+                        <div class="form-group">
+                            <span class="details">Upload Final Video File 1:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 1)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink">
+                                <a [href]="fileLink" target="_blank">View Uploaded File</a>
+                            </div>
+
+                            <span class="details">Upload Final Video File 2:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 2)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink2">
+                                <a [href]="fileLink2" target="_blank">View Uploaded File</a>
+                            </div>
+
+                            <span class="details">Upload Final Video File 3:</span>
+                            <input type="file" class="form-control" (change)="onFileSelected($event, 3)" />
+
+                            <div *ngIf="uploading">Uploading... Please wait.</div>
+                            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+
+                            <div *ngIf="fileLink3">
+                                <a [href]="fileLink3" target="_blank">View Uploaded File</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-box" *ngIf="updateForm.get('youtubeLink')?.value">
                         <div class="form-group">
                             <span class="details">Final Video Link:</span>
                             <input type="text" class="form-control" placeholder="youtubeLink"
                                 [value]="updateForm.get('youtubeLink')?.value" readonly>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('youtubeLink2')?.value">
+                        <div class="form-group">
+                            <span class="details">Final Video Link:</span>
+                            <input type="text" class="form-control" placeholder="youtubeLink2"
+                                [value]="updateForm.get('youtubeLink2')?.value" readonly>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('youtubeLink3')?.value">
+                        <div class="form-group">
+                            <span class="details">Final Video Link:</span>
+                            <input type="text" class="form-control" placeholder="youtubeLink3"
+                                [value]="updateForm.get('youtubeLink3')?.value" readonly>
                         </div>
                     </div>
                     <!-- <div *ngIf="uploading" class="progress-container">

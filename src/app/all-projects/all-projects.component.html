@@ -77,7 +77,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let user of customers; let i = index" [class.highlighted]="selectedRowIndex === i">
-                        <td>{{i+1}}</td>
+                        <td>
+                            <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                    <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                </button>
+                                {{i+1}}
+                            </ng-container>
+                            <ng-template #noSub>
+                                {{i+1}}
+                            </ng-template>
+                        </td>
                         <td>{{user.custCode}}</td>
                         <td>{{user.custName}}</td>
                         <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
@@ -203,7 +213,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let user of rangeData; let i = index">
-                        <td>{{i+1}}</td>
+                        <td>
+                            <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                    <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                </button>
+                                {{i+1}}
+                            </ng-container>
+                            <ng-template #noSub>
+                                {{i+1}}
+                            </ng-template>
+                        </td>
                         <td>{{user.custCode}}</td>
                         <td>{{user.custName}}</td>
                         <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
@@ -306,6 +326,45 @@
         </div>
     </div>
 </div>
+<div class="row" *ngIf="pointsUpdate">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Project Points to UPDATE</h6>
+            </div>
+        </div>
+        <div class="table-scroll">
+            <table class="table table-striped">
+                <thead class="sticky-header">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Client Name</th>
+                        <th scope="col">Business</th>
+                        <th scope="col">Closing Date</th>
+                        <th scope="col">Closing Category</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Editor Name</th>
+                        <th scope="col">Delivery Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of pointsUpdate; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{user.custName}}</td>
+                        <td>{{user.custBussiness}}</td>
+                        <td>{{user.closingDate}}</td>
+                        <td>{{user.closingCateg}}</td>
+                        <td>{{user.videoDurationMinutes || user.b2bVideoDurationMinutes || user.taskVideoDurationMinutes}}:{{user.videoDurationSeconds || user.b2bVideoDurationSeconds || user.taskVideoDurationSeconds}}</td>
+                        <td><input type="text" [(ngModel)]="user.pointsEarned" (change)="updatePoints(user)" placeholder="Enter Points"></td>
+                        <td>{{user.editor}}</td>
+                        <td>{{user.videoDeliveryDate || user.taskDeliveryDate | date:'dd-MM-yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <p class="d-line-flex">
@@ -368,7 +427,8 @@
                                     {{i+1}} -->
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>
@@ -624,7 +684,8 @@
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>
@@ -882,7 +943,8 @@
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>
@@ -1124,7 +1186,8 @@
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>
@@ -1368,7 +1431,8 @@
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>
@@ -1611,7 +1675,8 @@
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
-                                            <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
                                         </button>
                                         {{i+1}}
                                     </ng-container>

@@ -97,19 +97,19 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package' || customerForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
                         <div class="form-group">
                             <span class="details">Graphics Count</span>
                             <input type="number" class="form-control" formControlName="graphicsCount" placeholder="Enter number of graphics">
                         </div>
                     </div>
-                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package' || customerForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
                         <div class="form-group">
                             <span class="details">Video Count</span>
                             <input type="number" class="form-control" formControlName="videosCount" placeholder="Enter number of graphics">
                         </div>
                     </div>
-                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package'" class="input-box">
+                    <div *ngIf="customerForm.get('closingCateg')?.value === 'Package' || customerForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
                         <div class="form-group">
                             <span class="details">Reels Count</span>
                             <input type="number" class="form-control" formControlName="reelsCount" placeholder="Enter number of graphics">
