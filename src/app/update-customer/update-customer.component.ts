@@ -149,7 +149,10 @@ export class UpdateCustomerComponent implements OnInit{
         leadsCreatedDate: res['leadsCreatedDate'],
         companyName: res['companyName'],
         Qr: res['Qr'],
-        customerType: res['customerType']
+        customerType: res['customerType'],
+        graphicsCount: res['graphicCount'],
+        videosCount: res['videosCount'],
+        reelsCount: res['reelsCount']
       })
       this.updateEmbeddedVideoUrl();
     });
