@@ -63,99 +63,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of customers; let i = index">
-                        <td>{{i+1}}</td>
-                        <td>{{user.custCode}}</td>
-                        <td>{{user.custName}}</td>
-                        <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
-                        <td>{{user.closingCateg}}</td>
-                        <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{user.closingPrice}}</td>
-                        <td>{{user.Qr}}</td>
-                        <td>{{user.AdvPay}}</td>
-                        <td>{{user.restAmount}}</td>
-                        <td>{{user.remainingAmount}}</td>
-                        <td>
-                            <select [(ngModel)]="user.bundleHandler" (change)="updateBundle(user,user.bundleHandler)">
-                                <option value="Select">Select</option>
-                                <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">
-                                    {{empB.signupUsername}}</option>
-                            </select>
-                        </td>
-                        <td>{{user.bundleStatus}}</td>
-                        <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
-                            <select [(ngModel)]="user.graphicDesigner"
-                                (change)="updateDesigner(user,user.graphicDesigner)">
-                                <option value="">Select</option>
-                                <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">
-                                    {{emp.signupUsername}}</option>
-                            </select>
-                        </td>
-                        <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
-                            <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
-                                <option value="Normal">Normal</option>
-                                <option value="Urgent">Urgent</option>
-                            </select>
-                        </td>
-                        <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
-                            <select [(ngModel)]="user.graphicStatus" (change)="updateStatus(user,user.graphicStatus)">
-                                <option value="Not Completed">Not Completed</option>
-                                <option value="Graphic Designing Changes">Changes</option>
-                                <option value="Complete">Completed</option>
-                            </select>
-                        </td>
-                        <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
-                        <td>
-                            <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
-                                <option value="">Select</option>
-                                <option *ngFor="let team of sales" value="{{team.salesTeamName}}">{{team.salesTeamName}}
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="buttons">
-                                <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
-                                    Update</button>
-                                <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>
-                            </div>
-                        </td>
-                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="rangeData">
-            <div class="downloadButton" *ngIf="rangeData">
-                <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
-            </div>
-            <div class="table-scroll" *ngIf="rangeData">
-                <table class="table table-striped">
-                    <thead class="sticky-header">
+                    <ng-container *ngFor="let user of customers; let i = index">
                         <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Client Code</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Mobile Number</th>
-                            <th scope="col">Project Category</th>
-                            <th scope="col">Closing Date</th>
-                            <th scope="col">Closing Payment</th>
-                            <th scope="col">Received QR</th>
-                            <th scope="col">Amount Received</th>
-                            <th scope="col">Rest Amount</th>
-                            <th scope="col">Remaining Amount</th>
-                            <th scope="col">Bundle Assigned To</th>
-                            <th scope="col">Bundle Status</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
-                            <th scope="col">Project Status</th>
-                            <th scope="col">Transfer To</th>
-                            <th scope="col">Action</th>
-                            <th scope="col"> Create Invoice</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of rangeData; let i = index">
-                            <td>{{i+1}}</td>
+                            <td>
+                                <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                    <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                        <span
+                                            [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                    </button>
+                                    {{i+1}}
+                                </ng-container>
+                                <ng-template #noSub>
+                                    {{i+1}}
+                                </ng-template>
+                            </td>
                             <td>{{user.custCode}}</td>
                             <td>{{user.custName}}</td>
                             <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
@@ -202,7 +123,8 @@
                                 <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
                                     <option value="">Select</option>
                                     <option *ngFor="let team of sales" value="{{team.salesTeamName}}">
-                                        {{team.salesTeamName}}</option>
+                                        {{team.salesTeamName}}
+                                    </option>
                                 </select>
                             </td>
                             <td>
@@ -215,6 +137,212 @@
                             <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
                             </td>
                         </tr>
+                        <!-- Sub-entries row -->
+                        <tr *ngIf="user.showSub" class="sub-entry-row">
+                            <td colspan="19">
+                                <table class="table table-bordered sub-entry-table w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sub Code</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Closing Amount</th>
+                                            <th>Amount Received</th>
+                                            <th>Remaining Amount</th>
+                                            <th>Rest Amount</th>
+                                            <th>Rest Amount Date</th>
+                                            <th>Project Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let sub of user.subEntries">
+                                            <td>{{sub.custCode}}</td>
+                                            <td>{{sub.custName}}</td>
+                                            <td>{{sub.entryType}}</td>
+                                            <td><input type="number" [(ngModel)]="sub.closingPrice"
+                                                    (change)="updateSub(user,sub)" placeholder="Enter Closing Amount">
+                                            </td>
+                                            <td><input type="number" [(ngModel)]="sub.advPay"
+                                                    (change)="updateSub(user,sub)" placeholder="Enter Received Amount">
+                                            </td>
+                                            <td>{{sub.remainingAmount}}</td>
+                                            <td><input type="number" [(ngModel)]="sub.restAmount"
+                                                    (change)="updateSub(user,sub)"
+                                                    placeholder="Enter Rest Received Amount"></td>
+                                            <td> <input type="datetime-local"
+                                                    [ngModel]="sub.restAmountDate | date:'yyyy-MM-ddTHH:mm'"
+                                                    (ngModelChange)="sub.restAmountDate = $event; updateSub(user, sub)">
+                                            </td>
+                                            <td><select [(ngModel)]="sub.projectStatus" (change)="updateSub(user,sub)">
+                                                    <option value="Closing">Closing</option>
+                                                    <option value="Scripting">Scripting</option>
+                                                    <option value="Voice Over">Voice Over</option>
+                                                    <option value="Video Editing">Video Editing</option>
+                                                    <option value="Completed">Completed</option>
+                                                </select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="rangeData">
+            <div class="downloadButton" *ngIf="rangeData">
+                <button class="btn btn-sm btn-success" (click)="downloadRangeFile()"> Download Data File </button>
+            </div>
+            <div class="table-scroll" *ngIf="rangeData">
+                <table class="table table-striped">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Client Code</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Project Category</th>
+                            <th scope="col">Closing Date</th>
+                            <th scope="col">Closing Payment</th>
+                            <th scope="col">Received QR</th>
+                            <th scope="col">Amount Received</th>
+                            <th scope="col">Rest Amount</th>
+                            <th scope="col">Remaining Amount</th>
+                            <th scope="col">Bundle Assigned To</th>
+                            <th scope="col">Bundle Status</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <th scope="col">Project Status</th>
+                            <th scope="col">Transfer To</th>
+                            <th scope="col">Action</th>
+                            <th scope="col"> Create Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let user of rangeData; let i = index">
+                            <tr>
+                                <td>
+                                    <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                        <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                            <span
+                                                [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                        </button>
+                                        {{i+1}}
+                                    </ng-container>
+                                    <ng-template #noSub>
+                                        {{i+1}}
+                                    </ng-template>
+                                </td>
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custNumb}}<br>{{user.custNumb2}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.Qr}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.bundleHandler"
+                                        (change)="updateBundle(user,user.bundleHandler)">
+                                        <option value="Select">Select</option>
+                                        <option *ngFor="let empB of bundleEmp" value="{{empB.signupUsername}}">
+                                            {{empB.signupUsername}}</option>
+                                    </select>
+                                </td>
+                                <td>{{user.bundleStatus}}</td>
+                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                    <select [(ngModel)]="user.graphicDesigner"
+                                        (change)="updateDesigner(user,user.graphicDesigner)">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let emp of GraphicEmp" value="{{emp.signupUsername}}">
+                                            {{emp.signupUsername}}</option>
+                                    </select>
+                                </td>
+                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                    <select [(ngModel)]="user.priority" (change)="updatePriority(user,user.priority)">
+                                        <option value="Normal">Normal</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </td>
+                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                    <select [(ngModel)]="user.graphicStatus"
+                                        (change)="updateStatus(user,user.graphicStatus)">
+                                        <option value="Not Completed">Not Completed</option>
+                                        <option value="Graphic Designing Changes">Changes</option>
+                                        <option value="Complete">Completed</option>
+                                    </select>
+                                </td>
+                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                                <td>
+                                    <select [(ngModel)]="user.newSalesTeam"
+                                        (change)="transferLead(user,user.newSalesTeam)">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let team of sales" value="{{team.salesTeamName}}">
+                                            {{team.salesTeamName}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <button class="btn btn-sm btn-primary" (click)="openUpdatePanel(user._id)">
+                                            Update</button>
+                                        <button class="btn btn-danger" (click)="delete(user._id,1)"> Delete </button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-sm btn-primary" (click)="invoice(user._id)">Create</button>
+                                </td>
+                            </tr>
+                            <!-- Sub-entries row -->
+                            <tr *ngIf="user.showSub" class="sub-entry-row">
+                                <td colspan="19">
+                                    <table class="table table-bordered sub-entry-table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Closing Amount</th>
+                                                <th>Amount Received</th>
+                                                <th>Remaining Amount</th>
+                                                <th>Rest Amount</th>
+                                                <th>Rest Amount Date</th>
+                                                <th>Project Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of user.subEntries">
+                                                <td>{{sub.custCode}}</td>
+                                                <td>{{sub.custName}}</td>
+                                                <td>{{sub.entryType}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.closingPrice"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Closing Amount"></td>
+                                                <td><input type="number" [(ngModel)]="sub.advPay"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Received Amount"></td>
+                                                <td>{{sub.remainingAmount}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.restAmount"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Rest Received Amount"></td>
+                                                <td> <input type="datetime-local"
+                                                        [ngModel]="sub.restAmountDate | date:'yyyy-MM-ddTHH:mm'"
+                                                        (ngModelChange)="sub.restAmountDate = $event; updateSub(user, sub)">
+                                                </td>
+                                                <td><select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateSub(user,sub)">
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
@@ -347,7 +475,12 @@
                                                 <th>Sub Code</th>
                                                 <th>Name</th>
                                                 <th>Type</th>
-                                                <th scope="col">Project Status</th>
+                                                <th>Closing Amount</th>
+                                                <th>Amount Received</th>
+                                                <th>Remaining Amount</th>
+                                                <th>Rest Amount</th>
+                                                <th>Rest Amount Date</th>
+                                                <th>Project Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -355,7 +488,28 @@
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
-                                                <td>{{sub.projectStatus}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.closingPrice"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Closing Amount"></td>
+                                                <td><input type="number" [(ngModel)]="sub.advPay"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Received Amount"></td>
+                                                <td>{{sub.remainingAmount}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.restAmount"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Rest Received Amount"></td>
+                                                <td> <input type="datetime-local"
+                                                        [ngModel]="sub.restAmountDate | date:'yyyy-MM-ddTHH:mm'"
+                                                        (ngModelChange)="sub.restAmountDate = $event; updateSub(user, sub)">
+                                                </td>
+                                                <td><select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateSub(user,sub)">
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -476,7 +630,12 @@
                                                 <th>Sub Code</th>
                                                 <th>Name</th>
                                                 <th>Type</th>
-                                                <th scope="col">Project Status</th>
+                                                <th>Closing Amount</th>
+                                                <th>Amount Received</th>
+                                                <th>Remaining Amount</th>
+                                                <th>Rest Amount</th>
+                                                <th>Rest Amount Date</th>
+                                                <th>Project Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -484,7 +643,28 @@
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
-                                                <td>{{sub.projectStatus}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.closingPrice"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Closing Amount"></td>
+                                                <td><input type="number" [(ngModel)]="sub.advPay"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Received Amount"></td>
+                                                <td>{{sub.remainingAmount}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.restAmount"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Rest Received Amount"></td>
+                                                <td> <input type="datetime-local"
+                                                        [ngModel]="sub.restAmountDate | date:'yyyy-MM-ddTHH:mm'"
+                                                        (ngModelChange)="sub.restAmountDate = $event; updateSub(user, sub)">
+                                                </td>
+                                                <td><select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateSub(user,sub)">
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -606,7 +786,12 @@
                                                 <th>Sub Code</th>
                                                 <th>Name</th>
                                                 <th>Type</th>
-                                                <th scope="col">Project Status</th>
+                                                <th>Closing Amount</th>
+                                                <th>Amount Received</th>
+                                                <th>Remaining Amount</th>
+                                                <th>Rest Amount</th>
+                                                <th>Rest Amount Date</th>
+                                                <th>Project Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -614,7 +799,28 @@
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
-                                                <td>{{sub.projectStatus}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.closingPrice"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Closing Amount"></td>
+                                                <td><input type="number" [(ngModel)]="sub.advPay"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Received Amount"></td>
+                                                <td>{{sub.remainingAmount}}</td>
+                                                <td><input type="number" [(ngModel)]="sub.restAmount"
+                                                        (change)="updateSub(user,sub)"
+                                                        placeholder="Enter Rest Received Amount"></td>
+                                                <td> <input type="datetime-local"
+                                                        [ngModel]="sub.restAmountDate | date:'yyyy-MM-ddTHH:mm'"
+                                                        (ngModelChange)="sub.restAmountDate = $event; updateSub(user, sub)">
+                                                </td>
+                                                <td><select [(ngModel)]="sub.projectStatus"
+                                                        (change)="updateSub(user,sub)">
+                                                        <option value="Closing">Closing</option>
+                                                        <option value="Scripting">Scripting</option>
+                                                        <option value="Voice Over">Voice Over</option>
+                                                        <option value="Video Editing">Video Editing</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -252,15 +252,19 @@ export class TeamLeadsComponent implements OnInit {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
     const categ = this.categForm.value.campaign_name;
+    const projectStatus = this.searchForm.value.projectStatus;
 
-    const startDate = startDateValue ? new Date(startDateValue) : null;
-    const endDate = endDateValue ? new Date(endDateValue) : null;
-
-    if (startDate && endDate && categ) {
-      this.auth.getSalesLeadbyRange(startDate, endDate, categ).subscribe((rangeData: any) => {
-        this.rangeData = rangeData.rangeTotalData;
-      })
+    const filter = {
+      startDate : startDateValue ? new Date(startDateValue) : null,
+      endDate : endDateValue ? new Date(endDateValue) : null,
+      categ : categ && categ !== 'null' ? categ : null,
+      projectStatus: projectStatus && projectStatus !=='null' ? projectStatus : null
     }
+
+      this.auth.getSalesLeadbyRange(filter).subscribe((rangeData: any) => {
+        this.rangeData = rangeData;
+      })
+    
   } 
 
   searchCustomer() {

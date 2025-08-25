@@ -173,6 +173,22 @@ export class AllCustomersComponent {
       }
     })
   }
+  updateSub(user:any, sub:any){
+     const closing = sub.closingPrice ? Number(sub.closingPrice) : 0;
+    const adv = sub.advPay ? Number(sub.advPay) : 0;
+
+      // Remaining amount calculate karo
+     sub.remainingAmount = closing - adv;
+     if(sub.restAmount > 0){
+      const rest = sub.restAmount ? Number(sub.restAmount) : 0;
+      sub.remainingAmount = closing - adv - rest;
+     }
+    this.auth.updateSubEntry(user._id, sub).subscribe((res:any)=>{
+      if(res){
+        this.toastr.success(`Project ${sub.custName} Amount Updated`,'Success');
+      }
+    })
+  }
   updateBundle(user:any,bundleHandler:any){
     const currentDate = new Date().toISOString().split('T')[0];
     user.bundlePassDate = currentDate;

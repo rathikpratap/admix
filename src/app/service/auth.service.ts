@@ -703,8 +703,13 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoice/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getSalesLeadbyRange(startDate: Date, endDate: Date, categ: String): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRange/${startDate.toISOString()}/${endDate.toISOString()}/${categ}`);
+  getSalesLeadbyRange(filters: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'COntent-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${appConfig.apiUrl}/auth/salesleadsByRange`, filters, {headers});
   }
   getSalesLeadbyRangeSales(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeSales/${startDate.toISOString()}/${endDate.toISOString()}`);
