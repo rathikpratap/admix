@@ -2,7 +2,7 @@
     font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .calendar-container {
-    max-width: 700px;
+    max-width: 900px;
     margin: 20px auto;
     padding: 20px;
     background: white;
@@ -74,8 +74,11 @@
     color: #721c24;
 }
 .half-day {
-    background: red;
+    background: rgb(222, 239, 147);
     color: #222;
+}
+.office-closed{
+    background-color: aqua;
 }
 
 .select {

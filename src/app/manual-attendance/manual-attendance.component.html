@@ -26,15 +26,17 @@
                     <td *ngFor="let day of user.attendance; let j = index" [ngClass]="{
                         'present-day': day.status === 'Present',
                         'absent-day': day.status === 'Absent',
-                        'half-day': day.status === 'Half Day'
+                        'half-day': day.status === 'Half Day',
+                        'office-closed': day.status === 'Office Closed'
                     }">
                         <select [(ngModel)]="attendanceData[i].attendance[j].status" (change)="updateAttendance(i, j, attendanceData[i].attendance[j].status)">
                             <option value="Select">Select</option>
                             <option value="Present">Present</option>
                             <option value="Absent">Absent</option>
                             <option value="Half Day">Half Day</option>
+                            <option value="Office Closed">Office Closed</option>
                         </select>
-                        <textarea *ngIf="day.status === 'Absent' || day.status === 'Half Day'" [(ngModel)]="attendanceData[i].attendance[j].reason" placeholder="Enter Reason for Absent/ Half Day" (change)="saveAttendance(i)" class="reason-txt"></textarea>
+                        <textarea *ngIf="day.status === 'Absent' || day.status === 'Half Day' || day.status === 'Office Closed'" [(ngModel)]="attendanceData[i].attendance[j].reason" placeholder="Enter Reason for Absent/ Half Day" (change)="saveAttendance(i)" class="reason-txt"></textarea>
                     </td>
                     <td class="text-center">P: {{user.totalPresent}}<br>H: {{user.totalHalfday}}<br>A: {{user.totalAbsent}}</td>
                 </tr>

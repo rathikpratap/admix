@@ -45,6 +45,9 @@ th, td {
 .half-day {
     background-color: rgb(222, 239, 147);
 }
+.office-closed{
+    background-color: aqua;
+}
 
 .sticky-header{
     position: sticky;
