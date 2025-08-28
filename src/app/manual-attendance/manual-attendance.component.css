@@ -48,6 +48,9 @@ th, td {
 .office-closed{
     background-color: aqua;
 }
+.work-from-home{
+    background-color: #a8bad1;
+}
 
 .sticky-header{
     position: sticky;

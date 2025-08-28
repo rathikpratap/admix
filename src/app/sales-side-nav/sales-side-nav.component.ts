@@ -127,6 +127,12 @@ export class SalesSideNavComponent {
 
       if (!this.signupRole.includes('Lead Manager')) {
         this.list1 = this.list1.filter(item => item.number !== '11');
+      } else {
+      // If Lead Manager → remove "Team Closing" (number 4)
+        this.list1 = this.list1.filter(item => item.number !== '4');
+        this.list1 = this.list1.filter(item => item.number !== '7');
+        this.list1 = this.list1.filter(item => item.number !== '9');
+        this.list1 = this.list1.filter(item => item.number !== '10');
       }
       this.updateListBasedOnRoute();
     })

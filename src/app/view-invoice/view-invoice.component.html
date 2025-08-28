@@ -79,8 +79,8 @@
                     </div>
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <p><strong>Invoice No.</strong>{{ 'ADM-' + financialYear + '/' + invoiceData.billNumber }}</p>
-                        <p><strong>Date: </strong>{{invoiceData.date | date:'dd-MM-yyyy'}}</p>
+                        <p><strong>Invoice No.</strong>{{ 'ADM-' + financialYear + '/' + invoiceData?.billNumber || 'N/A' }}</p>
+                        <p><strong>Date: </strong>{{invoiceData?.date | date:'dd-MM-yyyy'}}</p>
                     </div>
                 </div>
                 <form [formGroup]="invoiceForm">

@@ -39,15 +39,16 @@ export class LoginComponent {
 
   sendOtp() {
     const data = this.loginForm.value;
-    if (!data.loginUsername) return alert('Enter username');
+    if (!data.loginUsername || !data.loginPswd) {return alert('Enter username');}
   
     this.username = data.loginUsername;
+    const password = data.loginPswd;
   
-    this.auth.sendOtp({ username: this.username }).subscribe((res: any) => {
+    this.auth.sendOtp({ username: this.username, password }).subscribe((res: any) => {
       if (res.success) {
         this.isAdmin = res.isAdmin;
         if(this.isAdmin){
-          this.auth.signin({ username: this.username, otp: null}).subscribe((res: any) => {
+          this.auth.signin({ username: this.username, password, otp: null}).subscribe((res: any) => {
             this.session.handleLoginResponse(res);
           }, err => {
             alert('Login Failed');
@@ -66,42 +67,13 @@ export class LoginComponent {
     });
   }
 
-  // handleLoginResponse(res: any) {
-  //   if (res.success) {
-  //     localStorage.setItem('token', res.token);
-  //     localStorage.setItem('roles', JSON.stringify(res.role));
-  //     const roles = res.role || [];
-  //     const team = res.team;
-  
-  //     if (roles.includes('Admin') || roles.includes('Manager')) {
-  //       this.router.navigateByUrl('/admin-dashboard');
-  //     } else if (roles.includes('Sales Team')) {
-  //       if (team === 'Shiva Development') {
-  //         this.router.navigateByUrl('/salesHome/b2b-dashboard');
-  //       } else {
-  //         this.router.navigateByUrl('/salesHome/salesDashboard');
-  //       }
-  //     } else if (roles.includes('Script Writer')) {
-  //       this.router.navigateByUrl('/script-home/script-dashboard');
-  //     } else if (roles.includes('Editor')) {
-  //       this.router.navigateByUrl('/editor-home/editor-dashboard');
-  //     } else if (roles.includes('VO Artist')) {
-  //       this.router.navigateByUrl('/vo-home/vo-dashboard');
-  //     } else if (roles.includes('Graphic Designer')) {
-  //       this.router.navigateByUrl('/graphic-home/graphic-dashboard');
-  //     } else {
-  //       alert('No matching role found!');
-  //     }
-  //   } else {
-  //     alert(res.message);
-  //   }
-  // }
-
   loginUser() {
     const otp = this.otpForm.value.otp;
+    const password = this.loginForm.value.loginPswd;
     if (!otp) return alert('Please enter OTP');
+    if(!password) return alert('Please enter Password');
   
-    this.auth.signin({ username: this.username, otp }).subscribe((res: any) => {
+    this.auth.signin({ username: this.username, password, otp }).subscribe((res: any) => {
       this.session.handleLoginResponse(res);
     }, err => {
       alert('Login Failed!');

@@ -30,10 +30,10 @@ export class AuthService {
   signup(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/register`, data);
   }
-  sendOtp(data: { username: string }) {
+  sendOtp(data: { username: string, password: string }) {
     return this.http.post(`${appConfig.apiUrl}/auth/send-otp`, data);
   }
-  signin(credentials: { username: string, otp?: string | null}): Observable<any> {
+  signin(credentials: { username: string, password: string, otp?: string | null}): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
   }
   

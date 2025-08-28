@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } f
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-
+ 
 @Component({
   selector: 'app-view-invoice',
   standalone: true,
@@ -38,6 +38,7 @@ export class ViewInvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.date = new Date();
     this.invoiceForm = this.fb.group({
+      billNumber: [''],
       billType: [''],
       gstType: [''],
       GSTAmount: [0],
@@ -62,9 +63,15 @@ export class ViewInvoiceComponent implements OnInit {
       this.formatType = res.billFormat;
       console.log("FORMAT TYPE======>>", this.formatType);
 
+      // Use invoice date from backend, not current date
+      this.date = res.date ? new Date(res.date) : new Date();
+      this.financialYear = res.financialYear || this.getFinancialYear(this.date);
+
       this.invoiceForm.patchValue({
         billType: res.billType,
         gstType: res.gstType,
+        billNumber: res.billNumber || '',
+        invoiceDate: this.date // <- set correct date
       });
 
       const rows = res.rows || [];
@@ -192,7 +199,7 @@ export class ViewInvoiceComponent implements OnInit {
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData };
+    const combinedData = { ...custData, ...invoiceData,financialYear: this.financialYear, _id: this.invoiceData._id  };
 
     this.auth.updateInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
