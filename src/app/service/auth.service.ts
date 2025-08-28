@@ -200,8 +200,13 @@ export class AuthService {
   updateProjectStatusTeam(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`, { items: data });
   }
-  getCompleteProjects() {
-    return this.http.get(`${appConfig.apiUrl}/auth/completeProject`);
+  getCompleteProjects():Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/completeProject`,{headers});
   }
   getCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProjectB2b`);
@@ -227,14 +232,29 @@ export class AuthService {
   getremainingAmountProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/remainingAmountProjects`);
   }
-  salesAllProjects() {
-    return this.http.get(`${appConfig.apiUrl}/auth/allProjects`);
+  salesAllProjects():Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/allProjects`,{headers});
   }
-  salesPreviousMonthProjects() {
-    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`);
+  salesPreviousMonthProjects():Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`,{headers});
   }
-  salesPreviousTwoMonthProjects() {
-    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`);
+  salesPreviousTwoMonthProjects(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`, {headers});
   }
   empProjects(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empProjects/${name}`);
