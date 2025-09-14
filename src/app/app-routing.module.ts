@@ -91,6 +91,7 @@ import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.com
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
 import { PointsTableComponent } from './points-table/points-table.component';
 import { LeadsManagementComponent } from './leads-management/leads-management.component';
+import { DataDeletionComponent } from './data-deletion/data-deletion.component';
 
 const routes: Routes = [
   {
@@ -109,6 +110,10 @@ const routes: Routes = [
   {
     path: 'terms&conditions',
     component: TermsConditionComponent
+  },
+  {
+    path: 'data-deletion',
+    component: DataDeletionComponent
   },
   {
     path: '',
