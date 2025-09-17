@@ -259,7 +259,7 @@
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
                         <th scope="col">SalesPerson</th>
-                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
                         <th scope="col"> State </th>
                         <th scope="col"> Bussiness </th>
                         <th scope="col"> Project Status </th>
@@ -279,14 +279,31 @@
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
-                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                         <td>{{list.state}}</td>
                         <!-- <td>{{list.custBussiness}}</td> -->
                         <td>
                             <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
                                 placeholder="Enter Bussiness">
                         </td>
-                        <td>{{list.projectStatus}}</td>
+                        <!-- <td>{{list.projectStatus}}</td> -->
+                         <td>
+                                <select [(ngModel)]="list.projectStatus"
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(list)">
+                                    <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Not Pick">Not Pick</option>
+                                    <option value="Switch Off">Switch Off</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                </select>
+                            </td>
                         <td>{{list.remark}}
                             <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
                         </td>
@@ -380,7 +397,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="pagination-controls">
+            <!-- <div class="pagination-controls">
                 <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage - 1)"
                     [disabled]="currentPage === 1">
                     Previous
@@ -394,7 +411,7 @@
                     [disabled]="currentPage === totalPages">
                     Next
                 </button>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -412,7 +429,7 @@
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
                         <th scope="col">SalesPerson</th>
-                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
                         <th scope="col"> State </th>
                         <th scope="col"> Bussiness </th>
                         <th scope="col"> Project Status </th>
@@ -432,14 +449,31 @@
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
-                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                         <td>{{list.state}}</td>
                         <!-- <td>{{list.custBussiness}}</td> -->
                         <td>
                             <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
                                 placeholder="Enter Bussiness">
                         </td>
-                        <td>{{list.projectStatus}}</td>
+                        <!-- <td>{{list.projectStatus}}</td> -->
+                         <td>
+                                <select [(ngModel)]="list.projectStatus"
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(list)">
+                                    <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Not Pick">Not Pick</option>
+                                    <option value="Switch Off">Switch Off</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                </select>
+                            </td>
                         <td>{{list.remark}}
                             <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
                         </td>
@@ -533,7 +567,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="pagination-controls">
+            <!-- <div class="pagination-controls">
                 <button class="btn btn-sm btn-secondary" (click)="goToPage(currentPage - 1)"
                     [disabled]="currentPage === 1">
                     Previous
@@ -547,7 +581,7 @@
                     [disabled]="currentPage === totalPages">
                     Next
                 </button>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -565,7 +599,7 @@
                         <th scope="col"> Customer Name </th>
                         <th scope="col"> Number </th>
                         <th scope="col">SalesPerson</th>
-                        <!-- <th *ngFor="let field of dynamicFields">{{ field }}</th> -->
+                        <th *ngFor="let field of dynamicFields">{{ field }}</th>
                         <th scope="col"> State </th>
                         <th scope="col"> Bussiness </th>
                         <th scope="col"> Project Status </th>
@@ -585,14 +619,31 @@
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
-                        <!-- <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td> -->
+                        <td *ngFor="let field of dynamicFields">{{ list.additionalFields?.[field] || 'N/A' }}</td>
                         <td>{{list.state}}</td>
                         <!-- <td>{{list.custBussiness}}</td> -->
                         <td>
                             <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(list)"
                                 placeholder="Enter Bussiness">
                         </td>
-                        <td>{{list.projectStatus}}</td>
+                        <!-- <td>{{list.projectStatus}}</td> -->
+                         <td>
+                                <select [(ngModel)]="list.projectStatus"
+                                    (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(list)">
+                                    <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Not Pick">Not Pick</option>
+                                    <option value="Switch Off">Switch Off</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Closing">Closing</option>
+                                </select>
+                            </td>
                         <td>{{list.remark}}
                             <!-- <textarea [(ngModel)]="list.remark" (change)="updateProjectStatus(data)"></textarea> -->
                         </td>
