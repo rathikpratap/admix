@@ -184,6 +184,16 @@ export class AuthService {
     });
     return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{ items: dataa}, {headers});
   }
+  updateProjectStatusManagement(items: any[] | any) {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+  // Always send array for consistency
+  const payload = Array.isArray(items) ? items : [items];
+  return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusManagement`, { item: payload }, { headers });
+}
   updateEditors(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
   }

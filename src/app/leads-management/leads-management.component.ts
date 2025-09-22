@@ -401,6 +401,14 @@ export class LeadsManagementComponent implements OnInit {
   selectedLeads: any[] = [];
   selectAllOnPage = false;
 
+  // For all leads table
+  selectedAllLeads: any[] = [];
+  selectAllAllLeads = false;
+  
+  // For rangeData table
+  selectedRangeLeads: any[] = [];
+  selectAllRange = false;
+
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
     endDate: new FormControl("")
@@ -458,6 +466,15 @@ export class LeadsManagementComponent implements OnInit {
       }
     });
 
+    //new new
+
+     this.auth.allSalesLead().subscribe((res: any) => {
+      this.allSalesLead = res || [];
+      this.totalPages = Math.ceil((this.allSalesLead.length || 0) / this.itemsPerPage);
+      this.updatePaginatedData();
+      this.updateDynamicFields();
+    });
+
     this.auth.getAssignedCampaigns().subscribe((res: any) => {
       this.campaigns = res.data.map((camp: any) => ({
         name: camp.campaignName,
@@ -475,17 +492,29 @@ export class LeadsManagementComponent implements OnInit {
     });
 
     // initial load of all leads (constructor). keep but update dynamic fields afterwards
-    this.auth.allSalesLead().subscribe((res: any) => {
-      this.allSalesLead = res || [];
-      this.dynamicFields = this.getDynamicFields(res || []);
-      // ensure union in case other datasets load later
-      this.updateDynamicFields();
-      console.log("ALL LEADS=======>>", this.allSalesLead);
-    });
+    // this.auth.allSalesLead().subscribe((res: any) => {
+    //   this.allSalesLead = res || [];
+    //   this.dynamicFields = this.getDynamicFields(res || []);
+    //   // ensure union in case other datasets load later
+    //   this.updateDynamicFields();
+    //   console.log("ALL LEADS=======>>", this.allSalesLead);
+    // });
 
     this.auth.getTag().subscribe((res:any) => {
       this.tagNames = res;
     });
+  }
+
+  // === Utility getters ===
+  get anySelected(): boolean {
+    return (this.selectedRangeLeads.length + this.selectedAllLeads.length) > 0;
+  }
+
+  get combinedSelectedLeads(): any[] {
+    const map = new Map<string, any>();
+    this.selectedRangeLeads.forEach(l => { if (l && l._id) map.set(l._id, l); });
+    this.selectedAllLeads.forEach(l => { if (l && l._id) map.set(l._id, l); });
+    return Array.from(map.values());
   }
 
   searchCustomerByName() {
@@ -607,15 +636,26 @@ export class LeadsManagementComponent implements OnInit {
     return Array.from(fields);
   }
 
-  updateProjectStatus(data: any) {
-    this.auth.updateProjectStatus(data).subscribe((res: any) => {
-      if (data) {
+  // in leads-management.component.ts
+updateProjectStatus(data: any) {
+  // send as array (server expects array or will accept single converted to array)
+  this.auth.updateProjectStatusManagement([data]).subscribe({
+    next: (res: any) => {
+      // server returns { success: true, results: [...] }
+      if (res && res.success) {
         this.toastr.success("Data stored Successfully", "Success");
       } else {
         this.toastr.error("Data Not Stored", "Error");
+        console.error('update-projectStatusManagement response:', res);
       }
-    })
-  }
+    },
+    error: (err) => {
+      console.error('updateProjectStatus error', err);
+      this.toastr.error("Server Error while updating", "Error");
+    }
+  });
+}
+
   invoice(userId: string) {
     const url = `/salesHome/est-invoice/${userId}`;
     window.open(url, '_blank');
@@ -628,13 +668,14 @@ export class LeadsManagementComponent implements OnInit {
       this.toastr.error("Please select a sales person to transfer");
       return;
     }
-    if (this.selectedLeads.length === 0) {
+    const selectedLeads = this.combinedSelectedLeads;
+    if (selectedLeads.length === 0) {
       this.toastr.error(" Please select at least One Lead");
       return;
     }
 
     const transferData = {
-      leadIds: this.selectedLeads.map(lead => lead._id),
+      leadIds: selectedLeads.map(lead => lead._id),
       transferTo: targetSalesPerson
     };
 
@@ -644,6 +685,10 @@ export class LeadsManagementComponent implements OnInit {
 
         this.selectedLeads = [];
         this.selectAllOnPage = false;
+        this.selectedRangeLeads = [];
+        this.selectedAllLeads = [];
+        this.selectAllRange = false;
+        this.selectAllAllLeads = false;
         // in case the server updated leads and changed fields, refresh union
         this.updateDynamicFields();
       }, error: (err) => {
@@ -702,6 +747,53 @@ export class LeadsManagementComponent implements OnInit {
     // selection change doesn't modify fields but safe to update anyway
     this.updateDynamicFields();
   }
+
+  // ---- RangeData table ----
+toggleSelectAllRange(checked: boolean) {
+  this.selectAllRange = checked;
+  if (checked) {
+    this.selectedRangeLeads = [...this.rangeData];
+  } else {
+    this.selectedRangeLeads = [];
+  }
+}
+
+isSelectedRange(lead: any) {
+  return this.selectedRangeLeads.some(sel => sel._id === lead._id);
+}
+
+toggleRowRange(lead: any) {
+  if (this.isSelectedRange(lead)) {
+    this.selectedRangeLeads = this.selectedRangeLeads.filter(sel => sel._id !== lead._id);
+  } else {
+    this.selectedRangeLeads.push(lead);
+  }
+  this.selectAllRange = this.rangeData.every((l:any) => this.isSelectedRange(l));
+}
+
+// ---- All Leads table ----
+toggleSelectAllAllLeads(checked: boolean) {
+  this.selectAllAllLeads = checked;
+  if (checked) {
+    this.selectedAllLeads = [...this.paginatedLeads];
+  } else {
+    this.selectedAllLeads = [];
+  }
+}
+
+isSelectedAll(lead: any) {
+  return this.selectedAllLeads.some(sel => sel._id === lead._id);
+}
+
+toggleRowAll(lead: any) {
+  if (this.isSelectedAll(lead)) {
+    this.selectedAllLeads = this.selectedAllLeads.filter(sel => sel._id !== lead._id);
+  } else {
+    this.selectedAllLeads.push(lead);
+  }
+  this.selectAllAllLeads = this.paginatedLeads.every(l => this.isSelectedAll(l));
+}
+
 
 
   onFileSelected(event: any) {
