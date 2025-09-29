@@ -79,6 +79,12 @@ export class SalesSideNavComponent {
       name: 'Leads Management',
       icon: 'bi bi-incognito',
       route: '/salesHome/leads-management'
+    },
+    {
+      number: '12',
+      name: 'Create Custom Quotation',
+      icon: 'bi bi-book',
+      route: '/salesHome/custom-quotation'
     }
   ];
 
@@ -132,7 +138,7 @@ export class SalesSideNavComponent {
         this.list1 = this.list1.filter(item => item.number !== '4');
         this.list1 = this.list1.filter(item => item.number !== '7');
         this.list1 = this.list1.filter(item => item.number !== '9');
-        this.list1 = this.list1.filter(item => item.number !== '10');
+        //this.list1 = this.list1.filter(item => item.number !== '10');
       }
       this.updateListBasedOnRoute();
     })

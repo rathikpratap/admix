@@ -4,20 +4,20 @@ import numWords from 'num-words';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
-import { ActivatedRoute } from '@angular/router';
+//import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-est-invoice',
-  templateUrl: './est-invoice.component.html',
-  styleUrls: ['./est-invoice.component.css']
+  selector: 'app-custom-quotation',
+  templateUrl: './custom-quotation.component.html',
+  styleUrl: './custom-quotation.component.css'
 })
-export class EstInvoiceComponent implements OnInit {
+export class CustomQuotationComponent implements OnInit{
 
   tok: any;
-  getId: any;
+  //getId: any;
   Category: any;
   name: string = '';
   number: any;
@@ -85,17 +85,18 @@ export class EstInvoiceComponent implements OnInit {
     this.auth.getCategory().subscribe((res: any) => {
       this.Category = res;
     });
-    this.getId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.auth.getCustomer(this.getId).subscribe((res: any) => {
-      this.data = res;
-      this.name = this.data?.custName || '';
-      this.number = this.data?.custNumb || '';
+    //this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+    // this.auth.getCustomer(this.getId).subscribe((res: any) => {
+    //   this.data = res;
+    //   this.name = this.data?.custName || '';
+    //   this.number = this.data?.custNumb || '';
 
-      this.custForm.patchValue({
-        custName: this.name,
-        custNumb: this.number
-      });
-      this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
+    //   this.custForm.patchValue({
+    //     custName: this.name,
+    //     custNumb: this.number
+    //   });
+    // });
+    this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
         this.Bill = value;
         // Recalculate each row since billType affects GST
         this.rows.controls.forEach(control => {
@@ -104,7 +105,6 @@ export class EstInvoiceComponent implements OnInit {
         });
         this.calculateGrandTotal();
       });
-    });
     this.auth.estInvoiceCount().subscribe((res: any) => {
       this.count = (res ?? 0) + 1;
     });
@@ -113,7 +113,7 @@ export class EstInvoiceComponent implements OnInit {
     this.addRow();
   }
 
-  constructor(private auth: AuthService, private activatedRoute: ActivatedRoute, private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(private auth: AuthService, private fb: FormBuilder, private toastr: ToastrService) { }
 
   get rows() {
     return this.invoiceForm.get('rows') as FormArray;
@@ -226,13 +226,12 @@ export class EstInvoiceComponent implements OnInit {
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, salesLeadId: this.getId };
+    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear};
 
-    this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
+    this.auth.addCustomQuotation(combinedData).subscribe((res: any) => {
       if (res.success) {
         this.toastr.success('Quotation saved Successfully', 'Success');
         this.generatePdf();
-        // window.location.reload();
       } else if (res.sameDateExists) {
         // Case: Same Date – Ask to update
         Swal.fire({
@@ -244,11 +243,10 @@ export class EstInvoiceComponent implements OnInit {
           cancelButtonText: 'No, Cancel'
         }).then((result) => {
           if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+            this.auth.addCustomQuotation({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
               if (res.success) {
                 this.toastr.success('Quotation Updated Successfully', 'Success');
                 this.generatePdf();
-                // window.location.reload();
               } else {
                 this.toastr.error('Error Updating Quotation', 'Error');
               }
@@ -268,11 +266,10 @@ export class EstInvoiceComponent implements OnInit {
           cancelButtonText: 'No, Cancel'
         }).then((result) => {
           if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
+            this.auth.addCustomQuotation({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
               if (res.success) {
                 this.toastr.success('New Quotation Saved Successfully', 'Success');
                 this.generatePdf();
-                // window.location.reload();
               } else {
                 this.toastr.error('Error Saving New Quotation', 'Error');
               }
@@ -286,177 +283,6 @@ export class EstInvoiceComponent implements OnInit {
       }
     });
   }
-
-  // generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p',
-  //         unit: 'mm',
-  //         format: [210 * 1.5, 297 * 1.5]
-  //       });
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       const fileName = `quotation_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  // }
-
-  //   generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement, { scale: 2 }).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       //const pdf = new jsPDF('p', 'mm', 'a4'); // standard A4
-  //       const pdf = new jsPDF({
-  //           orientation: 'p',
-  //           unit: 'mm',
-  //           format: [210 * 1.5, 297 * 1.5]
-  //         });
-
-  //       const pageWidth = pdf.internal.pageSize.getWidth();   // 210mm
-  //       const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
-
-  //       const topPadding = 15;    // mm me top padding
-  //       const bottomPadding = 15; // mm me bottom padding
-  //       const usableHeight = pageHeight - topPadding - bottomPadding;
-
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const imgWidth = pageWidth;
-  //       const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-
-  //       let heightLeft = imgHeight;
-  //       let position = 0;
-
-  //       // First page
-  //       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //       heightLeft -= pageHeight;
-
-  //       // Next pages if content remains
-  //       while (heightLeft > 0) {
-  //         position = heightLeft - imgHeight; // shift image upward
-  //         pdf.addPage();
-  //         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //         //heightLeft -= pageHeight;
-  //         heightLeft -= usableHeight;
-  //       }
-
-  //       const fileName = `quotation_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  // }
-
-
-  // generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-  //   if (!invoiceElement) return;
-
-  //   // Capture the full invoice as canvas
-  //   html2canvas(invoiceElement, { scale: 2, useCORS: true }).then(canvas => {
-  //     const imgData = canvas.toDataURL('image/png');
-
-  //     // Keep your original constructor (as you requested)
-  //     const pdf = new jsPDF({
-  //       orientation: 'p',
-  //       unit: 'mm',
-  //       format: [210 * 1.5, 297 * 1.5] // you can change to 'a4' if desired
-  //     });
-
-  //     const pageWidth = pdf.internal.pageSize.getWidth();   // mm
-  //     const pageHeight = pdf.internal.pageSize.getHeight(); // mm
-
-  //     // Top & bottom padding in mm
-  //     const topPadding = 15;
-  //     const bottomPadding = 15;
-  //     const usableHeightMm = pageHeight - topPadding - bottomPadding; // mm available per page
-
-  //     // Canvas size in pixels
-  //     const canvasPxWidth = canvas.width;
-  //     const canvasPxHeight = canvas.height;
-
-  //     // We'll render image to full page width (in mm)
-  //     const renderImgWidthMm = pageWidth;
-
-  //     // mm per pixel = how many mm corresponds to one pixel when we fit canvas width to page width
-  //     const mmPerPx = renderImgWidthMm / canvasPxWidth; // mm per px
-
-  //     // convert usable height in mm to px on the canvas
-  //     const usableHeightPx = Math.floor(usableHeightMm / mmPerPx);
-
-  //     // Overlap in px (small to avoid visible cuts). Tune this if needed.
-  //     const sliceOverlapPx = 20;
-
-  //     let positionPx = 0;
-  //     let pageIndex = 0;
-
-  //     while (positionPx < canvasPxHeight) {
-  //       // For every slice except the first, start earlier by overlap so slices overlap
-  //       let sliceStartPx = positionPx;
-  //       if (pageIndex > 0) {
-  //         sliceStartPx = Math.max(0, positionPx - sliceOverlapPx);
-  //       }
-
-  //       // remaining pixels
-  //       const remainingPx = canvasPxHeight - sliceStartPx;
-  //       // slice height: usableHeightPx + overlap (to ensure overlap at bottom for this slice),
-  //       // but cap to remainingPx
-  //       const sliceHeightPx = Math.min(usableHeightPx + (pageIndex > 0 ? sliceOverlapPx : 0), remainingPx);
-
-  //       // create slice canvas
-  //       const pageCanvas = document.createElement('canvas');
-  //       pageCanvas.width = canvasPxWidth;
-  //       pageCanvas.height = sliceHeightPx;
-  //       const ctx = pageCanvas.getContext('2d')!;
-  //       // draw the slice from the big canvas
-  //       ctx.drawImage(
-  //         canvas,
-  //         0, sliceStartPx,                  // sx, sy
-  //         canvasPxWidth, sliceHeightPx,     // sWidth, sHeight
-  //         0, 0,                             // dx, dy
-  //         canvasPxWidth, sliceHeightPx      // dWidth, dHeight
-  //       );
-
-  //       // convert this slice to dataURL
-  //       const pageImgData = pageCanvas.toDataURL('image/png');
-
-  //       // slice height in mm when scaled to full page width
-  //       const sliceHeightMm = sliceHeightPx * mmPerPx;
-
-  //       // Add page break if not first
-  //       if (pageIndex > 0) pdf.addPage();
-
-  //       // Add image at x=0, y=topPadding, with width = pageWidth and height = sliceHeightMm
-  //       // Cast pdf to any to avoid TypeScript addImage overload errors
-  //       (pdf as any).addImage(pageImgData as string, 'PNG', 0, topPadding, renderImgWidthMm, sliceHeightMm);
-
-  //       // Move positionPx to next slice start: previous position + usableHeightPx
-  //       positionPx = positionPx + usableHeightPx;
-
-  //       pageIndex++;
-  //     }
-
-  //     const fileName = `quotation_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_');
-  //     pdf.save(fileName);
-  //   }).catch(err => {
-  //     console.error('PDF generation error:', err);
-  //     // fallback minimal attempt so user still gets a PDF
-  //     html2canvas(invoiceElement, { scale: 1 }).then(fallbackCanvas => {
-  //       const img = fallbackCanvas.toDataURL('image/png');
-  //       const pdfFallback = new jsPDF('p', 'mm', 'a4');
-  //       (pdfFallback as any).addImage(img as string, 'PNG', 0, 10, pdfFallback.internal.pageSize.getWidth(), undefined);
-  //       pdfFallback.save(`quotation_${this.name || 'invoice'}_fallback.pdf`);
-  //     });
-  //   });
-  // }
 
   // place this method inside your EstInvoiceComponent class
 generatePdf() {
@@ -538,4 +364,5 @@ generatePdf() {
       return `${year - 1}-${(year).toString().slice(-2)}`;
     }
   }
+ 
 }

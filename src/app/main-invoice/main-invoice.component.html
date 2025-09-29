@@ -78,8 +78,8 @@
                     </div>
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <ng-container *ngIf="billFormat === 'Main'; else nonGstBlock">
-                            <p><strong>Invoice No.</strong> {{ 'ADM-' + financialYear + '/' + count }}</p>
+                        <ng-container *ngIf="billFormat === 'Main' && this.invoiceForm.get('billType')?.value === 'GST'; else nonGstBlock">
+                            <p><strong>Invoice No.</strong> {{ 'ADMIX-' + financialYear + '/' + count }}</p>
                         </ng-container>
                         <ng-template #nonGstBlock>
                             <p><strong>Invoice No.</strong> {{ 'ADM-' + financialYear + '/' + countNonGST }}</p>
@@ -152,10 +152,87 @@
                         </table>
                     </div>
                 </form>
-
+                
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="row">
+                <div class="col-lg-9">
+                    <div class="est-amt">
+                        <p><strong>Invoice Amount in Words</strong></p>
+                        <p>{{wordsAmt | uppercase}} ONLY</p>
+                        <p><strong>Terms and Condition</strong></p>
+                        <ul class="terms-ul">
+                            <li>
+                                <strong>Model Availability & Shoot Delay:</strong> Once a model is selected, Admix Media
+                                is not responsible
+                                for delays due to model’s personal/health issues. If unavailable for 7–10 days, the
+                                client may select
+                                another model in the same price segment.
+                            </li>
+                            <li>
+                                <strong>Delivery & Revision Timeline:</strong> Committed delivery date is for first
+                                draft only. Revisions after
+                                delivery require minimum 24 hours, not counted in the original deadline.
+                            </li>
+                            <li>
+                                <strong>Payment & Refund Policy:</strong> Deal amount is final once confirmed. Advance
+                                payments are strictly
+                                non-refundable. Clients must read and agree before closing the deal.
+                            </li>
+                            <li>
+                                <strong>Reshoot Policy:</strong> Reshoot is not possible once the shoot is completed.
+                                All requirements,
+                                references, and approvals must be provided before the shoot date.
+                            </li>
+                            <li>
+                                <strong>Watermark Policy:</strong> After advance payment, videos are shared with
+                                watermark. Final
+                                watermark-free file is released only after full and final payment.
+                            </li>
+                            <li>
+                                <strong>Video Format Policy:</strong> Final video is delivered in one standard format.
+                                Multiple
+                                formats/resolutions require additional charges.
+                            </li>
+                            <li>
+                                <strong>Video Duration Policy:</strong> The quoted price is valid for videos up to 45
+                                seconds. If the final video
+                                exceeds 45 seconds but is within 1 minute, it will be considered under the same price.
+                                If duration
+                                exceeds 1 minute, the client must either shorten the script or pay additional charges.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div [formGroup]="invoiceForm">
+                        <div class="sub-total">
+                            <div class="sub-total-title">
+                                <p><strong>Sub Total: </strong>₹{{this.amount}} </p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <p class="mb-0"><strong>Discount:</strong></p>
+                                    <input type="number" class="form-control discount" formControlName="discountValue"
+                                        placeholder="Enter Discount">
+                                </div>
+                                <p *ngIf="invoiceForm.get('gstType')?.value === 'Other'"><strong>IGST
+                                        &#64;18%:</strong>₹{{this.gstAmount}} </p>
+                                <div *ngIf="invoiceForm.get('gstType')?.value !== 'Other'">
+                                    <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                                    <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
+                                </div>
+
+                                <p class="bottom-total"><strong>Total: </strong>₹ {{this.afterDiscountTotal}} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signature"*ngIf="invoiceForm.get('billType')?.value !== 'GST'">
+                        <p> For: Admix Media Pvt. Ltd.</p>
+                        <img src="assets/Images/signature.png" alt="Authorized Signature">
+                        <p><strong>Authorized Signatory</strong></p>
+                    </div>
+                </div>
+            </div>
+        <!-- <div class="col-lg-12">
             <div class="lower-mid-text">
                 <div class="est-amt">
                     <p><strong>Invoice Amount in Words</strong></p>
@@ -182,7 +259,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-lg-4">
@@ -201,7 +278,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="signature">
+                <div class="signature" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
                     <p> For: Admix Media Pvt. Ltd.</p>
                     <img src="assets/Images/signature.png" alt="Authorized Signature">
                     <p><strong>Authorized Signatory</strong></p>

@@ -92,6 +92,7 @@ import { AssignCampaignComponent } from './assign-campaign/assign-campaign.compo
 import { PointsTableComponent } from './points-table/points-table.component';
 import { LeadsManagementComponent } from './leads-management/leads-management.component';
 import { DataDeletionComponent } from './data-deletion/data-deletion.component';
+import { CustomQuotationComponent } from './custom-quotation/custom-quotation.component';
 
 const routes: Routes = [
   {
@@ -362,6 +363,10 @@ const routes: Routes = [
       {
         path: 'leads-management',
         component: LeadsManagementComponent
+      },
+      {
+        path: 'custom-quotation',
+        component: CustomQuotationComponent
       }
     ]
   },

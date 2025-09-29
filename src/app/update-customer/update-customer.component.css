@@ -82,6 +82,10 @@ form .user-details .input-box{
     font-weight: 500;
     letter-spacing: 1px;
 }
+.verify-btn{
+    width: fit-content;
+    padding: 0px 10px;
+}
 .error{
     border: 1px solid red;
 }

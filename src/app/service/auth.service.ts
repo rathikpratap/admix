@@ -93,7 +93,20 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/customLead`, customerData);
   }
   addEstInvoice(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data, {headers});
+  }
+  addCustomQuotation(data: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'const-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post(`${appConfig.apiUrl}/auth/customQuotation`, data,{headers});
   }
   updateInvoice(data: any): Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data);
@@ -729,8 +742,8 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/leadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
-  getInvoice(startDate: Date, endDate: Date): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getInvoice/${startDate.toISOString()}/${endDate.toISOString()}`);
+  getInvoiceRange(startDate: Date, endDate: Date): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/getInvoiceRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
   getSalesLeadbyRange(filters: any): Observable<any> {
@@ -1592,6 +1605,25 @@ export class AuthService {
   updatePoint(point:any){
     return this.http.post(`${appConfig.apiUrl}/auth/update-point`,{item: point});
   }
+  // auth.service.ts
+verifyQuotation(financialYear: string, suffix: string, custName: string, custNumb: string) {
+  const params = new HttpParams()
+    .set('financialYear', financialYear)
+    .set('suffix', suffix)
+    .set('custName', custName ?? '')
+    .set('custNumb', custNumb ?? '');
+  return this.http.get(`${appConfig.apiUrl}/auth/verify-quotation`, { params });
+}
+
+getInvoice():Observable<any>{
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  })
+  return this.http.get(`${appConfig.apiUrl}/auth/getInvoice`, {headers});
+}
+
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{
   //   return this.http.get(`${appConfig.apiUrl}/auth/getDateWhatsAppCampaign/${name}`,{

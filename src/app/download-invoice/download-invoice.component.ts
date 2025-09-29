@@ -36,6 +36,11 @@ export class DownloadInvoiceComponent {
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });
+    this.auth.getInvoice().subscribe((res:any)=>{
+      this.invoiceData = res.invoiceData;
+      this.quotationData = res.quotationData;
+      this.nonGST = res.nonGSTData;
+    });
   }
 
   onDate(){
@@ -46,7 +51,7 @@ export class DownloadInvoiceComponent {
     const endDate = endDateValue? new Date(endDateValue) : null;
 
     if(startDate && endDate){
-      this.auth.getInvoice(startDate, endDate).subscribe((res:any)=>{
+      this.auth.getInvoiceRange(startDate, endDate).subscribe((res:any)=>{
         this.invoiceData = res.invoiceData;
         this.quotationData = res.quotationData;
         this.nonGST = res.nonGSTData;

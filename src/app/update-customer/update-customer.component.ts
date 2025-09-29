@@ -2,29 +2,37 @@ import { Component, ElementRef, NgZone, Renderer2, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-update-customer',
   templateUrl: './update-customer.component.html',
   styleUrls: ['./update-customer.component.css']
 })
-export class UpdateCustomerComponent implements OnInit{
+export class UpdateCustomerComponent implements OnInit {
 
   getId: any;
   Category: any;
-  countries: any; 
+  countries: any;
   states: any;
   cities: any;
-  tok:any;
-  emp:any;
+  tok: any;
+  emp: any;
   companies: any;
   codeInput!: ElementRef<HTMLInputElement>;
-  
+  financialYear: any;
+  date: any;
+  invoiceNumber: any;
+
+  verifyState: 'idle' | 'checking' | 'notfound' | 'mismatch' | 'match' = 'idle';
+  verifyMsg = '';
+
   ngOnInit(): void {
-    this.updateForm.get('AdvPay')!.valueChanges.subscribe(value=>{
+    this.updateForm.get('AdvPay')!.valueChanges.subscribe(value => {
       this.updateForm.get('restAmount')!.setValue('0');
-    })
+    });
+    this.date = new Date();
+    this.financialYear = this.getFinancialYear(this.date);
   }
 
   ngAfterViewInit() {
@@ -37,6 +45,8 @@ export class UpdateCustomerComponent implements OnInit{
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
+    quotationNumber: new FormControl("", [Validators.required]),
+    quotationSuffix: new FormControl("", [Validators.required]),
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
     custNumb2: new FormControl(""),
@@ -57,10 +67,10 @@ export class UpdateCustomerComponent implements OnInit{
     youtubeLink: new FormControl(""),
     remark: new FormControl(""),
     restAmount: new FormControl(""),
-    restPaymentDate: new FormControl("", [Validators.required]), 
+    restPaymentDate: new FormControl("", [Validators.required]),
     leadsCreatedDate: new FormControl(""),
     companyName: new FormControl(""),
-    Qr: new FormControl("",[Validators.required]),
+    Qr: new FormControl("", [Validators.required]),
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
     reelsCount: new FormControl(0)
@@ -70,14 +80,14 @@ export class UpdateCustomerComponent implements OnInit{
     const youtubeLink = this.updateForm.get('youtubeLink')!.value;
     if (youtubeLink) {
       const videoId = this.extractVideoId(youtubeLink);
-      if(videoId){
+      if (videoId) {
         const embeddedVideoUrl = `https://www.youtube.com/embed/${videoId}`;
         this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embeddedVideoUrl);
-      } else{
+      } else {
         this.safeVideoUrl = null;
       }
       //console.log("Video ID====>>", videoId);
-    }else {
+    } else {
       this.safeVideoUrl = null;
     }
   }
@@ -87,11 +97,11 @@ export class UpdateCustomerComponent implements OnInit{
     const match = url.match(regExp);
     return match ? match[1] : null;
   }
-  constructor(private router: Router, private ngZone: NgZone,private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
-    
-    this.auth.getProfile().subscribe((res:any)=>{
+  constructor(private router: Router, private ngZone: NgZone, private renderer: Renderer2, private el: ElementRef, private activatedRoute: ActivatedRoute, private auth: AuthService, private sanitizer: DomSanitizer) {
+
+    this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
-      if(!this.tok){
+      if (!this.tok) {
         alert("Session Expired, PLease Login Again");
         this.auth.logout();
       }
@@ -104,28 +114,44 @@ export class UpdateCustomerComponent implements OnInit{
       const restAmountValue = parseInt(values.restAmount || '0');
       const remainingAmount = closingPriceValue - AdvPayValue - restAmountValue;
 
-      this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());   
+      this.updateForm.get('remainingAmount')!.setValue(remainingAmount.toString());
     });
-    
-    this.auth.allEmployee().subscribe((res: any)=>{
+
+    this.auth.allEmployee().subscribe((res: any) => {
       this.emp = res;
     });
- 
+
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
- 
-      if(res['custCode']){
+
+      if (res['custCode']) {
         this.updateForm.patchValue({
           custCode: res['custCode']
         });
-      }else{
-        this.auth.dataLength().subscribe((length:any)=>{
-          res['custCode']=length+1;
+      } else {
+        this.auth.dataLength().subscribe((length: any) => {
+          res['custCode'] = length + 1;
           this.updateForm.patchValue({
             custCode: res['custCode']
-          }); 
+          });
         });
       }
-      this.updateForm.patchValue({ 
+
+      const prefix = `ADM-${this.financialYear}/`;
+
+      if (res['quotationNumber']) {
+        // agar saved hai to suffix nikaal lo (prefix ke baad ka part)
+        const suffix = String(res['quotationNumber']).replace(prefix, '');
+        this.updateForm.patchValue({ quotationSuffix: suffix });
+      } else {
+        // naya — suffix blank, prefix UI me dikh jayega
+        this.updateForm.patchValue({ quotationSuffix: '' });
+      }
+
+      this.invoiceNumber = res.invoiceNumber || []; // <-- store array here
+
+      this.updateForm.patchValue({
+        // quotationNumber: res['quotationNumber'],
+        // quotationSuffix: res[''],
         custName: res['custName'],
         custNumb: res['custNumb'],
         custNumb2: res['custNumb2'],
@@ -159,33 +185,33 @@ export class UpdateCustomerComponent implements OnInit{
 
     this.onRestAmountChange();
 
-    this.auth.getCategory().subscribe((category:any)=>{
+    this.auth.getCategory().subscribe((category: any) => {
       this.Category = category;
     });
 
-    this.auth.getCountries().subscribe((Countrydata: any) =>{
+    this.auth.getCountries().subscribe((Countrydata: any) => {
       this.countries = Countrydata;
     });
-    this.auth.getCompany().subscribe((res:any)=>{
-      if(this.tok.salesTeam === 'Shiva Development') {
+    this.auth.getCompany().subscribe((res: any) => {
+      if (this.tok.salesTeam === 'Shiva Development') {
         this.companies = res.filter((company: any, index: number, self: any[]) =>
           index === self.findIndex((c: any) => c.companyName === company.companyName)
         );
-      } else{
+      } else {
         this.updateForm.get('companyName')?.setValue('AdmixMedia');
       }
     });
   }
 
-  formatDate(isoDate: string): string{
-    if(!isoDate) return '';
+  formatDate(isoDate: string): string {
+    if (!isoDate) return '';
     return isoDate.split('T')[0];
   }
 
-  onRestAmountChange(){
-    this.updateForm.get('restAmount')?.valueChanges.subscribe((value:any)=>{
+  onRestAmountChange() {
+    this.updateForm.get('restAmount')?.valueChanges.subscribe((value: any) => {
       const restPaymentDateControl = this.updateForm.get('restPaymentDate');
-      if(value > 0){
+      if (value > 0) {
         restPaymentDateControl?.setValidators([Validators.required]);
       } else {
         restPaymentDateControl?.clearValidators();
@@ -197,52 +223,118 @@ export class UpdateCustomerComponent implements OnInit{
   getControls(name: any): AbstractControl | null {
     return this.updateForm.get(name)
   }
- 
+
   onUpdate() {
+
+    const prefix = `ADM-${this.financialYear}/`;
+    const suffix = (this.updateForm.value.quotationSuffix ?? '').toString().trim();
+
+    this.updateForm.patchValue({
+      quotationNumber: suffix ? prefix + suffix : prefix  // e.g. ADM-25-26/306
+    });
+
     const currentDate = new Date().toISOString();
-    if(!this.updateForm.get('AdvPay')!.value){
-      this.updateForm.get('AdvPay')?.setValue(0); 
+    if (!this.updateForm.get('AdvPay')!.value) {
+      this.updateForm.get('AdvPay')?.setValue(0);
     }
     this.auth.updateCustomer(this.getId, this.updateForm.value).subscribe((res: any) => {
       const projectStatusControl = this.updateForm.get('projectStatus');
-        projectStatusControl?.valueChanges.subscribe(value => {
-          if (value === 'Closing') {
-            let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
-            let msgTitle = "New Closing";
-            let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
-            this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
-              if (res) {
-                alert("Notification Sent");
-              } else {
-                alert("Error Sending Notification");
-              }
-            });
-          }
-        });
-        // Manually trigger the value change logic for projectStatus
-        projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
+      projectStatusControl?.valueChanges.subscribe(value => {
+        if (value === 'Closing') {
+          let selectedEmployee = this.emp.find((employee: any) => employee.signupRole === 'Admin');
+          let msgTitle = "New Closing";
+          let msgBody = `${this.updateForm.get('custBussiness')?.value} by ${this.tok.signupUsername}`;
+          this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+            if (res) {
+              alert("Notification Sent");
+            } else {
+              alert("Error Sending Notification");
+            }
+          });
+        }
+      });
+      // Manually trigger the value change logic for projectStatus
+      projectStatusControl?.setValue(projectStatusControl.value, { emitEvent: true });
       this.ngZone.run(() => { this.router.navigateByUrl('/salesHome/salesDashboard') })
     }, (err) => {
       console.log(err)
     })
-  } 
+  }
 
-  onCountryChange(): void{
+  onCountryChange(): void {
     const countryCode = this.updateForm.get('custCountry')?.value;
-    this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
+    this.auth.getStates(countryCode).subscribe((Statedata: any) => {
       this.states = Statedata;
     });
   }
 
-  onStateChange(): void{
+  onStateChange(): void {
     const stateCode = this.updateForm.get('custState')?.value;
     const countryCode = this.updateForm.get('custCountry')?.value;
-    this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
+    this.auth.getCities(countryCode, stateCode).subscribe((Citydata: any) => {
       this.cities = Citydata;
     });
   }
 
   hasSalesPerson(): boolean {
     return this.updateForm.get('salesPerson')?.value === null;
+  }
+  getFinancialYear(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    if (month >= 4) {
+      return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
+    } else {
+      return `${year - 1}-${(year).toString().slice(-2)}`;
+    }
+  }
+
+  get prefix(): string {
+    return `ADM-${this.financialYear}/`;
+  }
+  onVerifyQuotation() {
+    const suffix: string = (this.updateForm.get('quotationSuffix')?.value || '').toString().trim();
+    if (!suffix) {
+      this.verifyState = 'notfound';
+      this.verifyMsg = 'Please enter quotation number';
+      return;
+    }
+
+    this.verifyState = 'checking';
+    this.verifyMsg = 'Checking...';
+
+    const custName = this.updateForm.get('custName')?.value || '';
+    const custNumb = this.updateForm.get('custNumb')?.value || '';
+
+    this.auth.verifyQuotation(this.financialYear, suffix, custName, custNumb)
+      .subscribe((res: any) => {
+        if (!res.ok) {
+          this.verifyState = 'notfound';
+          this.verifyMsg = res.message || 'Could not verify';
+          return;
+        }
+        if (!res.found) {
+          this.verifyState = 'notfound';
+          this.verifyMsg = 'Quotation not found';
+          return;
+        }
+        if (res.match) {
+          this.verifyState = 'match';
+          this.verifyMsg = 'Quotation matches this customer';
+          // Optionally set final quotationNumber field:
+          this.updateForm.patchValue({ quotationNumber: this.prefix + suffix });
+        } else {
+          this.verifyState = 'mismatch';
+          if (res.mismatchFields?.length > 0) {
+            this.verifyMsg = `${res.mismatchFields.join(' and ')} do not match`;
+          } else {
+            this.verifyMsg = 'Quotation number not matching this customer';
+          }
+        }
+      }, _err => {
+        this.verifyState = 'notfound';
+        this.verifyMsg = 'Server error while verifying';
+      });
   }
 }

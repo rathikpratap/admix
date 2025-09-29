@@ -23,6 +23,35 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
+                            <span class="details">Quotataion Number</span>
+                            <div class="d-inline-flex align-items-center gap-2" style="width:auto;">
+                                <div class="input-group d-inline-flex align-items-center" style="width: auto;">
+                                    <span class="details px-2">ADM-{{financialYear}}/</span>
+                                    <input type="text" class="form-control" formControlName="quotationSuffix"
+                                        placeholder="Quotation number (e.g. 306)" style="max-width: 120px;">
+                                </div>
+                                <button type="button" class="btn btn-outline-warning verify-btn" (click)="onVerifyQuotation()"
+                                    [disabled]="verifyState==='checking'">
+                                    {{ verifyState==='checking' ? 'Verifying…' : 'Verify' }}
+                                </button>
+                            </div>
+                            <!-- Message under the control -->
+                            <div class="mt-1" *ngIf="verifyState !== 'idle'">
+                                <small [ngClass]="{'text-success': verifyState==='match', 'text-danger': verifyState==='mismatch' || verifyState==='notfound',
+                                    'text-muted': verifyState==='checking' }">
+                                    {{ verifyMsg }}
+                                </small>
+                            </div>
+                            <div
+                                *ngIf="getControls('quotationSuffix')?.errors && getControls('quotationSuffix')?.touched">
+                                <label class="text-danger" *ngIf="getControls('quotationSuffix')?.errors?.['required']">
+                                    Client
+                                    Quotation Number is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group">
                             <span class="details"> Customer Name: </span>
                             <input type="text" class="form-control" formControlName="custName"
                                 [ngClass]="{error:getControls('custName')?.errors && getControls('custName')?.touched}"
@@ -39,7 +68,7 @@
                             <input type="text" class="form-control" formControlName="custNumb"
                                 [ngClass]="{error:getControls('custNumb')?.errors && getControls('custNumb')?.touched}"
                                 placeholder="Enter Customer Number">
-                                <input type="text" class="form-control" formControlName="custNumb2"
+                            <input type="text" class="form-control" formControlName="custNumb2"
                                 placeholder="Enter Second Customer Number">
                             <div *ngIf="getControls('custNumb')?.errors && getControls('custNumb')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custNumb')?.errors?.['required']"> Number
@@ -107,22 +136,28 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'"
+                        class="input-box">
                         <div class="form-group">
                             <span class="details">Graphics Count</span>
-                            <input type="number" class="form-control" formControlName="graphicsCount" placeholder="Enter number of graphics">
+                            <input type="number" class="form-control" formControlName="graphicsCount"
+                                placeholder="Enter number of graphics">
                         </div>
                     </div>
-                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'"
+                        class="input-box">
                         <div class="form-group">
                             <span class="details">Video Count</span>
-                            <input type="number" class="form-control" formControlName="videosCount" placeholder="Enter number of graphics">
+                            <input type="number" class="form-control" formControlName="videosCount"
+                                placeholder="Enter number of graphics">
                         </div>
                     </div>
-                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'" class="input-box">
+                    <div *ngIf="updateForm.get('closingCateg')?.value === 'Package' || updateForm.get('closingCateg')?.value === 'Bulk Advertisement Video'"
+                        class="input-box">
                         <div class="form-group">
                             <span class="details">Reels Count</span>
-                            <input type="number" class="form-control" formControlName="reelsCount" placeholder="Enter number of graphics">
+                            <input type="number" class="form-control" formControlName="reelsCount"
+                                placeholder="Enter number of graphics">
                         </div>
                     </div>
                     <div class="input-box">
@@ -163,19 +198,20 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment Date: </span>
-                            <input type="date"
-                                class="form-control" formControlName="restPaymentDate"
+                            <input type="date" class="form-control" formControlName="restPaymentDate"
                                 [ngClass]="{error:getControls('restPaymentDate')?.errors && getControls('restPaymentDate')?.touched}"
                                 placeholder="Enter Rest Payment Date">
                             <div *ngIf="getControls('restPaymentDate')?.errors">
-                                <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']"> Rest Payment Date is Required</label>
+                                <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']">
+                                    Rest Payment Date is Required</label>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details">Payment QR: </span>
-                            <select class="form-select" formControlName="Qr" aria-label="Default select example" [ngClass]="{error:getControls('Qr')?.errors && getControls('Qr')?.touched}">
+                            <select class="form-select" formControlName="Qr" aria-label="Default select example"
+                                [ngClass]="{error:getControls('Qr')?.errors && getControls('Qr')?.touched}">
                                 <option value="null">Select QR</option>
                                 <option value="Admix Media">Admix Media</option>
                                 <option value="Shiva Varshney">Shiva Varshney</option>
@@ -184,7 +220,8 @@
                                 <option value="Anupam Varshney">Anupam Varshney</option>
                             </select>
                             <div *ngIf="getControls('Qr')?.errors">
-                                <label class="text-danger" *ngIf="getControls('Qr')?.errors?.['required']"> QR Selection is Required </label>
+                                <label class="text-danger" *ngIf="getControls('Qr')?.errors?.['required']"> QR Selection
+                                    is Required </label>
                             </div>
                         </div>
                     </div>
@@ -204,14 +241,17 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Type:</span>
-                            <select class="form-select" formControlName="customerType" aria-label="Default select example" [ngClass]="{error: getControls('customerType')?.errors && getControls('customerType')?.touched}">
+                            <select class="form-select" formControlName="customerType"
+                                aria-label="Default select example"
+                                [ngClass]="{error: getControls('customerType')?.errors && getControls('customerType')?.touched}">
                                 <option value="">Select Customer Type</option>
                                 <option value="New Lead">New Lead</option>
                                 <option value="Follow Up">Follow Up</option>
                                 <option value="Returning Customer">Returning Customer</option>
                             </select>
                             <div *ngIf="getControls('customerType')?.errors">
-                                <label class="text-danger" *ngIf="getControls('customerType')?.errors?.['required']">Selection Required</label>
+                                <label class="text-danger"
+                                    *ngIf="getControls('customerType')?.errors?.['required']">Selection Required</label>
                             </div>
                         </div>
                     </div>
@@ -276,7 +316,8 @@
                                 <option value="Video Changes">Video Changes</option>
                                 <option value="Video Done">Video Done</option>
                                 <option value="Payment Pending">Payment Pending</option>
-                                <option value="Completed" [disabled]="+(updateForm.get('remainingAmount')?.value || 0) > 0">Completed</option>
+                                <option value="Completed"
+                                    [disabled]="+(updateForm.get('remainingAmount')?.value || 0) > 0">Completed</option>
                             </select>
                             <div *ngIf="getControls('projectStatus')?.errors && getControls('projectStatus')?.touched">
                                 <label class="text-danger" *ngIf="getControls('projectStatus')?.errors?.['required']">
@@ -326,8 +367,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details">Invoice Numbers:</span>
+                            <select class="form-select" formControlName="invoiceNumber" aria-label="Default select example">
+                                <option value="null" disabled>No Invoice Generated</option>
+                                <option *ngFor="let invoice of invoiceNumber" [ngValue]="invoice" disabled>
+                                    {{invoice.InvoiceNo}} - {{invoice.invoiceDate | date: 'dd-MM-yyyy'}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <input type="submit" [disabled]="updateForm.status === 'INVALID'" class="btn btn-success">
+                <input type="submit" [disabled]="updateForm.status === 'INVALID' || verifyState !== 'match'" class="btn btn-success">
                 <div class="youtubeVideo" *ngIf="safeVideoUrl">
                     <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

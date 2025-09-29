@@ -87,6 +87,7 @@ import { SalesWorkTeamComponent } from './sales-work-team/sales-work-team.compon
 import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.component';
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
 import { LeadsManagementComponent } from './leads-management/leads-management.component';
+import { CustomQuotationComponent } from './custom-quotation/custom-quotation.component';
 
  
 @NgModule({
@@ -163,7 +164,8 @@ import { LeadsManagementComponent } from './leads-management/leads-management.co
     SalesWorkTeamComponent,
     NewB2bProjectsComponent,
     AssignCampaignComponent,
-    LeadsManagementComponent
+    LeadsManagementComponent,
+    CustomQuotationComponent
     ],
   imports: [
     BrowserModule,
