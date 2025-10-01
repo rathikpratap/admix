@@ -226,7 +226,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <td>{{user.salesPerson}}</td>
@@ -298,7 +298,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <td>{{user.salesPerson}}</td>
@@ -370,7 +370,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <th>{{user.salesPerson}}</th>
@@ -442,7 +442,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <td>{{user.salesPerson}}</td>
@@ -514,7 +514,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <td>{{user.salesPerson}}</td>
@@ -586,7 +586,7 @@
                                     <option value="Video Editing">Video Editing</option>
                                     <option value="Video Changes">Video Changes</option>
                                     <option value="Video Done">Video Done</option>
-                                    <option value="Completed">Completed</option>
+                                    <option value="Completed" [disabled]="user.remainingAmount > 0">Completed</option>
                                 </select>
                             </td>
                             <td>{{user.salesPerson}}</td>

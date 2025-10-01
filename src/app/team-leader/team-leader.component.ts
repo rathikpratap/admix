@@ -462,7 +462,14 @@ export class TeamLeaderComponent implements OnInit {
         this.errorMessage = error.message;
       });
   }
-  sortedImportant(dataArray: any[]) {
-    return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  // sortedImportant(dataArray: any[]) {
+  //   return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  // }
+  sortedImportant(dataArray: any[]): any[] {
+  if (!Array.isArray(dataArray)) {
+    return []; // return empty list if not an array yet
   }
+  return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+}
+
 }

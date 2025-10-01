@@ -693,7 +693,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(onlyLogo)"
+                            <tr *ngFor="let user of sortedImportant(onlyLogo || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -785,7 +785,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(data)"
+                            <tr *ngFor="let user of sortedImportant(data || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -890,7 +890,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(cloDatat)"
+                            <tr *ngFor="let user of sortedImportant(cloDatat || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -995,7 +995,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(empData)"
+                            <tr *ngFor="let user of sortedImportant(empData || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1100,7 +1100,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(combineTwo)"
+                            <tr *ngFor="let user of sortedImportant(combineTwo || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1205,7 +1205,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(statusData)"
+                            <tr *ngFor="let user of sortedImportant(statusData || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1310,7 +1310,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(combineThree)"
+                            <tr *ngFor="let user of sortedImportant(combineThree || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1415,7 +1415,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(closingStatus)"
+                            <tr *ngFor="let user of sortedImportant(closingStatus || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1520,7 +1520,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of sortedImportant(salesStatus)"
+                            <tr *ngFor="let user of sortedImportant(salesStatus || [])"
                                 [ngClass]="{'highlighted': user.isHighlighted}">
                                 <td>{{user.custCode}}</td>
                                 <td>
@@ -1641,7 +1641,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let users of sortedImportant(remainAmtPro)"
+                        <tr *ngFor="let users of sortedImportant(remainAmtPro || [])"
                             [ngClass]="{'highlighted': users.isHighlighted}">
                             <td>{{users.custCode}}</td>
                             <td>

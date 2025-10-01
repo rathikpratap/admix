@@ -1,31 +1,31 @@
 import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-new-customer', 
+  selector: 'app-new-customer',
   templateUrl: './new-customer.component.html',
   styleUrls: ['./new-customer.component.css']
 })
 export class NewCustomerComponent implements OnInit {
 
   integerRegex = '^((\\+91-?)|0)?[0-9]{10}$';
-  message:string = '';
-  isProcess:boolean = false;
+  message: string = '';
+  isProcess: boolean = false;
   className = 'd-none'
-  tok!:any;
-  dataLength!:any;
-  b2bdataLength!:any;
+  tok!: any;
+  dataLength!: any;
+  b2bdataLength!: any;
   countries: any;
-  states: any; 
+  states: any;
   cities: any;
   Category: any;
   companies: any;
   employee: any;
-  allEmployee:any;
-  Graphicemp:any;
+  allEmployee: any;
+  Graphicemp: any;
   financialYear: any;
   date: any;
 
@@ -41,125 +41,125 @@ export class NewCustomerComponent implements OnInit {
     this.financialYear = this.getFinancialYear(this.date);
     this.updateQuotationValidation();
 
-  // When closing category changes, re-evaluate verification requirement
-  this.customerForm.get('closingCateg')?.valueChanges.subscribe(() => {
-    this.updateQuotationValidation();
-  });
+    // When closing category changes, re-evaluate verification requirement
+    this.customerForm.get('closingCateg')?.valueChanges.subscribe(() => {
+      this.updateQuotationValidation();
+    });
   }
-  
+
   ngAfterViewInit() {
     console.log("Its Called");
     const inputElement = this.el.nativeElement.querySelector('input[type=text]');
     if (inputElement) {
       this.renderer.selectRootElement(inputElement).focus();
     }
-  } 
- 
-  constructor(private auth:AuthService, private router:Router, private renderer: Renderer2, private el: ElementRef, private toastr: ToastrService){
+  }
+
+  constructor(private auth: AuthService, private router: Router, private renderer: Renderer2, private el: ElementRef, private toastr: ToastrService) {
 
     this.customerForm.get('restAmount')!.setValue('0');
 
-    this.auth.getProfile().subscribe((res:any)=>{
-      this.tok = res?.data; 
+    this.auth.getProfile().subscribe((res: any) => {
+      this.tok = res?.data;
       this.b2bCustomerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
       this.b2bCustomerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
-      if(this.tok) {
+      if (this.tok) {
         this.customerForm.get('salesPerson')!.setValue(this.tok.signupUsername);
         this.customerForm.get('salesTeam')!.setValue(this.tok.salesTeam);
-        if(this.tok.salesTeam !== 'Shiva Development'){
+        if (this.tok.salesTeam !== 'Shiva Development') {
           this.customerForm.get('companyName')!.setValue('AdmixMedia');
         }
-      }else{
+      } else {
         alert("Session Expired, Please Login Again")
         this.router.navigate(['/login']);
       }
     });
 
-    this.auth.dataLength().subscribe((list : any)=>{
-      this.dataLength = list + 1; 
-      if(this.dataLength){
+    this.auth.dataLength().subscribe((list: any) => {
+      this.dataLength = list + 1;
+      if (this.dataLength) {
         this.customerForm.get('custCode')!.setValue(this.dataLength);
       }
-    }); 
+    });
 
-    this.auth.b2bDataLength().subscribe((list : any)=>{
-      this.b2bdataLength = list + 1; 
-      if(this.dataLength){
+    this.auth.b2bDataLength().subscribe((list: any) => {
+      this.b2bdataLength = list + 1;
+      if (this.dataLength) {
         this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.b2bdataLength);
       }
     })
 
-    this.customerForm.valueChanges.subscribe(values =>{
-      const closingPriceValue = parseFloat(values.closingPrice|| '0');
-      const AdvPayValue = parseFloat(values.AdvPay|| '0');
+    this.customerForm.valueChanges.subscribe(values => {
+      const closingPriceValue = parseFloat(values.closingPrice || '0');
+      const AdvPayValue = parseFloat(values.AdvPay || '0');
 
       const remainingAmount = closingPriceValue - AdvPayValue;
-      
+
       this.customerForm.get('remainingAmount')!.setValue(remainingAmount.toString());
 
     });
 
-    this.auth.getCountries().subscribe((Countrydata: any) =>{
+    this.auth.getCountries().subscribe((Countrydata: any) => {
       this.countries = Countrydata;
     });
 
-    this.auth.getCategory().subscribe((category:any)=>{
+    this.auth.getCategory().subscribe((category: any) => {
       this.Category = category;
     })
-    this.auth.getCompany().subscribe((res:any)=>{
-      if(this.tok.salesTeam === 'Shiva Development') {
+    this.auth.getCompany().subscribe((res: any) => {
+      if (this.tok.salesTeam === 'Shiva Development') {
         this.companies = res.filter((company: any, index: number, self: any[]) =>
           index === self.findIndex((c: any) => c.companyName === company.companyName)
         );
-      } else{
+      } else {
         this.customerForm.get('companyName')?.setValue('AdmixMedia');
       }
     });
-    this.auth.allEmployee().subscribe((res:any)=>{
+    this.auth.allEmployee().subscribe((res: any) => {
       this.allEmployee = res;
-      this.employee = res.filter((emp:any)=> emp.signupRole === 'Editor');
-      this.Graphicemp = res.filter((Gemp:any)=> Gemp.signupRole === 'Graphic Designer');
+      this.employee = res.filter((emp: any) => emp.signupRole === 'Editor');
+      this.Graphicemp = res.filter((Gemp: any) => Gemp.signupRole === 'Graphic Designer');
     });
   }
 
   customerForm = new FormGroup({
-    custCode : new FormControl(0, [Validators.required]),
+    custCode: new FormControl(0, [Validators.required]),
     quotationNumber: new FormControl("", [Validators.required]),
     quotationSuffix: new FormControl("", [Validators.required]),
-    custName : new FormControl("", [Validators.required]),
-    custNumb : new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
-    custNumb2 : new FormControl(""),
-    custBussiness : new FormControl("", [Validators.required]),
-    closingDate : new FormControl("", [Validators.required]),
-    closingPrice : new FormControl("", [Validators.required]),
-    closingCateg : new FormControl("null", [Validators.required]),
+    custName: new FormControl("", [Validators.required]),
+    custNumb: new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
+    custNumb2: new FormControl(""),
+    custBussiness: new FormControl("", [Validators.required]),
+    closingDate: new FormControl("", [Validators.required]),
+    closingPrice: new FormControl("", [Validators.required]),
+    closingCateg: new FormControl("null", [Validators.required]),
     billType: new FormControl("null", [Validators.required]),
-    AdvPay : new FormControl("", [Validators.required]),
-    remainingAmount : new FormControl("",[Validators.required]),
-    restAmount : new FormControl(""), 
-    customerType : new FormControl("",[Validators.required]),
-    custCountry : new FormControl("IN"),
-    custCity : new FormControl("null"),
-    custState : new FormControl("",[Validators.required]),
-    projectStatus : new FormControl("null",[Validators.required]),
-    salesPerson : new FormControl("",[Validators.required]),
-    youtubeLink : new FormControl(""),
-    remark  : new FormControl(""),
-    salesTeam : new FormControl(""),
-    companyName : new FormControl(""),
-    graphicDesigner : new FormControl(""),
-    graphicPassDate : new FormControl(""),
-    Qr : new FormControl("",[Validators.required]),
+    AdvPay: new FormControl("", [Validators.required]),
+    remainingAmount: new FormControl("", [Validators.required]),
+    restAmount: new FormControl(""),
+    customerType: new FormControl("", [Validators.required]),
+    custCountry: new FormControl("IN"),
+    custCity: new FormControl("null"),
+    custState: new FormControl("", [Validators.required]),
+    projectStatus: new FormControl("null", [Validators.required]),
+    salesPerson: new FormControl("", [Validators.required]),
+    youtubeLink: new FormControl(""),
+    remark: new FormControl(""),
+    salesTeam: new FormControl(""),
+    companyName: new FormControl(""),
+    graphicDesigner: new FormControl(""),
+    graphicPassDate: new FormControl(""),
+    Qr: new FormControl("", [Validators.required]),
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
-    reelsCount: new FormControl(0) 
+    reelsCount: new FormControl(0)
   });
 
   b2bCustomerForm = new FormGroup({
     b2bProjectCode: new FormControl("", [Validators.required]),
     companyName: new FormControl("", [Validators.required]),
-    b2bProjectName: new FormControl("",[Validators.required]),
-    b2bCategory: new FormControl("null",[Validators.required]),
+    b2bProjectName: new FormControl("", [Validators.required]),
+    b2bCategory: new FormControl("null", [Validators.required]),
     b2bVideoType: new FormControl("null", [Validators.required]),
     b2bProjectDate: new FormControl(""),
     b2bBillType: new FormControl("null", [Validators.required]),
@@ -173,97 +173,97 @@ export class NewCustomerComponent implements OnInit {
     salesTeam: new FormControl(""),
     projectStatus: new FormControl("")
   });
- 
-  getControls(name: any) : AbstractControl | null{
+
+  getControls(name: any): AbstractControl | null {
     return this.customerForm.get(name)
   }
-  getB2bCustomerFormControl(b2bName: any) : AbstractControl | null{
+  getB2bCustomerFormControl(b2bName: any): AbstractControl | null {
     return this.b2bCustomerForm.get(b2bName);
   }
-  
 
-  onCountryChange(): void{
+
+  onCountryChange(): void {
     const countryCode = this.customerForm.get('custCountry')?.value;
-    this.auth.getStates(countryCode).subscribe((Statedata : any)=>{
+    this.auth.getStates(countryCode).subscribe((Statedata: any) => {
       this.states = Statedata;
-    }); 
+    });
   }
 
-  onStateChange(): void{
+  onStateChange(): void {
     const stateCode = this.customerForm.get('custState')?.value;
     const countryCode = this.customerForm.get('custCountry')?.value;
-    this.auth.getCities(countryCode, stateCode).subscribe((Citydata : any)=>{
+    this.auth.getCities(countryCode, stateCode).subscribe((Citydata: any) => {
       this.cities = Citydata;
     });
   }
 
-  addCust(){
+  addCust() {
     const currentDate = new Date().toISOString();
     this.customerForm.get('graphicPassDate')!.setValue(currentDate);
     this.isProcess = true;
     console.warn(this.customerForm.value);
     const custData = this.customerForm.value;
-    this.auth.addcustomer(custData).subscribe(res =>{
-      if(res.success){
+    this.auth.addcustomer(custData).subscribe(res => {
+      if (res.success) {
         this.isProcess = false;
-        this.message = res.message; 
+        this.message = res.message;
         this.className = 'alert alert-success';
         this.customerForm.reset();
         this.customerForm.get('custCode')!.setValue(this.dataLength + 1);
-        let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
+        let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
         let msgTitle = "New Closing";
         let msgBody = `${custData.custBussiness} by ${this.tok.signupUsername}`;
-        this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
-          if(res){
-            this.toastr.success("Notification Send","Success");
+        this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+          if (res) {
+            this.toastr.success("Notification Send", "Success");
             //alert("Notification Send");
-          }else{
-            this.toastr.error("Error Sending Notification","Error");
+          } else {
+            this.toastr.error("Error Sending Notification", "Error");
             //alert("Error Sending Notification");
           }
         });
-      }else{
+      } else {
         this.isProcess = false;
         this.message = res.message;
         this.className = 'alert alert-danger';
       }
-    },err =>{
+    }, err => {
       this.isProcess = false;
       this.message = "Server Error";
       this.className = 'alert alert-danger';
     })
   }
-  addb2bCust(){
+  addb2bCust() {
     const currentDate = new Date().toISOString();
     this.isProcess = true;
     console.warn(this.b2bCustomerForm.value);
     const custData = this.b2bCustomerForm.value;
-    this.auth.addB2b(custData).subscribe(res =>{
-      if(res.success){
+    this.auth.addB2b(custData).subscribe(res => {
+      if (res.success) {
         this.isProcess = false;
         this.message = "Customer Added";
         this.className = 'alert alert-success';
         this.b2bCustomerForm.get('b2bProjectCode')!.setValue(this.b2bdataLength + 1);
         this.router.navigate([this.router.url])
-        .then(() => {
-          window.location.reload();
-        });
-        let selectedEmployee = this.allEmployee.find((emp:any)=> emp.signupRole === 'Admin');
+          .then(() => {
+            window.location.reload();
+          });
+        let selectedEmployee = this.allEmployee.find((emp: any) => emp.signupRole === 'Admin');
         let msgTitle = "New B2b Closing";
         let msgBody = `${custData.b2bProjectName} by ${this.tok.signupUsername}`;
-        this.auth.sendNotification([selectedEmployee], msgTitle,msgBody, currentDate).subscribe((res:any)=>{
-          if(res){
-            this.toastr.success("Notification Send","Success");
-          }else{
-            this.toastr.error("Error Sending Notification","Error");
+        this.auth.sendNotification([selectedEmployee], msgTitle, msgBody, currentDate).subscribe((res: any) => {
+          if (res) {
+            this.toastr.success("Notification Send", "Success");
+          } else {
+            this.toastr.error("Error Sending Notification", "Error");
           }
         })
-      }else{
+      } else {
         this.isProcess = false;
         this.message = res.message;
         this.className = 'alert alert-danger';
       }
-    },err =>{
+    }, err => {
       this.isProcess = false;
       this.message = "Server Error";
       this.className = 'alert alert-danger';
@@ -295,8 +295,11 @@ export class NewCustomerComponent implements OnInit {
     this.verifyState = 'checking';
     this.verifyMsg = 'Checking...';
 
-    const custName = this.customerForm.get('custName')?.value || '';
-    const custNumb = this.customerForm.get('custNumb')?.value || '';
+    const rawCustName = this.customerForm.get('custName')?.value || '';
+    const rawCustNumb = this.customerForm.get('custNumb')?.value || '';
+
+    const custName = this.normalizeName(rawCustName);
+    const custNumb = this.normalizePhone(rawCustNumb); // send last 10 digits
 
     this.auth.verifyQuotation(this.financialYear, suffix, custName, custNumb)
       .subscribe((res: any) => {
@@ -329,44 +332,54 @@ export class NewCustomerComponent implements OnInit {
       });
   }
   checkVerificationNeeded(): boolean {
-  const closingCategory = this.customerForm.get('closingCateg')?.value;
-  const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
-  const categoryExcludesVerification =
-    closingCategoryNormalized === 'logo design' ||
-    closingCategoryNormalized === 'logo animation';
-  return !categoryExcludesVerification;
-}
-updateQuotationValidation(): void {
-  const suffixCtrl = this.customerForm.get('quotationSuffix');
-  const numberCtrl = this.customerForm.get('quotationNumber');
+    const closingCategory = this.customerForm.get('closingCateg')?.value;
+    const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
+    const categoryExcludesVerification =
+      closingCategoryNormalized === 'logo design' ||
+      closingCategoryNormalized === 'logo animation';
+    return !categoryExcludesVerification;
+  }
+  updateQuotationValidation(): void {
+    const suffixCtrl = this.customerForm.get('quotationSuffix');
+    const numberCtrl = this.customerForm.get('quotationNumber');
 
-  const verificationNeeded = this.checkVerificationNeeded();
+    const verificationNeeded = this.checkVerificationNeeded();
 
-  if (verificationNeeded) {
-    // require quotation suffix (user must verify)
-    suffixCtrl?.setValidators([Validators.required]);
-    numberCtrl?.setValidators([Validators.required]);
-  } else {
-    // no verification needed -> remove validators (and clear value if you want)
-    suffixCtrl?.clearValidators();
-    numberCtrl?.clearValidators();
+    if (verificationNeeded) {
+      // require quotation suffix (user must verify)
+      suffixCtrl?.setValidators([Validators.required]);
+      numberCtrl?.setValidators([Validators.required]);
+    } else {
+      // no verification needed -> remove validators (and clear value if you want)
+      suffixCtrl?.clearValidators();
+      numberCtrl?.clearValidators();
 
-    // OPTIONAL: clear the suffix so the verify UI doesn't keep previous value
-    suffixCtrl?.setValue('');
-    numberCtrl?.setValue(''); // or set to prefix if you prefer: this.prefix
+      // OPTIONAL: clear the suffix so the verify UI doesn't keep previous value
+      suffixCtrl?.setValue('');
+      numberCtrl?.setValue(''); // or set to prefix if you prefer: this.prefix
 
-    suffixCtrl?.markAsPristine();
-    suffixCtrl?.markAsUntouched();
-    numberCtrl?.markAsPristine();
-    numberCtrl?.markAsUntouched();
+      suffixCtrl?.markAsPristine();
+      suffixCtrl?.markAsUntouched();
+      numberCtrl?.markAsPristine();
+      numberCtrl?.markAsUntouched();
 
-    // Reset verification UI state
-    this.verifyState = 'idle';
-    this.verifyMsg = '';
+      // Reset verification UI state
+      this.verifyState = 'idle';
+      this.verifyMsg = '';
+    }
+
+    suffixCtrl?.updateValueAndValidity();
+    numberCtrl?.updateValueAndValidity();
   }
 
-  suffixCtrl?.updateValueAndValidity();
-  numberCtrl?.updateValueAndValidity();
+  // helper: normalize phone to last 10 digits
+normalizePhone(phone: any): string {
+  const digits = (phone || '').toString().replace(/\D/g, ''); // remove non-digits
+  return digits.slice(-10); // last 10 digits (if less than 10, returns as-is)
 }
-  
+
+// helper: normalize name
+normalizeName(name: any): string {
+  return (name || '').toString().trim().toLowerCase();
+}
 }
