@@ -26,6 +26,8 @@ export class UpdateCustomerComponent implements OnInit {
 
   verifyState: 'idle' | 'checking' | 'notfound' | 'mismatch' | 'match' = 'idle';
   verifyMsg = '';
+  // add near other fields
+  originalVerifiedQuotationSuffix: string | null = null;
 
   ngOnInit(): void {
     this.updateForm.get('AdvPay')!.valueChanges.subscribe(value => {
@@ -33,6 +35,16 @@ export class UpdateCustomerComponent implements OnInit {
     });
     this.date = new Date();
     this.financialYear = this.getFinancialYear(this.date);
+    this.updateForm.get('closingDate')?.valueChanges.subscribe(() => {
+      this.updateQuotationValidation();
+    });
+    // new: when closing category changes, re-evaluate verification requirement
+  this.updateForm.get('closingCateg')?.valueChanges.subscribe(() => {
+    this.updateQuotationValidation();
+  });
+
+    // also call once on init to set validators according to default/loaded value
+    this.updateQuotationValidation();
   }
 
   ngAfterViewInit() {
@@ -45,8 +57,8 @@ export class UpdateCustomerComponent implements OnInit {
 
   updateForm = new FormGroup({
     custCode: new FormControl("", [Validators.required]),
-    quotationNumber: new FormControl("", [Validators.required]),
-    quotationSuffix: new FormControl("", [Validators.required]),
+    quotationNumber: new FormControl(""),
+    quotationSuffix: new FormControl(""),
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
     custNumb2: new FormControl(""),
@@ -181,6 +193,8 @@ export class UpdateCustomerComponent implements OnInit {
         reelsCount: res['reelsCount']
       })
       this.updateEmbeddedVideoUrl();
+      // Important: update validators based on closingDate after patch
+      this.updateQuotationValidation();
     });
 
     this.onRestAmountChange();
@@ -202,6 +216,105 @@ export class UpdateCustomerComponent implements OnInit {
       }
     });
   }
+
+  private toDateOnly(dateVal: string | null | undefined): Date | null {
+    if (!dateVal) return null;
+    // if date contains time part already, try to parse it; else append T00:00
+    if (dateVal.indexOf('T') >= 0) {
+      return new Date(dateVal);
+    }
+    return new Date(dateVal + 'T00:00:00');
+  }
+
+  // updateQuotationValidation() {
+  //   const suffixCtrl = this.updateForm.get('quotationSuffix');
+  //   const numberCtrl = this.updateForm.get('quotationNumber');
+
+  //   const closingVal = this.updateForm.get('closingDate')?.value;
+  //   const closingDate = this.toDateOnly(closingVal);
+  //   const cutoff = new Date('2025-10-01T00:00:00');
+
+  //   const verificationNeeded = closingDate ? (closingDate >= cutoff) : false;
+
+  //   if (verificationNeeded) {
+  //     // require suffix so user must verify
+  //     suffixCtrl?.setValidators([Validators.required]);
+  //     // quotationNumber can be set only after verification — keep it optional until verified
+  //     numberCtrl?.clearValidators();
+  //   } else {
+  //     // not required -> clear validators and reset state
+  //     suffixCtrl?.clearValidators();
+  //     suffixCtrl?.setValue(''); // optional: clear visible value
+  //     suffixCtrl?.markAsPristine();
+  //     suffixCtrl?.markAsUntouched();
+
+  //     numberCtrl?.clearValidators();
+  //     // if you want, set quotationNumber to prefix so required is satisfied
+  //     numberCtrl?.setValue(this.prefix); // optional: or keep '' if you set no required
+  //     numberCtrl?.markAsPristine();
+  //     numberCtrl?.markAsUntouched();
+
+  //     // Reset verification UI state so submit isn't blocked
+  //     this.verifyState = 'idle';
+  //     this.verifyMsg = '';
+  //   }
+
+  //   suffixCtrl?.updateValueAndValidity();
+  //   numberCtrl?.updateValueAndValidity();
+  // }
+
+  // checkVerificationNeeded(): boolean {
+  //   const val = this.updateForm.get('closingDate')?.value;
+  //   if (!val) return false;
+  //   const d = this.toDateOnly(val);
+  //   return d !== null && d >= new Date('2025-10-01T00:00:00');
+  // }
+
+  updateQuotationValidation() {
+  const suffixCtrl = this.updateForm.get('quotationSuffix');
+  const numberCtrl = this.updateForm.get('quotationNumber');
+
+  const verificationNeeded = this.checkVerificationNeeded();
+
+  if (verificationNeeded) {
+    suffixCtrl?.setValidators([Validators.required]);
+    numberCtrl?.clearValidators();
+  } else {
+    suffixCtrl?.clearValidators();
+    // optional: clear suffix so user doesn't get stuck
+    suffixCtrl?.setValue('');
+    suffixCtrl?.markAsPristine();
+    suffixCtrl?.markAsUntouched();
+
+    numberCtrl?.clearValidators();
+    numberCtrl?.updateValueAndValidity();
+
+    // Reset verification UI state
+    this.verifyState = 'idle';
+    this.verifyMsg = '';
+  }
+
+  suffixCtrl?.updateValueAndValidity();
+  numberCtrl?.updateValueAndValidity();
+}
+
+
+  checkVerificationNeeded(): boolean {
+    const closingVal = this.updateForm.get('closingDate')?.value;
+    if (!closingVal) return false;
+
+    const closingDate = this.toDateOnly(closingVal);
+    const cutoff = new Date('2025-10-01T00:00:00');
+    const dateNeedsVerification = closingDate !== null && closingDate >= cutoff;
+
+    const closingCategory = this.updateForm.get('closingCateg')?.value;
+    // const categoryExcludesVerification = closingCategory === 'Logo Design';
+    const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
+    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation';
+
+    return dateNeedsVerification && !categoryExcludesVerification;
+  }
+
 
   formatDate(isoDate: string): string {
     if (!isoDate) return '';

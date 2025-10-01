@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box" *ngIf="checkVerificationNeeded()">
                         <div class="form-group">
                             <span class="details">Quotataion Number</span>
                             <div class="d-inline-flex align-items-center gap-2" style="width:auto;">
@@ -31,10 +31,12 @@
                                         placeholder="Quotation number (e.g. 306)" style="max-width: 120px;">
                                 </div>
                                 <button type="button" class="btn btn-outline-warning verify-btn" (click)="onVerifyQuotation()"
-                                    [disabled]="verifyState==='checking'">
+                                    [disabled]="verifyState==='checking' || !checkVerificationNeeded()">
                                     {{ verifyState==='checking' ? 'Verifying…' : 'Verify' }}
                                 </button>
-                            </div>
+                            </div> 
+                            <small *ngIf="!checkVerificationNeeded()" class="text-muted">No verification required for current quotation.</small>
+
                             <!-- Message under the control -->
                             <div class="mt-1" *ngIf="verifyState !== 'idle'">
                                 <small [ngClass]="{'text-success': verifyState==='match', 'text-danger': verifyState==='mismatch' || verifyState==='notfound',
@@ -75,7 +77,7 @@
                                     is Required </label>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Email: </span>
@@ -379,7 +381,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="updateForm.status === 'INVALID' || verifyState !== 'match'" class="btn btn-success">
+                <input type="submit" [disabled]="updateForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match')" class="btn btn-success">
                 <div class="youtubeVideo" *ngIf="safeVideoUrl">
                     <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

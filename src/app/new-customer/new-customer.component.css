@@ -17,6 +17,10 @@ form{
     margin-bottom: 79px;
     border-radius: 10px;
 }
+.verify-btn{
+    width: fit-content !important;
+    padding: 0px 10px;
+}
 .minSec{
     display: flex;
     color: #fff;

@@ -273,12 +273,12 @@ export class MainInvoiceComponent implements OnInit {
     });
     let invoiceNumb = '';
 
-    if(this.invoiceForm.get('billFormat')?.value === 'Main' && this.invoiceForm.get('billType')?.value === 'GST'){
+    if (this.invoiceForm.get('billFormat')?.value === 'Main' && this.invoiceForm.get('billType')?.value === 'GST') {
       invoiceNumb = `ADMIX-${this.financialYear}/${this.count}`;
-    }else{
+    } else {
       invoiceNumb = `ADM-${this.financialYear}/${this.countNonGST}`;
     }
-    
+
     // this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
@@ -327,7 +327,7 @@ export class MainInvoiceComponent implements OnInit {
     //     this.toastr.error('Error Saving New Invoice', 'Error');
     //   }
     // });
- 
+
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
         this.toastr.success('Invoice saved successfully', 'Success');
@@ -554,6 +554,30 @@ export class MainInvoiceComponent implements OnInit {
     return `${day}-${month}-${year}`; // or use your preferred format
   }
 
+  isModelAvailabilityVisible(): boolean {
+    // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+    const hideCategories = ['Logo Design', 'Website Development', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
 
+    // rows FormArray ko read karke check karte hain
+    const formArray = this.rows; // getter already defined in your class
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString();
+      // agar value exactly match kare to hide kar do (case-sensitive)
+      if (hideCategories.includes(val)) {
+        return false; // don't show the Model Availability li
+      }
+
+      // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+      if (val === 'Other') {
+        const custom = (grp.get('customCateg')?.value || '').toString();
+        if (hideCategories.includes(custom)) {
+          return false;
+        }
+      }
+    }
+
+    return true; // default: show the li
+  }
 
 } 

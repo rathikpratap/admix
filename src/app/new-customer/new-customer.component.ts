@@ -26,12 +26,25 @@ export class NewCustomerComponent implements OnInit {
   employee: any;
   allEmployee:any;
   Graphicemp:any;
+  financialYear: any;
+  date: any;
 
   codeInput!: ElementRef<HTMLInputElement>;
   codeInput2!: ElementRef<HTMLInputElement>;
 
+  verifyState: 'idle' | 'checking' | 'notfound' | 'mismatch' | 'match' = 'idle';
+  verifyMsg = '';
+
   ngOnInit(): void {
     this.onCountryChange();
+    this.date = new Date();
+    this.financialYear = this.getFinancialYear(this.date);
+    this.updateQuotationValidation();
+
+  // When closing category changes, re-evaluate verification requirement
+  this.customerForm.get('closingCateg')?.valueChanges.subscribe(() => {
+    this.updateQuotationValidation();
+  });
   }
   
   ngAfterViewInit() {
@@ -111,6 +124,8 @@ export class NewCustomerComponent implements OnInit {
 
   customerForm = new FormGroup({
     custCode : new FormControl(0, [Validators.required]),
+    quotationNumber: new FormControl("", [Validators.required]),
+    quotationSuffix: new FormControl("", [Validators.required]),
     custName : new FormControl("", [Validators.required]),
     custNumb : new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
     custNumb2 : new FormControl(""),
@@ -254,5 +269,104 @@ export class NewCustomerComponent implements OnInit {
       this.className = 'alert alert-danger';
     })
   }
+
+  getFinancialYear(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    if (month >= 4) {
+      return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
+    } else {
+      return `${year - 1}-${(year).toString().slice(-2)}`;
+    }
+  }
+  get prefix(): string {
+    return `ADM-${this.financialYear}/`;
+  }
+
+  onVerifyQuotation() {
+    const suffix: string = (this.customerForm.get('quotationSuffix')?.value || '').toString().trim();
+    if (!suffix) {
+      this.verifyState = 'notfound';
+      this.verifyMsg = 'Please enter quotation number';
+      return;
+    }
+
+    this.verifyState = 'checking';
+    this.verifyMsg = 'Checking...';
+
+    const custName = this.customerForm.get('custName')?.value || '';
+    const custNumb = this.customerForm.get('custNumb')?.value || '';
+
+    this.auth.verifyQuotation(this.financialYear, suffix, custName, custNumb)
+      .subscribe((res: any) => {
+        if (!res.ok) {
+          this.verifyState = 'notfound';
+          this.verifyMsg = res.message || 'Could not verify';
+          return;
+        }
+        if (!res.found) {
+          this.verifyState = 'notfound';
+          this.verifyMsg = 'Quotation not found';
+          return;
+        }
+        if (res.match) {
+          this.verifyState = 'match';
+          this.verifyMsg = 'Quotation matches this customer';
+          // Optionally set final quotationNumber field:
+          this.customerForm.patchValue({ quotationNumber: this.prefix + suffix });
+        } else {
+          this.verifyState = 'mismatch';
+          if (res.mismatchFields?.length > 0) {
+            this.verifyMsg = `${res.mismatchFields.join(' and ')} do not match`;
+          } else {
+            this.verifyMsg = 'Quotation number not matching this customer';
+          }
+        }
+      }, _err => {
+        this.verifyState = 'notfound';
+        this.verifyMsg = 'Server error while verifying';
+      });
+  }
+  checkVerificationNeeded(): boolean {
+  const closingCategory = this.customerForm.get('closingCateg')?.value;
+  const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
+  const categoryExcludesVerification =
+    closingCategoryNormalized === 'logo design' ||
+    closingCategoryNormalized === 'logo animation';
+  return !categoryExcludesVerification;
+}
+updateQuotationValidation(): void {
+  const suffixCtrl = this.customerForm.get('quotationSuffix');
+  const numberCtrl = this.customerForm.get('quotationNumber');
+
+  const verificationNeeded = this.checkVerificationNeeded();
+
+  if (verificationNeeded) {
+    // require quotation suffix (user must verify)
+    suffixCtrl?.setValidators([Validators.required]);
+    numberCtrl?.setValidators([Validators.required]);
+  } else {
+    // no verification needed -> remove validators (and clear value if you want)
+    suffixCtrl?.clearValidators();
+    numberCtrl?.clearValidators();
+
+    // OPTIONAL: clear the suffix so the verify UI doesn't keep previous value
+    suffixCtrl?.setValue('');
+    numberCtrl?.setValue(''); // or set to prefix if you prefer: this.prefix
+
+    suffixCtrl?.markAsPristine();
+    suffixCtrl?.markAsUntouched();
+    numberCtrl?.markAsPristine();
+    numberCtrl?.markAsUntouched();
+
+    // Reset verification UI state
+    this.verifyState = 'idle';
+    this.verifyMsg = '';
+  }
+
+  suffixCtrl?.updateValueAndValidity();
+  numberCtrl?.updateValueAndValidity();
+}
   
 }

@@ -23,6 +23,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-box" *ngIf="checkVerificationNeeded()">
+                        <div class="form-group">
+                            <span class="details">Quotataion Number</span>
+                            <div class="d-inline-flex align-items-center gap-2" style="width:auto;">
+                                <div class="input-group d-inline-flex align-items-center" style="width: auto;">
+                                    <span class="details px-2">ADM-{{financialYear}}/</span>
+                                    <input type="text" class="form-control" formControlName="quotationSuffix"
+                                        placeholder="Quotation number (e.g. 306)" style="max-width: 120px;">
+                                </div>
+                                <button type="button" class="btn btn-outline-warning verify-btn" (click)="onVerifyQuotation()"
+                                    [disabled]="verifyState==='checking'">
+                                    {{ verifyState==='checking' ? 'Verifying…' : 'Verify' }}
+                                </button>
+                            </div>
+                            <!-- Message under the control -->
+                            <div class="mt-1" *ngIf="verifyState !== 'idle'">
+                                <small [ngClass]="{'text-success': verifyState==='match', 'text-danger': verifyState==='mismatch' || verifyState==='notfound',
+                                    'text-muted': verifyState==='checking' }">
+                                    {{ verifyMsg }}
+                                </small>
+                            </div>
+                            <div
+                                *ngIf="getControls('quotationSuffix')?.errors && getControls('quotationSuffix')?.touched">
+                                <label class="text-danger" *ngIf="getControls('quotationSuffix')?.errors?.['required']">
+                                    Client
+                                    Quotation Number is Required </label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Name: </span>
@@ -306,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="customerForm.status === 'INVALID'" class="btn btn-success">
+                <input type="submit" [disabled]="customerForm.status === 'INVALID' || verifyState !== 'match'" class="btn btn-success">
             </form>
             <form [formGroup]="b2bCustomerForm" (ngSubmit)="b2bCustomerForm.status !== 'INVALID' && addb2bCust()" *ngIf="customerForm.get('salesTeam')?.value === 'Shiva Development'">
                 <div [ngClass]="className" role="alert">

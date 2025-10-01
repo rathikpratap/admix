@@ -66,10 +66,6 @@ export class EstInvoiceComponent implements OnInit {
     this.date = new Date();
     this.currentDate = this.formatDate(this.date);
     this.financialYear = this.getFinancialYear(this.date);
-    // this.invoiceForm.get('billType')?.valueChanges.subscribe(value => {
-    //   this.Bill = value;
-    //   this.calculateGrandTotal();
-    // });
 
     this.invoiceForm.get('discountValue')?.valueChanges.subscribe(() => {
       this.calculateGrandTotal();
@@ -108,7 +104,6 @@ export class EstInvoiceComponent implements OnInit {
     this.auth.estInvoiceCount().subscribe((res: any) => {
       this.count = (res ?? 0) + 1;
     });
-
     // Add initial row
     this.addRow();
   }
@@ -149,12 +144,10 @@ export class EstInvoiceComponent implements OnInit {
     }
 
     const totalAmount = amount + gst;
-
     //row.get('amt')?.setValue(totalAmount);
     row.get('amt')?.setValue(parseFloat(totalAmount.toFixed(2)));
     row.get('gst')?.setValue(parseFloat(gst.toFixed(2)));
     //row.get('gst')?.setValue(gst);
-
     this.calculateGrandTotal();
   }
 
@@ -179,14 +172,11 @@ export class EstInvoiceComponent implements OnInit {
     this.afterDiscountTotal = this.totalAmount - discountValue;
     this.gstAmount = totalGst;
     this.totalNumOfVideoss = Math.round(totalNumOfVideos);
-
     //Amount before GST (net amount)
     this.amount = parseFloat((this.totalAmount - this.gstAmount).toFixed(2));
 
     console.log('Total Amount:', this.totalAmount); // Debug log
     console.log('GST Amount:', this.gstAmount); // Debug log
-    //this.wordsAmt = numWords(this.totalAmount || 0);
-    //this.totalNumOfVideoss = totalNumOfVideos;
 
     try {
       this.wordsAmt = numWords(this.totalAmount || 0);
@@ -207,7 +197,6 @@ export class EstInvoiceComponent implements OnInit {
         amt: row.get('amt')?.value || 0
       };
     });
-
      // Generate quotation number dynamically
     const quotationNumber = `ADM-${this.financialYear}/${160 + this.count}`;
 
@@ -287,182 +276,10 @@ export class EstInvoiceComponent implements OnInit {
     });
   }
 
-  // generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p',
-  //         unit: 'mm',
-  //         format: [210 * 1.5, 297 * 1.5]
-  //       });
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       const fileName = `quotation_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  // }
-
-  //   generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement, { scale: 2 }).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       //const pdf = new jsPDF('p', 'mm', 'a4'); // standard A4
-  //       const pdf = new jsPDF({
-  //           orientation: 'p',
-  //           unit: 'mm',
-  //           format: [210 * 1.5, 297 * 1.5]
-  //         });
-
-  //       const pageWidth = pdf.internal.pageSize.getWidth();   // 210mm
-  //       const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
-
-  //       const topPadding = 15;    // mm me top padding
-  //       const bottomPadding = 15; // mm me bottom padding
-  //       const usableHeight = pageHeight - topPadding - bottomPadding;
-
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const imgWidth = pageWidth;
-  //       const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-
-  //       let heightLeft = imgHeight;
-  //       let position = 0;
-
-  //       // First page
-  //       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //       heightLeft -= pageHeight;
-
-  //       // Next pages if content remains
-  //       while (heightLeft > 0) {
-  //         position = heightLeft - imgHeight; // shift image upward
-  //         pdf.addPage();
-  //         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //         //heightLeft -= pageHeight;
-  //         heightLeft -= usableHeight;
-  //       }
-
-  //       const fileName = `quotation_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  // }
-
-
-  // generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-  //   if (!invoiceElement) return;
-
-  //   // Capture the full invoice as canvas
-  //   html2canvas(invoiceElement, { scale: 2, useCORS: true }).then(canvas => {
-  //     const imgData = canvas.toDataURL('image/png');
-
-  //     // Keep your original constructor (as you requested)
-  //     const pdf = new jsPDF({
-  //       orientation: 'p',
-  //       unit: 'mm',
-  //       format: [210 * 1.5, 297 * 1.5] // you can change to 'a4' if desired
-  //     });
-
-  //     const pageWidth = pdf.internal.pageSize.getWidth();   // mm
-  //     const pageHeight = pdf.internal.pageSize.getHeight(); // mm
-
-  //     // Top & bottom padding in mm
-  //     const topPadding = 15;
-  //     const bottomPadding = 15;
-  //     const usableHeightMm = pageHeight - topPadding - bottomPadding; // mm available per page
-
-  //     // Canvas size in pixels
-  //     const canvasPxWidth = canvas.width;
-  //     const canvasPxHeight = canvas.height;
-
-  //     // We'll render image to full page width (in mm)
-  //     const renderImgWidthMm = pageWidth;
-
-  //     // mm per pixel = how many mm corresponds to one pixel when we fit canvas width to page width
-  //     const mmPerPx = renderImgWidthMm / canvasPxWidth; // mm per px
-
-  //     // convert usable height in mm to px on the canvas
-  //     const usableHeightPx = Math.floor(usableHeightMm / mmPerPx);
-
-  //     // Overlap in px (small to avoid visible cuts). Tune this if needed.
-  //     const sliceOverlapPx = 20;
-
-  //     let positionPx = 0;
-  //     let pageIndex = 0;
-
-  //     while (positionPx < canvasPxHeight) {
-  //       // For every slice except the first, start earlier by overlap so slices overlap
-  //       let sliceStartPx = positionPx;
-  //       if (pageIndex > 0) {
-  //         sliceStartPx = Math.max(0, positionPx - sliceOverlapPx);
-  //       }
-
-  //       // remaining pixels
-  //       const remainingPx = canvasPxHeight - sliceStartPx;
-  //       // slice height: usableHeightPx + overlap (to ensure overlap at bottom for this slice),
-  //       // but cap to remainingPx
-  //       const sliceHeightPx = Math.min(usableHeightPx + (pageIndex > 0 ? sliceOverlapPx : 0), remainingPx);
-
-  //       // create slice canvas
-  //       const pageCanvas = document.createElement('canvas');
-  //       pageCanvas.width = canvasPxWidth;
-  //       pageCanvas.height = sliceHeightPx;
-  //       const ctx = pageCanvas.getContext('2d')!;
-  //       // draw the slice from the big canvas
-  //       ctx.drawImage(
-  //         canvas,
-  //         0, sliceStartPx,                  // sx, sy
-  //         canvasPxWidth, sliceHeightPx,     // sWidth, sHeight
-  //         0, 0,                             // dx, dy
-  //         canvasPxWidth, sliceHeightPx      // dWidth, dHeight
-  //       );
-
-  //       // convert this slice to dataURL
-  //       const pageImgData = pageCanvas.toDataURL('image/png');
-
-  //       // slice height in mm when scaled to full page width
-  //       const sliceHeightMm = sliceHeightPx * mmPerPx;
-
-  //       // Add page break if not first
-  //       if (pageIndex > 0) pdf.addPage();
-
-  //       // Add image at x=0, y=topPadding, with width = pageWidth and height = sliceHeightMm
-  //       // Cast pdf to any to avoid TypeScript addImage overload errors
-  //       (pdf as any).addImage(pageImgData as string, 'PNG', 0, topPadding, renderImgWidthMm, sliceHeightMm);
-
-  //       // Move positionPx to next slice start: previous position + usableHeightPx
-  //       positionPx = positionPx + usableHeightPx;
-
-  //       pageIndex++;
-  //     }
-
-  //     const fileName = `quotation_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_');
-  //     pdf.save(fileName);
-  //   }).catch(err => {
-  //     console.error('PDF generation error:', err);
-  //     // fallback minimal attempt so user still gets a PDF
-  //     html2canvas(invoiceElement, { scale: 1 }).then(fallbackCanvas => {
-  //       const img = fallbackCanvas.toDataURL('image/png');
-  //       const pdfFallback = new jsPDF('p', 'mm', 'a4');
-  //       (pdfFallback as any).addImage(img as string, 'PNG', 0, 10, pdfFallback.internal.pageSize.getWidth(), undefined);
-  //       pdfFallback.save(`quotation_${this.name || 'invoice'}_fallback.pdf`);
-  //     });
-  //   });
-  // }
-
   // place this method inside your EstInvoiceComponent class
 generatePdf() {
   const invoiceElement = document.getElementById('invoice');
   if (!invoiceElement) return;
-
   // --- Optional: temporarily add top/bottom padding for PDF only (keeps on-screen same if you revert after) ---
   // If you already have CSS padding in #invoice, you can skip this block.
   const addPdfPadding = true;
@@ -538,4 +355,31 @@ generatePdf() {
       return `${year - 1}-${(year).toString().slice(-2)}`;
     }
   }
+  // EstInvoiceComponent class ke andar add karein
+isModelAvailabilityVisible(): boolean {
+  // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+  const hideCategories = ['Logo Design', 'Website Development', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
+
+  // rows FormArray ko read karke check karte hain
+  const formArray = this.rows; // getter already defined in your class
+  for (let i = 0; i < formArray.length; i++) {
+    const grp = formArray.at(i) as FormGroup;
+    const val = (grp.get('invoiceCateg')?.value || '').toString();
+    // agar value exactly match kare to hide kar do (case-sensitive)
+    if (hideCategories.includes(val)) {
+      return false; // don't show the Model Availability li
+    }
+
+    // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+    if (val === 'Other') {
+      const custom = (grp.get('customCateg')?.value || '').toString();
+      if (hideCategories.includes(custom)) {
+        return false;
+      }
+    }
+  }
+
+  return true; // default: show the li
+}
+
 }

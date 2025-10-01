@@ -162,7 +162,7 @@
                         <p>{{wordsAmt | uppercase}} ONLY</p>
                         <p><strong>Terms and Condition</strong></p>
                         <ul class="terms-ul">
-                            <li>
+                            <li *ngIf="isModelAvailabilityVisible()">
                                 <strong>Model Availability & Shoot Delay:</strong> Once a model is selected, Admix Media
                                 is not responsible
                                 for delays due to model’s personal/health issues. If unavailable for 7–10 days, the
@@ -179,7 +179,7 @@
                                 payments are strictly
                                 non-refundable. Clients must read and agree before closing the deal.
                             </li>
-                            <li>
+                            <li *ngIf="isModelAvailabilityVisible()">
                                 <strong>Reshoot Policy:</strong> Reshoot is not possible once the shoot is completed.
                                 All requirements,
                                 references, and approvals must be provided before the shoot date.
@@ -189,12 +189,12 @@
                                 watermark. Final
                                 watermark-free file is released only after full and final payment.
                             </li>
-                            <li>
+                            <li *ngIf="isModelAvailabilityVisible()">
                                 <strong>Video Format Policy:</strong> Final video is delivered in one standard format.
                                 Multiple
                                 formats/resolutions require additional charges.
                             </li>
-                            <li>
+                            <li *ngIf="isModelAvailabilityVisible()">
                                 <strong>Video Duration Policy:</strong> The quoted price is valid for videos up to 45
                                 seconds. If the final video
                                 exceeds 45 seconds but is within 1 minute, it will be considered under the same price.
