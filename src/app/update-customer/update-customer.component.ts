@@ -24,6 +24,11 @@ export class UpdateCustomerComponent implements OnInit {
   date: any;
   invoiceNumber: any;
 
+  // Add near existing fields
+  verifiedLocked = false;  // true => Verify button disabled
+  lastVerified = { name: '', number: '' };
+  lastVerifiedSuffix = '';
+
   verifyState: 'idle' | 'checking' | 'notfound' | 'mismatch' | 'match' = 'idle';
   verifyMsg = '';
   // add near other fields
@@ -45,6 +50,25 @@ export class UpdateCustomerComponent implements OnInit {
 
     // also call once on init to set validators according to default/loaded value
     this.updateQuotationValidation();
+
+    // Jab name/number/suffix badle, aur pehle verify-locked tha, to unlock + reset messages
+  const unlockIfIdentityChanged = () => {
+    if (!this.verifiedLocked) return;
+
+    const name = (this.updateForm.get('custName')?.value || '').toString().trim();
+    const number = (this.updateForm.get('custNumb')?.value || '').toString().trim();
+    const suffix = (this.updateForm.get('quotationSuffix')?.value || '').toString().trim();
+
+    if (name !== this.lastVerified.name || number !== this.lastVerified.number || suffix !== this.lastVerifiedSuffix) {
+      this.verifiedLocked = false;
+      this.verifyState = 'idle';
+      this.verifyMsg = '';
+    }
+  };
+
+  this.updateForm.get('custName')?.valueChanges.subscribe(unlockIfIdentityChanged);
+  this.updateForm.get('custNumb')?.valueChanges.subscribe(unlockIfIdentityChanged);
+  this.updateForm.get('quotationSuffix')?.valueChanges.subscribe(unlockIfIdentityChanged);
   }
 
   ngAfterViewInit() {
@@ -226,50 +250,6 @@ export class UpdateCustomerComponent implements OnInit {
     return new Date(dateVal + 'T00:00:00');
   }
 
-  // updateQuotationValidation() {
-  //   const suffixCtrl = this.updateForm.get('quotationSuffix');
-  //   const numberCtrl = this.updateForm.get('quotationNumber');
-
-  //   const closingVal = this.updateForm.get('closingDate')?.value;
-  //   const closingDate = this.toDateOnly(closingVal);
-  //   const cutoff = new Date('2025-10-01T00:00:00');
-
-  //   const verificationNeeded = closingDate ? (closingDate >= cutoff) : false;
-
-  //   if (verificationNeeded) {
-  //     // require suffix so user must verify
-  //     suffixCtrl?.setValidators([Validators.required]);
-  //     // quotationNumber can be set only after verification — keep it optional until verified
-  //     numberCtrl?.clearValidators();
-  //   } else {
-  //     // not required -> clear validators and reset state
-  //     suffixCtrl?.clearValidators();
-  //     suffixCtrl?.setValue(''); // optional: clear visible value
-  //     suffixCtrl?.markAsPristine();
-  //     suffixCtrl?.markAsUntouched();
-
-  //     numberCtrl?.clearValidators();
-  //     // if you want, set quotationNumber to prefix so required is satisfied
-  //     numberCtrl?.setValue(this.prefix); // optional: or keep '' if you set no required
-  //     numberCtrl?.markAsPristine();
-  //     numberCtrl?.markAsUntouched();
-
-  //     // Reset verification UI state so submit isn't blocked
-  //     this.verifyState = 'idle';
-  //     this.verifyMsg = '';
-  //   }
-
-  //   suffixCtrl?.updateValueAndValidity();
-  //   numberCtrl?.updateValueAndValidity();
-  // }
-
-  // checkVerificationNeeded(): boolean {
-  //   const val = this.updateForm.get('closingDate')?.value;
-  //   if (!val) return false;
-  //   const d = this.toDateOnly(val);
-  //   return d !== null && d >= new Date('2025-10-01T00:00:00');
-  // }
-
   updateQuotationValidation() {
   const suffixCtrl = this.updateForm.get('quotationSuffix');
   const numberCtrl = this.updateForm.get('quotationNumber');
@@ -292,12 +272,12 @@ export class UpdateCustomerComponent implements OnInit {
     // Reset verification UI state
     this.verifyState = 'idle';
     this.verifyMsg = '';
+    this.verifiedLocked = false;   // reset lock when verification isn't required
   }
 
   suffixCtrl?.updateValueAndValidity();
   numberCtrl?.updateValueAndValidity();
 }
-
 
   checkVerificationNeeded(): boolean {
     const closingVal = this.updateForm.get('closingDate')?.value;
@@ -310,7 +290,7 @@ export class UpdateCustomerComponent implements OnInit {
     const closingCategory = this.updateForm.get('closingCateg')?.value;
     // const categoryExcludesVerification = closingCategory === 'Logo Design';
     const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
-    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation';
+    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'Wishing Video';
 
     return dateNeedsVerification && !categoryExcludesVerification;
   }
@@ -437,6 +417,13 @@ export class UpdateCustomerComponent implements OnInit {
           this.verifyMsg = 'Quotation matches this customer';
           // Optionally set final quotationNumber field:
           this.updateForm.patchValue({ quotationNumber: this.prefix + suffix });
+           // LOCK the verify button until name/number/suffix changes
+          this.verifiedLocked = true;
+          this.lastVerified = {
+            name: (this.updateForm.get('custName')?.value || '').toString().trim(),
+            number: (this.updateForm.get('custNumb')?.value || '').toString().trim(),
+          };
+        this.lastVerifiedSuffix = suffix;
         } else {
           this.verifyState = 'mismatch';
           if (res.mismatchFields?.length > 0) {

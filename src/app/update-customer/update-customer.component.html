@@ -31,11 +31,15 @@
                                         placeholder="Quotation number (e.g. 306)" style="max-width: 120px;">
                                 </div>
                                 <button type="button" class="btn btn-outline-warning verify-btn" (click)="onVerifyQuotation()"
-                                    [disabled]="verifyState==='checking' || !checkVerificationNeeded()">
-                                    {{ verifyState==='checking' ? 'Verifying…' : 'Verify' }}
+                                    [disabled]="verifyState==='checking' || !checkVerificationNeeded() || verifiedLocked">
+                                    {{ verifyState==='checking' ? 'Verifying…' : (verifiedLocked ? 'Verified' : 'Verify') }}
                                 </button>
                             </div> 
                             <small *ngIf="!checkVerificationNeeded()" class="text-muted">No verification required for current quotation.</small>
+
+                            <small *ngIf="verifiedLocked" class="text-success d-block mt-1">
+                                Verified. Editing name/number/quotation will require re-verification.
+                            </small>
 
                             <!-- Message under the control -->
                             <div class="mt-1" *ngIf="verifyState !== 'idle'">
