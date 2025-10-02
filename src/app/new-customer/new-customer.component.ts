@@ -365,7 +365,7 @@ export class NewCustomerComponent implements OnInit {
     const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
     const categoryExcludesVerification =
       closingCategoryNormalized === 'logo design' ||
-      closingCategoryNormalized === 'logo animation';
+      closingCategoryNormalized === 'logo animation'  || closingCategoryNormalized === 'Wishing Video';
     return !categoryExcludesVerification;
   }
   updateQuotationValidation(): void {
