@@ -64,7 +64,7 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let user of customers; let i = index">
-                        <tr>
+                        <tr [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                             <td>
                                 <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                     <button class="btn btn-link" (click)="user.showSub = !user.showSub">
@@ -155,7 +155,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let sub of user.subEntries">
+                                        <tr *ngFor="let sub of user.subEntries" [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                                             <td>{{sub.custCode}}</td>
                                             <td>{{sub.custName}}</td>
                                             <td>{{sub.entryType}}</td>
@@ -179,7 +179,8 @@
                                                     <option value="Voice Over">Voice Over</option>
                                                     <option value="Video Editing">Video Editing</option>
                                                     <option value="Completed">Completed</option>
-                                                </select></td>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -220,7 +221,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let user of rangeData; let i = index">
-                            <tr>
+                            <tr [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
@@ -311,7 +312,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let sub of user.subEntries">
+                                            <tr *ngFor="let sub of user.subEntries" [ngClass]="{'highlight-completed': sub.projectStatus === 'Completed'}">
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
@@ -336,7 +337,8 @@
                                                         <option value="Voice Over">Voice Over</option>
                                                         <option value="Video Editing">Video Editing</option>
                                                         <option value="Completed">Completed</option>
-                                                    </select></td>
+                                                    </select>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -393,7 +395,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let user of data; let i = index">
-                            <tr>
+                            <tr [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
@@ -484,7 +486,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let sub of user.subEntries">
+                                            <tr *ngFor="let sub of user.subEntries" [ngClass]="{'highlight-completed': sub.projectStatus === 'Completed'}">
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
@@ -509,7 +511,8 @@
                                                         <option value="Voice Over">Voice Over</option>
                                                         <option value="Video Editing">Video Editing</option>
                                                         <option value="Completed">Completed</option>
-                                                    </select></td>
+                                                    </select>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -548,7 +551,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let user of dataPreviousMonth; let i = index">
-                            <tr>
+                            <tr [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                                 <td>
                                     <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
@@ -639,7 +642,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let sub of user.subEntries">
+                                            <tr *ngFor="let sub of user.subEntries" [ngClass]="{'highlight-completed': sub.projectStatus === 'Completed'}">
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
@@ -664,7 +667,8 @@
                                                         <option value="Voice Over">Voice Over</option>
                                                         <option value="Video Editing">Video Editing</option>
                                                         <option value="Completed">Completed</option>
-                                                    </select></td>
+                                                    </select>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -705,7 +709,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let user of dataTwoPreviousMonth; let i = index">
-                            <tr>
+                            <tr [ngClass]="{'highlight-completed': user.projectStatus === 'Completed'}">
                                 <td><ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
                                         <button class="btn btn-link" (click)="user.showSub = !user.showSub">
                                             <span
@@ -795,7 +799,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let sub of user.subEntries">
+                                            <tr *ngFor="let sub of user.subEntries" [ngClass]="{'highlight-completed': sub.projectStatus === 'Completed'}">
                                                 <td>{{sub.custCode}}</td>
                                                 <td>{{sub.custName}}</td>
                                                 <td>{{sub.entryType}}</td>
@@ -820,7 +824,8 @@
                                                         <option value="Voice Over">Voice Over</option>
                                                         <option value="Video Editing">Video Editing</option>
                                                         <option value="Completed">Completed</option>
-                                                    </select></td>
+                                                    </select>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

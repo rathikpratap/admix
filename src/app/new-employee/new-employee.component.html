@@ -89,16 +89,17 @@
                                 aria-label="Default select example" multiple size="3"
                                 [ngClass]="{error:getControls('signupRole')?.errors && getControls('signupRole')?.touched}">
                                 <option value="Select Role"> Select Employee Role </option>
-                                <option value="Admin"> Admin </option>
-                                <option value="Manager"> Manager </option>
+                                <option value="Admin">Admin</option>
+                                <option value="Manager">Manager</option>
                                 <option value="Team Leader">Team Leader</option>
-                                <option value="Sales Team"> Sales Team </option>
-                                <option value="Graphic Designer"> Graphic Designer </option>
-                                <option value="Web Developer"> Web Developer </option>
-                                <option value="Editor"> Editor </option>
+                                <option value="Sales Team">Sales Team</option>
+                                <option value="Graphic Designer">Graphic Designer</option>
+                                <option value="Web Developer">Web Developer</option>
+                                <option value="Editor">Editor</option>
                                 <option value="Bundle Handler">Bundle Handler</option>
-                                <option value="Script Writer"> Script Writer </option>
-                                <option value="VO Artist"> VO Artist </option>
+                                <option value="Script Writer">Script Writer</option>
+                                <option value="VO Artist">VO Artist</option>
+                                <option value="Lead Manager">Lead Manager</option>
                             </select>
                             <div *ngIf="getControls('signupRole')?.errors && getControls('signupRole')?.touched">
                                 <label class="text-danger" *ngIf="getControls('signupRole')?.errors?.['required']"> Role is Required </label>

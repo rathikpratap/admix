@@ -191,6 +191,9 @@ tr input{
     width: 27%;
     color: white;
 }
+.highlight-completed {
+  background-color: #076f76 !important;
+}
 @media only screen and (max-width: 500px){
     .searchData2 select{
         width: 59%;

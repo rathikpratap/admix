@@ -11,6 +11,9 @@
 .rangeData{
     margin-top: 20px;
 }
+.highlight-completed {
+  background-color: #076f76 !important;
+}
 .searchData2 input{
     background: rgba(255,255, 255, 0.2);
     color: black;
