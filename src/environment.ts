@@ -3,7 +3,7 @@ export const appConfig = {
   //apiUrl: 'http://localhost:5000',
   production: false,
   firebase: {
-    // apiKey: "AIzaSyBI2Tr1-YBb7y2Iev1GSqAdJDgr2kEMIfg",
+    // apiKey: "AIzaSyBI2Tr1-YBb7y2Iev1GSqAdJDgr2kEMIfg", 
     // authDomain: "admix-demo.firebaseapp.com",
     // projectId: "admix-demo",
     // storageBucket: "admix-demo.appspot.com",

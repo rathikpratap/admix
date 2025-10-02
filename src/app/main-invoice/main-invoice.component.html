@@ -162,7 +162,7 @@
                         <p>{{wordsAmt | uppercase}} ONLY</p>
                         <p><strong>Terms and Condition</strong></p>
                         <ul class="terms-ul">
-                            <li *ngIf="isModelAvailabilityVisible()">
+                            <li *ngIf="isModelAvailabilityVisible() && isAdvertisementVideoVisible()">
                                 <strong>Model Availability & Shoot Delay:</strong> Once a model is selected, Admix Media
                                 is not responsible
                                 for delays due to model’s personal/health issues. If unavailable for 7–10 days, the
@@ -179,7 +179,7 @@
                                 payments are strictly
                                 non-refundable. Clients must read and agree before closing the deal.
                             </li>
-                            <li *ngIf="isModelAvailabilityVisible()">
+                            <li *ngIf="isModelAvailabilityVisible() && isAdvertisementVideoVisible()">
                                 <strong>Reshoot Policy:</strong> Reshoot is not possible once the shoot is completed.
                                 All requirements,
                                 references, and approvals must be provided before the shoot date.
