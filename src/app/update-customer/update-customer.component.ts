@@ -290,11 +290,10 @@ export class UpdateCustomerComponent implements OnInit {
     const closingCategory = this.updateForm.get('closingCateg')?.value;
     // const categoryExcludesVerification = closingCategory === 'Logo Design';
     const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
-    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'Wishing Video';
+    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'wishing video';
 
     return dateNeedsVerification && !categoryExcludesVerification;
   }
-
 
   formatDate(isoDate: string): string {
     if (!isoDate) return '';
