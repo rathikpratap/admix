@@ -160,7 +160,7 @@
                                 client may select
                                 another model in the same price segment.
                             </li>
-                            <li>
+                            <li *ngIf="isAdrunVisible()">
                                 <strong>Delivery & Revision Timeline:</strong> Committed delivery date is for first
                                 draft only. Revisions after
                                 delivery require minimum 24 hours, not counted in the original deadline.
@@ -175,7 +175,7 @@
                                 All requirements,
                                 references, and approvals must be provided before the shoot date.
                             </li>
-                            <li>
+                            <li *ngIf="isAdrunVisible()">
                                 <strong>Watermark Policy:</strong> After advance payment, videos/Logo/Graphics are shared with
                                 watermark. Final
                                 watermark-free file is released only after full and final payment.

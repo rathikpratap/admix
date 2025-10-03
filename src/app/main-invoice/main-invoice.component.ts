@@ -581,7 +581,32 @@ export class MainInvoiceComponent implements OnInit {
   }
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Advertisement Video','Other'];
+    const hideCategories = ['Advertisement Video', 'Other'];
+
+    // rows FormArray ko read karke check karte hain
+    const formArray = this.rows; // getter already defined in your class
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString();
+      // agar value exactly match kare to hide kar do (case-sensitive)
+      if (hideCategories.includes(val)) {
+        return false; // don't show the Model Availability li
+      }
+
+      // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+      if (val === 'Other') {
+        const custom = (grp.get('customCateg')?.value || '').toString();
+        if (hideCategories.includes(custom)) {
+          return false;
+        }
+      }
+    }
+
+    return true; // default: show the li
+  }
+  isAdrunVisible(): boolean {
+    // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+    const hideCategories = ['Ad Run','Website Development'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class

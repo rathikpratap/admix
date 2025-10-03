@@ -172,3 +172,26 @@ strong {
 .inline-fields .form-control {
     width: calc(50% - 5px); /* Ensures each input shares the row evenly */
 }
+.terms-ul{
+    font-size: 18px;
+    margin-left: -20px;
+    text-align: justify;
+}
+/* ensure invoice uses box-sizing so padding included in measured width */
+#invoice {
+  box-sizing: border-box;
+  padding-right: 20px;
+  /* optional: constrain width to what you want in PDF */
+  /* max-width: 780px; */
+}
+
+/* avoid splitting important blocks across pages */
+.no-break, .terms-ul, table, thead, tbody, tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* allow normal breaks for long paragraphs */
+p, ul {
+  page-break-inside: auto;
+}

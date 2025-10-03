@@ -3,12 +3,13 @@ import { AuthService } from '../service/auth.service';
 import numWords from 'num-words';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
 import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
- 
+
 @Component({
   selector: 'app-view-invoice',
   standalone: true,
@@ -199,7 +200,7 @@ export class ViewInvoiceComponent implements OnInit {
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData,financialYear: this.financialYear, _id: this.invoiceData._id  };
+    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, _id: this.invoiceData._id };
 
     this.auth.updateInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
@@ -232,34 +233,114 @@ export class ViewInvoiceComponent implements OnInit {
       }
     });
   }
+
   generatePdf() {
     const invoiceElement = document.getElementById('invoice');
-    if (invoiceElement) {
-      html2canvas(invoiceElement).then(canvas => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-          orientation: 'p',
-          unit: 'mm',
-          format: [210 * 1.5, 297 * 1.5]
-        });
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    if (!invoiceElement) return;
 
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        const fileName = `invoice_${this.name}.pdf`.replace(/\s+/g, '_');
-        pdf.save(fileName);
-      });
+    // --- Optional: temporarily add top/bottom padding for PDF only (keeps on-screen same if you revert after) ---
+    // If you already have CSS padding in #invoice, you can skip this block.
+    const addPdfPadding = true;
+    let prevPaddingTop = '';
+    let prevPaddingBottom = '';
+    if (addPdfPadding) {
+      prevPaddingTop = invoiceElement.style.paddingTop || '';
+      prevPaddingBottom = invoiceElement.style.paddingBottom || '';
+      invoiceElement.style.paddingTop = '15px';   // top padding for each page (adjust if needed)
+      invoiceElement.style.paddingBottom = '15px';// bottom padding for each page
+      invoiceElement.style.boxSizing = 'border-box';
     }
+
+    // compute exact on-screen pixel dimensions to preserve visual size
+    const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
+    const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
+
+    // html2pdf options:
+    const opt: any = {
+      margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
+      filename: `invoice_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
+      image: { type: 'png', quality: 1.0 },
+      html2canvas: {
+        scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
+        useCORS: true,
+        logging: false,
+        width: elementWidthPx,
+        height: elementHeightPx,
+        windowWidth: document.documentElement.clientWidth,
+        windowHeight: document.documentElement.clientHeight
+      },
+      jsPDF: {
+        unit: 'px',                      // use pixels so sizes match the canvas exactly
+        format: [elementWidthPx, elementHeightPx],
+        orientation: 'p'
+      },
+      pagebreak: { mode: ['css', 'legacy'] } // allow CSS page-break rules
+    };
+
+    // run html2pdf (returns a Promise)
+    html2pdf().set(opt).from(invoiceElement).save()
+      .then(() => {
+        // restore padding changes
+        if (addPdfPadding) {
+          invoiceElement.style.paddingTop = prevPaddingTop;
+          invoiceElement.style.paddingBottom = prevPaddingBottom;
+        }
+      })
+      .catch((err: any) => {
+        console.error('html2pdf error:', err);
+        // restore padding if any
+        if (addPdfPadding) {
+          invoiceElement.style.paddingTop = prevPaddingTop;
+          invoiceElement.style.paddingBottom = prevPaddingBottom;
+        }
+      });
   }
-  getFinancialYear(date: Date): string{
+  getFinancialYear(date: Date): string {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
-    if(month >=4){
+    if (month >= 4) {
       return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
     } else {
-      return `${(year -1).toString().slice(-2)}-${(year).toString().slice(-2)}`;
+      return `${(year - 1).toString().slice(-2)}-${(year).toString().slice(-2)}`;
     }
+  }
+
+  hasLogoCategory(): boolean {
+    return this.rows.controls.some(row => {
+      const categ = row.get('invoiceCateg')?.value?.toLowerCase();
+      return categ === 'logo design' || categ === 'logo animation' || categ ===' wishing video' || categ === 'website development' || categ ==='graphic designing' || categ === 'voice over' || categ === 'ad run';
+    });
+  }
+  hasAdverCategory(): boolean {
+    return this.rows.controls.some(row => {
+      const categ = row.get('invoiceCateg')?.value?.toLowerCase();
+      return categ === 'advertisement video' ;
+    });
+  }
+  isAdrunVisible(): boolean {
+    // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+    const hideCategories = ['Ad Run','Website Development'];
+
+    // rows FormArray ko read karke check karte hain
+    const formArray = this.rows; // getter already defined in your class
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString();
+      // agar value exactly match kare to hide kar do (case-sensitive)
+      if (hideCategories.includes(val)) {
+        return false; // don't show the Model Availability li
+      }
+
+      // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+      if (val === 'Other') {
+        const custom = (grp.get('customCateg')?.value || '').toString();
+        if (hideCategories.includes(custom)) {
+          return false;
+        }
+      }
+    }
+
+    return true; // default: show the li
   }
 }
