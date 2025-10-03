@@ -335,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="customerForm.status === 'INVALID' || verifyState !== 'match'" class="btn btn-success">
+                <input type="submit" [disabled]="customerForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match')" class="btn btn-success">
             </form>
             <form [formGroup]="b2bCustomerForm" (ngSubmit)="b2bCustomerForm.status !== 'INVALID' && addb2bCust()" *ngIf="customerForm.get('salesTeam')?.value === 'Shiva Development'">
                 <div [ngClass]="className" role="alert">
