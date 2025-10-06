@@ -302,6 +302,9 @@ export class CustomQuotationComponent implements OnInit {
       invoiceElement.style.boxSizing = 'border-box';
     }
 
+    // --- 1) Replace textareas with divs that render line breaks ---
+    this.replaceTextareasForPdf(invoiceElement);
+
     // compute exact on-screen pixel dimensions to preserve visual size
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
     const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
@@ -312,13 +315,15 @@ export class CustomQuotationComponent implements OnInit {
       filename: `quotation_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'png', quality: 1.0 },
       html2canvas: {
-        scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
+        // scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
+        scale: 2,
         useCORS: true,
         logging: false,
         width: elementWidthPx,
         height: elementHeightPx,
         windowWidth: document.documentElement.clientWidth,
-        windowHeight: document.documentElement.clientHeight
+        windowHeight: document.documentElement.clientHeight,
+        scrollY: -window.scrollY // avoid captured screenshot offset when page scrolled
       },
       jsPDF: {
         unit: 'px',                      // use pixels so sizes match the canvas exactly
@@ -331,6 +336,8 @@ export class CustomQuotationComponent implements OnInit {
     // run html2pdf (returns a Promise)
     html2pdf().set(opt).from(invoiceElement).save()
       .then(() => {
+        // restore replaced textareas
+        this.restoreTextareasAfterPdf();
         // restore padding changes
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -339,6 +346,7 @@ export class CustomQuotationComponent implements OnInit {
       })
       .catch((err: any) => {
         console.error('html2pdf error:', err);
+        this.restoreTextareasAfterPdf();
         // restore padding if any
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -366,7 +374,7 @@ export class CustomQuotationComponent implements OnInit {
   }
   isModelAvailabilityVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Logo Design', 'Website Development', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
+    const hideCategories = ['Logo Design', 'Website Development - Informative', 'Website Development - Ecommerce', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run',];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
@@ -391,7 +399,7 @@ export class CustomQuotationComponent implements OnInit {
   }
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Advertisement Video','Other'];
+    const hideCategories = ['Advertisement Video', 'Other'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
@@ -416,7 +424,7 @@ export class CustomQuotationComponent implements OnInit {
   }
   isAdrunVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Ad Run','Website Development'];
+    const hideCategories = ['Ad Run', 'Website Development - Informative', 'Website Development - Ecommerce'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
@@ -439,4 +447,131 @@ export class CustomQuotationComponent implements OnInit {
 
     return true; // default: show the li
   }
+
+  isMetaAdsVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false;
+    this.isMetaAdsPremium = true;
+
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+
+      if (val === 'Meta Ads - Standard' || custom === 'Meta Ads - Standard') {
+        isVisible = true;
+      }
+
+      if (val === 'Meta Ads - Ecommerce' || custom === 'Meta Ads - Ecommerce') {
+        isVisible = true;
+        this.isMetaAdsPremium = false;
+      }
+    }
+    return isVisible;
+  }
+  isMetaAdsPremium: boolean = true;
+
+  isWebDevelopmentVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false; // whether to show Website section
+    this.isIntroductionWebsite = true; // reset visibility for 15 Products line
+
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+
+      // ✅ If any category is Website Development — show section
+      if (val === 'Website Development - Ecommerce' || custom === 'Website Development - Ecommerce') {
+        isVisible = true;
+      }
+
+      // ❌ If category is Website Development - Informative — hide 15 Products line
+      if (val === 'Website Development - Informative' || custom === 'Website Development - Informative') {
+        isVisible = true; // still show section
+        this.isIntroductionWebsite = false; // but hide product line
+      }
+    }
+
+    return isVisible;
+  }
+  // property near other top-level properties
+  isIntroductionWebsite: boolean = true;
+
+  // inside your component class
+
+  private replacedNodes: Array<{ textarea: HTMLTextAreaElement, placeholder?: HTMLElement, hiddenContainer?: HTMLElement }> = [];
+
+  private replaceTextareasForPdf(rootEl: HTMLElement) {
+    this.replacedNodes = [];
+    const textareas = Array.from(rootEl.querySelectorAll<HTMLTextAreaElement>('textarea'));
+    textareas.forEach(ta => {
+
+      const value = (ta.value || '').toString();
+
+      // If textarea is empty or just whitespace -> hide the container (and likely the preceding 'Note:' span)
+      if (value.trim() === '') {
+        // Choose a container that holds both the span 'Note:' and textarea.
+        // Adjust the selector if your structure is different. This tries nearest div, then parent.
+        const container = ta.closest('div') || ta.parentElement;
+
+        if (container) {
+          // hide container for PDF
+          (container as HTMLElement).style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: container });
+        } else {
+          // fallback: hide the textarea itself
+          ta.style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: ta });
+        }
+
+        return; // continue to next textarea
+      }
+
+      // create div to match visuals
+      const div = document.createElement('div');
+      div.className = 'pdf-textarea';
+      // convert newlines to <br> and escape HTML
+      const escaped = (ta.value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      div.innerHTML = escaped.replace(/\n/g, '<br>');
+      // keep original style so it looks same in PDF
+      const computed = window.getComputedStyle(ta);
+      div.style.font = computed.font;
+      div.style.lineHeight = computed.lineHeight;
+      div.style.padding = computed.padding;
+      div.style.border = computed.border;
+      div.style.background = computed.backgroundColor;
+      div.style.minHeight = computed.minHeight;
+      div.style.whiteSpace = 'pre-wrap';
+      div.style.boxSizing = 'border-box';
+
+      // insert and record for revert
+      ta.parentNode?.insertBefore(div, ta);
+      // hide original textarea (so layout is identical and we can revert easily)
+      ta.style.display = 'none';
+      this.replacedNodes.push({ textarea: ta, placeholder: div });
+    });
+  }
+
+  private restoreTextareasAfterPdf() {
+    this.replacedNodes.forEach(item => {
+      const ta = item.textarea;
+      if (item.hiddenContainer) {
+        (item.hiddenContainer as HTMLElement).style.display = '';
+        // ensure textarea also visible (in case container fallback hid it)
+        ta.style.display = '';
+      }
+      // if we replaced textarea with placeholder div, remove it and show textarea
+      if (item.placeholder) {
+        const placeholder = item.placeholder;
+        placeholder.parentNode?.removeChild(placeholder);
+        ta.style.display = '';
+      }
+    });
+    this.replacedNodes = [];
+  }
+
 }

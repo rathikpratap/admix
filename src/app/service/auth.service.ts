@@ -33,10 +33,10 @@ export class AuthService {
   sendOtp(data: { username: string, password: string }) {
     return this.http.post(`${appConfig.apiUrl}/auth/send-otp`, data);
   }
-  signin(credentials: { username: string, password: string, otp?: string | null}): Observable<any> {
+  signin(credentials: { username: string, password: string, otp?: string | null }): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/login`, credentials);
   }
-  
+
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
@@ -98,7 +98,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data, {headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data, { headers });
   }
   addCustomQuotation(data: any): Observable<any> {
     const token = localStorage.getItem('token');
@@ -106,9 +106,9 @@ export class AuthService {
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post(`${appConfig.apiUrl}/auth/customQuotation`, data,{headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/customQuotation`, data, { headers });
   }
-  updateInvoice(data: any): Observable<any>{
+  updateInvoice(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data);
   }
   getCustData() {
@@ -189,47 +189,47 @@ export class AuthService {
   //   return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: data });
   // }
 
-  updateProjectStatus(dataa:any){
+  updateProjectStatus(dataa: any) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`,{ items: dataa}, {headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: dataa }, { headers });
   }
   updateProjectStatusManagement(items: any[] | any) {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
-  // Always send array for consistency
-  const payload = Array.isArray(items) ? items : [items];
-  return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusManagement`, { item: payload }, { headers });
-}
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    // Always send array for consistency
+    const payload = Array.isArray(items) ? items : [items];
+    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusManagement`, { item: payload }, { headers });
+  }
   updateEditors(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
   }
   updateSubEntry(parentId: string, subEntry: any): Observable<any> {
-  return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntry`, {
-    parentId,
-    subEntry
-  });
-}
+    return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntry`, {
+      parentId,
+      subEntry
+    });
+  }
 
-  updateB2bEditorname(data:any): Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/updateB2bEditorname`,{items: data});
+  updateB2bEditorname(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateB2bEditorname`, { items: data });
   }
   updateProjectStatusTeam(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatusTeam`, { items: data });
   }
-  getCompleteProjects():Observable<any> {
+  getCompleteProjects(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/completeProject`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/completeProject`, { headers });
   }
   getCompleteProjectsB2b() {
     return this.http.get(`${appConfig.apiUrl}/auth/completeProjectB2b`);
@@ -240,13 +240,13 @@ export class AuthService {
   getAllProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjects`);
   }
-  getAllProjectsExcludingLogo(){
+  getAllProjectsExcludingLogo() {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsExcludingLogo`);
   }
-  getAllProjectsIncludingLogo(){
+  getAllProjectsIncludingLogo() {
     return this.http.get(`${appConfig.apiUrl}/auth/allOngoingProjectsIncludingLogo`);
   }
-  getProductionProjects(){
+  getProductionProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/allProductionProjects`);
   }
   getAllCompleteProjects() {
@@ -255,21 +255,21 @@ export class AuthService {
   getremainingAmountProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/remainingAmountProjects`);
   }
-  salesAllProjects():Observable<any> {
+  salesAllProjects(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/allProjects`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/allProjects`, { headers });
   }
-  salesPreviousMonthProjects():Observable<any> {
+  salesPreviousMonthProjects(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/allPreviousProjects`, { headers });
   }
   salesPreviousTwoMonthProjects(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -277,7 +277,7 @@ export class AuthService {
       'const-type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`, {headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/allTwoPreviousProjects`, { headers });
   }
   empProjects(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/empProjects/${name}`);
@@ -310,16 +310,16 @@ export class AuthService {
   closingData(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allCategProjects/${name}`);
   }
-  closingDataCurrentMonth(name: any): Observable<any>{
+  closingDataCurrentMonth(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/closingCurrentMonth/${name}`);
   }
-  closingDataPrevMonth(name: any): Observable<any>{
+  closingDataPrevMonth(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/closingPrevMonth/${name}`);
   }
-  closingDataTwoPrevMonth(name:any): Observable<any>{
+  closingDataTwoPrevMonth(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/closingTwoPrevMonth/${name}`);
   }
-  searchedClosingData(name: any, mobile:any): Observable<any>{
+  searchedClosingData(name: any, mobile: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/searchCategProjects/${name}/${mobile}`);
   }
 
@@ -355,7 +355,7 @@ export class AuthService {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchLeads/${mobile}`);
   }
 
-  searchInvoice(mobile: string): Observable<any>{
+  searchInvoice(mobile: string): Observable<any> {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/searchInvoice/${mobile}`);
   }
 
@@ -403,8 +403,8 @@ export class AuthService {
     )
   }
 
-  uploadToDrive(formData: any): Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/uploadToDrive`, formData,{
+  uploadToDrive(formData: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/uploadToDrive`, formData, {
       reportProgress: true,
       observe: 'events'
     });
@@ -752,7 +752,7 @@ export class AuthService {
       'COntent-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${appConfig.apiUrl}/auth/salesleadsByRange`, filters, {headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/salesleadsByRange`, filters, { headers });
   }
   getSalesLeadbyRangeSales(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/salesleadsByRangeSales/${startDate.toISOString()}/${endDate.toISOString()}`);
@@ -940,13 +940,13 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`, {headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`, { headers });
   }
   getWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`);
   }
 
-  assignCampaign(data: {campaignName: string, employees: string[]}):Observable<any>{
+  assignCampaign(data: { campaignName: string, employees: string[] }): Observable<any> {
     return this.http.put(`${appConfig.apiUrl}/auth/assign-campaign`, data)
   }
   getAssignedCampaigns(): Observable<any> {
@@ -955,7 +955,7 @@ export class AuthService {
   getCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getCampaignNames`);
   }
-  getWhatsAppCampaign(): Observable<any>{
+  getWhatsAppCampaign(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getWhatsAppCampaignNames`);
   }
   getAllCampaign(): Observable<any> {
@@ -1006,7 +1006,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`, { headers });
   }
   getYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads/${name}`);
@@ -1028,7 +1028,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayTeams-leads/${name}`, { headers });
   }
 
   getSalesOneYesterdayTeamWork(): Observable<any> {
@@ -1044,7 +1044,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`, { headers });
   }
   getTwoYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads/${name}`);
@@ -1063,7 +1063,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`, { headers });
   }
   getThreeYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads/${name}`);
@@ -1082,7 +1082,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`, { headers });
   }
   getFourYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads/${name}`);
@@ -1101,7 +1101,7 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`, { headers });
   }
   getFiveYesterdayWhatsAppLeads(name: any): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads/${name}`);
@@ -1203,8 +1203,8 @@ export class AuthService {
   //   return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount`);
   // }
   mainInvoiceCount(financialYear: string) {
-  return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount?clientFY=${financialYear}`);
-}
+    return this.http.get(`${appConfig.apiUrl}/auth/mainInvoiceCount?clientFY=${financialYear}`);
+  }
 
 
   handleError(error: HttpErrorResponse) {
@@ -1375,7 +1375,7 @@ export class AuthService {
   mediumEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/mediumEditorProjects`);
   }
-  changesEditorProjects(){
+  changesEditorProjects() {
     return this.http.get(`${appConfig.apiUrl}/auth/changesEditorProjects`);
   }
 
@@ -1434,18 +1434,18 @@ export class AuthService {
   addPoint(pointData: any) {
     return this.http.put(`${appConfig.apiUrl}/auth/addPoint`, pointData);
   }
-  getPoint(){
+  getPoint() {
     return this.http.get(`${appConfig.apiUrl}/auth/getPoints`);
   }
   getPointsByVideoType(videoType: string) {
-  return this.http.get(`${appConfig.apiUrl}/auth/getPoint/${videoType}`);
-}
+    return this.http.get(`${appConfig.apiUrl}/auth/getPoint/${videoType}`);
+  }
 
   updateEditorMonthlyPoints(editorName: string) {
     return this.http.post<any>(`${appConfig.apiUrl}/auth/update-editor-monthly-points`, { editorName });
   }
   getAllEditorMonthlyPoints() {
-  return this.http.get<any>(`${appConfig.apiUrl}/auth/all-editor-monthly-points`);
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/all-editor-monthly-points`);
   }
 
   transferToLeads(user: any): Observable<any> {
@@ -1489,33 +1489,33 @@ export class AuthService {
     return this.http.post<any>(`${appConfig.apiUrl}/auth/impersonate`, { userId });
   }
 
-  uploadLead(formData:FormData):Observable<any>{
+  uploadLead(formData: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`${appConfig.apiUrl}/auth/uploadLead`,formData,{headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/uploadLead`, formData, { headers });
   }
 
-  dateCamapign(selectDate:string, name: string):Observable<any>{
+  dateCamapign(selectDate: string, name: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaign/${name}`,{
+    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaign/${name}`, {
       headers, params: {
         selectDate
       }
     });
   }
-  getSalesLeadbyFilter(filters: any):Observable<any> {
+  getSalesLeadbyFilter(filters: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/filter`, filters);
   }
-  allSalesLead():Observable<any>{
+  allSalesLead(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allSalesLeads`);
   }
-  transferLeadtoSalesPerson(transferData:any):Observable<any>{
+  transferLeadtoSalesPerson(transferData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/transferLeadtoSalesPerson`, transferData);
   }
 
@@ -1540,7 +1540,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWo`,{ headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWo`, { headers });
   }
   getYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1548,7 +1548,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoYes`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoYes`, { headers });
   }
   getOneYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1556,7 +1556,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoOne`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoOne`, { headers });
   }
   getTwoYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1564,7 +1564,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoTwo`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoTwo`, { headers });
   }
   getThreeYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1572,7 +1572,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWothree`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWothree`, { headers });
   }
   getFourYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1580,7 +1580,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFour`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFour`, { headers });
   }
   getFiveYesterdayTeamLeadWo(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1588,41 +1588,44 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFive`,{headers});
+    return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leadsWoFive`, { headers });
   }
-  dateWo(selectDate:string):Observable<any>{
+  dateWo(selectDate: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaignWo`,{headers, params:{selectDate}});
+    return this.http.get(`${appConfig.apiUrl}/auth/getDateCampaignWo`, { headers, params: { selectDate } });
   }
 
-  getPointsUpdate():Observable<any>{
+  getPointsUpdate(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getPointsUpdate`);
   }
-  updatePoint(point:any){
-    return this.http.post(`${appConfig.apiUrl}/auth/update-point`,{item: point});
+  updatePoint(point: any) {
+    return this.http.post(`${appConfig.apiUrl}/auth/update-point`, { item: point });
   }
   // auth.service.ts
-verifyQuotation(financialYear: string, suffix: string, custName: string, custNumb: string) {
-  const params = new HttpParams()
-    .set('financialYear', financialYear)
-    .set('suffix', suffix)
-    .set('custName', custName ?? '')
-    .set('custNumb', custNumb ?? '');
-  return this.http.get(`${appConfig.apiUrl}/auth/verify-quotation`, { params });
-}
+  verifyQuotation(financialYear: string, suffix: string, custName: string, custNumb: string) {
+    const params = new HttpParams()
+      .set('financialYear', financialYear)
+      .set('suffix', suffix)
+      .set('custName', custName ?? '')
+      .set('custNumb', custNumb ?? '');
+    return this.http.get(`${appConfig.apiUrl}/auth/verify-quotation`, { params });
+  }
 
-getInvoice():Observable<any>{
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  })
-  return this.http.get(`${appConfig.apiUrl}/auth/getInvoice`, {headers});
-}
+  getInvoice(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get(`${appConfig.apiUrl}/auth/getInvoice`, { headers });
+  }
+  deleteEst(id:any):Observable<any>{
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-est/${id}`,{headers: this.httpHeaders}).pipe(catchError(this.handleError))
+  }
 
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{

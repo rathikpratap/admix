@@ -78,8 +78,6 @@ export class MainInvoiceComponent implements OnInit {
     // 👇 Set the form control value
     this.invoiceForm.get('invoiceDate')?.setValue(isoDate);
 
-    console.log("TODAY DATE=============>>", this.invoiceForm.get('invoiceDate'));
-
     this.invoiceForm.get('billType')?.valueChanges.subscribe(() => {
       this.updateBillFormat();
     });
@@ -108,7 +106,6 @@ export class MainInvoiceComponent implements OnInit {
       this.number = res.custNumb;
       this.QrCheck = res.Qr;
       const state = res.custState;
-      console.log("STATE=======>>", state);
       this.invoiceForm.get('state')?.setValue(state);
       if (state === 'UP') {
         this.invoiceForm.get('gstType')?.setValue('UP');
@@ -297,37 +294,6 @@ export class MainInvoiceComponent implements OnInit {
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId };
 
-    // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-    //   if (res.success) {
-    //     this.toastr.success('Invoice saved Successfully', 'Success');
-    //     this.generatePdf();
-    //   } else if (res.dataExists) {
-    //     Swal.fire({
-    //       title: 'Invoice Already Exists',
-    //       text: res.message,
-    //       icon: 'warning',
-    //       showCancelButton: true,
-    //       confirmButtonText: 'Yes, Update it',
-    //       cancelButtonText: 'No, Cancel'
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
-    //           if (res.success) {
-    //             this.toastr.success('New Invoice Saved Successfully', 'Success');
-    //             this.generatePdf();
-    //           } else {
-    //             this.toastr.error('Error Saving Invoice', 'Error');
-    //           }
-    //         });
-    //       } else {
-    //         this.toastr.error('Update Cancelled', 'Info');
-    //       }
-    //     });
-    //   } else {
-    //     this.toastr.error('Error Saving New Invoice', 'Error');
-    //   }
-    // });
-
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
         this.toastr.success('Invoice saved successfully', 'Success');
@@ -376,59 +342,7 @@ export class MainInvoiceComponent implements OnInit {
         this.toastr.error('Unknown error occurred', 'Error');
       }
     });
-
   }
-  // generatePdf() {
-  //   const invoiceElement = document.getElementById('invoice');
-  //   if (invoiceElement) {
-  //     html2canvas(invoiceElement).then(canvas => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p',
-  //         unit: 'mm',
-  //         format: [210 * 1.5, 297 * 1.5]
-  //       });
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //       const fileName = `invoice_${this.name}.pdf`.replace(/\s+/g, '_');
-  //       pdf.save(fileName);
-  //     });
-  //   }
-  // }
-
-  //   generatePdf() { 
-  //   this.isGeneratingPdf = true;
-  //   this.cd.detectChanges();
-
-  //   setTimeout(() => {
-  //     const invoiceElement = document.getElementById('invoice');
-  //     if (invoiceElement) {
-  //       html2canvas(invoiceElement).then(canvas => {
-  //         const imgData = canvas.toDataURL('image/png');
-  //         const pdf = new jsPDF({
-  //           orientation: 'p',
-  //           unit: 'mm',
-  //           format: [210 * 1.5, 297 * 1.5]
-  //         });
-
-  //         const imgProps = pdf.getImageProperties(imgData);
-  //         const pdfWidth = pdf.internal.pageSize.getWidth();
-  //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-  //         const fileName = `invoice_${this.name || 'export'}.pdf`.replace(/\s+/g, '_');
-  //         pdf.save(fileName);
-
-  //         this.isGeneratingPdf = false;
-  //         this.cd.detectChanges();
-  //       });
-  //     }
-  //   }, 100); // slight delay to ensure DOM updates
-  // }
 
   generatePdf() {
     const invoiceElement = document.getElementById('invoice');
@@ -446,6 +360,8 @@ export class MainInvoiceComponent implements OnInit {
       invoiceElement.style.paddingBottom = '15px';// bottom padding for each page
       invoiceElement.style.boxSizing = 'border-box';
     }
+        // --- 1) Replace textareas with divs that render line breaks ---
+    this.replaceTextareasForPdf(invoiceElement);
 
     // compute exact on-screen pixel dimensions to preserve visual size
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
@@ -457,13 +373,14 @@ export class MainInvoiceComponent implements OnInit {
       filename: `invoice_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'png', quality: 1.0 },
       html2canvas: {
-        scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
+        scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
         useCORS: true,
         logging: false,
         width: elementWidthPx,
         height: elementHeightPx,
         windowWidth: document.documentElement.clientWidth,
-        windowHeight: document.documentElement.clientHeight
+        windowHeight: document.documentElement.clientHeight,
+        scrollY: -window.scrollY
       },
       jsPDF: {
         unit: 'px',                      // use pixels so sizes match the canvas exactly
@@ -476,6 +393,8 @@ export class MainInvoiceComponent implements OnInit {
     // run html2pdf (returns a Promise)
     html2pdf().set(opt).from(invoiceElement).save()
       .then(() => {
+        // restore replaced textareas
+        this.restoreTextareasAfterPdf();
         // restore padding changes
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -484,6 +403,7 @@ export class MainInvoiceComponent implements OnInit {
       })
       .catch((err: any) => {
         console.error('html2pdf error:', err);
+        this.restoreTextareasAfterPdf();
         // restore padding if any
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -492,19 +412,15 @@ export class MainInvoiceComponent implements OnInit {
       });
   }
 
-
-
   formatDate(date: Date): string {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is zero-based
     const year = date.getFullYear();
-
     return `${day}-${month}-${year}`;
   }
   getFinancialYear(date: Date): string {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
-
     if (month >= 4) {
       return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
     } else {
@@ -514,27 +430,9 @@ export class MainInvoiceComponent implements OnInit {
   get invoiceDateControl(): FormControl {
     return this.invoiceForm.get('invoiceDate') as FormControl;
   }
-  // getFormattedInvoiceDate(): string {
-  //   const rawDate = this.invoiceForm.get('invoiceDate')?.value;
 
-  //   if (!rawDate) return '';
-
-  //   if (typeof rawDate === 'string') {
-  //     // already in 'YYYY-MM-DD'
-  //     const [year, month, day] = rawDate.split('-');
-  //     return `${day}-${month}-${year}`;
-  //   }
-
-  //   if (rawDate instanceof Date) {
-  //     // convert date object to formatted string
-  //     return this.formatDate(rawDate);
-  //   }
-
-  //   return '';
-  // }
   getFormattedInvoiceDate(): string {
     const rawDate = this.invoiceForm.get('invoiceDate')?.value;
-
     // Handle Date object or string
     let dateObj: Date;
     if (!rawDate) return '';
@@ -547,7 +445,6 @@ export class MainInvoiceComponent implements OnInit {
     } else {
       return ''; // unknown format
     }
-
     const day = String(dateObj.getDate()).padStart(2, '0');
     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
     const year = dateObj.getFullYear();
@@ -556,8 +453,7 @@ export class MainInvoiceComponent implements OnInit {
 
   isModelAvailabilityVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Logo Design', 'Website Development', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
-
+    const hideCategories = ['Logo Design', 'Website Development - Informative', 'Website Development - Ecommerce', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
     for (let i = 0; i < formArray.length; i++) {
@@ -567,7 +463,6 @@ export class MainInvoiceComponent implements OnInit {
       if (hideCategories.includes(val)) {
         return false; // don't show the Model Availability li
       }
-
       // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
       if (val === 'Other') {
         const custom = (grp.get('customCateg')?.value || '').toString();
@@ -576,13 +471,11 @@ export class MainInvoiceComponent implements OnInit {
         }
       }
     }
-
     return true; // default: show the li
   }
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
     const hideCategories = ['Advertisement Video', 'Other'];
-
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
     for (let i = 0; i < formArray.length; i++) {
@@ -592,7 +485,6 @@ export class MainInvoiceComponent implements OnInit {
       if (hideCategories.includes(val)) {
         return false; // don't show the Model Availability li
       }
-
       // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
       if (val === 'Other') {
         const custom = (grp.get('customCateg')?.value || '').toString();
@@ -601,13 +493,11 @@ export class MainInvoiceComponent implements OnInit {
         }
       }
     }
-
     return true; // default: show the li
   }
   isAdrunVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Ad Run','Website Development'];
-
+    const hideCategories = ['Ad Run', 'Website Development - Informative', 'Website Development - Ecommerce'];
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
     for (let i = 0; i < formArray.length; i++) {
@@ -617,7 +507,6 @@ export class MainInvoiceComponent implements OnInit {
       if (hideCategories.includes(val)) {
         return false; // don't show the Model Availability li
       }
-
       // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
       if (val === 'Other') {
         const custom = (grp.get('customCateg')?.value || '').toString();
@@ -626,8 +515,122 @@ export class MainInvoiceComponent implements OnInit {
         }
       }
     }
-
     return true; // default: show the li
   }
+  isMetaAdsVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false;
+    this.isMetaAdsPremium = true;
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+      if (val === 'Meta Ads - Standard' || custom === 'Meta Ads - Standard') {
+        isVisible = true;
+      }
+      if (val === 'Meta Ads - Ecommerce' || custom === 'Meta Ads - Ecommerce') {
+        isVisible = true;
+        this.isMetaAdsPremium = false;
+      }
+    }
+    return isVisible;
+  }
+  isMetaAdsPremium: boolean = true;
 
+  isWebDevelopmentVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false; // whether to show Website section
+    this.isIntroductionWebsite = true; // reset visibility for 15 Products line
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+      // ✅ If any category is Website Development — show section
+      if (val === 'Website Development - Ecommerce' || custom === 'Website Development - Ecommerce') {
+        isVisible = true;
+      }
+      // ❌ If category is Website Development - Informative — hide 15 Products line
+      if (val === 'Website Development - Informative' || custom === 'Website Development - Informative') {
+        isVisible = true; // still show section
+        this.isIntroductionWebsite = false; // but hide product line
+      }
+    }
+    return isVisible;
+  }
+  // property near other top-level properties
+  isIntroductionWebsite: boolean = true;
+
+  private replacedNodes: Array<{ textarea: HTMLTextAreaElement, placeholder?: HTMLElement, hiddenContainer?: HTMLElement }> = [];
+
+  private replaceTextareasForPdf(rootEl: HTMLElement) {
+    this.replacedNodes = [];
+    const textareas = Array.from(rootEl.querySelectorAll<HTMLTextAreaElement>('textarea'));
+    textareas.forEach(ta => {
+
+      const value = (ta.value || '').toString();
+
+      // If textarea is empty or just whitespace -> hide the container (and likely the preceding 'Note:' span)
+      if (value.trim() === '') {
+        // Choose a container that holds both the span 'Note:' and textarea.
+        // Adjust the selector if your structure is different. This tries nearest div, then parent.
+        const container = ta.closest('div') || ta.parentElement;
+
+        if (container) {
+          // hide container for PDF
+          (container as HTMLElement).style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: container });
+        } else {
+          // fallback: hide the textarea itself
+          ta.style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: ta });
+        }
+
+        return; // continue to next textarea
+      }
+
+      // create div to match visuals
+      const div = document.createElement('div');
+      div.className = 'pdf-textarea';
+      // convert newlines to <br> and escape HTML
+      const escaped = (ta.value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      div.innerHTML = escaped.replace(/\n/g, '<br>');
+      // keep original style so it looks same in PDF
+      const computed = window.getComputedStyle(ta);
+      div.style.font = computed.font;
+      div.style.lineHeight = computed.lineHeight;
+      div.style.padding = computed.padding;
+      div.style.border = computed.border;
+      div.style.background = computed.backgroundColor;
+      div.style.minHeight = computed.minHeight;
+      div.style.whiteSpace = 'pre-wrap';
+      div.style.boxSizing = 'border-box';
+
+      // insert and record for revert
+      ta.parentNode?.insertBefore(div, ta);
+      // hide original textarea (so layout is identical and we can revert easily)
+      ta.style.display = 'none';
+      this.replacedNodes.push({ textarea: ta, placeholder: div });
+    });
+  }
+
+  private restoreTextareasAfterPdf() {
+    this.replacedNodes.forEach(item => {
+      const ta = item.textarea;
+      if (item.hiddenContainer) {
+        (item.hiddenContainer as HTMLElement).style.display = '';
+        // ensure textarea also visible (in case container fallback hid it)
+        ta.style.display = '';
+      }
+      // if we replaced textarea with placeholder div, remove it and show textarea
+      if (item.placeholder) {
+        const placeholder = item.placeholder;
+        placeholder.parentNode?.removeChild(placeholder);
+        ta.style.display = '';
+      }
+    });
+    this.replacedNodes = [];
+  }
 } 

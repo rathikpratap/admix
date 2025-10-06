@@ -46,7 +46,8 @@
                         <th scope="col">Date</th>
                         <th scope="col">GST Amount</th>
                         <th scope="col">Total Amount</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">View</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +62,9 @@
                         <td>{{list.totalAmount}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" (click)="openViewPanel(list._id)">View</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -100,7 +104,8 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">GST Amount</th>
                                 <th scope="col">Total Amount</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,8 +119,10 @@
                                 <td>{{list.GSTAmount}}</td>
                                 <td>{{list.totalAmount}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary"
-                                        (click)="openViewPanel(list._id)">View</button>
+                                    <button class="btn btn-sm btn-primary" (click)="openViewPanel(list._id)">View</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -135,7 +142,8 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">GST Amount</th>
                                 <th scope="col">Total Amount</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,8 +157,10 @@
                                 <td>{{list.GSTAmount}}</td>
                                 <td>{{list.totalAmount}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary"
-                                        (click)="openViewPanel(list._id)">View</button>
+                                    <button class="btn btn-sm btn-primary" (click)="openViewPanel(list._id)">View</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -170,7 +180,8 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">GST Amount</th>
                                 <th scope="col">Total Amount</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -184,8 +195,10 @@
                                 <td>{{list.GSTAmount}}</td>
                                 <td>{{list.totalAmount}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary"
-                                        (click)="openViewPanel(list._id)">View</button>
+                                    <button class="btn btn-sm btn-primary" (click)="openViewPanel(list._id)">View</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="delete(list._id,1)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

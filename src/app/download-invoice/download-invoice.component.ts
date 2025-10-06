@@ -19,6 +19,7 @@ export class DownloadInvoiceComponent {
   searchForm: FormGroup;
   customers :any[] = [];  
   errorMessage: any;
+  data:any=[];
 
   dateRangeForm = new FormGroup({
     startDate : new FormControl(""),
@@ -76,4 +77,12 @@ export class DownloadInvoiceComponent {
     });
   }
 
+  delete(id:any, i:any){
+    console.log(id);
+    if(window.confirm("Are you Sure want to Delete?")){
+      this.auth.deleteEst(id).subscribe((res : any)=>{
+        this.data.splice(i,1);
+      })
+    }
+  }
 }

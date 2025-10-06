@@ -223,3 +223,111 @@ input[type="date"]::-moz-focus-inner {
 p, ul {
   page-break-inside: auto;
 }
+
+/* textarea used inside invoice for screen & PDF */
+.bottom-txt,
+.otherCategory textarea {
+  width: 100%;
+  min-height: 48px;          /* allow at least one line */
+  border: none;   /* corrected border */
+  background: transparent;
+  font-size: larger;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  resize: vertical;         /* allow user to resize if desired */
+  white-space: pre-wrap;    /* preserve whitespace/newlines if converted to text */
+  overflow-wrap: break-word;
+  overflow: visible;        /* let it expand; html2canvas will capture full height when replaced */
+}
+
+/* class for the replacement div used while generating PDF */
+.pdf-textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  font-size: larger;
+  white-space: pre-wrap; /* preserve newlines */
+  overflow-wrap: break-word;
+  border: 1px solid transparent; /* set to transparent if you don't want visible border in PDF */
+  background: transparent;
+}
+/* Website Ad Run */
+
+ .card{
+      background: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(20,30,50,0.06);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    header h1{
+      margin: 0 0 6px 0;
+      color: var(--accent);
+      font-size: 22px;
+    }
+    header p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin: 8px 0 16px 0;
+    }
+    .section-title h2{
+      margin: 0;
+      font-size: 16px;
+    }
+    ul.features{
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 8px;
+    }
+    ul.features li{
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+    }
+    .ok { color: var(--success); font-weight:700; }
+    .no { color: var(--danger); font-weight:700; }
+    table.pricing{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
+    }
+    table.pricing th, table.pricing td{
+      text-align:left;
+      padding:10px 8px;
+      border-bottom: 1px solid #eee;
+      font-size:14px;
+    }
+    table.pricing th{ background: #fbfcfe; font-weight:600; }
+    .right { text-align:right; }
+    .total-row td{ font-weight:800; background:#f4f7ff; }
+    .final-payable{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      border-radius:6px;
+      background: linear-gradient(90deg,#eef6ff, #ffffff);
+      margin-top:12px;
+      border: 1px solid #e6f0ff;
+    }
+    .final-payable .amount{ font-size:20px; color:var(--accent); font-weight:800; }
+    .notes ul{ padding-left:18px; margin:6px 0 0 0; }
+    footer{ font-size:13px; color:var(--muted); margin-top:14px; }
+    @media (max-width:520px){
+      .section-title h2{ font-size:15px; }
+      .final-payable{ flex-direction:column; align-items:flex-start; gap:6px; }}
