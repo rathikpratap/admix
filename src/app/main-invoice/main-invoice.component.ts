@@ -292,7 +292,7 @@ export class MainInvoiceComponent implements OnInit {
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId };
+    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId, QrCheck: this.QrCheck };
 
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {

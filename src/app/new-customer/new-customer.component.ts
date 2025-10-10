@@ -364,8 +364,7 @@ export class NewCustomerComponent implements OnInit {
     const closingCategory = this.customerForm.get('closingCateg')?.value;
     const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
     const categoryExcludesVerification =
-      closingCategoryNormalized === 'logo design' ||
-      closingCategoryNormalized === 'logo animation'  || closingCategoryNormalized === 'wishing video';
+      closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'wishing video' || closingCategoryNormalized === 'graphic designing' || closingCategoryNormalized === 'holi wishing video' || closingCategoryNormalized === 'voice over' || closingCategoryNormalized === 'new year wishing video' || closingCategoryNormalized === 'video editing' || closingCategoryNormalized === 'cgi' || closingCategoryNormalized === 'yearly wishing video package';
     return !categoryExcludesVerification;
   }
   updateQuotationValidation(): void {
