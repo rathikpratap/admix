@@ -31,6 +31,7 @@ export class ViewInvoiceComponent implements OnInit {
   date: any;
   formatType: any;
   financialYear: any;
+  Category: any;
 
   constructor(private auth: AuthService, private activatedRoute: ActivatedRoute, private fb: FormBuilder, private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -45,6 +46,16 @@ export class ViewInvoiceComponent implements OnInit {
       GSTAmount: [0],
       totalAmount: [0],
       invoiceDate: [new Date()],
+      noteText: [''],
+      noteHtml: [''],
+      termsHtml: [''],
+      packageIncludesHtml: [''],
+      packageIncludesList: [[]],
+      paymentTermsHtml: [''],
+      paymentTermsList: [[]],
+      additionalNotesHtml: [''],
+      additionalNotesList: [[]],
+      visibilityFlags: [{}],
       rows: this.fb.array([])
     });
     this.financialYear = this.getFinancialYear(this.date);
@@ -56,6 +67,9 @@ export class ViewInvoiceComponent implements OnInit {
       custAddLine1: [''],
       custAddLine2: [''],
       custAddLine3: ['']
+    });
+    this.auth.getCategory().subscribe((res: any) => {
+      this.Category = res;
     });
 
     this.auth.getSelectedInvoice(this.getId).subscribe((res: any) => {
@@ -72,7 +86,17 @@ export class ViewInvoiceComponent implements OnInit {
         billType: res.billType,
         gstType: res.gstType,
         billNumber: res.billNumber || '',
-        invoiceDate: this.date // <- set correct date
+        invoiceDate: this.date, // <- set correct date
+        noteText: res.noteText || '',
+        noteHtml: res.noteHtml || '',
+        termsHtml: res.termsHtml || '',
+        packageIncludesHtml: res.packageIncludesHtml || '',
+        packageIncludesList: res.packageIncludesList || [],
+        paymentTermsHtml: res.paymentTermsHtml || '',
+        paymentTermsList: res.paymentTermsList || [],
+        additionalNotesHtml: res.additionalNotesHtml || '',
+        additionalNotesList: res.additionalNotesList || [],
+        visibilityFlags: res.visibilityFlags || {}
       });
 
       const rows = res.rows || [];
@@ -102,6 +126,18 @@ export class ViewInvoiceComponent implements OnInit {
         custAddLine2: res.custAddLine2,
         custAddLine3: res.custAddLine3
       });
+
+      // IMPORTANT: set the actual contenteditable innerHTML from stored HTML after DOM render
+      setTimeout(() => {
+        const termsContainer = document.querySelector('.editable-terms') as HTMLElement | null;
+        if (termsContainer && (res.termsHtml || '').trim()) termsContainer.innerHTML = res.termsHtml;
+        // payment terms / additional notes -> set innerHTML if available
+        const payEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
+        if (payEl && (res.paymentTermsHtml || '').trim()) payEl.innerHTML = res.paymentTermsHtml;
+        const addEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
+        if (addEl && (res.additionalNotesHtml || '').trim()) addEl.innerHTML = res.additionalNotesHtml;
+      }, 0);
+
       this.calculateTotals();
     });
 
@@ -193,10 +229,61 @@ export class ViewInvoiceComponent implements OnInit {
         amt: row.get('amt')?.value || 0
       };
     });
+
+
     this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
     this.invoiceForm.get('rows')?.setValue(rowsData);
+
+    // 3) Read DOM for editable sections (ensures latest user edits)
+    // const noteHtml = (() => {
+    //   const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement | null;
+    //   if (ta) {
+    //     this.invoiceForm.get('noteHtml')?.setValue(ta.value); // optional HTML snapshot
+    //   }
+    // })();
+    
+    // read DOM for editable sections
+    const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement | null;
+    if (ta) {
+      this.invoiceForm.get('noteText')?.setValue(ta.value);
+      this.invoiceForm.get('noteHtml')?.setValue(ta.value);
+    }  
+    const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
+    const termsHtml = termsEl ? termsEl.innerHTML : this.invoiceForm.get('termsHtml')?.value || '';
+    const packageHtml = document.querySelector('#package-includes')?.innerHTML || this.invoiceForm.get('packageIncludesHtml')?.value || '';
+    const payEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
+    const paymentTermsHtml = payEl ? payEl.innerHTML : this.invoiceForm.get('paymentTermsHtml')?.value || '';
+    const addEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
+    const additionalNotesHtml = addEl ? addEl.innerHTML : this.invoiceForm.get('additionalNotesHtml')?.value || '';
+
+    const extractList = (el: Element | null) => {
+      if (!el) return [] as string[];
+      return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(Boolean);
+    };
+    const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
+    const paymentTermsList = extractList(payEl);
+    const additionalNotesList = extractList(addEl);
+
+    // set these fields on the form (so this.invoiceForm.value contains them)
+    this.invoiceForm.patchValue({
+      noteText: this.invoiceForm.get('noteText')?.value || '',
+      noteHtml: this.invoiceForm.get('noteHtml')?.value || '',
+      termsHtml,
+      packageIncludesHtml: packageHtml,
+      packageIncludesList,
+      paymentTermsHtml: paymentTermsHtml,
+      paymentTermsList,
+      additionalNotesHtml,
+      additionalNotesList,
+      visibilityFlags: {
+        isMetaAdsVisible: this.isMetaAdsVisible(),
+        isAdrunVisible: this.isAdrunVisible(),
+        isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
+        isModelAvailabilityVisible: this.isModelAvailabilityVisible()
+      }
+    });
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
@@ -221,15 +308,15 @@ export class ViewInvoiceComponent implements OnInit {
                 this.toastr.success('New Invoice Save Successfully', 'Success');
                 this.generatePdf();
               } else {
-                this.toastr.error('Error Saving Invoice', 'Error');
+                this.toastr.error('Error Saving Invoice1', 'Error');
               }
             });
           } else {
-            this.toastr.error('Error Saving Invoice', 'Error');
+            this.toastr.error('Error Saving Invoice2', 'Error');
           }
         });
       } else {
-        this.toastr.error('Error Saving Invoice', "Error");
+        this.toastr.error('Error Saving Invoice3', "Error");
       }
     });
   }
@@ -251,6 +338,7 @@ export class ViewInvoiceComponent implements OnInit {
       invoiceElement.style.boxSizing = 'border-box';
     }
 
+    this.replaceTextareasForPdf(invoiceElement);
     // compute exact on-screen pixel dimensions to preserve visual size
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
     const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
@@ -261,13 +349,14 @@ export class ViewInvoiceComponent implements OnInit {
       filename: `invoice_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'png', quality: 1.0 },
       html2canvas: {
-        scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
+        scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
         useCORS: true,
         logging: false,
         width: elementWidthPx,
         height: elementHeightPx,
         windowWidth: document.documentElement.clientWidth,
-        windowHeight: document.documentElement.clientHeight
+        windowHeight: document.documentElement.clientHeight,
+        scrollY: -window.scrollY
       },
       jsPDF: {
         unit: 'px',                      // use pixels so sizes match the canvas exactly
@@ -280,6 +369,7 @@ export class ViewInvoiceComponent implements OnInit {
     // run html2pdf (returns a Promise)
     html2pdf().set(opt).from(invoiceElement).save()
       .then(() => {
+        this.restoreTextareasAfterPdf();
         // restore padding changes
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -288,6 +378,7 @@ export class ViewInvoiceComponent implements OnInit {
       })
       .catch((err: any) => {
         console.error('html2pdf error:', err);
+        this.restoreTextareasAfterPdf();
         // restore padding if any
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
@@ -309,18 +400,18 @@ export class ViewInvoiceComponent implements OnInit {
   hasLogoCategory(): boolean {
     return this.rows.controls.some(row => {
       const categ = row.get('invoiceCateg')?.value?.toLowerCase();
-      return categ === 'logo design' || categ === 'logo animation' || categ ===' wishing video' || categ === 'website development' || categ ==='graphic designing' || categ === 'voice over' || categ === 'ad run';
+      return categ === 'logo design' || categ === 'logo animation' || categ === ' wishing video' || categ === 'website development' || categ === 'graphic designing' || categ === 'voice over' || categ === 'ad run';
     });
   }
   hasAdverCategory(): boolean {
     return this.rows.controls.some(row => {
       const categ = row.get('invoiceCateg')?.value?.toLowerCase();
-      return categ === 'advertisement video' ;
+      return categ === 'advertisement video';
     });
   }
-  isAdrunVisible(): boolean {
+  isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Ad Run','Website Development'];
+    const hideCategories = ['Advertisement Video', 'Other'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
@@ -342,5 +433,188 @@ export class ViewInvoiceComponent implements OnInit {
     }
 
     return true; // default: show the li
+  }
+  isAdrunVisible(): boolean {
+    // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+    const hideCategories = ['Ad Run', 'Website Development - Informative', 'Website Development - Ecommerce'];
+
+    // rows FormArray ko read karke check karte hain
+    const formArray = this.rows; // getter already defined in your class
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString();
+      // agar value exactly match kare to hide kar do (case-sensitive)
+      if (hideCategories.includes(val)) {
+        return false; // don't show the Model Availability li
+      }
+
+      // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+      if (val === 'Other') {
+        const custom = (grp.get('customCateg')?.value || '').toString();
+        if (hideCategories.includes(custom)) {
+          return false;
+        }
+      }
+    }
+
+    return true; // default: show the li
+  }
+  isMetaAdsVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false;
+    this.isMetaAdsPremium = true;
+
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+
+      if (val === 'Meta Ads - Standard' || custom === 'Meta Ads - Standard') {
+        isVisible = true;
+      }
+
+      if (val === 'Meta Ads - Ecommerce' || custom === 'Meta Ads - Ecommerce') {
+        isVisible = true;
+        this.isMetaAdsPremium = false;
+      }
+    }
+    return isVisible;
+  }
+  isMetaAdsPremium: boolean = true;
+
+  isWebDevelopmentVisible(): boolean {
+    const formArray = this.rows;
+    let isVisible = false; // whether to show Website section
+    this.isIntroductionWebsite = true; // reset visibility for 15 Products line
+
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString().trim();
+      const custom = (grp.get('customCateg')?.value || '').toString().trim();
+
+      // ✅ If any category is Website Development — show section
+      if (val === 'Website Development' || custom === 'Website Development') {
+        isVisible = true;
+      }
+
+      // ❌ If category is Website Development - Informative — hide 15 Products line
+      if (val === 'Website Development - Informative' || custom === 'Website Development - Informative') {
+        isVisible = true; // still show section
+        this.isIntroductionWebsite = false; // but hide product line
+      }
+    }
+
+    return isVisible;
+  }
+  // property near other top-level properties
+  isIntroductionWebsite: boolean = true;
+  isModelAvailabilityVisible(): boolean {
+    // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
+    const hideCategories = ['Logo Design', 'Website Development - Informative', 'Website Development - Ecommerce', 'Graphic Designing', 'Voice Over', 'Logo Animation', 'Ad Run'];
+
+    // rows FormArray ko read karke check karte hain
+    const formArray = this.rows; // getter already defined in your class
+    for (let i = 0; i < formArray.length; i++) {
+      const grp = formArray.at(i) as FormGroup;
+      const val = (grp.get('invoiceCateg')?.value || '').toString();
+      // agar value exactly match kare to hide kar do (case-sensitive)
+      if (hideCategories.includes(val)) {
+        return false; // don't show the Model Availability li
+      }
+
+      // optional: agar invoiceCateg === 'Other' aur customCateg me user ne same text dala ho
+      if (val === 'Other') {
+        const custom = (grp.get('customCateg')?.value || '').toString();
+        if (hideCategories.includes(custom)) {
+          return false;
+        }
+      }
+    }
+
+    return true; // default: show the li
+  }
+
+
+  private replacedNodes: Array<{ textarea: HTMLTextAreaElement, placeholder?: HTMLElement, hiddenContainer?: HTMLElement }> = [];
+
+  private replaceTextareasForPdf(rootEl: HTMLElement) {
+    this.replacedNodes = [];
+    const textareas = Array.from(rootEl.querySelectorAll<HTMLTextAreaElement>('textarea'));
+    textareas.forEach(ta => {
+
+      const value = (ta.value || '').toString();
+
+      // If textarea is empty or just whitespace -> hide the container (and likely the preceding 'Note:' span)
+      if (value.trim() === '') {
+        // Choose a container that holds both the span 'Note:' and textarea.
+        // Adjust the selector if your structure is different. This tries nearest div, then parent.
+        const container = ta.closest('div') || ta.parentElement;
+
+        if (container) {
+          // hide container for PDF
+          (container as HTMLElement).style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: container });
+        } else {
+          // fallback: hide the textarea itself
+          ta.style.display = 'none';
+          this.replacedNodes.push({ textarea: ta, hiddenContainer: ta });
+        }
+
+        return; // continue to next textarea
+      }
+
+      // create div to match visuals
+      const div = document.createElement('div');
+      div.className = 'pdf-textarea';
+      // convert newlines to <br> and escape HTML
+      const escaped = (ta.value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      div.innerHTML = escaped.replace(/\n/g, '<br>');
+      // keep original style so it looks same in PDF
+      const computed = window.getComputedStyle(ta);
+      div.style.font = computed.font;
+      div.style.lineHeight = computed.lineHeight;
+      div.style.padding = computed.padding;
+      div.style.border = computed.border;
+      div.style.background = computed.backgroundColor;
+      div.style.minHeight = computed.minHeight;
+      div.style.whiteSpace = 'pre-wrap';
+      div.style.boxSizing = 'border-box';
+
+      // insert and record for revert
+      ta.parentNode?.insertBefore(div, ta);
+      // hide original textarea (so layout is identical and we can revert easily)
+      ta.style.display = 'none';
+      this.replacedNodes.push({ textarea: ta, placeholder: div });
+    });
+  }
+
+  private restoreTextareasAfterPdf() {
+    this.replacedNodes.forEach(item => {
+      const ta = item.textarea;
+      if (item.hiddenContainer) {
+        (item.hiddenContainer as HTMLElement).style.display = '';
+        // ensure textarea also visible (in case container fallback hid it)
+        ta.style.display = '';
+      }
+      // if we replaced textarea with placeholder div, remove it and show textarea
+      if (item.placeholder) {
+        const placeholder = item.placeholder;
+        placeholder.parentNode?.removeChild(placeholder);
+        ta.style.display = '';
+      }
+    });
+    this.replacedNodes = [];
+  }
+  // onTermsHtmlChange: keep/update as earlier to update form control live
+  onTermsHtmlChange(ev: any) {
+    const html = (ev.target as HTMLElement).innerHTML;
+    this.invoiceForm.get('termsHtml')?.setValue(html);
+    // also update structured termsList if needed
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const items = Array.from(doc.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(Boolean);
+    if (this.invoiceForm.get('termsList')) (this.invoiceForm.get('termsList') as any).setValue(items);
   }
 }

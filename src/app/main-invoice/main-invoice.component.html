@@ -160,12 +160,19 @@
             <div class="col-lg-9">
                 <div class="est-amt">
                     <div>
-                            <span>Note:</span>
-                            <textarea class="bottom-txt"></textarea>
-                        </div>
+                        <span>Note:</span>
+                        <textarea class="bottom-txt" formControlName="noteText"></textarea>
+                    </div>
                     <p><strong>Invoice Amount in Words</strong></p>
                     <p>{{wordsAmt | uppercase}} ONLY</p>
-                    <p *ngIf="isAdrunVisible()"><strong>Terms and Condition</strong></p>
+                    <div *ngIf="isAdrunVisible()">
+                            <h4>Terms and Condition</h4>
+                            <div>
+                                <div contenteditable="true" class="editable-terms" (input)="onTermsHtmlChange($event)"
+                                    [innerHTML]="invoiceForm.get('termsHtml')?.value || ''">
+                                </div>
+                            </div>
+                        </div>
                         <div *ngIf="isMetaAdsVisible()">
                             <ul>
                                 <li>
@@ -197,7 +204,7 @@
                                     <h2 id="payment-terms">Payment Terms</h2>
                                 </div>
                                 <div>
-                                    <ul>
+                                    <ul class="editable-payment-terms">
                                         <li contenteditable="true">70% Advance Payment (Before Development Start)</li>
                                         <li contenteditable="true">30% On Completion of Development</li>
                                     </ul>
@@ -208,26 +215,26 @@
                                 <div class="section-title">
                                     <h2 id="additional-notes">Additional Notes</h2>
                                 </div>
-                                <div class="notes">
+                                <div class="notes editable-additional-notes">
                                     <ul>
-                                        <li>Domain charges depend on the extension you choose (.com, .in, etc.) and
+                                        <li contenteditable="true">Domain charges depend on the extension you choose (.com, .in, etc.) and
                                             availability.</li>
-                                        <li>Estimated delivery: <strong>15–20 working days</strong>.</li>
-                                        <li>More than 4 pages will incur <strong>₹2,000 per extra page</strong>.</li>
-                                        <li *ngIf="isIntroductionWebsite">More than 15 products will be charged
+                                        <li contenteditable="true">Estimated delivery: <strong>15–20 working days</strong>.</li>
+                                        <li contenteditable="true">More than 4 pages will incur <strong>₹2,000 per extra page</strong>.</li>
+                                        <li *ngIf="isIntroductionWebsite" contenteditable="true">More than 15 products will be charged
                                             <strong>₹1,000 for every 5–10
                                                 additional
                                                 products</strong>.</li>
-                                        <li>1-Year Support will be provided only for the features developed during
+                                        <li contenteditable="true">1-Year Support will be provided only for the features developed during
                                             initial
                                             development. Any new feature requests will be charged separately.</li>
-                                        <li *ngIf="isIntroductionWebsite">Payment Gateway and Shiprocket account
+                                        <li *ngIf="isIntroductionWebsite" contenteditable="true">Payment Gateway and Shiprocket account
                                             creation must be done by the
                                             customer. A
                                             fully verified account for both must be provided within <strong>1
                                                 month</strong>
                                             from the start of development.</li>
-                                        <li>
+                                        <li contenteditable="true">
                                             <strong>Payment & Refund Policy:</strong> Deal amount is final once
                                             confirmed. Advance
                                             payments are strictly
@@ -352,7 +359,7 @@
                     <p><strong>Bank Name:</strong> HDFC BANK, HATHRAS, UTTAR PRADESH</p>
                     <P><strong>Bank Account No:</strong> 50200088351070</P>
                     <p><strong>Bank IFSC Code:</strong> HDFC0006723</p>
-                    <p><strong>Account holder's Name:</strong> AdmixMedia</p>
+                    <p><strong>Account holder's Name:</strong> Admix Media Pvt. Ltd.</p>
                     <p><strong>Account Type:</strong> Current Account</p>
                 </div>
             </div>

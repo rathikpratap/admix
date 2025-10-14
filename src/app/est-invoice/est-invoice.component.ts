@@ -51,7 +51,19 @@ export class EstInvoiceComponent implements OnInit {
     billNumber: new FormControl(),
     discountValue: new FormControl(0),
     rows: this.fb.array([]),
-    quotationNumber: new FormControl('')
+    quotationNumber: new FormControl(''),
+    //New
+    noteText: new FormControl(''),
+    noteHtml: new FormControl(''),
+    termsHtml: new FormControl(''),
+    termsList: new FormControl<string[]>([]),
+    packageIncludesHtml: new FormControl(''),
+    packageIncludesList: new FormControl<string[]>([]),
+    paymentTermsHtml: new FormControl(''),
+    paymentTermsList: new FormControl<string[]>([]),
+    additionalNotesHtml: new FormControl(''),
+    additionalNotesList: new FormControl<string[]>([]),
+    visibilityFlags: new FormControl({})
   });
   custForm = new FormGroup({
     custName: new FormControl(''),
@@ -60,7 +72,7 @@ export class EstInvoiceComponent implements OnInit {
     custAddLine1: new FormControl(""),
     custAddLine2: new FormControl(""),
     custAddLine3: new FormControl("")
-  })
+  });
 
   ngOnInit(): void {
     this.date = new Date();
@@ -213,7 +225,53 @@ export class EstInvoiceComponent implements OnInit {
     this.invoiceForm.get('rows')?.setValue(rowsData);
     this.invoiceForm.get('quotationNumber')?.setValue(quotationNumber);
 
-    const invoiceData = this.invoiceForm.value;
+    // BEFORE building combinedData: read DOM directly for any contenteditable elements
+const noteText = this.invoiceForm.get('noteText')?.value || '';
+const noteHtml = (() => {
+  const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
+  return ta ? ta.value : noteText;
+})();
+
+// Terms (prefer DOM value, fallback to form control)
+const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
+const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
+
+// Payment terms list: if you want raw html
+const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
+const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
+
+// Additional notes
+const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
+const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
+
+// Also extract list items as string arrays (structured)
+const extractList = (el: Element | null) => {
+  if (!el) return [] as string[];
+  return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
+};
+const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
+const paymentTermsList = extractList(paymentTermsEl);
+const additionalNotesList = extractList(additionalNotesEl);
+
+// Set them to the form before sending
+this.invoiceForm.get('noteHtml')?.setValue(noteHtml);
+this.invoiceForm.get('termsHtml')?.setValue(termsHtml);
+this.invoiceForm.get('paymentTermsHtml')?.setValue(paymentTermsHtml);
+this.invoiceForm.get('additionalNotesHtml')?.setValue(additionalNotesHtml);
+
+this.invoiceForm.get('packageIncludesList')?.setValue(packageIncludesList);
+this.invoiceForm.get('paymentTermsList')?.setValue(paymentTermsList);
+this.invoiceForm.get('additionalNotesList')?.setValue(additionalNotesList);
+
+// visibility flags (as you already do)
+this.invoiceForm.get('visibilityFlags')?.setValue({
+  isMetaAdsVisible: this.isMetaAdsVisible(),
+  isAdrunVisible: this.isAdrunVisible(),
+  isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
+  isModelAvailabilityVisible: this.isModelAvailabilityVisible()
+});
+
+const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, salesLeadId: this.getId };
 
@@ -475,7 +533,7 @@ export class EstInvoiceComponent implements OnInit {
       const custom = (grp.get('customCateg')?.value || '').toString().trim();
 
       // ✅ If any category is Website Development — show section
-      if (val === 'Website Development' || custom === 'Website Development') {
+      if (val === 'Website Development - Ecommerce' || custom === 'Website Development - Ecommerce') {
         isVisible = true;
       }
 
@@ -563,5 +621,14 @@ export class EstInvoiceComponent implements OnInit {
       }
     });
     this.replacedNodes = [];
+  }
+  onTermsHtmlChange(ev: any) {
+    const html = ev.target.innerHTML;
+    this.invoiceForm.get('termsHtml')?.setValue(html);
+    // Also optionally construct termsList by splitting <li> items if you want structured list
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const items = Array.from(doc.querySelectorAll('li')).map(li => li.textContent?.trim() || '');
+    this.invoiceForm.get('termsList')?.setValue(items);
   }
 }

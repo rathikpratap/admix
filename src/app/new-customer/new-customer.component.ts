@@ -51,22 +51,22 @@ export class NewCustomerComponent implements OnInit {
       this.updateQuotationValidation();
     });
     const unlockIfIdentityChanged = () => {
-    if (!this.verifiedLocked) return;
+      if (!this.verifiedLocked) return;
 
-    const name = (this.customerForm.get('custName')?.value || '').toString().trim();
-    const number = (this.customerForm.get('custNumb')?.value || '').toString().trim();
-    const suffix = (this.customerForm.get('quotationSuffix')?.value || '').toString().trim();
+      const name = (this.customerForm.get('custName')?.value || '').toString().trim();
+      const number = (this.customerForm.get('custNumb')?.value || '').toString().trim();
+      const suffix = (this.customerForm.get('quotationSuffix')?.value || '').toString().trim();
 
-    if (name !== this.lastVerified.name || number !== this.lastVerified.number || suffix !== this.lastVerifiedSuffix) {
-      this.verifiedLocked = false;
-      this.verifyState = 'idle';
-      this.verifyMsg = '';
-    }
-  };
+      if (name !== this.lastVerified.name || number !== this.lastVerified.number || suffix !== this.lastVerifiedSuffix) {
+        this.verifiedLocked = false;
+        this.verifyState = 'idle';
+        this.verifyMsg = '';
+      }
+    };
 
-  this.customerForm.get('custName')?.valueChanges.subscribe(unlockIfIdentityChanged);
-  this.customerForm.get('custNumb')?.valueChanges.subscribe(unlockIfIdentityChanged);
-  this.customerForm.get('quotationSuffix')?.valueChanges.subscribe(unlockIfIdentityChanged);
+    this.customerForm.get('custName')?.valueChanges.subscribe(unlockIfIdentityChanged);
+    this.customerForm.get('custNumb')?.valueChanges.subscribe(unlockIfIdentityChanged);
+    this.customerForm.get('quotationSuffix')?.valueChanges.subscribe(unlockIfIdentityChanged);
   }
 
   ngAfterViewInit() {
@@ -340,13 +340,13 @@ export class NewCustomerComponent implements OnInit {
           this.verifyMsg = 'Quotation matches this customer';
           // Optionally set final quotationNumber field:
           this.customerForm.patchValue({ quotationNumber: this.prefix + suffix });
-           // LOCK the verify button until name/number/suffix changes
+          // LOCK the verify button until name/number/suffix changes
           this.verifiedLocked = true;
           this.lastVerified = {
             name: (this.customerForm.get('custName')?.value || '').toString().trim(),
             number: (this.customerForm.get('custNumb')?.value || '').toString().trim(),
           };
-        this.lastVerifiedSuffix = suffix;
+          this.lastVerifiedSuffix = suffix;
         } else {
           this.verifyState = 'mismatch';
           if (res.mismatchFields?.length > 0) {
@@ -402,13 +402,13 @@ export class NewCustomerComponent implements OnInit {
   }
 
   // helper: normalize phone to last 10 digits
-normalizePhone(phone: any): string {
-  const digits = (phone || '').toString().replace(/\D/g, ''); // remove non-digits
-  return digits.slice(-10); // last 10 digits (if less than 10, returns as-is)
-}
+  normalizePhone(phone: any): string {
+    const digits = (phone || '').toString().replace(/\D/g, ''); // remove non-digits
+    return digits.slice(-10); // last 10 digits (if less than 10, returns as-is)
+  }
 
-// helper: normalize name
-normalizeName(name: any): string {
-  return (name || '').toString().trim().toLowerCase();
-}
+  // helper: normalize name
+  normalizeName(name: any): string {
+    return (name || '').toString().trim().toLowerCase();
+  }
 }

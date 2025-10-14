@@ -109,7 +109,12 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/customQuotation`, data, { headers });
   }
   updateInvoice(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data,{headers});
   }
   getCustData() {
     const token = localStorage.getItem('token');
