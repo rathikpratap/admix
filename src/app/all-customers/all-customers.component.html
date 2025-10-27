@@ -54,8 +54,8 @@
                         <th scope="col">Remaining Amount</th>
                         <th scope="col">Bundle Assigned To</th>
                         <th scope="col">Bundle Status</th>
-                        <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                        <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                        <!-- <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                        <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th> -->
                         <th scope="col">Project Status</th>
                         <th scope="col">Transfer To</th>
                         <th scope="col">Action</th>
@@ -96,7 +96,7 @@
                                 </select>
                             </td>
                             <td>{{user.bundleStatus}}</td>
-                            <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                            <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                 <select [(ngModel)]="user.graphicDesigner"
                                     (change)="updateDesigner(user,user.graphicDesigner)">
                                     <option value="">Select</option>
@@ -118,7 +118,8 @@
                                     <option value="Complete">Completed</option>
                                 </select>
                             </td>
-                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                            <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                            <td>{{user.projectStatus}}</td>
                             <td>
                                 <select [(ngModel)]="user.newSalesTeam" (change)="transferLead(user,user.newSalesTeam)">
                                     <option value="">Select</option>
@@ -211,8 +212,8 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Bundle Assigned To</th>
                             <th scope="col">Bundle Status</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <!-- <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th> -->
                             <th scope="col">Project Status</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
@@ -253,7 +254,7 @@
                                     </select>
                                 </td>
                                 <td>{{user.bundleStatus}}</td>
-                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                     <select [(ngModel)]="user.graphicDesigner"
                                         (change)="updateDesigner(user,user.graphicDesigner)">
                                         <option value="">Select</option>
@@ -266,16 +267,17 @@
                                         <option value="Normal">Normal</option>
                                         <option value="Urgent">Urgent</option>
                                     </select>
-                                </td>
-                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                </td> -->
+                                <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                     <select [(ngModel)]="user.graphicStatus"
                                         (change)="updateStatus(user,user.graphicStatus)">
                                         <option value="Not Completed">Not Completed</option>
                                         <option value="Graphic Designing Changes">Changes</option>
                                         <option value="Complete">Completed</option>
                                     </select>
-                                </td>
-                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                                </td> -->
+                                <!-- <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                                 <td>{{user.projectStatus}}</td>
                                 <td>
                                     <select [(ngModel)]="user.newSalesTeam"
                                         (change)="transferLead(user,user.newSalesTeam)">
@@ -385,8 +387,8 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Bundle Assigned To</th>
                             <th scope="col">Bundle Status</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <!-- <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th> -->
                             <th scope="col">Project Status</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
@@ -427,7 +429,7 @@
                                     </select>
                                 </td>
                                 <td>{{user.bundleStatus}}</td>
-                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                     <select [(ngModel)]="user.graphicDesigner"
                                         (change)="updateDesigner(user,user.graphicDesigner)">
                                         <option value="">Select</option>
@@ -449,7 +451,8 @@
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
-                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                                <td>{{user.projectStatus}}</td>
                                 <td>
                                     <select [(ngModel)]="user.newSalesTeam"
                                         (change)="transferLead(user,user.newSalesTeam)">
@@ -541,8 +544,8 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Bundle Assigned To</th>
                             <th scope="col">Bundle Status</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <!-- <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th> -->
                             <th scope="col">Project Status</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
@@ -583,7 +586,7 @@
                                     </select>
                                 </td>
                                 <td>{{user.bundleStatus}}</td>
-                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                     <select [(ngModel)]="user.graphicDesigner"
                                         (change)="updateDesigner(user,user.graphicDesigner)">
                                         <option value="">Select</option>
@@ -605,7 +608,8 @@
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
-                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                                <td>{{user.projectStatus}}</td>
                                 <td>
                                     <select [(ngModel)]="user.newSalesTeam"
                                         (change)="transferLead(user,user.newSalesTeam)">
@@ -699,8 +703,8 @@
                             <th scope="col">Remaining Amount</th>
                             <th scope="col">Bundle Assigned To</th>
                             <th scope="col">Bundle Status</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
-                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th>
+                            <!-- <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Assigned To</th>
+                            <th scope="col" *ngIf="this.tok.salesTeam === 'Logo Sales Team'">Priority</th> -->
                             <th scope="col">Project Status</th>
                             <th scope="col">Transfer To</th>
                             <th scope="col">Action</th>
@@ -740,7 +744,7 @@
                                     </select>
                                 </td>
                                 <td>{{user.bundleStatus}}</td>
-                                <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
+                                <!-- <td *ngIf="this.tok.salesTeam === 'Logo Sales Team'">
                                     <select [(ngModel)]="user.graphicDesigner"
                                         (change)="updateDesigner(user,user.graphicDesigner)">
                                         <option value="">Select</option>
@@ -762,7 +766,8 @@
                                         <option value="Complete">Completed</option>
                                     </select>
                                 </td>
-                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td>
+                                <td *ngIf="this.tok.salesTeam !=='Logo Sales Team'">{{user.projectStatus}}</td> -->
+                                <td>{{user.projectStatus}}</td>
                                 <td>
                                     <select [(ngModel)]="user.newSalesTeam"
                                         (change)="transferLead(user,user.newSalesTeam)">
