@@ -290,7 +290,7 @@ export class UpdateCustomerComponent implements OnInit {
     const closingCategory = this.updateForm.get('closingCateg')?.value;
     // const categoryExcludesVerification = closingCategory === 'Logo Design';
     const closingCategoryNormalized = (closingCategory || '').toString().trim().toLowerCase();
-    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'wishing video';
+    const categoryExcludesVerification = closingCategoryNormalized === 'logo design' || closingCategoryNormalized === 'logo animation' || closingCategoryNormalized === 'wishing video' || closingCategoryNormalized === 'graphic designing' || closingCategoryNormalized === 'holi wishing video' || closingCategoryNormalized === 'voice over' || closingCategoryNormalized === 'new year wishing video' || closingCategoryNormalized === 'video editing' || closingCategoryNormalized === 'cgi' || closingCategoryNormalized === 'yearly wishing video package';
 
     return dateNeedsVerification && !categoryExcludesVerification;
   }
