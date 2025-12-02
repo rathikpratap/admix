@@ -50,29 +50,29 @@
                 <thead>
                     <tr>
                         <th scope="col"> No. </th>
-                            <th scope="col"> Campaign Name </th>
-                            <th scope="col"> Closing Date </th>
-                            <th scope="col"> Customer Name </th>
-                            <th scope="col"> Number </th>
-                            <th scope="col"> Bussiness </th>
-                            <th scope="col"> Project Status </th>
-                            <th scope="col"> Remark </th>
-                            <th scope="col"> SalesPerson</th>
-                            <th scope="col"> Create Invoice</th>
+                        <th scope="col"> Campaign Name </th>
+                        <th scope="col"> Closing Date </th>
+                        <th scope="col"> Customer Name </th>
+                        <th scope="col"> Number </th>
+                        <th scope="col"> Bussiness </th>
+                        <th scope="col"> Project Status </th>
+                        <th scope="col"> Remark </th>
+                        <th scope="col"> SalesPerson</th>
+                        <th scope="col"> Create Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let customer of customers; let i = index">
                         <td>{{i+1}}</td>
-                            <td>{{customer.campaign_Name}}</td>
-                            <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
-                            <td>{{customer.custName}}</td>
-                            <td>{{customer.custNumb}}</td>
-                            <td>{{customer.custBussiness}}</td>
-                            <td>{{customer.projectStatus}}</td>
-                            <td>{{customer.remark}}</td>
-                            <td>{{customer.salesPerson}}</td>
-                            <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
+                        <td>{{customer.campaign_Name}}</td>
+                        <td>{{customer.closingDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{customer.custName}}</td>
+                        <td>{{customer.custNumb}}</td>
+                        <td>{{customer.custBussiness}}</td>
+                        <td>{{customer.projectStatus}}</td>
+                        <td>{{customer.remark}}</td>
+                        <td>{{customer.salesPerson}}</td>
+                        <td> <button class="btn btn-sm btn-primary" (click)="invoice(customer._id)">Create</button> </td>
                     </tr>
                 </tbody>
             </table>

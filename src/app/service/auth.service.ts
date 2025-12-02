@@ -747,6 +747,14 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/leadsByRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
 
+  getLeadbyRangeEx(startDate: Date, endDate: Date, status: string[]): Observable<any> {
+  return this.http.post(`${appConfig.apiUrl}/auth/leadsByRangeEx`, {
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
+    status: status
+  });
+}
+
   getInvoiceRange(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoiceRange/${startDate.toISOString()}/${endDate.toISOString()}`);
   }
@@ -1631,6 +1639,56 @@ export class AuthService {
   deleteEst(id:any):Observable<any>{
     return this.http.delete(`${appConfig.apiUrl}/auth/delete-est/${id}`,{headers: this.httpHeaders}).pipe(catchError(this.handleError))
   }
+
+  // downloadRangeFileEx(startDate: Date, endDate: Date, status: string[]) {
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application.json',
+  //     'Authorization': `Bearer ${token}`
+  //   });
+  //   this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFileEx/${startDate.toISOString()}/${endDate.toISOString()}`, { headers, responseType: 'blob' }).subscribe((res: any) => {
+  //     const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  //     const link = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(blob);
+  //     link.download = 'customers.xlsx';
+  //     link.click();
+  //     console.log("Download Done")
+  //   }, error => {
+  //     console.error('Error Downloading File: ', error);
+  //   });
+  // }
+
+  downloadRangeFileEx(startDate: Date, endDate: Date, status: string[]) {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+
+  const body = {
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
+    status: status
+  };
+
+  this.http.post(`${appConfig.apiUrl}/auth/downloadRangeFileEx`, body, {
+    headers,
+    responseType: 'blob'
+  }).subscribe((res: Blob) => {
+    const blob = new Blob([res], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'customers.xlsx';
+    link.click();
+    console.log("Download Done");
+  }, error => {
+    console.error('Error Downloading File: ', error);
+  });
+}
 
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{
