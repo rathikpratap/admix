@@ -114,7 +114,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data,{headers});
+    return this.http.post(`${appConfig.apiUrl}/auth/updateInvoice`, data, { headers });
   }
   getCustData() {
     const token = localStorage.getItem('token');
@@ -748,12 +748,12 @@ export class AuthService {
   }
 
   getLeadbyRangeEx(startDate: Date, endDate: Date, status: string[]): Observable<any> {
-  return this.http.post(`${appConfig.apiUrl}/auth/leadsByRangeEx`, {
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString(),
-    status: status
-  });
-}
+    return this.http.post(`${appConfig.apiUrl}/auth/leadsByRangeEx`, {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      status: status
+    });
+  }
 
   getInvoiceRange(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoiceRange/${startDate.toISOString()}/${endDate.toISOString()}`);
@@ -1636,8 +1636,8 @@ export class AuthService {
     })
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoice`, { headers });
   }
-  deleteEst(id:any):Observable<any>{
-    return this.http.delete(`${appConfig.apiUrl}/auth/delete-est/${id}`,{headers: this.httpHeaders}).pipe(catchError(this.handleError))
+  deleteEst(id: any): Observable<any> {
+    return this.http.delete(`${appConfig.apiUrl}/auth/delete-est/${id}`, { headers: this.httpHeaders }).pipe(catchError(this.handleError))
   }
 
   // downloadRangeFileEx(startDate: Date, endDate: Date, status: string[]) {
@@ -1659,36 +1659,36 @@ export class AuthService {
   // }
 
   downloadRangeFileEx(startDate: Date, endDate: Date, status: string[]) {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
-
-  const body = {
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString(),
-    status: status
-  };
-
-  this.http.post(`${appConfig.apiUrl}/auth/downloadRangeFileEx`, body, {
-    headers,
-    responseType: 'blob'
-  }).subscribe((res: Blob) => {
-    const blob = new Blob([res], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     });
 
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'customers.xlsx';
-    link.click();
-    console.log("Download Done");
-  }, error => {
-    console.error('Error Downloading File: ', error);
-  });
-}
+    const body = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      status: status
+    };
+
+    this.http.post(`${appConfig.apiUrl}/auth/downloadRangeFileEx`, body, {
+      headers,
+      responseType: 'blob'
+    }).subscribe((res: Blob) => {
+      const blob = new Blob([res], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done");
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
+  }
 
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{

@@ -47,7 +47,6 @@ export class AllCustomersComponent {
     this.searchForm = this.formBuilder.group({
       mobile: ['']
     });
- 
     this.auth.salesAllProjects().subscribe((list : any)=>{
       this.data = list.map((entry: any) => ({
         ...entry,

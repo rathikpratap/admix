@@ -113,7 +113,9 @@
                             </thead>
                             <tbody formArrayName="rows">
                                 <tr *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                                    <td>{{i+1}}</td>
+                                    <td>{{i+1}}
+                                        <button type="button" class="btn btn-sm btn-danger ms-2" (click)="removeRow(i)">-</button>
+                                    </td>
                                     <td>
                                         <select class="form-select" formControlName="invoiceCateg"
                                             aria-label="Default select example"

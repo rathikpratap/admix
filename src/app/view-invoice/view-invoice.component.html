@@ -108,7 +108,9 @@
                             </thead>
                             <tbody formArrayName="rows">
                                 <tr *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
-                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ i + 1 }}
+                                        <button type="button" class="btn btn-sm btn-danger ms-2" (click)="removeRow(i)">-</button>
+                                    </td>
                                     <td>
                                         <!-- <input type="text" class="form-control" formControlName="invoiceCateg"
                                             placeholder="Enter Invoice Category"> -->

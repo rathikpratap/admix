@@ -174,6 +174,23 @@ export class ViewInvoiceComponent implements OnInit {
     this.rows.push(row);
   }
 
+  removeRow(index: number) {
+    if (this.rows.length === 1) {
+      const row = this.rows.at(0) as FormGroup;
+      row.patchValue({
+        invoiceCateg: '',
+        customCateg: '',
+        numOfVideos: 0,
+        priceOfVideos: 0,
+        gst: 0,
+        amt: 0
+      });
+    } else {
+      this.rows.removeAt(index);
+    }
+    this.calculateTotals();
+  }
+
   private attachValueChangeListeners(row: FormGroup): void {
     row.get('numOfVideos')?.valueChanges.subscribe(() => this.calculateRowAmount(row));
     row.get('priceOfVideos')?.valueChanges.subscribe(() => this.calculateRowAmount(row));
@@ -243,13 +260,13 @@ export class ViewInvoiceComponent implements OnInit {
     //     this.invoiceForm.get('noteHtml')?.setValue(ta.value); // optional HTML snapshot
     //   }
     // })();
-    
+
     // read DOM for editable sections
     const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement | null;
     if (ta) {
       this.invoiceForm.get('noteText')?.setValue(ta.value);
       this.invoiceForm.get('noteHtml')?.setValue(ta.value);
-    }  
+    }
     const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
     const termsHtml = termsEl ? termsEl.innerHTML : this.invoiceForm.get('termsHtml')?.value || '';
     const packageHtml = document.querySelector('#package-includes')?.innerHTML || this.invoiceForm.get('packageIncludesHtml')?.value || '';

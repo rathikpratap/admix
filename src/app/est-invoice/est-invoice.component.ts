@@ -145,6 +145,24 @@ export class EstInvoiceComponent implements OnInit {
     });
   }
 
+  removeRow(index: number){
+    if(this.rows.length === 1){
+      const row = this.rows.at(0) as FormGroup;
+      row.patchValue({
+        invoiceCateg: '',
+        customCateg: '',
+        numOfVideos: 0,
+        priceOfVideos: 0,
+        gst: 0,
+        amt: 0
+      });
+    } else {
+      this.rows.removeAt(index);
+    }
+
+    this.calculateGrandTotal();
+  }
+
   calculateRowAmount(row: FormGroup): void {
     const numOfVideos = Number(row.get('numOfVideos')?.value) || 0;
     const priceOfVideos = Number(row.get('priceOfVideos')?.value) || 0;
