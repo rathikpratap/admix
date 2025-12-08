@@ -385,10 +385,13 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
     const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
 
+    //custom Name
+    const customName = this.custForm.get('custName')?.value || '';
+
     // html2pdf options:
     const opt: any = {
       margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
-      filename: `quotation_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
+      filename: `quotation_${customName || this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'png', quality: 1.0 },
       html2canvas: {
         // scale: 1,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
@@ -470,7 +473,6 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
         }
       }
     }
-
     return true; // default: show the li
   }
   isAdvertisementVideoVisible(): boolean {

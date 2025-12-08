@@ -145,8 +145,8 @@ export class EstInvoiceComponent implements OnInit {
     });
   }
 
-  removeRow(index: number){
-    if(this.rows.length === 1){
+  removeRow(index: number) {
+    if (this.rows.length === 1) {
       const row = this.rows.at(0) as FormGroup;
       row.patchValue({
         invoiceCateg: '',
@@ -244,52 +244,52 @@ export class EstInvoiceComponent implements OnInit {
     this.invoiceForm.get('quotationNumber')?.setValue(quotationNumber);
 
     // BEFORE building combinedData: read DOM directly for any contenteditable elements
-const noteText = this.invoiceForm.get('noteText')?.value || '';
-const noteHtml = (() => {
-  const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
-  return ta ? ta.value : noteText;
-})();
+    const noteText = this.invoiceForm.get('noteText')?.value || '';
+    const noteHtml = (() => {
+      const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
+      return ta ? ta.value : noteText;
+    })();
 
-// Terms (prefer DOM value, fallback to form control)
-const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
-const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
+    // Terms (prefer DOM value, fallback to form control)
+    const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
+    const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
 
-// Payment terms list: if you want raw html
-const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
-const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
+    // Payment terms list: if you want raw html
+    const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
+    const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
 
-// Additional notes
-const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
-const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
+    // Additional notes
+    const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
+    const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
 
-// Also extract list items as string arrays (structured)
-const extractList = (el: Element | null) => {
-  if (!el) return [] as string[];
-  return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
-};
-const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
-const paymentTermsList = extractList(paymentTermsEl);
-const additionalNotesList = extractList(additionalNotesEl);
+    // Also extract list items as string arrays (structured)
+    const extractList = (el: Element | null) => {
+      if (!el) return [] as string[];
+      return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
+    };
+    const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
+    const paymentTermsList = extractList(paymentTermsEl);
+    const additionalNotesList = extractList(additionalNotesEl);
 
-// Set them to the form before sending
-this.invoiceForm.get('noteHtml')?.setValue(noteHtml);
-this.invoiceForm.get('termsHtml')?.setValue(termsHtml);
-this.invoiceForm.get('paymentTermsHtml')?.setValue(paymentTermsHtml);
-this.invoiceForm.get('additionalNotesHtml')?.setValue(additionalNotesHtml);
+    // Set them to the form before sending
+    this.invoiceForm.get('noteHtml')?.setValue(noteHtml);
+    this.invoiceForm.get('termsHtml')?.setValue(termsHtml);
+    this.invoiceForm.get('paymentTermsHtml')?.setValue(paymentTermsHtml);
+    this.invoiceForm.get('additionalNotesHtml')?.setValue(additionalNotesHtml);
 
-this.invoiceForm.get('packageIncludesList')?.setValue(packageIncludesList);
-this.invoiceForm.get('paymentTermsList')?.setValue(paymentTermsList);
-this.invoiceForm.get('additionalNotesList')?.setValue(additionalNotesList);
+    this.invoiceForm.get('packageIncludesList')?.setValue(packageIncludesList);
+    this.invoiceForm.get('paymentTermsList')?.setValue(paymentTermsList);
+    this.invoiceForm.get('additionalNotesList')?.setValue(additionalNotesList);
 
-// visibility flags (as you already do)
-this.invoiceForm.get('visibilityFlags')?.setValue({
-  isMetaAdsVisible: this.isMetaAdsVisible(),
-  isAdrunVisible: this.isAdrunVisible(),
-  isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
-  isModelAvailabilityVisible: this.isModelAvailabilityVisible()
-});
+    // visibility flags (as you already do)
+    this.invoiceForm.get('visibilityFlags')?.setValue({
+      isMetaAdsVisible: this.isMetaAdsVisible(),
+      isAdrunVisible: this.isAdrunVisible(),
+      isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
+      isModelAvailabilityVisible: this.isModelAvailabilityVisible()
+    });
 
-const invoiceData = this.invoiceForm.value;
+    const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, salesLeadId: this.getId };
 
@@ -376,10 +376,13 @@ const invoiceData = this.invoiceForm.value;
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
     const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
 
+    //custom Name
+    const customName = this.custForm.get('custName')?.value || '';
+
     // html2pdf options:
     const opt: any = {
       margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
-      filename: `quotation_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
+      filename: `quotation_${customName || this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'png', quality: 1.0 },
       html2canvas: {
         scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
