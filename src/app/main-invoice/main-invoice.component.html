@@ -78,13 +78,14 @@
                     </div>
                     <div class="bill-number">
                         <h4>Invoice Details</h4>
-                        <ng-container
+                        <!-- <ng-container
                             *ngIf="billFormat === 'Main' && this.invoiceForm.get('billType')?.value === 'GST'; else nonGstBlock">
                             <p><strong>Invoice No.</strong> {{ 'ADMIX-' + financialYear + '/' + count }}</p>
                         </ng-container>
                         <ng-template #nonGstBlock>
                             <p><strong>Invoice No.</strong> {{ 'ADM-' + financialYear + '/' + countNonGST }}</p>
-                        </ng-template>
+                        </ng-template> -->
+                        <p><strong>Invoice No.</strong>{{ invoiceForm.get('invoiceNumber')?.value || '-' }}</p>
                         <div [formGroup]="invoiceForm">
                             <div class="d-flex align-items-center gap-2">
                                 <p class="mb-0"><strong>Date:</strong></p>

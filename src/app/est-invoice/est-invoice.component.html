@@ -82,7 +82,8 @@
                         </div>
                         <div class="bill-number">
                             <h4>Quotation Details</h4>
-                            <p><strong>Quotation No.</strong> {{'ADM-'+financialYear+'/'+(160+count)}}</p>
+                            <!-- <p><strong>Quotation No.</strong> {{'ADM-'+financialYear+'/'+(160+count)}}</p> -->
+                             <p><strong>Quotation No.</strong>{{ invoiceForm.get('quotationNumber')?.value || '-'}}</p>
                             <p><strong>Date:</strong> {{currentDate}}</p>
                         </div>
                     </div>

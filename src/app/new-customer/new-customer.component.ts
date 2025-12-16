@@ -97,12 +97,12 @@ export class NewCustomerComponent implements OnInit {
       }
     });
 
-    this.auth.dataLength().subscribe((list: any) => {
-      this.dataLength = list + 1;
-      if (this.dataLength) {
-        this.customerForm.get('custCode')!.setValue(this.dataLength);
-      }
-    });
+    // this.auth.dataLength().subscribe((list: any) => {
+    //   this.dataLength = list + 1;
+    //   if (this.dataLength) {
+    //     this.customerForm.get('custCode')!.setValue(this.dataLength);
+    //   }
+    // });
 
     this.auth.b2bDataLength().subscribe((list: any) => {
       this.b2bdataLength = list + 1;
@@ -145,7 +145,7 @@ export class NewCustomerComponent implements OnInit {
   }
 
   customerForm = new FormGroup({
-    custCode: new FormControl(0, [Validators.required]),
+    custCode: new FormControl({value:'',disabled: true}),
     quotationNumber: new FormControl("", [Validators.required]),
     quotationSuffix: new FormControl("", [Validators.required]),
     custName: new FormControl("", [Validators.required]),

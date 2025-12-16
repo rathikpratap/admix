@@ -117,9 +117,9 @@ export class CustomQuotationComponent implements OnInit {
       });
       this.calculateGrandTotal();
     });
-    this.auth.estInvoiceCount().subscribe((res: any) => {
-      this.count = (res ?? 0) + 1;
-    });
+    // this.auth.estInvoiceCount().subscribe((res: any) => {
+    //   this.count = (res ?? 0) + 1;
+    // });
 
     // Add initial row
     this.addRow();
@@ -239,7 +239,7 @@ export class CustomQuotationComponent implements OnInit {
     });
 
     // Generate quotation number dynamically
-    const quotationNumber = `ADM-${this.financialYear}/${160 + this.count}`;
+    // const quotationNumber = `ADM-${this.financialYear}/${160 + this.count}`;
 
     // Normalize invoice date to midnight UTC (00:00:00.000Z)
     const normalizedDate = new Date(this.date);
@@ -250,9 +250,9 @@ export class CustomQuotationComponent implements OnInit {
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
     this.invoiceForm.get('billFormat')?.setValue('Estimate');
-    this.invoiceForm.get('billNumber')?.setValue(160 + this.count);
+    // this.invoiceForm.get('billNumber')?.setValue(160 + this.count);
     this.invoiceForm.get('rows')?.setValue(rowsData);
-    this.invoiceForm.get('quotationNumber')?.setValue(quotationNumber);
+    // this.invoiceForm.get('quotationNumber')?.setValue(quotationNumber);
 
     // BEFORE building combinedData: read DOM directly for any contenteditable elements
 const noteText = this.invoiceForm.get('noteText')?.value || '';
@@ -306,8 +306,17 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
 
     this.auth.addCustomQuotation(combinedData).subscribe((res: any) => {
       if (res.success) {
+
+        const savedInvoice = res.invoice;
+        if(savedInvoice){
+          this.invoiceForm.patchValue({
+            billNumber: savedInvoice.billNumber,
+            quotationNumber: savedInvoice.quotationNumber
+          });
+        }
         this.toastr.success('Quotation saved Successfully', 'Success');
-        this.generatePdf();
+        setTimeout(()=> this.generatePdf(), 0);
+        // this.generatePdf();
       } else if (res.sameDateExists) {
         // Case: Same Date – Ask to update
         Swal.fire({
@@ -321,8 +330,16 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
           if (result.isConfirmed) {
             this.auth.addCustomQuotation({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
               if (res.success) {
+                const savedInvoice = res.invoice;
+                if(savedInvoice){
+                  this.invoiceForm.patchValue({
+                    billNumber: savedInvoice.billNumber,
+                    quotationNumber: savedInvoice.quotationNumber
+                  });
+                }
                 this.toastr.success('Quotation Updated Successfully', 'Success');
-                this.generatePdf();
+                setTimeout(()=> this.generatePdf(), 0);
+                // this.generatePdf();
               } else {
                 this.toastr.error('Error Updating Quotation', 'Error');
               }
@@ -344,8 +361,16 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
           if (result.isConfirmed) {
             this.auth.addCustomQuotation({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
               if (res.success) {
+                const savedInvoice = res.invoice;
+                if(savedInvoice){
+                  this.invoiceForm.patchValue({
+                    billNumber: savedInvoice.billNumber,
+                    quotationNumber: savedInvoice.quotationNumber
+                  });
+                }
                 this.toastr.success('New Quotation Saved Successfully', 'Success');
-                this.generatePdf();
+                setTimeout(()=>this.generatePdf(),0);
+                // this.generatePdf();
               } else {
                 this.toastr.error('Error Saving New Quotation', 'Error');
               }

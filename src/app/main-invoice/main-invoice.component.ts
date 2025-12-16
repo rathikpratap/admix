@@ -58,7 +58,7 @@ export class MainInvoiceComponent implements OnInit {
     discountValue: new FormControl(0),
     state: new FormControl(''),
     rows: this.fb.array([]),
-    invoiceNumb: new FormControl(''),
+    invoiceNumber: new FormControl(''),
     //New
     noteText: new FormControl(''),
     noteHtml: new FormControl(''),
@@ -170,10 +170,10 @@ export class MainInvoiceComponent implements OnInit {
       });
     });
 
-    this.auth.mainInvoiceCount(this.financialYear).subscribe((res: any) => {
-      this.count = res.invoiceStart ?? 1;
-      this.countNonGST = res.nonGSTStart ?? 1;
-    });
+    // this.auth.mainInvoiceCount(this.financialYear).subscribe((res: any) => {
+    //   this.count = res.invoiceStart ?? 1;
+    //   this.countNonGST = res.nonGSTStart ?? 1;
+    // });
 
     this.addRow();
   }
@@ -199,8 +199,8 @@ export class MainInvoiceComponent implements OnInit {
     });
   }
 
-  removeRow(index: number){
-    if(this.rows.length === 1){
+  removeRow(index: number) {
+    if (this.rows.length === 1) {
       const row = this.rows.at(0) as FormGroup;
       row.patchValue({
         invoiceCateg: '',
@@ -297,73 +297,73 @@ export class MainInvoiceComponent implements OnInit {
         amt: row.get('amt')?.value || 0
       };
     });
-    let invoiceNumb = '';
+    // let invoiceNumb = '';
 
-    if (this.invoiceForm.get('billFormat')?.value === 'Main' && this.invoiceForm.get('billType')?.value === 'GST') {
-      invoiceNumb = `ADMIX-${this.financialYear}/${this.count}`;
-    } else {
-      invoiceNumb = `ADM-${this.financialYear}/${this.countNonGST}`;
-    }
+    // if (this.invoiceForm.get('billFormat')?.value === 'Main' && this.invoiceForm.get('billType')?.value === 'GST') {
+    //   invoiceNumb = `ADMIX-${this.financialYear}/${this.count}`;
+    // } else {
+    //   invoiceNumb = `ADM-${this.financialYear}/${this.countNonGST}`;
+    // }
 
     // this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
 
     // this.invoiceForm.get('billNumber')?.setValue(110+this.count);
-    if (this.billFormat === 'Main') {
-      this.invoiceForm.get('billNumber')?.setValue(this.count);
-    } else {
-      this.invoiceForm.get('billNumber')?.setValue(this.countNonGST);
-    }
+    // if (this.billFormat === 'Main') {
+    //   this.invoiceForm.get('billNumber')?.setValue(this.count);
+    // } else {
+    //   this.invoiceForm.get('billNumber')?.setValue(this.countNonGST);
+    // }
 
     this.invoiceForm.get('rows')?.setValue(rowsData);
-    this.invoiceForm.get('invoiceNumb')?.setValue(invoiceNumb);
+    // this.invoiceForm.get('invoiceNumb')?.setValue(invoiceNumb);
 
     // BEFORE building combinedData: read DOM directly for any contenteditable elements
-const noteText = this.invoiceForm.get('noteText')?.value || '';
-const noteHtml = (() => {
-  const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
-  return ta ? ta.value : noteText;
-})();
+    const noteText = this.invoiceForm.get('noteText')?.value || '';
+    const noteHtml = (() => {
+      const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
+      return ta ? ta.value : noteText;
+    })();
 
-// Terms (prefer DOM value, fallback to form control)
-const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
-const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
+    // Terms (prefer DOM value, fallback to form control)
+    const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
+    const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
 
-// Payment terms list: if you want raw html
-const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
-const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
+    // Payment terms list: if you want raw html
+    const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
+    const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
 
-// Additional notes
-const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
-const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
+    // Additional notes
+    const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
+    const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
 
-// Also extract list items as string arrays (structured)
-const extractList = (el: Element | null) => {
-  if (!el) return [] as string[];
-  return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
-};
-const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
-const paymentTermsList = extractList(paymentTermsEl);
-const additionalNotesList = extractList(additionalNotesEl);
+    // Also extract list items as string arrays (structured)
+    const extractList = (el: Element | null) => {
+      if (!el) return [] as string[];
+      return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
+    };
+    const packageIncludesList = extractList(document.querySelector('#package-includes .features'));
+    const paymentTermsList = extractList(paymentTermsEl);
+    const additionalNotesList = extractList(additionalNotesEl);
 
-// Set them to the form before sending
-this.invoiceForm.get('noteHtml')?.setValue(noteHtml);
-this.invoiceForm.get('termsHtml')?.setValue(termsHtml);
-this.invoiceForm.get('paymentTermsHtml')?.setValue(paymentTermsHtml);
-this.invoiceForm.get('additionalNotesHtml')?.setValue(additionalNotesHtml);
+    // Set them to the form before sending
+    this.invoiceForm.get('noteHtml')?.setValue(noteHtml);
+    this.invoiceForm.get('termsHtml')?.setValue(termsHtml);
+    this.invoiceForm.get('paymentTermsHtml')?.setValue(paymentTermsHtml);
+    this.invoiceForm.get('additionalNotesHtml')?.setValue(additionalNotesHtml);
 
-this.invoiceForm.get('packageIncludesList')?.setValue(packageIncludesList);
-this.invoiceForm.get('paymentTermsList')?.setValue(paymentTermsList);
-this.invoiceForm.get('additionalNotesList')?.setValue(additionalNotesList);
+    this.invoiceForm.get('packageIncludesList')?.setValue(packageIncludesList);
+    this.invoiceForm.get('paymentTermsList')?.setValue(paymentTermsList);
+    this.invoiceForm.get('additionalNotesList')?.setValue(additionalNotesList);
 
-// visibility flags (as you already do)
-this.invoiceForm.get('visibilityFlags')?.setValue({
-  isMetaAdsVisible: this.isMetaAdsVisible(),
-  isAdrunVisible: this.isAdrunVisible(),
-  isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
-  isModelAvailabilityVisible: this.isModelAvailabilityVisible()
-});
+    // visibility flags (as you already do)
+    this.invoiceForm.get('visibilityFlags')?.setValue({
+      isMetaAdsVisible: this.isMetaAdsVisible(),
+      isAdrunVisible: this.isAdrunVisible(),
+      isWebDevelopmentVisible: this.isWebDevelopmentVisible(),
+      isModelAvailabilityVisible: this.isModelAvailabilityVisible()
+    });
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
@@ -371,8 +371,17 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
 
     this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
       if (res.success) {
+        const savedInvoice = res.invoice;
+        if (savedInvoice) {
+          this.invoiceForm.patchValue({
+            billNumber: savedInvoice.billNumber,
+            invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
+          });
+        }
+
         this.toastr.success('Invoice saved successfully', 'Success');
-        this.generatePdf();
+        // this.generatePdf();
+        setTimeout(() => this.generatePdf(), 0);
       } else if (res.sameDateExists) {
         Swal.fire({
           title: 'Invoice Exists on Same Date',
@@ -385,8 +394,16 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
           if (result.isConfirmed) {
             this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
               if (res.success) {
+                const savedInvoice = res.invoice;
+                if (savedInvoice) {
+                  this.invoiceForm.patchValue({
+                    billNumber: savedInvoice.billNumber,
+                    invoiceNumber: savedInvoice.invoiceNumb
+                  });
+                }
                 this.toastr.success('Invoice Updated Successfully', 'Success');
-                this.generatePdf();
+                // this.generatePdf();
+                setTimeout(() => this.generatePdf(), 0);
               } else {
                 this.toastr.error('Update Failed', 'Error');
               }
@@ -405,8 +422,16 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
           if (result.isConfirmed) {
             this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
               if (res.success) {
+                const savedInvoice = res.invoice;
+                if (savedInvoice) {
+                  this.invoiceForm.patchValue({
+                    billNumber: savedInvoice.billNumber,
+                    invoiceNumber: savedInvoice.invoiceNumb
+                  });
+                }
                 this.toastr.success('New Invoice Saved Successfully', 'Success');
-                this.generatePdf();
+                // this.generatePdf();
+                setTimeout(() => this.generatePdf(), 0);
               } else {
                 this.toastr.error('Failed to Save New Invoice', 'Error');
               }
@@ -435,7 +460,7 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
       invoiceElement.style.paddingBottom = '15px';// bottom padding for each page
       invoiceElement.style.boxSizing = 'border-box';
     }
-        // --- 1) Replace textareas with divs that render line breaks ---
+    // --- 1) Replace textareas with divs that render line breaks ---
     this.replaceTextareasForPdf(invoiceElement);
 
     // compute exact on-screen pixel dimensions to preserve visual size
