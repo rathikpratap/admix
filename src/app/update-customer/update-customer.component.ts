@@ -378,7 +378,9 @@ export class UpdateCustomerComponent implements OnInit {
     if (month >= 4) {
       return `${(year).toString().slice(-2)}-${(year + 1).toString().slice(-2)}`;
     } else {
-      return `${year - 1}-${(year).toString().slice(-2)}`;
+      // return `${year - 1}-${(year).toString().slice(-2)}`;
+      return `${(year - 1).toString().slice(-2)}-${year.toString().slice(-2)}`;
+
     }
   }
 
