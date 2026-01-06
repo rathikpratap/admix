@@ -172,6 +172,9 @@ export class AdminDashboardComponent implements OnInit {
   chartData: any[] = [];
   chartType: ChartType = 'bar';
 
+  fundSelectedMonth = new Date().toISOString().slice(0, 7);
+  fundGrandTotal = 0;
+
   isAscending: { [key: string]: boolean } = {
     customer: true,
     data: true,
@@ -221,6 +224,8 @@ export class AdminDashboardComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+
+     this.loadGrandTotal();
 
     this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
       this.closingData = this.closingForm.get('closing_name')?.value;
@@ -768,6 +773,22 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
+  }
+
+  loadGrandTotal(){
+    const [year, month] = this.fundSelectedMonth.split('-');
+
+    this.auth.getMonthlyFunds(+year, +month).subscribe(res => {
+      const funds = res.data || [];
+
+      this.fundGrandTotal = funds.reduce(
+        (sum: number,f: any) => sum + (f.amount || 0), 0
+      );
+    });
+  }
+  fundPage(){
+    const url = `/funds`;
+    window.location.href = url;
   }
 
 }

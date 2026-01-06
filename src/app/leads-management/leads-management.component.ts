@@ -877,4 +877,8 @@ toggleRowAll(lead: any) {
       }
     });
   }
+  downloadLeads(){
+        const url = `/salesHome/download-leads`;
+        window.location.href = url;
+  }
 }

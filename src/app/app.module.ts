@@ -88,6 +88,9 @@ import { NewB2bProjectsComponent } from './new-b2b-projects/new-b2b-projects.com
 import { AssignCampaignComponent } from './assign-campaign/assign-campaign.component';
 import { LeadsManagementComponent } from './leads-management/leads-management.component';
 import { CustomQuotationComponent } from './custom-quotation/custom-quotation.component';
+import { FundsComponent } from './funds/funds.component';
+import { ManageFundsComponent } from './manage-funds/manage-funds.component';
+import { DownloadLeadsComponent } from './download-leads/download-leads.component';
 
  
 @NgModule({
@@ -165,7 +168,10 @@ import { CustomQuotationComponent } from './custom-quotation/custom-quotation.co
     NewB2bProjectsComponent,
     AssignCampaignComponent,
     LeadsManagementComponent,
-    CustomQuotationComponent
+    CustomQuotationComponent,
+    FundsComponent,
+    ManageFundsComponent,
+    DownloadLeadsComponent
     ],
   imports: [
     BrowserModule,

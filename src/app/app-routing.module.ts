@@ -93,6 +93,9 @@ import { PointsTableComponent } from './points-table/points-table.component';
 import { LeadsManagementComponent } from './leads-management/leads-management.component';
 import { DataDeletionComponent } from './data-deletion/data-deletion.component';
 import { CustomQuotationComponent } from './custom-quotation/custom-quotation.component';
+import { FundsComponent } from './funds/funds.component';
+import { ManageFundsComponent } from './manage-funds/manage-funds.component';
+import { DownloadLeadsComponent } from './download-leads/download-leads.component';
 
 const routes: Routes = [
   {
@@ -260,6 +263,10 @@ const routes: Routes = [
       {
         path: 'points-table',
         component: PointsTableComponent
+      },
+      {
+        path: 'funds',
+        component: FundsComponent
       }
     ]
   },
@@ -367,6 +374,14 @@ const routes: Routes = [
       {
         path: 'custom-quotation',
         component: CustomQuotationComponent
+      },
+      {
+        path: 'manage-funds',
+        component: ManageFundsComponent
+      },
+      {
+        path: 'download-leads',
+        component: DownloadLeadsComponent
       }
     ]
   },

@@ -1,10 +1,15 @@
 <div class="row">
-    <div class="col-lg-12 d-flex justify-content-end">
+    <div class="col-lg-6 fundText">
+        <span>This Month Total Spend: </span>
+        <button type="button" class="btn btn-primary" (click)="fundPage()"> {{fundGrandTotal}} </button>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-end">
         <form [formGroup]="select_salesForm">
             <select class="form-select closing_categ-right" formControlName="select_salesperson"
                 aria-label="Default select example" (change)="onSalespersonChange()">
                 <option value="null">Admin</option>
                 <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                    
                     {{empS.signupUsername}}
                 </option>
             </select>

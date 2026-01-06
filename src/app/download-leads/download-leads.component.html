@@ -2,8 +2,8 @@
     <div class="col-lg-2 col-md-12 col-sm-12 col-12">
         <div class="namecard">
             <div class="title-heading">
-                <h6>Get Leads</h6> 
-            </div> 
+                <h6>Download Leads</h6>
+            </div>
         </div>
     </div>
     <div class="col-lg-7 col-md-12 col-sm-12 col-12">
@@ -11,30 +11,13 @@
             <div class="searchData">
                 <div class="details">
                     <label>select Status</label>
-                    <!-- <select class="form-select" formControlName="status" aria-label="Default select example" multiple size="3">
-                        <option value="Select Status">Null</option>
-                        <option value="Without Closing">Without Closing</option>
-                        <option value="With Closing">With Closing</option>
-                        <option value="Demo Sent">Demo Sent</option>
-                        <option value="Contacted">Contacted</option>
-                        <option value="Not Interested">Not Interested</option>
-                        <option value="Not Pick">Not Pick</option>
-                        <option value="Busy">Busy</option>
-                        <option value="Interested">Interested</option>
-                    </select> -->
                     <div class="form-check" *ngFor="let s of statusList">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [id]="s"
-          [value]="s"
-          (change)="onStatusCheckboxChange($event, s)"
-          [checked]="selectedStatus.includes(s)"
-        /> 
-        <label class="form-check-label" [for]="s">
-          {{ s }}
-        </label>
-      </div>
+                        <input class="form-check-input" type="checkbox" [id]="s" [value]="s"
+                            (change)="onStatusCheckboxChange($event, s)" [checked]="selectedStatus.includes(s)" />
+                        <label class="form-check-label" [for]="s">
+                            {{ s }}
+                        </label>
+                    </div>
                 </div>
                 <div class="details">
                     <label for="startDate"> Start Date</label>
@@ -51,10 +34,7 @@
         </form>
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-12 move-to-new-row">
-        <!-- <button class="btn btn-sm btn-success getButton" (click)="getLeads()"> Referesh </button>
-        <button class="btn btn-sm btn-primary getButton" (click)="transferLeads()">Transfer Leads</button> -->
         <button class="btn btn-sm btn-success getButton" *ngIf="rangeData" (click)="downloadRangeFile()">Download Data</button>
-        <button class="btn btn-sm btn-primary getButton" routerLink="/fb-accessToken"> AccessToken </button>
     </div>
 </div>
 <div class="row">
@@ -64,14 +44,13 @@
                 <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
-                            <th scope="col">No.</th>
+                            <th scope="col"> No. </th>
                             <th scope="col"> Created Time </th>
                             <th scope="col"> Customer Name </th>
                             <th scope="col"> Mobile Number </th>
-                            <th scope="col"> Email </th>
                             <th scope="col"> Customer Business </th>
                             <th scope="col"> Lead Status </th>
-                            <th scope="col">SalesPerson</th>
+                            <th scope="col"> SalesPerson </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +59,6 @@
                             <td>{{list.closingDate}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb}}</td>
-                            <td>{{list.custEmail}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>{{list.projectStatus}}</td>
                             <td>{{list.salesPerson}}</td>

@@ -1689,6 +1689,12 @@ export class AuthService {
       console.error('Error Downloading File: ', error);
     });
   }
+  addFund(fundData: any): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/addFund`, fundData);
+  }
+  getMonthlyFunds(year: number, month: number){
+    return this.http.get<any>(`${appConfig.apiUrl}/auth/monthly?year=${year}&month=${month}`);
+  }
 
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{

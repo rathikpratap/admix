@@ -85,6 +85,12 @@ export class SalesSideNavComponent {
       name: 'Create Custom Quotation',
       icon: 'bi bi-book',
       route: '/salesHome/custom-quotation'
+    },
+    {
+      number: '13',
+      name: 'Manage Funds',
+      icon: 'bi bi-currency-rupee',
+      route: '/salesHome/manage-funds'
     }
   ];
 
@@ -133,6 +139,7 @@ export class SalesSideNavComponent {
 
       if (!this.signupRole.includes('Lead Manager')) {
         this.list1 = this.list1.filter(item => item.number !== '11');
+        this.list1 = this.list1.filter(item => item.number !== '13');
       } else {
       // If Lead Manager → remove "Team Closing" (number 4)
         this.list1 = this.list1.filter(item => item.number !== '4');

@@ -22,6 +22,15 @@
 .modal-header .btn-close{
     background-color: aliceblue;
 }
+.fundText span{
+    color: #fff;
+    font-size: large;
+}
+.fundText button{
+    background: none;
+    border: none;
+    font-size: large;
+}
 .card-txt button{
     background: none;
     border: none;
