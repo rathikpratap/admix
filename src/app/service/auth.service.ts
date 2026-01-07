@@ -754,6 +754,14 @@ export class AuthService {
       status: status
     });
   }
+  getLeadbyRangeExMa(startDate: Date, endDate: Date, status: string[], salesPerson?: string): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/leadsByRangeExMa`, {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      status: status,
+      salesPerson
+    });
+  }
 
   getInvoiceRange(startDate: Date, endDate: Date): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getInvoiceRange/${startDate.toISOString()}/${endDate.toISOString()}`);
@@ -1689,6 +1697,40 @@ export class AuthService {
       console.error('Error Downloading File: ', error);
     });
   }
+
+  downloadRangeFileExMa(startDate: Date, endDate: Date, status: string[], salesPerson?: string) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    const body = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      status: status,
+      salesPerson
+    };
+
+    this.http.post(`${appConfig.apiUrl}/auth/downloadRangeFileExMa`, body, {
+      headers,
+      responseType: 'blob'
+    }).subscribe((res: Blob) => {
+      const blob = new Blob([res], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done");
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
+  }
+
   addFund(fundData: any): Observable<any>{
     return this.http.post(`${appConfig.apiUrl}/auth/addFund`, fundData);
   }

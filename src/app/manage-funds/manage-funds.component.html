@@ -37,6 +37,17 @@
                             <input type="text" class="form-control" formControlName="amount" placeholder="Enter Amount">
                         </div>
                     </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Closing Date: </span>
+                            <input type="datetime-local" class="form-control" formControlName="fundDate"
+                                [ngClass]="{error:getControls('fundDate')?.errors && getControls('fundDate')?.touched}"
+                                placeholder="Enter Fund Date">
+                            <div *ngIf="getControls('fundDate')?.errors && getControls('fundDate')?.touched">
+                                <label class="text-danger" *ngIf="getControls('fundDate')?.errors?.['required']"> Fund Date is Required </label> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" [disabled]="fundForm.status === 'INVALID'" class="btn btn-success">
             </form>

@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DownloadLeadsComponent {
 
-  emp: any;
+  salesEmp: any;
   rangeData: any;
   tok: any;
 
@@ -27,7 +27,8 @@ export class DownloadLeadsComponent {
   dateRangeForm = new FormGroup({
     status: new FormControl<string[]>([] as string[]),
     startDate: new FormControl(""),
-    endDate: new FormControl("")
+    endDate: new FormControl(""),
+    salesPerson_name: new FormControl<string | null>(null)
   });
 
   constructor(private auth: AuthService) {
@@ -40,7 +41,13 @@ export class DownloadLeadsComponent {
     })
 
     this.auth.allEmployee().subscribe((res: any) => {
-      this.emp = res;
+      // this.emp = res;
+      if (Array.isArray(res)) {
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
+        console.log("SALES PERSON=======>>", this.salesEmp);
+      } else {
+        console.log("Unexpected response format", res);
+      }
     });
   }
 
@@ -65,6 +72,10 @@ export class DownloadLeadsComponent {
     const startDateValue = formValue.startDate;
     const endDateValue = formValue.endDate;
     const statusValue = formValue.status || [];
+    const salesPerson = formValue.salesPerson_name ?? undefined;
+
+    console.log("SalesPerson value ===>", salesPerson, typeof salesPerson);
+
 
     const startDate = startDateValue ? new Date(startDateValue) : null;
     const endDate = endDateValue ? new Date(endDateValue) : null;
@@ -78,8 +89,10 @@ export class DownloadLeadsComponent {
 
       console.log(`(${this.selectedStatus}, ${this.lastStartDate}, ${this.lastEndDate})`);
 
-      this.auth.getLeadbyRangeEx(startDate, endDate, statusValue).subscribe((rangeData: any) => {
+      this.auth.getLeadbyRangeExMa(startDate, endDate, statusValue, salesPerson).subscribe((rangeData: any) => {
         console.log("Data by Date Range & Status===>>", rangeData.rangeTotalData);
+        console.log("SalesPerson value ===>", salesPerson, typeof salesPerson);
+
         this.rangeData = rangeData.rangeTotalData;
       });
     }
@@ -89,6 +102,7 @@ export class DownloadLeadsComponent {
     const startDateValue = this.dateRangeForm.value.startDate;
     const endDateValue = this.dateRangeForm.value.endDate;
     const statusValue = this.dateRangeForm.value.status || [];
+    const salesPerson = this.dateRangeForm.value.salesPerson_name ?? undefined;
 
     const startDate = startDateValue ? new Date(startDateValue) : null;
     const endDate = endDateValue ? new Date(endDateValue) : null;
@@ -101,7 +115,7 @@ export class DownloadLeadsComponent {
 
       console.log(`(${this.selectedStatus}, ${this.lastStartDate}, ${this.lastEndDate})`);
 
-      this.auth.downloadRangeFileEx(startDate, endDate, statusValue);
+      this.auth.downloadRangeFileExMa(startDate, endDate, statusValue,salesPerson);
     }
   }
 

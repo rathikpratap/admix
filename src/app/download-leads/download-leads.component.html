@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-12">
         <form [formGroup]="dateRangeForm" (ngSubmit)="onDate()" class="search-Form">
             <div class="searchData">
                 <div class="details">
@@ -18,6 +18,18 @@
                             {{ s }}
                         </label>
                     </div>
+                </div>
+                <div class="details">
+                    <label>Sales Person</label>
+                    <select class="form-select categ-right" formControlName="salesPerson_name">
+                        <!-- <option value="null">Select Sales Person</option>
+                        <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{emp.signupUsername}}</option> -->
+                        <option [ngValue]="null">Select Sales Person</option>
+<option *ngFor="let emp of salesEmp" [ngValue]="emp.signupUsername">
+  {{ emp.signupUsername }}
+</option>
+
+                    </select>
                 </div>
                 <div class="details">
                     <label for="startDate"> Start Date</label>
@@ -33,7 +45,7 @@
             </div>
         </form>
     </div>
-    <div class="col-lg-3 col-md-12 col-sm-12 col-12 move-to-new-row">
+    <div class="col-lg-1 col-md-12 col-sm-12 col-12 move-to-new-row">
         <button class="btn btn-sm btn-success getButton" *ngIf="rangeData" (click)="downloadRangeFile()">Download Data</button>
     </div>
 </div>

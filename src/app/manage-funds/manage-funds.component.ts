@@ -28,11 +28,16 @@ export class ManageFundsComponent {
   fundForm = new FormGroup({
     fbAccount: new FormControl("null"),
     amount: new FormControl(),
-    fundDate: new FormControl()
+    fundDate: new FormControl("",[Validators.required]) 
   });
+
+  getControls(name: any): AbstractControl | null {
+    return this.fundForm.get(name)
+  }
+
   addFund(){
-    const currentDate = new Date();
-    this.fundForm.get('fundDate')?.setValue(currentDate);
+    // const currentDate = new Date();
+    // this.fundForm.get('fundDate')?.setValue(currentDate);
     this.isProcess = true;
     console.warn(this.fundForm.value);
     const fundData = this.fundForm.value;
