@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-6 col-6">
+        <div class="nameCard">
+            <div class="title-heading">
+                <h6>Project Management</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+        <div class="searchData2">
+            <form [formGroup]="searchForm" (ngSubmit)="searchCustomer()">
+                <input type="text" formControlName="mobile" placeholder="Enter Mobile No./Name">
+                <button class="btn btn-sm btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-scroll">
+            <table class="table table-striped table-responsive">
+                <thead class="sticky-header">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Client Name</th>
+                        <th scope="col">Client Number</th>
+                        <th scope="col">Business</th>
+                        <th scope="col">Closing Date</th>
+                        <th scope="col">Assign Model</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let user of data; let i = index">
+                        <tr>
+                            <td>
+                                <ng-container *ngIf="user.subEntries && user.subEntries.length > 0; else noSub">
+                                    <button class="btn btn-link" (click)="user.showSub = !user.showSub">
+                                        <span [ngClass]="{'arrow-down': !user.showSub, 'arrow-up': user.showSub}"></span>
+                                    </button>
+                                    {{i+1}}
+                                </ng-container>
+                                <ng-template #noSub>
+                                    {{i+1}}
+                                </ng-template>
+                            </td>
+                            <td>{{user.custName}}</td>
+                            <td>{{user.custNumb}}</td>
+                            <td>{{user.custBussiness}}</td>
+                            <td>{{user.closingDate | date: 'dd-MM-yyyy'}}</td>
+                            <td>
+                                <select [(ngModel)]="user.modelName" (change)="updateModel(user)">
+                                    <option value="Select Model">Select Model</option>
+                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div *ngFor="let st of getStatusOptions()">
+                                    <label>
+                                        <input type="checkbox" [checked]="hasStatus(user,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onStatusChange(user, st.value, $event)"/>
+                                        {{st.label}}
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Sub Entries Row-->
+                         <tr *ngIf="user.showSub" class="sub-entry-row">
+                            <td colspan="19">
+                                <table class="table table-bordered sub-entry-table w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Client Name</th>
+                                            <th scope="col">Business</th>
+                                            <th scope="col">Assign Model</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let sub of user.subEntries; let i = index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{sub.custName}}</td>
+                                            <td>{{sub.custBussiness}}</td>
+                                            <td>
+                                                <select [(ngModel)]="sub.modelName" (change)="subUpdateModel(user,sub)">
+                                                    <option value="Select Model">Select Model</option>
+                                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let st of getStatusOptions()">
+                                                    <label>
+                                                        <input type="checkbox" [checked]="hasSubStatus(sub,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onSubStatusChange(user, sub, st.value, $event)"/>
+                                                        {{st.label}}
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                         </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@
                 aria-label="Default select example" (change)="onSalespersonChange()">
                 <option value="null">Admin</option>
                 <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
-                    
+
                     {{empS.signupUsername}}
                 </option>
             </select>
@@ -253,9 +253,9 @@
                             <h6> Monthly Top Editor </h6>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#allPoints">
-                                {{editorList[0]?.username}}
-                            </button>
+                            data-bs-target="#allPoints">
+                            {{editorList[0]?.username}}
+                        </button>
                         <!-- <button type="button" class="btn btn-primary" *ngIf="rangeTop; else elseBlockTop">
                             {{editorList[0]?.username}}
                         </button>
@@ -271,6 +271,24 @@
         </div>
     </div>
 </div>
+<div class="row" *ngIf="qrKeys.length">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-2" *ngFor="let qr of qrKeys">
+        <div class="card4">
+            <div class="card-body">
+                <div class="form-container2">
+                    <div class="card-txt">
+                        <div class="card-bg2">
+                            <h6>{{ qr }}</h6>
+                        </div>
+                        ₹ {{ qrWiseAmount[qr] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="card5">
@@ -465,7 +483,7 @@
                         Logo Animation
                     </button>
                     <button class="btn btn-primary getButton" type="button" data-bs-toggle="collapse"
-                         data-bs-target="#production" aria-controls="collapseExample">
+                        data-bs-target="#production" aria-controls="collapseExample">
                         Production Projects
                     </button>
                 </p>
@@ -654,7 +672,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="collapse show" id="allProjects">
                 <div class="table-scroll"
                     *ngIf="this.closingForm.get('closing_name')?.value ==='null' && this.salesForm.get('salesperson_name')?.value ==='null' && this.statusForm.get('project_status')?.value === 'null'">

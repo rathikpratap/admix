@@ -215,8 +215,20 @@ export class AuthService {
   updateEditors(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateEditor`, { items: data });
   }
+
+  updateModelName(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelName`,data);
+  }
+
   updateSubEntry(parentId: string, subEntry: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntry`, {
+      parentId,
+      subEntry
+    });
+  }
+
+  updateSubEntryModel(parentId: string, subEntry:any): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntryModel`,{
       parentId,
       subEntry
     });
@@ -267,6 +279,9 @@ export class AuthService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`, { headers });
+  }
+  onlyModelProjects():Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/onlyModelProject`);
   }
   salesPreviousMonthProjects(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -929,6 +944,10 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeam`)
   }
 
+  getModels(): Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/getModels`);
+  }
+
   newfbToken(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/fbToken`, data);
   }
@@ -1373,6 +1392,10 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/newSubsidiary`, data);
   }
 
+  newModel(data: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/newModel`, data);
+  }
+
   getSubsidiary(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getSubsidiary`);
   }
@@ -1736,6 +1759,16 @@ export class AuthService {
   }
   getMonthlyFunds(year: number, month: number){
     return this.http.get<any>(`${appConfig.apiUrl}/auth/monthly?year=${year}&month=${month}`);
+  }
+  updateModelStatus(id: string, status: string[]){
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelStatus`,{
+      id, status
+    });
+  }
+  updateModelSubStatus(userId: string,subId: string, status: string[]){
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelSubStatus`,{
+      userId, subId, status
+    });
   }
 
 

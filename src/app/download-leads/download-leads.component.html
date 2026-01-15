@@ -25,10 +25,9 @@
                         <!-- <option value="null">Select Sales Person</option>
                         <option *ngFor="let emp of salesEmp" [value]="emp.signupUsername">{{emp.signupUsername}}</option> -->
                         <option [ngValue]="null">Select Sales Person</option>
-<option *ngFor="let emp of salesEmp" [ngValue]="emp.signupUsername">
-  {{ emp.signupUsername }}
-</option>
-
+                        <option *ngFor="let emp of salesEmp" [ngValue]="emp.signupUsername">
+                            {{ emp.signupUsername }}
+                        </option>
                     </select>
                 </div>
                 <div class="details">

@@ -91,6 +91,7 @@ import { CustomQuotationComponent } from './custom-quotation/custom-quotation.co
 import { FundsComponent } from './funds/funds.component';
 import { ManageFundsComponent } from './manage-funds/manage-funds.component';
 import { DownloadLeadsComponent } from './download-leads/download-leads.component';
+import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
 
  
 @NgModule({
@@ -171,7 +172,8 @@ import { DownloadLeadsComponent } from './download-leads/download-leads.componen
     CustomQuotationComponent,
     FundsComponent,
     ManageFundsComponent,
-    DownloadLeadsComponent
+    DownloadLeadsComponent,
+    ProjectSubmissionComponent
     ],
   imports: [
     BrowserModule,

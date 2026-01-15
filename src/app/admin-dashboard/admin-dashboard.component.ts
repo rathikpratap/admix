@@ -164,6 +164,9 @@ export class AdminDashboardComponent implements OnInit {
   productionProjects: any;
   isExpanded: boolean = false;
 
+  qrWiseAmount: any = {};
+  qrKeys: string[] = [];
+
   currentMonthPoints: number = 0;
   editorList: any[] = [];
 
@@ -625,7 +628,11 @@ export class AdminDashboardComponent implements OnInit {
         this.rangeTop = top[0]?._id;
       });
       this.auth.rangeTotalRecv(startDate, endDate).subscribe((res: any) => {
-        this.rangeMonthRestAmount = res;
+        this.rangeMonthRestAmount = res.totalReceived;
+        this.qrWiseAmount = res.qrWiseAmount;
+
+        // Object keys for *ngFor
+        this.qrKeys = Object.keys(this.qrWiseAmount);
       });
     } else {
       console.error("Start date and End Date is not Valid");

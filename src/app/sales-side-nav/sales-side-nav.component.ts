@@ -92,6 +92,12 @@ export class SalesSideNavComponent {
       icon: 'bi bi-currency-rupee',
       route: '/salesHome/manage-funds'
     }
+    // {
+    //   number: '14',
+    //   name: 'Manage Projects',
+    //   icon: 'bi bi-currency-rupee',
+    //   route: '/salesHome/project-submission'
+    // }
   ];
 
   list3 = [

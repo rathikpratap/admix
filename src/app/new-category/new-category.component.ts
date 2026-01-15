@@ -12,19 +12,23 @@ export class NewCategoryComponent {
   tok:any;
   message:string ='';
   isProcess:boolean = false; 
-  className = 'd-none'
+  className = 'd-none';
 
   message1:string ='';
   isProcess1:boolean = false; 
-  className1 = 'd-none'
+  className1 = 'd-none';
   
   message2:string ='';
   isProcess2:boolean = false; 
-  className2 = 'd-none'
+  className2 = 'd-none';
 
   message3:string ='';
   isProcess3:boolean = false;
-  className3 = 'd-none'
+  className3 = 'd-none';
+
+  message4: string ='';
+  isProcess4:boolean = false;
+  className4= 'd-none';
 
   constructor(private auth:AuthService) {
     this.auth.getProfile().subscribe((res:any)=>{
@@ -50,7 +54,11 @@ export class NewCategoryComponent {
 
   subsidiaryForm = new FormGroup({
     subsidiaryName: new FormControl("")
-  })
+  });
+
+  modelForm = new FormGroup({
+    modelName: new FormControl("")
+  });
 
   categ(){
     this.isProcess = true;
@@ -132,6 +140,27 @@ export class NewCategoryComponent {
         this.isProcess3 = false;
         this.message3 = res.message;
         this.className3 = 'alert alert-danger';
+      }
+    },err =>{
+      this.isProcess3 = false;
+      this.message3 = "Server Error";
+      this.className3 = 'alert alert-danger';
+    })
+  }
+
+  modelSubmit(){
+    this.isProcess4 = true;
+    const data = this.modelForm.value;
+    this.auth.newModel(data).subscribe(res=>{
+      if(res.success){
+        this.isProcess4 = false;
+        this.message4 = "Model Added";
+        this.className4 = 'alert alert-success';
+        this.modelForm.reset();
+      }else{
+        this.isProcess4 = false;
+        this.message4 = res.message;
+        this.className4 = 'alert alert-danger';
       }
     },err =>{
       this.isProcess3 = false;
