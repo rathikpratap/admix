@@ -92,12 +92,6 @@ export class SalesSideNavComponent {
       icon: 'bi bi-currency-rupee',
       route: '/salesHome/manage-funds'
     }
-    // {
-    //   number: '14',
-    //   name: 'Manage Projects',
-    //   icon: 'bi bi-currency-rupee',
-    //   route: '/salesHome/project-submission'
-    // }
   ];
 
   list3 = [
@@ -132,6 +126,12 @@ export class SalesSideNavComponent {
       name: 'See Sales Work',
       icon: 'bi bi-people',
       route: '/salesHome/sales-workTeam'
+    },
+    {
+      number: '4',
+      name: 'Manage Projects',
+      icon: 'bi bi-bookmark-check',
+      route: '/salesHome/project-submission'
     }
   ];
   list = this.list1;
@@ -166,7 +166,7 @@ export class SalesSideNavComponent {
     const currentUrl = this.router.url;
     if (currentUrl === '/salesHome/bundle-dashboard' || currentUrl === '/salesHome/bundle-projects') {
       this.list = this.list3;
-    } else if (currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam') {
+    } else if (currentUrl === '/salesHome/team-leader' || currentUrl === '/salesHome/team-leader-projects' || currentUrl === '/salesHome/sales-workTeam' || currentUrl === '/salesHome/project-submission') {
       this.list = this.list4;
     } else {
       this.list = this.list1;

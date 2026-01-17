@@ -2,6 +2,10 @@
     <div class="col-lg-6 fundText">
         <span>This Month Total Spend: </span>
         <button type="button" class="btn btn-primary" (click)="fundPage()"> {{fundGrandTotal}} </button>
+        <button type="button" class="btn btn-warning position-relative" (click)="modelStatus()">
+            Project Model Status
+            <span class="badge">{{ totalCount }}</span>
+        </button>
     </div>
     <div class="col-lg-6 d-flex justify-content-end">
         <form [formGroup]="select_salesForm">
@@ -9,13 +13,11 @@
                 aria-label="Default select example" (change)="onSalespersonChange()">
                 <option value="null">Admin</option>
                 <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
-
                     {{empS.signupUsername}}
                 </option>
             </select>
         </form>
-        <button class="btn btn-outline-warning getButton" (click)="assignCampaign()">Transfer Leads
-            Notification</button>
+        <button class="btn btn-outline-warning getButton" (click)="assignCampaign()">Transfer Leads Notification</button>
         <button class="btn btn-success getButton" (click)="other()">B2b Projects</button>
     </div>
 </div>
@@ -174,7 +176,7 @@
                         <div class="card-bg2">
                             <h6> Monthly Received Rest &#8377; </h6>
                         </div>
-                        <button type="button" class="btn btn-primary" *ngIf="rangeMonthRestAmount; else elseBlockRecv">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rangeMonthRestAmountModal" *ngIf="rangeMonthRestAmount; else elseBlockRecv">
                             {{rangeMonthRestAmount}}
                         </button>
                         <ng-template #elseBlockRecv>
@@ -285,7 +287,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -2132,6 +2134,55 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--RangeData Rest Amount Modal-->
+<div class="modal fade" id="rangeMonthRestAmountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Range Data Rest Amount Projects</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Client Code</th>
+                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Business</th>
+                                <th scope="col">Project Category</th>
+                                <th scope="col">Closing Date</th>
+                                <th scope="col">Closing Payment</th>
+                                <th scope="col">Amount Received</th>
+                                <th scope="col">Rest Amount</th>
+                                <th scope="col">Remaining Amount</th>
+                                <th scope="col">Project Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of rangeMonthTotalEntries">
+                                <td>{{user.custCode}}</td>
+                                <td>{{user.custName}}</td>
+                                <td>{{user.custBussiness}}</td>
+                                <td>{{user.closingCateg}}</td>
+                                <td>{{user.closingDate}}</td>
+                                <td>{{user.closingPrice}}</td>
+                                <td>{{user.AdvPay}}</td>
+                                <td>{{user.restAmount}}</td>
+                                <td>{{user.remainingAmount}}</td>
+                                <td>{{user.projectStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="downloadRangeRestAmountFile()">Download</button>
             </div>
         </div>
     </div>

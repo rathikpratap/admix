@@ -26,7 +26,7 @@
                         <th scope="col">Client Number</th>
                         <th scope="col">Business</th>
                         <th scope="col">Closing Date</th>
-                        <th scope="col">Assign Model</th>
+                        <th scope="col">Assigned Model</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
@@ -48,14 +48,9 @@
                             <td>{{user.custNumb}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingDate | date: 'dd-MM-yyyy'}}</td>
-                            <td>
-                                <select [(ngModel)]="user.modelName" (change)="updateModel(user)">
-                                    <option value="Select Model">Select Model</option>
-                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div *ngFor="let st of getStatusOptions()">
+                            <td *ngIf="!user.subEntries || user.subEntries.length === 0">{{user.modelName}}</td>
+                            <td *ngIf="!user.subEntries || user.subEntries.length === 0">
+                                <div *ngFor="let st of getStatusOptionsForUser(user)">
                                     <label>
                                         <input type="checkbox" [checked]="hasStatus(user,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onStatusChange(user, st.value, $event)"/>
                                         {{st.label}}
@@ -75,7 +70,7 @@
                                             <th scope="col">No.</th>
                                             <th scope="col">Client Name</th>
                                             <th scope="col">Business</th>
-                                            <th scope="col">Assign Model</th>
+                                            <th scope="col">Assigned Model</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
@@ -84,14 +79,9 @@
                                             <td>{{i+1}}</td>
                                             <td>{{sub.custName}}</td>
                                             <td>{{sub.custBussiness}}</td>
+                                            <td>{{sub.modelName}}</td>
                                             <td>
-                                                <select [(ngModel)]="sub.modelName" (change)="subUpdateModel(user,sub)">
-                                                    <option value="Select Model">Select Model</option>
-                                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <div *ngFor="let st of getStatusOptions()">
+                                                <div *ngFor="let st of getStatusOptionsForUser(sub)">
                                                     <label>
                                                         <input type="checkbox" [checked]="hasSubStatus(sub,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onSubStatusChange(user, sub, st.value, $event)"/>
                                                         {{st.label}}
@@ -123,7 +113,7 @@
                         <th scope="col">Client Number</th>
                         <th scope="col">Business</th>
                         <th scope="col">Closing Date</th>
-                        <th scope="col">Assign Model</th>
+                        <th scope="col">Assigned Model</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
@@ -145,14 +135,9 @@
                             <td>{{user.custNumb}}</td>
                             <td>{{user.custBussiness}}</td>
                             <td>{{user.closingDate | date: 'dd-MM-yyyy'}}</td>
-                            <td>
-                                <select [(ngModel)]="user.modelName" (change)="updateModel(user)">
-                                    <option value="Select Model">Select Model</option>
-                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div *ngFor="let st of getStatusOptions()">
+                            <td *ngIf="!user.subEntries || user.subEntries.length === 0">{{user.modelName}}</td>
+                            <td *ngIf="!user.subEntries || user.subEntries.length === 0">
+                                <div *ngFor="let st of getStatusOptionsForUser(user)">
                                     <label>
                                         <input type="checkbox" [checked]="hasStatus(user,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onStatusChange(user, st.value, $event)"/>
                                         {{st.label}}
@@ -172,7 +157,7 @@
                                             <th scope="col">No.</th>
                                             <th scope="col">Client Name</th>
                                             <th scope="col">Business</th>
-                                            <th scope="col">Assign Model</th>
+                                            <th scope="col">Assigned Model</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
@@ -181,14 +166,9 @@
                                             <td>{{i+1}}</td>
                                             <td>{{sub.custName}}</td>
                                             <td>{{sub.custBussiness}}</td>
+                                            <td>{{sub.modelName}}</td>
                                             <td>
-                                                <select [(ngModel)]="sub.modelName" (change)="subUpdateModel(user,sub)">
-                                                    <option value="Select Model">Select Model</option>
-                                                    <option *ngFor="let model of models" value="{{model.modelName}}">{{model.modelName}}</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <div *ngFor="let st of getStatusOptions()">
+                                                <div *ngFor="let st of getStatusOptionsForUser(sub)">
                                                     <label>
                                                         <input type="checkbox" [checked]="hasSubStatus(sub,st.value)" [disabled]="isStatusDisabled(st.value)" (change)="onSubStatusChange(user, sub, st.value, $event)"/>
                                                         {{st.label}}

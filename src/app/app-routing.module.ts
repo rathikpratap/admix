@@ -97,6 +97,7 @@ import { FundsComponent } from './funds/funds.component';
 import { ManageFundsComponent } from './manage-funds/manage-funds.component';
 import { DownloadLeadsComponent } from './download-leads/download-leads.component';
 import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
+import { ProjectStatusComponent } from './project-status/project-status.component';
 
 const routes: Routes = [
   {
@@ -268,6 +269,10 @@ const routes: Routes = [
       {
         path: 'funds',
         component: FundsComponent
+      },
+      {
+        path: 'project-status',
+        component: ProjectStatusComponent
       }
     ]
   },

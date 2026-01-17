@@ -5,6 +5,7 @@ import { MessagingService } from '../service/messaging-service';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend, ChartData, ChartOptions, BarController, BarElement, CategoryScale, LinearScale, ChartType, Color } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 import { SessionService } from '../service/session.service';
+import { ProjectCountService } from '../service/project-count.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -163,9 +164,12 @@ export class AdminDashboardComponent implements OnInit {
   onlyLogo: any;
   productionProjects: any;
   isExpanded: boolean = false;
+  rangeMonthTotalEntries: any;
 
   qrWiseAmount: any = {};
   qrKeys: string[] = [];
+
+  totalCount = 0;
 
   currentMonthPoints: number = 0;
   editorList: any[] = [];
@@ -228,7 +232,15 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-     this.loadGrandTotal();
+    this.loadGrandTotal();
+
+    this.countService.currentCount$.subscribe(count => {
+      console.log('DAHSBARD====>', count);
+      this.totalCount = count;
+      console.log('TOTAL COUNT DASHBOARD=======>>', this.totalCount);
+    });
+
+    this.loadInitialProjectCount();
 
     this.closingForm.get('closing_name')?.valueChanges.subscribe(value => {
       this.closingData = this.closingForm.get('closing_name')?.value;
@@ -471,20 +483,20 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private session: SessionService, private renderer: Renderer2) {
+  constructor(private auth: AuthService, private messagingService: MessagingService, private toastr: ToastrService, private session: SessionService, private renderer: Renderer2, private countService: ProjectCountService) {
     this.auth.getAccessToken().subscribe((res: any) => {
       this.accessToken = res;
     });
 
     this.messagingService.requestPermission();
 
-    this.auth.getProfile().subscribe((res: any) => {
-      this.tok = res?.data;
-      if (!this.tok) {
-        alert("Session Expired, Please Login Again");
-        this.auth.logout();
-      }
-    });
+    // this.auth.getProfile().subscribe((res: any) => {
+    //   this.tok = res?.data;
+    //   if (!this.tok) {
+    //     alert("Session Expired, Please Login Again");
+    //     this.auth.logout();
+    //   }
+    // });
     this.auth.getAllProjects().subscribe((allList: any) => {
       console.log("allList", allList)
       //this.data = allList;
@@ -581,7 +593,6 @@ export class AdminDashboardComponent implements OnInit {
 
     this.auth.getAllEditorMonthlyPoints().subscribe((res: any) => {
       this.editorList = res.editors;
-      console.log("TOTAL POINTS========>>", res);
     });
   }
 
@@ -630,6 +641,7 @@ export class AdminDashboardComponent implements OnInit {
       this.auth.rangeTotalRecv(startDate, endDate).subscribe((res: any) => {
         this.rangeMonthRestAmount = res.totalReceived;
         this.qrWiseAmount = res.qrWiseAmount;
+        this.rangeMonthTotalEntries = res.totalEntries;
 
         // Object keys for *ngFor
         this.qrKeys = Object.keys(this.qrWiseAmount);
@@ -782,20 +794,70 @@ export class AdminDashboardComponent implements OnInit {
     return dataArray.slice().sort((a: any, b: any) => Number(b.isHighlighted) - Number(a.isHighlighted));
   }
 
-  loadGrandTotal(){
+  loadGrandTotal() {
     const [year, month] = this.fundSelectedMonth.split('-');
 
     this.auth.getMonthlyFunds(+year, +month).subscribe(res => {
       const funds = res.data || [];
 
       this.fundGrandTotal = funds.reduce(
-        (sum: number,f: any) => sum + (f.amount || 0), 0
+        (sum: number, f: any) => sum + (f.amount || 0), 0
       );
     });
   }
-  fundPage(){
+  fundPage() {
     const url = `/funds`;
     window.location.href = url;
+  }
+  modelStatus() {
+    const url = '/project-status';
+    window.location.href = url;
+  }
+  // ───── PROJECT COUNT LOGIC ─────
+
+  loadInitialProjectCount() {
+
+    // Admin always global count
+    const isAdmin = true;
+
+    this.auth.getProfile().subscribe((res: any) => {
+
+      this.tok = res?.data;
+      if (!this.tok) {
+        alert("Session Expired, Please Login Again");
+        this.auth.logout();
+      }
+
+      this.auth.onlyModelProjectsAdmin(
+        this.tok.signupUsername,
+        this.tok.signupRole
+      ).subscribe((list: any) => {
+
+        const total =
+          this.countService.calculateTotal(
+            list,
+            this.tok.signupUsername,
+            isAdmin
+          );
+
+        this.totalCount = total;
+
+        // realtime sync
+        this.countService.setCount(total);
+      });
+
+    });
+  }
+  downloadRangeRestAmountFile(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.auth.getRangeRestAmountDowloadAdmin(startDate, endDate);
+    }
   }
 
 }

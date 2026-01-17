@@ -217,7 +217,7 @@ export class AuthService {
   }
 
   updateModelName(data: any): Observable<any> {
-    return this.http.post(`${appConfig.apiUrl}/auth/updateModelName`,data);
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelName`, data);
   }
 
   updateSubEntry(parentId: string, subEntry: any): Observable<any> {
@@ -227,8 +227,8 @@ export class AuthService {
     });
   }
 
-  updateSubEntryModel(parentId: string, subEntry:any): Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntryModel`,{
+  updateSubEntryModel(parentId: string, subEntry: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateSubEntryModel`, {
       parentId,
       subEntry
     });
@@ -280,8 +280,19 @@ export class AuthService {
     });
     return this.http.get(`${appConfig.apiUrl}/auth/allProjects`, { headers });
   }
-  onlyModelProjects():Observable<any>{
+  onlyModelProjects(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/onlyModelProject`);
+  }
+  onlyModelProjectsAdmin(senderName: string, role: any): Observable<any> {
+    const roleValue = Array.isArray(role) ? role[0] : role;
+    console.log("ROLE ROLE========>>", role);
+    console.log("SENDING ROLE: ", roleValue);
+    return this.http.get(`${appConfig.apiUrl}/auth/onlyModelProjectAdmin`, {
+      params: {
+        sender: senderName,
+        role: roleValue
+      }
+    });
   }
   salesPreviousMonthProjects(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -526,6 +537,18 @@ export class AuthService {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'restAmountCustomers.xlsx';
+      link.click();
+      console.log("Download Done")
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
+  }
+  getRangeRestAmountDowloadAdmin(startDate: Date, endDate: Date) {
+    this.http.get(`${appConfig.apiUrl}/auth/rangeTotalEntriesRestDownloadAdmin/${startDate.toISOString()}/${endDate.toISOString()}`, { responseType: 'blob' }).subscribe((res: any) => {
+      const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'RangeRestAmountCustomers.xlsx';
       link.click();
       console.log("Download Done")
     }, error => {
@@ -944,7 +967,7 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getSalesTeam`)
   }
 
-  getModels(): Observable<any>{
+  getModels(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/getModels`);
   }
 
@@ -1499,7 +1522,12 @@ export class AuthService {
     return this.http.post(`${appConfig.apiUrl}/auth/transferCustomerToSalesLead`, user);
   }
   getUserAttendance(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
-    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`, {headers});
   }
   allEmpIncentive(year: number, month: number): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount?year=${year}&month=${month}`);
@@ -1754,22 +1782,30 @@ export class AuthService {
     });
   }
 
-  addFund(fundData: any): Observable<any>{
+  addFund(fundData: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/addFund`, fundData);
   }
-  getMonthlyFunds(year: number, month: number){
+  getMonthlyFunds(year: number, month: number) {
     return this.http.get<any>(`${appConfig.apiUrl}/auth/monthly?year=${year}&month=${month}`);
   }
-  updateModelStatus(id: string, status: string[]){
-    return this.http.post(`${appConfig.apiUrl}/auth/updateModelStatus`,{
+  updateModelStatus(id: string, status: string[]) {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelStatus`, {
       id, status
     });
   }
-  updateModelSubStatus(userId: string,subId: string, status: string[]){
-    return this.http.post(`${appConfig.apiUrl}/auth/updateModelSubStatus`,{
-      userId, subId, status
+  // updateModelSubStatus(userId: string,subId: string, status: string[]){
+  //   return this.http.post(`${appConfig.apiUrl}/auth/updateModelSubStatus`,{
+  //     userId, subId, status
+  //   });
+  // }
+  updateModelSubStatus(parentId: string, custCode: number, status: any[]) {
+    return this.http.post(`${appConfig.apiUrl}/auth/updateModelSubStatus`, {
+      parentId,
+      custCode,
+      status
     });
   }
+
 
 
   // dateWhatsAppCampaign(selectDate:string, name:string):Observable<any>{

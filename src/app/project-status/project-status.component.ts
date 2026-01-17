@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from '../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProjectCountService } from '../service/project-count.service';
 
 @Component({
-  selector: 'app-project-submission',
-  templateUrl: './project-submission.component.html',
-  styleUrl: './project-submission.component.css'
+  selector: 'app-project-status',
+  templateUrl: './project-status.component.html',
+  styleUrl: './project-status.component.css'
 })
-export class ProjectSubmissionComponent {
+export class ProjectStatusComponent {
 
   tok: any;
   data: any = [];
@@ -17,14 +18,9 @@ export class ProjectSubmissionComponent {
   errorMessage: any;
   models: any;
   senderName: any;
-  // statusOptions = [
-  //   { label: 'Send by Rathik', value: 'SEND_RATHIK'},
-  //   { label: 'Send by Shiva Sir', value: 'SEND_SHIVA'},
-  //   { label: 'Received to Shiva Sir', value: 'RECEIVED_SHIVA'},
-  //   { label: 'Received to Rathik', value: 'RECEIVED_RATHIK'}
-  // ];
+  role: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService, private countService: ProjectCountService) {
     this.auth.getProfile().subscribe((res: any) => {
       this.tok = res?.data;
       if (!this.tok) {
@@ -32,16 +28,14 @@ export class ProjectSubmissionComponent {
         this.auth.logout();
       } else {
         this.senderName = this.tok.signupUsername;
+        this.role = this.tok.signupRole;
+        console.log("FRONT ROLE:", this.tok?.signupRole);
+        console.log("FRONT USER:", this.tok?.signupUsername);
+        this.loadModelProject();
       }
     });
     this.searchForm = this.formBuilder.group({
       mobile: ['']
-    });
-    this.auth.onlyModelProjects().subscribe((list: any) => {
-      this.data = list.map((entry: any) => ({
-        ...entry,
-        showSub: false
-      }));
     });
     this.auth.getModels().subscribe((res: any) => {
       this.models = res;
@@ -78,11 +72,16 @@ export class ProjectSubmissionComponent {
       }
     });
   }
-  getStatusOptions() {
+  getStatusOptionsForUser(user: any) {
+    const sendStatus = user?.status?.find((s: any) =>
+      s.code.startsWith('SEND_BY_')
+    );
+    const employeeName = sendStatus ? this.getEmployeeFromCode(sendStatus.code) : this.senderName;
+
     return [
       {
-        label: `Send by ${this.senderName} to Shiva Sir`,
-        value: `SEND_BY_${this.senderName.toUpperCase()}`
+        label: `Send by ${employeeName} to Shiva Sir`,
+        value: `SEND_BY_${employeeName}`
       },
       {
         label: 'Send by Shiva Sir to Model',
@@ -93,8 +92,8 @@ export class ProjectSubmissionComponent {
         value: 'RECEIVED_TO_SHIVA_SIR'
       },
       {
-        label: `Received to ${this.senderName} from Shiva Sir`,
-        value: `RECEIVED_TO_${this.senderName.toUpperCase()}`
+        label: `Received to ${employeeName} from Shiva Sir`,
+        value: `RECEIVED_TO_${employeeName}`
       }
     ];
   }
@@ -115,6 +114,7 @@ export class ProjectSubmissionComponent {
     }
     this.auth.updateModelStatus(user._id, user.status).subscribe(() => {
       this.toastr.success('Status Updated');
+      this.updateCountToService();
     });
   }
   onSubStatusChange(user: any, sub: any, code: string, event: any) {
@@ -128,6 +128,7 @@ export class ProjectSubmissionComponent {
     }
     this.auth.updateModelSubStatus(user._id, sub.custCode, sub.status).subscribe(() => {
       this.toastr.success('Status Updated');
+      this.updateCountToService();
     });
   }
   hasStatus(user: any, code: string): boolean {
@@ -150,4 +151,94 @@ export class ProjectSubmissionComponent {
     const status = sub?.status?.find((s: any) => s.code === code);
     return status ? status.date : null;
   }
+  loadModelProject() {
+    this.auth.onlyModelProjectsAdmin(this.senderName, this.role).subscribe((list: any) => {
+      console.log("FRONT ROLE:", this.tok?.signupRole);
+      console.log("FRONT USER:", this.tok?.signupUsername);
+
+      this.data = list.map((entry: any) => ({
+        ...entry,
+        showSub: false
+      }));
+      this.updateCountToService();
+    });
+  }
+  getEmployeeFromCode(code: string): string {
+    if (!code) return '';
+    if (code.startsWith('SEND_BY_')) {
+      return code.replace('SEND_BY_', '');
+    }
+    if (code.startsWith('RECEIVED_TO_')) {
+      return code.replace('RECEIVED_TO_', '');
+    }
+    return '';
+  }
+  // getEmployeeFromStatus(statusArray: any[]): string {
+
+  //   const send = statusArray?.find((s: any) =>
+  //     s.code?.startsWith('SEND_BY_')
+  //   );
+
+  //   return send
+  //     ? this.getEmployeeFromCode(send.code)
+  //     : this.senderName;
+  // }
+  // isCountable(entity: any): boolean {
+  //   const status = entity?.status || [];
+  //   const emp = this.getEmployeeFromStatus(status);
+
+  //   const A = status.some((s: any) =>
+  //     s.code === `SEND_BY_${emp}`);
+
+  //   const B = status.some((s: any) =>
+  //     s.code === 'SEND_BY_SHIVA_SIR');
+
+  //   const C = status.some((s: any) =>
+  //     s.code === 'RECEIVED_TO_SHIVA_SIR');
+
+  //   const D = status.some((s: any) =>
+  //     s.code === `RECEIVED_TO_${emp}`);
+
+  //   return A && (C || !B) && !D;
+  // }
+
+  // getTotalCount() {
+  //   let count = 0;
+  //   this.data.forEach((user: any) => {
+  //     if (this.isCountable(user)) {
+  //       count++;
+  //     }
+  //     user.subEntries?.forEach((sub: any) => {
+  //       if (this.isCountable(sub)) {
+  //         count++;
+  //       }
+  //     });
+  //   });
+  //   console.log('COUNT=========>>', count);
+  //   return count;
+  // }
+  // updateCountToService() {
+  //   // const total = this.getTotalCount();
+  //   // this.countService.setCount(total);
+  //   const total = this.countService.calculateTotal( this.data);
+  //   this.countService.setCount(total);
+  // }
+  updateCountToService() {
+
+    const isAdmin =
+      Array.isArray(this.role)
+        ? this.role.includes('Admin')
+        : this.role === 'Admin';
+
+    const total =
+      this.countService.calculateTotal(
+        this.data,
+        this.senderName,
+        isAdmin
+      );
+
+    this.countService.setCount(total);
+  }
+
+
 }

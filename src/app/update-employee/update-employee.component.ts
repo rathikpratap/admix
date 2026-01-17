@@ -28,7 +28,10 @@ export class UpdateEmployeeComponent {
     salesTeam : new FormControl(""),
     subsidiaryName: new FormControl(""),
     incentivePassword : new FormControl(""),
-    editorType : new FormControl("")
+    editorType : new FormControl(""),
+    joiningDate: new FormControl(""),
+    relievingDate: new FormControl(""),
+    isActive: new FormControl(false)
   });
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -55,7 +58,9 @@ export class UpdateEmployeeComponent {
         salesTeam: res['salesTeam'],
         subsidiaryName: res['subsidiaryName'],
         incentivePassword: res['incentivePassword'],
-        editorType: res['editorType']
+        editorType: res['editorType'],
+        joiningDate: this.formatDate(res['joiningDate']),
+        relievingDate: this.formatDate(res['relievingDate']),
       })
     });
     this.auth.getSalesTeam().subscribe((res:any)=>{
@@ -71,10 +76,18 @@ export class UpdateEmployeeComponent {
   }
 
   onUpdate(){
-    this.auth.updateEmployee(this.getId, this.empUpdateForm.value).subscribe((res:any)=>{
+    const data = this.empUpdateForm.value;
+    if(data.relievingDate){
+      data.isActive = false;
+    }
+    this.auth.updateEmployee(this.getId,data).subscribe((res:any)=>{
       this.ngZone.run(()=>{this.router.navigateByUrl('/allEmployees')})
     },(err)=>{
       console.log(err)
     });
+  }
+  formatDate(isoDate: string): string {
+    if (!isoDate) return '';
+    return isoDate.split('T')[0];
   }
 }

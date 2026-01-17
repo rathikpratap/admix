@@ -50,7 +50,10 @@ export class NewEmployeeComponent {
     salesTeam : new FormControl("null"),
     subsidiaryName : new FormControl("null",[Validators.required]),
     incentivePassword : new FormControl(""),
-    editorType : new FormControl("null",[Validators.required])
+    editorType : new FormControl("null",[Validators.required]),
+    joiningDate: new FormControl(""),
+    relievingDate: new FormControl(null),
+    isActive: new FormControl(false)
   })
   getControls(name: any) : AbstractControl | null{
     return this.registrationForm.get(name)
@@ -59,6 +62,11 @@ export class NewEmployeeComponent {
     this.isProcess = true;
     console.warn(this.registrationForm.value);
     const data = this.registrationForm.value;
+    if(data.joiningDate){
+      data.relievingDate = null;
+      data.isActive = true;
+    }
+    console.warn("NEW NEW",this.registrationForm.value);
     this.auth.signup(data).subscribe( res=>{
       if(res.success){
         this.isProcess = false;

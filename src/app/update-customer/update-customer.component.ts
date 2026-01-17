@@ -102,14 +102,15 @@ export class UpdateCustomerComponent implements OnInit {
     salesPerson: new FormControl(""),
     youtubeLink: new FormControl(""),
     remark: new FormControl(""),
-    restAmount: new FormControl(""),
+    restAmount: new FormControl(),
     restPaymentDate: new FormControl("", [Validators.required]),
     leadsCreatedDate: new FormControl(""),
     companyName: new FormControl(""),
     Qr: new FormControl("", [Validators.required]),
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
-    reelsCount: new FormControl(0)
+    reelsCount: new FormControl(0),
+    restAmountQr: new FormControl("",[Validators.required])
   })
 
   updateEmbeddedVideoUrl() {
@@ -214,7 +215,8 @@ export class UpdateCustomerComponent implements OnInit {
         customerType: res['customerType'],
         graphicsCount: res['graphicCount'],
         videosCount: res['videosCount'],
-        reelsCount: res['reelsCount']
+        reelsCount: res['reelsCount'],
+        restAmountQr: res['restAmountQr']
       })
       this.updateEmbeddedVideoUrl();
       // Important: update validators based on closingDate after patch
