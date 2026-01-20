@@ -35,6 +35,21 @@ export class UpdateCustomerComponent implements OnInit {
   originalVerifiedQuotationSuffix: string | null = null;
 
   ngOnInit(): void {
+
+     this.updateForm.get('restAmount')?.valueChanges.subscribe(value => {
+
+    const qrControl = this.updateForm.get('restAmountQr');
+
+    if (Number(value) > 0) {
+      qrControl?.setValidators([Validators.required]);
+    } else {
+      qrControl?.clearValidators();
+      qrControl?.setValue("");       // optional - value reset
+    }
+
+    qrControl?.updateValueAndValidity();
+  });
+
     this.updateForm.get('AdvPay')!.valueChanges.subscribe(value => {
       this.updateForm.get('restAmount')!.setValue('0');
     });
@@ -110,7 +125,7 @@ export class UpdateCustomerComponent implements OnInit {
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
     reelsCount: new FormControl(0),
-    restAmountQr: new FormControl("",[Validators.required])
+    restAmountQr: new FormControl("")
   })
 
   updateEmbeddedVideoUrl() {
