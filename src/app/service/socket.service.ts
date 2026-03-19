@@ -10,7 +10,10 @@ export class SocketService {
 
   constructor() {
     // this.socket = io('http://localhost:5000');
-    this.socket = io('https://www.login.admixmedia.in')
+    this.socket = io('https://www.login.admixmedia.in',{
+      transports: ['websocket'],
+      withCredentials: true
+    });
   }
   onReminder(): Observable<any> {
     return new Observable(observer => {
