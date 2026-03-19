@@ -260,7 +260,7 @@ export class AdminDashboardComponent implements OnInit {
       this.checkTwo();
       this.check();
     });
-
+ 
     this.categForm.get('campaign_name')?.valueChanges.subscribe(value => {
       this.campaignName = this.categForm.get('campaign_name')?.value;
     });
@@ -567,15 +567,24 @@ export class AdminDashboardComponent implements OnInit {
       this.restAmount = res.restTotals;
     });
 
-    this.auth.getAllCampaign().subscribe((res: any) => {
-      this.campaign_names = res.filter((campaign: any, index: number, self: any[]) =>
-        index === self.findIndex((c: any) => c.campaign_Name === campaign.campaign_Name));
-    });
+    // this.auth.getAllCampaign().subscribe((res: any) => {
+    //   this.campaign_names = res.filter((campaign: any, index: number, self: any[]) =>
+    //     index === self.findIndex((c: any) => c.campaign_Name === campaign.campaign_Name));
+    // });
 
-    this.auth.getClosing().subscribe((res: any) => {
-      this.closing_names = res.filter((closing: any, index: number, self: any[]) =>
-        index === self.findIndex((clo: any) => clo.closingCateg === closing.closingCateg));
-    });
+    // this.auth.getClosing().subscribe((res: any) => {
+    //   this.closing_names = res.filter((closing: any, index: number, self: any[]) =>
+    //     index === self.findIndex((clo: any) => clo.closingCateg === closing.closingCateg));
+    // });
+
+    this.auth.getAllCampaign().subscribe((res: any) => {
+  this.campaign_names = res;
+  console.log("CAMPAIGN NAME NEWS+++++++++>>", this.campaign_names);
+});
+
+this.auth.getClosing().subscribe((res: any) => {
+  this.closing_names = res;
+});
     this.auth.allClosing().subscribe((res: any) => {
       this.allClosings = res;
     });

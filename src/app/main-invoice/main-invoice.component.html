@@ -106,6 +106,7 @@
                                 <tr>
                                     <th scope="col"><button class="btn btn-dark" (click)="addRow()">+</button></th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">HSN Code</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Price/Unit</th>
                                     <th scope="col">GST</th>
@@ -131,6 +132,7 @@
                                                 placeholder="enter"></textarea>
                                         </div>
                                     </td>
+                                    <td>9996</td>
 
                                     <td><input type="number" class="form-control" formControlName="numOfVideos"
                                             placeholder="Enter Number of Videos" name="qty"></td>
@@ -146,6 +148,7 @@
                             <tfoot>
                                 <tr class="table-group-divider">
                                     <td><b>Total</b></td>
+                                    <td></td>
                                     <td></td>
                                     <td><b>{{totalNumOfVideoss}}</b></td>
                                     <td></td>

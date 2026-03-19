@@ -510,7 +510,7 @@ export class ViewInvoiceComponent implements OnInit {
       const custom = (grp.get('customCateg')?.value || '').toString().trim();
 
       // ✅ If any category is Website Development — show section
-      if (val === 'Website Development' || custom === 'Website Development') {
+      if (val === 'Website Development - Ecommerce' || custom === 'Website Development - Ecommerce') {
         isVisible = true;
       }
 

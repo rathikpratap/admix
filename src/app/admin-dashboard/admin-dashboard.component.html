@@ -414,8 +414,8 @@
                             <select class="form-select categ-right" formControlName="campaign_name"
                                 aria-label="Default select example">
                                 <option value="null">Select Campaign</option>
-                                <option *ngFor="let camp of campaign_names" value="{{camp.campaign_Name}}">
-                                    {{camp.campaign_Name}}</option>
+                                <option *ngFor="let camp of campaign_names" value="{{camp}}">
+                                    {{camp}}</option>
                             </select>
                             <div class="details me-3">
                                 <label for="categStartDate"> Start Date</label>
@@ -446,8 +446,8 @@
                             <select class="form-select categ-right" formControlName="campaign_name"
                                 aria-label="Default select example">
                                 <option value="null">Select Closing</option>
-                                <option *ngFor="let camp of closing_names" value="{{camp.closingCateg}}">
-                                    {{camp.closingCateg}}</option>
+                                <option *ngFor="let camp of closing_names" value="{{camp}}">
+                                    {{camp}}</option>
                             </select>
                             <div class="details me-3">
                                 <label for="categStartDate"> Start Date</label>
