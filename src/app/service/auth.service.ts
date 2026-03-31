@@ -1401,9 +1401,22 @@ export class AuthService {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/attendance?year=${year}&month=${month}`);
   }
 
+  getAttendance1New(year: number, month: number): Observable<{ success: boolean; data: AttendanceData[] }> {
+    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/attendance-new?year=${year}&month=${month}`);
+  }
+
   // Update attendance status for a specific user, year, and month
   updateAttendance(username: string, year: number, month: number, attendance: AttendanceEntry[]): Observable<{ success: boolean; message: string }> {
     return this.http.post<{ success: boolean; message: string }>(`${appConfig.apiUrl}/auth/update-attendance`, {
+      username,
+      year,
+      month,
+      attendance
+    });
+  }
+
+  updateAttendanceNew(username: string, year: number, month: number, attendance: AttendanceEntry[]): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(`${appConfig.apiUrl}/auth/update-attendance-new`, {
       username,
       year,
       month,

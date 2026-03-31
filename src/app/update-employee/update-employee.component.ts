@@ -31,7 +31,8 @@ export class UpdateEmployeeComponent {
     editorType : new FormControl(""),
     joiningDate: new FormControl(""),
     relievingDate: new FormControl(""),
-    isActive: new FormControl(false)
+    isActive: new FormControl(false),
+    cardNo: new FormControl("")
   });
 
   constructor(private router:Router, private ngZone:NgZone, private activatedRoute: ActivatedRoute, private auth: AuthService){
@@ -61,6 +62,7 @@ export class UpdateEmployeeComponent {
         editorType: res['editorType'],
         joiningDate: this.formatDate(res['joiningDate']),
         relievingDate: this.formatDate(res['relievingDate']),
+        cardNo: res['cardNo']
       })
     });
     this.auth.getSalesTeam().subscribe((res:any)=>{

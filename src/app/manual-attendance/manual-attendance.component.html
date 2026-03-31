@@ -48,4 +48,75 @@
     <ng-template #noData>
         <p>No attendance data available for this month.</p>
     </ng-template>
+
+<!--New New-->
+    <div class="month-navigation">
+        <button class="btn btn-secondary" (click)="prevMonthNew()">&#8592; Prev</button>
+  <h2>Machine Attendance {{ monthNames[month-1] }} / {{ year }}</h2>
+  <button class="btn btn-secondary" (click)="nextMonthNew()">Next &#8594;</button>
+</div>
+
+<div class="table-scroll" *ngIf="attendanceDataNew.length > 0; else noData">
+    <table class="table table-striped table-responsive">
+  <thead>
+    <tr>
+      <th class="sticky-header">User</th>
+      <th *ngFor="let day of attendanceDataNew[0]?.attendance1" class="text-center sticky-header">
+        {{ day.date | date:'dd/MM' }}
+      </th>
+      <th class="text-center sticky-header">Overall Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let user of attendanceDataNew; let i = index">
+      
+      <td><strong>{{ user.username }}</strong></td>
+
+      <td *ngFor="let day of user.attendance1; let j = index" [ngClass]="{
+        'present-day': day.status === 'Present',
+        'absent-day': day.status === 'Absent',
+        'half-day': day.status === 'Half Day',
+        'office-closed': day.status === 'Office Closed',
+        'work-from-home': day.status === 'Work From Home',
+        'late-half-day': day.status === 'Late Half Day',
+        'late-present': day.status === 'Late Present'
+      }">
+        
+        <select [(ngModel)]="day.status" (change)="updateAttendanceNew(i)">
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+          <option value="Half Day">Half Day</option>
+          <option value="Office Closed">Office Closed</option>
+          <option value="Work From Home">Work From Home</option>
+          <option value="Late Half Day">Late Half Day</option>
+          <option value="Late Present">Late Present</option>
+        </select>
+
+        <textarea *ngIf="day.status !== 'Present'"
+          [(ngModel)]="day.reason" (change)="saveAttendanceNew(i)" class="reason-txt"placeholder="Enter Reason for Absent/ Half Day">
+        </textarea>
+
+      </td>
+
+      <td class="text-center">
+        P: {{user.totalPresent}}<br>
+        H: {{user.totalHalfday}}<br>
+        A: {{user.totalAbsent}}
+      </td>
+
+      <!-- 🔥 SAVE BUTTON -->
+      <!-- <td>
+        <button (click)="saveAttendanceNew(i)">Save</button>
+      </td> -->
+
+    </tr>
+  </tbody>
+</table>
+</div>
+<ng-template #noData>
+    <p>No Attendance data available for this month.</p>
+</ng-template>
+
+
 </div>

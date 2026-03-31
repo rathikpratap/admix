@@ -195,6 +195,17 @@
                                 </div>
                         </div>
                     </div>
+                    <div class="input-box">
+                        <div class="form-group">
+                            <span class="details"> Attendance Machine Code: </span>
+                            <input type="text" class="from-control" formControlName="cardNo"
+                                [ngClass]="{error:getControls('cardNo')?.errors && getControls('cardNo')?.touched}"
+                                placeholder="Enter your Machine Card No">
+                                <div *ngIf="getControls('cardNo')?.errors && getControls('cardNo')?.touched">
+                                    <label class="text-danger" *ngIf="getControls('cardNo')?.errors?.['required']"> Card No  is Required </label>
+                                </div>
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" [disabled]="registrationForm.status === 'INVALID'" class="btn btn-success">
             </form>

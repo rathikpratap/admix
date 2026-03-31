@@ -53,7 +53,8 @@ export class NewEmployeeComponent {
     editorType : new FormControl("null",[Validators.required]),
     joiningDate: new FormControl(""),
     relievingDate: new FormControl(null),
-    isActive: new FormControl(false)
+    isActive: new FormControl(false),
+    cardNo: new FormControl("")
   })
   getControls(name: any) : AbstractControl | null{
     return this.registrationForm.get(name)
