@@ -20,7 +20,7 @@ export class UpdateCustomerComponent implements OnInit {
   emp: any;
   companies: any;
   codeInput!: ElementRef<HTMLInputElement>;
-  financialYear: any;
+  // financialYear: any;
   date: any;
   invoiceNumber: any;
 
@@ -33,6 +33,13 @@ export class UpdateCustomerComponent implements OnInit {
   verifyMsg = '';
   // add near other fields
   originalVerifiedQuotationSuffix: string | null = null;
+
+  // NEW
+  get financialYear(): string {
+    const closingVal = this.updateForm.get('closingDate')?.value;
+    const date = this.toDateOnly(closingVal) || new Date();
+    return this.getFinancialYear(date);
+  }
 
   ngOnInit(): void {
 
@@ -53,10 +60,15 @@ export class UpdateCustomerComponent implements OnInit {
     this.updateForm.get('AdvPay')!.valueChanges.subscribe(value => {
       this.updateForm.get('restAmount')!.setValue('0');
     });
-    this.date = new Date();
-    this.financialYear = this.getFinancialYear(this.date);
+    // this.date = new Date();
+    // this.financialYear = this.getFinancialYear(this.date);
+    
+    //NEW
     this.updateForm.get('closingDate')?.valueChanges.subscribe(() => {
       this.updateQuotationValidation();
+      this.verifyState = 'idle';
+      this.verifyMsg = '';
+      this.verifiedLocked = false;
     });
     // new: when closing category changes, re-evaluate verification requirement
   this.updateForm.get('closingCateg')?.valueChanges.subscribe(() => {
@@ -188,11 +200,16 @@ export class UpdateCustomerComponent implements OnInit {
         });
       }
 
-      const prefix = `ADM-${this.financialYear}/`;
+      // NEW
+      // const prefix = `ADM-${this.financialYear}/`;
 
       if (res['quotationNumber']) {
         // agar saved hai to suffix nikaal lo (prefix ke baad ka part)
-        const suffix = String(res['quotationNumber']).replace(prefix, '');
+        // const suffix = String(res['quotationNumber']).replace(prefix, '');
+
+        //NEW
+        const fullNumber = String(res['quotationNumber']);
+        const suffix = fullNumber.split('/').pop();
         this.updateForm.patchValue({ quotationSuffix: suffix });
       } else {
         // naya — suffix blank, prefix UI me dikh jayega
@@ -335,11 +352,11 @@ export class UpdateCustomerComponent implements OnInit {
 
   onUpdate() {
 
-    const prefix = `ADM-${this.financialYear}/`;
+    // const prefix = `ADM-${this.financialYear}/`;
     const suffix = (this.updateForm.value.quotationSuffix ?? '').toString().trim();
 
     this.updateForm.patchValue({
-      quotationNumber: suffix ? prefix + suffix : prefix  // e.g. ADM-25-26/306
+      quotationNumber: suffix ? this.prefix + suffix : this.prefix  // e.g. ADM-25-26/306
     });
 
     const currentDate = new Date().toISOString();
