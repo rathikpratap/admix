@@ -8,11 +8,15 @@ interface AttendanceEntry {
   date: string;
   status: string;
   reason: string;
+  inTime: string;
+  outTime: string
 }
 interface AttendanceEntryNew {
   date: string;
   status: string;
   reason: string;
+  inTime: string;
+  outTime: string;
 }
  
 interface AttendanceData {
@@ -65,7 +69,7 @@ export class ManualAttendanceComponent implements OnInit {
             ...user,
             attendance: user.attendance.map(day => ({
               ...day,
-              reason: day.reason || ''
+              reason: day.reason || '',
             }))
           }));
           console.log("ATTENDANCE=====>>", this.attendanceData);
@@ -164,7 +168,9 @@ fetchAttendanceNew(): void {
             ...user,
             attendance1: user.attendance.map(day => ({
               ...day,
-              reason: day.reason || ''
+              reason: day.reason || '',
+              inTime: day.inTime || '',
+              outTime: day.outTime || ''
             }))
           }));
           console.log("ATTENDANCE NEW=====>>", this.attendanceDataNew);
@@ -231,6 +237,15 @@ fetchAttendanceNew(): void {
     user.totalPresent = p;
     user.totalAbsent = a;
     user.totalHalfday = h;
+  }
+
+  fetchLatestAttendance(){
+    this.auth.fetchLatestAttendance().subscribe((res:any)=>{
+      if(res.success){
+        this.toastr.success("Attendance fetch complete");
+        this.fetchAttendanceNew();
+      }
+    })
   }
 
 }

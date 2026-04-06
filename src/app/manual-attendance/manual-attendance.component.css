@@ -111,6 +111,11 @@ select {
     margin-top: 20px;
     color: #fff;
 }
+.ayt{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .month-navigation h2 {
     margin: 0;

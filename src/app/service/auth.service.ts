@@ -5,6 +5,8 @@ import { appConfig } from 'src/environment';
 import { Router } from '@angular/router';
 
 interface AttendanceEntry {
+  outTime: string;
+  inTime: string;
   reason: string;
   date: string;
   status: string;
@@ -1405,6 +1407,10 @@ export class AuthService {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/attendance-new?year=${year}&month=${month}`);
   }
 
+  fetchLatestAttendance():Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/fetch-attendance`,{})
+  }
+
   // Update attendance status for a specific user, year, and month
   updateAttendance(username: string, year: number, month: number, attendance: AttendanceEntry[]): Observable<{ success: boolean; message: string }> {
     return this.http.post<{ success: boolean; message: string }>(`${appConfig.apiUrl}/auth/update-attendance`, {
@@ -1542,6 +1548,23 @@ export class AuthService {
     });
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`, {headers});
   }
+
+  //NEW ATTENDANCE LALALA
+
+  getUserAttendanceNew(year: number, month: number): Observable<{ success: boolean; data: any[] }> {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get<{ success: boolean; data: any[] }>(
+    `${appConfig.apiUrl}/auth/usersAttendance-new?year=${year}&month=${month}`,
+    { headers }
+  );
+}
+
   allEmpIncentive(year: number, month: number): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount?year=${year}&month=${month}`);
   }

@@ -17,7 +17,7 @@ export class AttendanceComponent implements OnInit {
   today: Date = new Date();
   currentTime: string = '';
   monthNames: string[] = [
-    'January', 'February', 'March', 'April', 'May', 'June', 
+    'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
   weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -43,11 +43,11 @@ export class AttendanceComponent implements OnInit {
 
   fetchAttendance(): void {
     console.log("Fetching attendance for:", this.year, this.month);
-    
-    this.auth.getUserAttendance(this.year, this.month).subscribe({
+
+    this.auth.getUserAttendanceNew(this.year, this.month).subscribe({
       next: (res: any) => {
         console.log("API Response:", res); // Log response data
-  
+
         if (res && res.success && res.data) {
           this.attendanceData = res.data;
           this.generateCalendar();
@@ -60,8 +60,8 @@ export class AttendanceComponent implements OnInit {
         this.toastr.error("Failed to fetch attendance. Please try again.", "Error");
       }
     });
-  }  
-  
+  }
+
   generateCalendar() {
     this.calendarDays = [];
     const firstDayOfMonth = new Date(this.year, this.month - 1, 1).getDay();
@@ -72,7 +72,8 @@ export class AttendanceComponent implements OnInit {
     }
 
     for (let day = 1; day <= lastDate; day++) {
-      const date = new Date(this.year, this.month - 1, day + 1).toISOString().split('T')[0];
+      //const date = new Date(this.year, this.month - 1, day + 1).toISOString().split('T')[0];
+      const date = new Date(this.year, this.month - 1, day +1).toISOString().split('T')[0];
       const attendance = this.attendanceData?.[0]?.attendance?.find((att:any) => att.date === date);
       const isToday = this.today.getFullYear() === this.year &&
                       this.today.getMonth() + 1 === this.month &&
