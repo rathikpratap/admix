@@ -2,7 +2,7 @@
     font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .calendar-container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
     background: white;
@@ -52,7 +52,7 @@
 }
 
 .calendar-day {
-    height: 100px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     align-items: center;

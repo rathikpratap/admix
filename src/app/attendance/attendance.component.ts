@@ -78,12 +78,16 @@ export class AttendanceComponent implements OnInit {
       const isToday = this.today.getFullYear() === this.year &&
                       this.today.getMonth() + 1 === this.month &&
                       this.today.getDate() === day;
+      const inTime = attendance ? attendance.inTime : '';
+      const outTime = attendance ? attendance.outTime : '';
 
       this.calendarDays.push({
         date: day,
         status: attendance ? attendance.status : 'Select',
         reason: attendance ? attendance.reason : '',
-        isToday: isToday
+        isToday: isToday,
+        inTime: inTime,
+        outTime: outTime
       });
     }
   }

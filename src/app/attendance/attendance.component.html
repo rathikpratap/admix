@@ -27,6 +27,8 @@
             }">
             <div class="date-label">{{ day?.date }}</div>
             <span>{{ day?.status }}</span>
+            <p>In Time: {{day?.inTime}}</p>
+            <p>Out Time : {{day?.outTime}}</p>
             <span *ngIf="day?.reason" class="reason">({{day?.reason}})</span>
         </div>
     </div>
