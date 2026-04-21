@@ -14,7 +14,7 @@ export class DownloadLeadsComponent {
   tok: any;
 
   statusList: string[] = [
-    "Exclude Closing", "Closing", "Demo Sent", "Contacted",
+    "Exclude Closing", "Closing", "Demo Sent","Low Cost","Requirement Mismatch", "Contacted",
     "Not Interested", "Not Pick", "Busy", "Interested"
   ];
 

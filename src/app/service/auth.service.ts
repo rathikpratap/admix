@@ -1407,8 +1407,8 @@ export class AuthService {
     return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/attendance-new?year=${year}&month=${month}`);
   }
 
-  fetchLatestAttendance():Observable<any>{
-    return this.http.post(`${appConfig.apiUrl}/auth/fetch-attendance`,{})
+  fetchLatestAttendance(): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/fetch-attendance`, {})
   }
 
   // Update attendance status for a specific user, year, and month
@@ -1546,24 +1546,24 @@ export class AuthService {
       'Content-Type': 'application.json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`, {headers});
+    return this.http.get<{ success: boolean; data: AttendanceData[] }>(`${appConfig.apiUrl}/auth/usersAttendance?year=${year}&month=${month}`, { headers });
   }
 
   //NEW ATTENDANCE LALALA
 
   getUserAttendanceNew(year: number, month: number): Observable<{ success: boolean; data: any[] }> {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
 
-  return this.http.get<{ success: boolean; data: any[] }>(
-    `${appConfig.apiUrl}/auth/usersAttendance-new?year=${year}&month=${month}`,
-    { headers }
-  );
-}
+    return this.http.get<{ success: boolean; data: any[] }>(
+      `${appConfig.apiUrl}/auth/usersAttendance-new?year=${year}&month=${month}`,
+      { headers }
+    );
+  }
 
   allEmpIncentive(year: number, month: number): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/categoryAmount?year=${year}&month=${month}`);

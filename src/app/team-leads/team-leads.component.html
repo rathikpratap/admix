@@ -31,6 +31,8 @@
                     <option value="Null">Null</option>
                     <option value="New Lead">New Lead</option>
                     <option value="Not Interested">Not Interested</option>
+                    <option value="Low Cost">Low Cost</option>
+                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                     <option value="Contacted">Contacted</option>
                     <option value="Demo Sent">Demo Sent</option>
                     <option value="Invalid">Invalid</option>
@@ -144,7 +146,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers; let i = index" [ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
+                    <tr *ngFor="let customer of customers; let i = index"
+                        [ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
                         <td>{{i+1}}</td>
                         <td>{{customer.tag}}</td>
                         <td>{{customer.campaign_Name}}</td>
@@ -166,6 +169,8 @@
                                 <option value="New Lead">New Lead</option>
                                 <option value="Contacted">Contacted</option>
                                 <option value="Demo Sent">Demo Sent</option>
+                                <option value="Low Cost">Low Cost</option>
+                                <option value="Requirement Mismatch">Requirement Mismatch</option>
                                 <option value="Invalid">Invalid</option>
                                 <option value="Maybe Later">Maybe Later</option>
                                 <option value="Not Interested">Not Interested</option>
@@ -305,7 +310,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of projects; let i = index" [ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
+                    <tr *ngFor="let customer of projects; let i = index"
+                        [ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
                         <td>{{i+1}}</td>
                         <td>{{customer.tag}}</td>
                         <td>{{customer.campaign_Name}}</td>
@@ -327,6 +333,8 @@
                                 <option value="New Lead">New Lead</option>
                                 <option value="Contacted">Contacted</option>
                                 <option value="Demo Sent">Demo Sent</option>
+                                <option value="Low Cost">Low COst</option>
+                                <option value="Requirement Mismatch">Requirement Mismatch</option>
                                 <option value="Invalid">Invalid</option>
                                 <option value="Maybe Later">Maybe Later</option>
                                 <option value="Not Interested">Not Interested</option>
@@ -469,7 +477,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of rangeData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of rangeData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.campaign_Name}}</td>
@@ -491,6 +500,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -689,7 +700,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of data; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of data; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -702,13 +714,15 @@
                                 <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(data)"
                                     placeholder="Enter Bussiness">
                             </td>
-                            <td> 
+                            <td>
                                 <select [(ngModel)]="list.projectStatus"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data)">
                                     <option value="Null"> Null</option>
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -848,7 +862,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -868,6 +883,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1008,7 +1025,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataOneYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataOneYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1028,6 +1046,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1168,7 +1188,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataTwoYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataTwoYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1188,6 +1209,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1328,7 +1351,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataThreeYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataThreeYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1348,6 +1372,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1488,7 +1514,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataFourYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataFourYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1508,6 +1535,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1648,7 +1677,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataFiveYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dataFiveYesterday; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1668,6 +1698,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requiremt Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -1808,7 +1840,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dateData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dateData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -1828,6 +1861,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2028,7 +2063,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of data1; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of data1; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2038,8 +2074,8 @@
                             <td>{{list.state}}</td>
                             <!-- <td>{{list.custBussiness}}</td> -->
                             <td>
-                                <input type="text" [(ngModel)]="list.custBussiness" (change)="updateProjectStatus(data1)"
-                                    placeholder="Enter Bussiness">
+                                <input type="text" [(ngModel)]="list.custBussiness"
+                                    (change)="updateProjectStatus(data1)" placeholder="Enter Bussiness">
                             </td>
                             <td>
                                 <select [(ngModel)]="list.projectStatus"
@@ -2048,6 +2084,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2187,7 +2225,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of yesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of yesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2207,6 +2246,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2347,7 +2388,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of oneYesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of oneYesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2367,6 +2409,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2507,7 +2551,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of twoYesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of twoYesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2527,6 +2572,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option vlaue="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2667,7 +2714,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of threeYesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of threeYesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2687,6 +2735,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2827,7 +2877,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of fourYesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of fourYesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -2847,6 +2898,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -2987,7 +3040,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of fiveYesData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of fiveYesData; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -3007,6 +3061,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
@@ -3147,7 +3203,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dateDataWo; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
+                        <tr *ngFor="let list of dateDataWo; let i = index"
+                            [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.tag}}</td>
                             <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
@@ -3167,6 +3224,8 @@
                                     <option value="New Lead">New Lead</option>
                                     <option value="Contacted">Contacted</option>
                                     <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
                                     <option value="Invalid">Invalid</option>
                                     <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
