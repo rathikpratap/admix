@@ -96,7 +96,7 @@
 //       this.tagName = this.tagForm.get('tag_name')?.value;
 //       this.getgetData();
 //     });
-  
+
 //     this.whatsAppCateg.get('whatsApp_campaign_name')?.valueChanges.subscribe(value => {
 //       this.whatsAppCampaignName = value;
 //       if (this.categForm.get('campaign_name')?.value !== 'null') {
@@ -109,7 +109,7 @@
 //       console.log('Selected Date:', date);
 //     });
 //   }
-  
+
 //   constructor(private auth: AuthService, private formBuilder: FormBuilder, private toastr: ToastrService) {
 
 //     this.auth.getProfile().subscribe((res: any) => {
@@ -265,7 +265,7 @@
 //       this.auth.getSalesLeadbyRange(filter).subscribe((rangeData: any) => {
 //         this.rangeData = rangeData;
 //       })
-    
+
 //   } 
 
 //   searchCustomer() {
@@ -418,20 +418,20 @@
 //   //     }
 //   //   });
 //   // }
-  
+
 //   upload() {
 //     if (!this.selectedFile) return;
-  
+
 //     this.isUploading = true;
 //     this.uploadStatus = 'Uploading...';
-  
+
 //     // Show modal
 //     const modal = new bootstrap.Modal(document.getElementById('uploadModal')!);
 //     modal.show();
-  
+
 //     const formData = new FormData();
 //     formData.append('file', this.selectedFile);
-  
+
 //     this.auth.uploadLead(formData).subscribe({
 //       next: (res) => {
 //         this.uploadStatus = 'Uploaded Successfully';
@@ -543,17 +543,17 @@ export class TeamLeadsComponent implements OnInit {
   editing: boolean[] = []; // Tracks which campaign is being edited
   editedNames: string[] = []; // Stores edited campaign names
   dateData: any;
-  tag_names:any;
-  tagName:any;
-  dateDataWo:any;
+  tag_names: any;
+  tagName: any;
+  dateDataWo: any;
 
-  data1:any;
-  yesData:any;
-  oneYesData:any;
-  twoYesData:any;
-  threeYesData:any;
-  fourYesData:any;
-  fiveYesData:any;
+  data1: any;
+  yesData: any;
+  oneYesData: any;
+  twoYesData: any;
+  threeYesData: any;
+  fourYesData: any;
+  fiveYesData: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
@@ -609,7 +609,7 @@ export class TeamLeadsComponent implements OnInit {
       this.campaign_names = res;
       console.log("Recent Campaign Names: ", this.campaign_names);
     });
-    this.auth.getTag().subscribe((res:any) => {
+    this.auth.getTag().subscribe((res: any) => {
       this.tag_names = res;
     });
     this.auth.getWhatsAppCampaign().subscribe((res: any) => {
@@ -638,31 +638,31 @@ export class TeamLeadsComponent implements OnInit {
 
     // Initial loads for the multiple "Wo" endpoints --
     // ensure we call updateDynamicFields() after each array is set
-    this.auth.getTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getTeamLeadWo().subscribe((res: any) => {
       this.data1 = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getYesterdayTeamLeadWo().subscribe((res: any) => {
       this.yesData = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getOneYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getOneYesterdayTeamLeadWo().subscribe((res: any) => {
       this.oneYesData = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getTwoYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getTwoYesterdayTeamLeadWo().subscribe((res: any) => {
       this.twoYesData = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getThreeYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getThreeYesterdayTeamLeadWo().subscribe((res: any) => {
       this.threeYesData = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getFourYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getFourYesterdayTeamLeadWo().subscribe((res: any) => {
       this.fourYesData = res || [];
       this.updateDynamicFields();
     });
-    this.auth.getFiveYesterdayTeamLeadWo().subscribe((res:any)=>{
+    this.auth.getFiveYesterdayTeamLeadWo().subscribe((res: any) => {
       this.fiveYesData = res || [];
       this.updateDynamicFields();
     });
@@ -685,7 +685,7 @@ export class TeamLeadsComponent implements OnInit {
       }
       this.getWhatsAppData();
     });
-     // Listen for changes on the selectDate form control
+    // Listen for changes on the selectDate form control
     this.leadDateForm.get('selectDate')?.valueChanges.subscribe((date: string | null) => {
       console.log('Selected Date:', date);
     });
@@ -842,10 +842,10 @@ export class TeamLeadsComponent implements OnInit {
     const projectStatus = this.searchForm.value.projectStatus;
 
     const filter = {
-      startDate : startDateValue ? new Date(startDateValue) : null,
-      endDate : endDateValue ? new Date(endDateValue) : null,
-      categ : categ && categ !== 'null' ? categ : null,
-      projectStatus: projectStatus && projectStatus !=='null' ? projectStatus : null
+      startDate: startDateValue ? new Date(startDateValue) : null,
+      endDate: endDateValue ? new Date(endDateValue) : null,
+      categ: categ && categ !== 'null' ? categ : null,
+      projectStatus: projectStatus && projectStatus !== 'null' ? projectStatus : null
     }
 
     this.auth.getSalesLeadbyRange(filter).subscribe((rangeData: any) => {
@@ -881,9 +881,9 @@ export class TeamLeadsComponent implements OnInit {
       }
       console.log("SalesPerson Updated Successfully", res);
     },
-    (err) => {
-      console.error("API error:", err);
-    })
+      (err) => {
+        console.error("API error:", err);
+      })
   }
 
   downloadRangeFile() {
@@ -944,7 +944,7 @@ export class TeamLeadsComponent implements OnInit {
       });
   }
 
-  openchat(phone: number){
+  openchat(phone: number) {
     const subscriberId = phone;
     window.open(`https://app.whatsmarketing.in/whatsapp/livechat?subscriber_id=${subscriberId}-71834`);
   }
@@ -983,38 +983,38 @@ export class TeamLeadsComponent implements OnInit {
       }
     });
   }
-  sendDataToBackend(){
+  sendDataToBackend() {
     const selectDate = this.leadDateForm.get('selectDate')?.value;
     const selectDate1 = this.leadDateForm.get('selectDate1')?.value;
     const selectedCampaign = this.categForm.get('campaign_name')?.value;
-    const selectedWhatsAppCampaign = this. whatsAppCateg.get('whatsApp_campaign_name')?.value;
+    const selectedWhatsAppCampaign = this.whatsAppCateg.get('whatsApp_campaign_name')?.value;
 
-    if(selectDate1){
-      this.auth.dateWo(selectDate1).subscribe((res:any)=>{
-      this.dateDataWo = res;
-    });
+    if (selectDate1) {
+      this.auth.dateWo(selectDate1).subscribe((res: any) => {
+        this.dateDataWo = res;
+      });
     }
 
-    if(selectDate && selectedCampaign){
-      this.auth.dateCamapign(selectDate, selectedCampaign).subscribe((res:any) => {
+    if (selectDate && selectedCampaign) {
+      this.auth.dateCamapign(selectDate, selectedCampaign).subscribe((res: any) => {
         this.dateData = res;
-      }, (err)=>{
+      }, (err) => {
         console.error('API Error: ', err);
       });
-    }else{
-      this.toastr.warning("Missing selection: Please ensure date and campaign",'Selection Error')
+    } else {
+      this.toastr.warning("Missing selection: Please ensure date and campaign", 'Selection Error')
       console.warn('Missing selection: Please ensure date and campaign');
     }
 
-    if(selectDate && selectedWhatsAppCampaign){
-      this.auth.dateCamapign(selectDate, selectedWhatsAppCampaign).subscribe((res:any) => {
+    if (selectDate && selectedWhatsAppCampaign) {
+      this.auth.dateCamapign(selectDate, selectedWhatsAppCampaign).subscribe((res: any) => {
         this.dateData = res;
-      }, (err)=>{
+      }, (err) => {
         console.error('API Error: ', err);
       });
-    }else{
-      this.toastr.warning("Missing selection: Please ensure date and WhatsApp campaign",'Selection Error')
-        console.warn('Missing selection: Please wnsure date and whatsApp Campaign');
+    } else {
+      this.toastr.warning("Missing selection: Please ensure date and WhatsApp campaign", 'Selection Error')
+      console.warn('Missing selection: Please wnsure date and whatsApp Campaign');
     }
   }
 }

@@ -863,7 +863,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application.json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}` 
     });
     this.http.get(`${appConfig.apiUrl}/auth/downloadRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, { headers, responseType: 'blob' }).subscribe((res: any) => {
       const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -917,7 +917,12 @@ export class AuthService {
   }
 
   downloadSalesRangeFile(startDate: Date, endDate: Date) {
-    this.http.get(`${appConfig.apiUrl}/auth/downloadSalesRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, { responseType: 'blob' }).subscribe((res: any) => {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    this.http.get(`${appConfig.apiUrl}/auth/downloadSalesRangeFile/${startDate.toISOString()}/${endDate.toISOString()}`, { headers, responseType: 'blob' }).subscribe((res: any) => {
       const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
