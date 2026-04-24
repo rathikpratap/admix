@@ -398,7 +398,8 @@ export class MainInvoiceComponent implements OnInit {
                 if (savedInvoice) {
                   this.invoiceForm.patchValue({
                     billNumber: savedInvoice.billNumber,
-                    invoiceNumber: savedInvoice.invoiceNumb
+                    // invoiceNumber: savedInvoice.invoiceNumb
+                    invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
                   });
                 }
                 this.toastr.success('Invoice Updated Successfully', 'Success');
@@ -426,7 +427,8 @@ export class MainInvoiceComponent implements OnInit {
                 if (savedInvoice) {
                   this.invoiceForm.patchValue({
                     billNumber: savedInvoice.billNumber,
-                    invoiceNumber: savedInvoice.invoiceNumb
+                    // invoiceNumber: savedInvoice.invoiceNumb
+                    invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
                   });
                 }
                 this.toastr.success('New Invoice Saved Successfully', 'Success');
