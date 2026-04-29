@@ -476,7 +476,7 @@ export class MainInvoiceComponent implements OnInit {
 
       if (result.isConfirmed) {
 
-        this.auth.addEstInvoice({
+        this.auth.addInvoice({
           ...combinedData,
           allowUpdate: true
         }).subscribe((res: any) => {
@@ -505,7 +505,7 @@ export class MainInvoiceComponent implements OnInit {
 
       if (result.isConfirmed) {
 
-        this.auth.addEstInvoice({
+        this.auth.addInvoice({
           ...combinedData,
           allowNewDateEntry: true
         }).subscribe((res: any) => {
