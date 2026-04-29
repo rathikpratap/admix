@@ -438,22 +438,21 @@
                         </div>
                     </div>
                 </div>
+                <!-- <input type="submit" [disabled]="updateForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match') || (checkVerificationNeeded() && invoiceVerifyState !== 'match')" class="btn btn-success"> -->
                 <input type="submit"
+  class="btn btn-success"
   [disabled]="
     updateForm.invalid ||
 
     (
       updateForm.get('projectStatus')?.value === 'Completed' &&
-      (updateForm.get('restAmount')?.value) === 0 &&
-
+      checkVerificationNeeded() &&
       (
-        (checkVerificationNeeded() && verifyState !== 'match') ||
-        (checkVerificationNeeded() && invoiceVerifyState !== 'match')
+        verifyState !== 'match' ||
+        invoiceVerifyState !== 'match'
       )
     )
-  "
-  class="btn btn-success">
-                <!-- <input type="submit" [disabled]="updateForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match') || (checkVerificationNeeded() && invoiceVerifyState !== 'match')" class="btn btn-success"> -->
+  ">
                 <div class="youtubeVideo" *ngIf="safeVideoUrl">
                     <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
