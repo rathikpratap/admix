@@ -102,6 +102,14 @@ export class AuthService {
     })
     return this.http.post(`${appConfig.apiUrl}/auth/estInvoice`, data, { headers });
   }
+  addInvoice(data: any): Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post(`${appConfig.apiUrl}/auth/invoice`,data, {headers});
+  }
   addCustomQuotation(data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -1726,6 +1734,16 @@ export class AuthService {
       .set('custName', custName ?? '')
       .set('custNumb', custNumb ?? '');
     return this.http.get(`${appConfig.apiUrl}/auth/verify-quotation`, { params });
+  }
+
+  verifyInvoice(financialYear: string, invoiceNumber: string, custName: string, custNumb: string, billType: string) {
+    const params = new HttpParams()
+      .set('financialYear', financialYear)
+      .set('invoiceNumber', invoiceNumber)
+      .set('custName', custName ?? '')
+      .set('custNumb', custNumb ?? '')
+      .set('billType', billType ?? '');
+    return this.http.get(`${appConfig.apiUrl}/auth/verify-invoices`, {params});
   }
 
   getInvoice(): Observable<any> {

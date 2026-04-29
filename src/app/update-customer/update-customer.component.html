@@ -51,8 +51,43 @@
                             <div
                                 *ngIf="getControls('quotationSuffix')?.errors && getControls('quotationSuffix')?.touched">
                                 <label class="text-danger" *ngIf="getControls('quotationSuffix')?.errors?.['required']">
-                                    Client
-                                    Quotation Number is Required </label>
+                                    Client Quotation Number is Required </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="(updateForm.get('projectStatus')?.value === 'Completed' && checkVerificationNeeded())">
+                        <div class="form-group">
+                            <span class="details">Invoice Number</span>
+                            <div class="d-inline-flex align-items-center gap-2" style="width:auto;">
+                                <div class="input-group d-inline-flex align-center" style="width: auto;">
+                                    <span class="details px-2">
+                                        {{ updateForm.get('billType')?.value === 'GST Bill' ? 'ADMIX-' + financialYear + '/' : 'ADM-' + financialYear + '/'}}
+                                    </span>
+                                    <input type="text" class="form-control" formControlName="invoiceInput" placeholder="Invoice number" style="max-width: 120px;">
+                                </div>
+                                <button type="button" class="btn btn-outline-warning verify-btn" (click)="onVerifyInvoice()" [disabled]="invoiceVerifyState==='checking' || !checkVerificationNeeded() || invoiceVerifiedLocked">
+                                    {{ invoiceVerifyState === 'checking' ? 'Verifying…' : (invoiceVerifiedLocked ? 'Verified' : 'Verify')}}
+                                </button>
+                            </div>
+                            <small *ngIf="!checkVerificationNeeded()" class="text-muted">
+                                No Verification required for current invoice.
+                            </small>
+
+                            <small *ngIf="invoiceVerifiedLocked" class="text-success d-block mt-1">
+                                Verified. Editing name/number/invoice will require re-verification.
+                            </small>
+
+                            <div clas="mt-1" *ngIf="invoiceVerifyState !== 'idle'">
+                                <small [ngClass]="{
+                                    'text-success': invoiceVerifyState==='match',
+                                    'text-danger': invoiceVerifyState==='mismatch' || invoiceVerifyState==='notfound',
+                                    'text-muted': invoiceVerifyState==='checking'
+                                }">{{invoiceVerifyMsg}}</small>
+                            </div>
+                            <div *ngIf="getControls('invoiceInput')?.errors && getControls('invoiceInput')?.touched">
+                                <label class="text-danger" *ngIf="getControls('invoiceInput')?.errors?.['required']">
+                                    Invoice Number is Required
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -403,7 +438,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" [disabled]="updateForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match')" class="btn btn-success">
+                <input type="submit" [disabled]="updateForm.status === 'INVALID' || (checkVerificationNeeded() && verifyState !== 'match') || (checkVerificationNeeded() && invoiceVerifyState !== 'match')" class="btn btn-success">
                 <div class="youtubeVideo" *ngIf="safeVideoUrl">
                     <iframe width="635" height="300" [src]="safeVideoUrl" title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

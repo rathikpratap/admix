@@ -271,10 +271,25 @@ export class MainInvoiceComponent implements OnInit {
     }
   }
 
+  // updateBillFormat(): void {
+  //   const billType = this.invoiceForm.get('billType')?.value;
+  //   const custGST = this.custForm.get('custGST')?.value;
+  //   this.billFormat = (billType === 'GST' && custGST && custGST.trim() !== '') ? 'Main' : 'Non-GST';
+  //   this.invoiceForm.get('billFormat')?.setValue(this.billFormat);
+  // }
+
   updateBillFormat(): void {
     const billType = this.invoiceForm.get('billType')?.value;
     const custGST = this.custForm.get('custGST')?.value;
-    this.billFormat = (billType === 'GST' && custGST && custGST.trim() !== '') ? 'Main' : 'Non-GST';
+
+    if (billType === 'GST' && custGST) {
+      this.billFormat = 'Main';
+    } else if (billType === 'Non-GST') {
+      this.billFormat = 'Main';
+    } else {
+      this.billFormat = 'Estimate';
+    }
+
     this.invoiceForm.get('billFormat')?.setValue(this.billFormat);
   }
   setDefaultDate() {
@@ -369,82 +384,176 @@ export class MainInvoiceComponent implements OnInit {
     const custData = this.custForm.value;
     const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId, QrCheck: this.QrCheck };
 
-    this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-      if (res.success) {
-        const savedInvoice = res.invoice;
-        if (savedInvoice) {
-          this.invoiceForm.patchValue({
-            billNumber: savedInvoice.billNumber,
-            invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
-          });
-        }
+    // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
+    //   if (res.success) {
+    //     const savedInvoice = res.invoice;
+    //     if (savedInvoice) {
+    //       this.invoiceForm.patchValue({
+    //         billNumber: savedInvoice.billNumber,
+    //         invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
+    //       });
+    //     }
 
-        this.toastr.success('Invoice saved successfully', 'Success');
-        // this.generatePdf();
-        setTimeout(() => this.generatePdf(), 0);
-      } else if (res.sameDateExists) {
-        Swal.fire({
-          title: 'Invoice Exists on Same Date',
-          text: res.message,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Update it',
-          cancelButtonText: 'No, Cancel'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
-              if (res.success) {
-                const savedInvoice = res.invoice;
-                if (savedInvoice) {
-                  this.invoiceForm.patchValue({
-                    billNumber: savedInvoice.billNumber,
-                    // invoiceNumber: savedInvoice.invoiceNumb
-                    invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
-                  });
-                }
-                this.toastr.success('Invoice Updated Successfully', 'Success');
-                // this.generatePdf();
-                setTimeout(() => this.generatePdf(), 0);
-              } else {
-                this.toastr.error('Update Failed', 'Error');
-              }
-            });
+    //     this.toastr.success('Invoice saved successfully', 'Success');
+    //     // this.generatePdf();
+    //     setTimeout(() => this.generatePdf(), 0);
+    //   } else if (res.sameDateExists) {
+    //     Swal.fire({
+    //       title: 'Invoice Exists on Same Date',
+    //       text: res.message,
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonText: 'Yes, Update it',
+    //       cancelButtonText: 'No, Cancel'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
+    //           if (res.success) {
+    //             const savedInvoice = res.invoice;
+    //             if (savedInvoice) {
+    //               this.invoiceForm.patchValue({
+    //                 billNumber: savedInvoice.billNumber,
+    //                 invoiceNumber: savedInvoice.invoiceNumb
+    //               });
+    //             }
+    //             this.toastr.success('Invoice Updated Successfully', 'Success');
+    //             // this.generatePdf();
+    //             setTimeout(() => this.generatePdf(), 0);
+    //           } else {
+    //             this.toastr.error('Update Failed', 'Error');
+    //           }
+    //         });
+    //       }
+    //     });
+    //   } else if (res.differentDateExists) {
+    //     Swal.fire({
+    //       title: 'Invoice Already Exists This Month',
+    //       text: res.message,
+    //       icon: 'info',
+    //       showCancelButton: true,
+    //       confirmButtonText: 'Yes, Save New Entry',
+    //       cancelButtonText: 'No, Cancel'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
+    //           if (res.success) {
+    //             const savedInvoice = res.invoice;
+    //             if (savedInvoice) {
+    //               this.invoiceForm.patchValue({
+    //                 billNumber: savedInvoice.billNumber,
+    //                 invoiceNumber: savedInvoice.invoiceNumb
+    //               });
+    //             }
+    //             this.toastr.success('New Invoice Saved Successfully', 'Success');
+    //             // this.generatePdf();
+    //             setTimeout(() => this.generatePdf(), 0);
+    //           } else {
+    //             this.toastr.error('Failed to Save New Invoice', 'Error');
+    //           }
+    //         });
+    //       }
+    //     });
+    //   } else {
+    //     this.toastr.error('Unknown error occurred', 'Error');
+    //   }
+    // });
+
+    this.auth.addInvoice(combinedData).subscribe((res: any) => {
+
+  if (res.success) {
+    this.handleSuccess(res.invoice, 'Invoice saved successfully');
+
+  } else if (res.sameDateExists) {
+
+    Swal.fire({
+      title: 'Invoice Exists on Same Date',
+      text: res.message,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Update it',
+      cancelButtonText: 'No, Cancel'
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+
+        this.auth.addEstInvoice({
+          ...combinedData,
+          allowUpdate: true
+        }).subscribe((res: any) => {
+
+          if (res.success) {
+            this.handleSuccess(res.invoice, 'Invoice Updated Successfully');
+          } else {
+            this.toastr.error('Update Failed', 'Error');
           }
+
         });
-      } else if (res.differentDateExists) {
-        Swal.fire({
-          title: 'Invoice Already Exists This Month',
-          text: res.message,
-          icon: 'info',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Save New Entry',
-          cancelButtonText: 'No, Cancel'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
-              if (res.success) {
-                const savedInvoice = res.invoice;
-                if (savedInvoice) {
-                  this.invoiceForm.patchValue({
-                    billNumber: savedInvoice.billNumber,
-                    // invoiceNumber: savedInvoice.invoiceNumb
-                    invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
-                  });
-                }
-                this.toastr.success('New Invoice Saved Successfully', 'Success');
-                // this.generatePdf();
-                setTimeout(() => this.generatePdf(), 0);
-              } else {
-                this.toastr.error('Failed to Save New Invoice', 'Error');
-              }
-            });
-          }
-        });
-      } else {
-        this.toastr.error('Unknown error occurred', 'Error');
+
       }
     });
+
+  } else if (res.differentDateExists) {
+
+    Swal.fire({
+      title: 'Invoice Already Exists This Month',
+      text: res.message,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Save New Entry',
+      cancelButtonText: 'No, Cancel'
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+
+        this.auth.addEstInvoice({
+          ...combinedData,
+          allowNewDateEntry: true
+        }).subscribe((res: any) => {
+
+          if (res.success) {
+            this.handleSuccess(res.invoice, 'New Invoice Saved Successfully');
+          } else {
+            this.toastr.error('Failed to Save New Invoice', 'Error');
+          }
+
+        });
+
+      }
+    });
+
+  } else {
+    this.toastr.error('Unknown error occurred', 'Error');
   }
+
+});
+  }
+
+  private handleSuccess(savedInvoice: any, message: string) {
+
+  let invoiceNo = '';
+
+  // ✅ MAIN invoice (GST / Non-GST)
+  if (savedInvoice?.invoiceNumber?.length) {
+    invoiceNo = savedInvoice.invoiceNumber[0].InvoiceNo;
+  }
+
+  // ✅ ESTIMATE
+  else if (savedInvoice?.quotationNumber) {
+    invoiceNo = savedInvoice.quotationNumber;
+  }
+
+  this.invoiceForm.patchValue({
+    billNumber: savedInvoice.billNumber,
+    invoiceNumber: invoiceNo
+  });
+
+  this.toastr.success(message, 'Success');
+
+  // 🔥 IMPORTANT: force UI update before PDF
+  this.cd.detectChanges();
+
+  this.generatePdf();
+}
 
   generatePdf() {
     const invoiceElement = document.getElementById('invoice');

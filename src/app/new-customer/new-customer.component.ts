@@ -145,7 +145,8 @@ export class NewCustomerComponent implements OnInit {
   }
 
   customerForm = new FormGroup({
-    custCode: new FormControl({value:'',disabled: true}),
+    // custCode: new FormControl({value:'',disabled: true}),
+    custCode: new FormControl(''),
     quotationNumber: new FormControl("", [Validators.required]),
     quotationSuffix: new FormControl("", [Validators.required]),
     custName: new FormControl("", [Validators.required]),

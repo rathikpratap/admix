@@ -34,6 +34,12 @@ export class UpdateCustomerComponent implements OnInit {
   // add near other fields
   originalVerifiedQuotationSuffix: string | null = null;
 
+  invoiceVerifyState: 'idle' | 'checking' | 'notfound' | 'mismatch' | 'match' = 'idle';
+  invoiceVerifyMsg = '';
+  invoiceVerifiedLocked = false;
+  lastVerifiedInvoice = { name: '', number: ''};
+  lastVerifiedInvoiceNumber = '';
+
   // NEW
   get financialYear(): string {
     const closingVal = this.updateForm.get('closingDate')?.value;
@@ -110,6 +116,7 @@ export class UpdateCustomerComponent implements OnInit {
     custCode: new FormControl("", [Validators.required]),
     quotationNumber: new FormControl(""),
     quotationSuffix: new FormControl(""),
+    invoiceInput: new FormControl(''),
     custName: new FormControl("", [Validators.required]),
     custNumb: new FormControl("", [Validators.required]),
     custNumb2: new FormControl(""),
@@ -471,5 +478,55 @@ export class UpdateCustomerComponent implements OnInit {
         this.verifyState = 'notfound';
         this.verifyMsg = 'Server error while verifying';
       });
+  }
+
+  onVerifyInvoice() {
+    const invoiceNumber = (this.updateForm.get('invoiceInput')?.value || '').toString().trim();
+
+    if(!invoiceNumber){
+      this.invoiceVerifyState = 'notfound';
+      this.invoiceVerifyMsg = 'Please enter invoice number';
+      return;
+    }
+    this.invoiceVerifyState = 'checking';
+    this.invoiceVerifyMsg = 'Checking...';
+
+    const custName = this.updateForm.get('custName')?.value || '';
+    const custNumb = this.updateForm.get('custNumb')?.value || '';
+    const billType = this.updateForm.get('billType')?.value || '';
+
+    this.auth.verifyInvoice(this.financialYear, invoiceNumber, custName, custNumb, billType).subscribe((res: any) => {
+
+      if(!res.ok) {
+        this.invoiceVerifyState = 'notfound';
+        this.invoiceVerifyMsg = res.message;
+        return;
+      }
+      if(!res.found){
+        this.invoiceVerifyState = 'notfound';
+        this.invoiceVerifyMsg = 'Invoice not found';
+        return;
+      }
+
+      if(res.match) {
+        this.invoiceVerifyState = 'match';
+        this.invoiceVerifyMsg = 'Invoice matches this customer';
+
+        this.invoiceVerifiedLocked = true;
+
+        this.lastVerifiedInvoice = {
+          name: custName,
+          number: custNumb
+        };
+
+        this.lastVerifiedInvoiceNumber = invoiceNumber;
+      } else {
+        this.invoiceVerifyState = 'mismatch';
+        this.invoiceVerifyMsg = res.message;
+      }
+    }, () => {
+      this.invoiceVerifyState = 'notfound',
+      this.invoiceVerifyMsg = 'Server error'
+    });
   }
 }
