@@ -495,7 +495,8 @@ export class UpdateCustomerComponent implements OnInit {
     const custNumb = this.updateForm.get('custNumb')?.value || '';
     const billType = this.updateForm.get('billType')?.value || '';
 
-    this.auth.verifyInvoice(this.financialYear, invoiceNumber, custName, custNumb, billType).subscribe((res: any) => {
+    // this.auth.verifyInvoice(this.financialYear, invoiceNumber, custName, custNumb, billType).subscribe((res: any) => {
+    this.auth.verifyInvoice(invoiceNumber, custName, custNumb, billType).subscribe((res: any) => {
 
       if(!res.ok) {
         this.invoiceVerifyState = 'notfound';
