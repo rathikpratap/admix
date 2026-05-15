@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import {Router} from '@angular/router';
@@ -8,12 +8,20 @@ import {Router} from '@angular/router';
   templateUrl: './manage-funds.component.html',
   styleUrl: './manage-funds.component.css'
 })
-export class ManageFundsComponent {
+export class ManageFundsComponent implements OnInit {
 
   message: string='';
   isProcess:boolean = false;
   className = 'd-none';
   tok: any;
+  funds: any[] =[];
+  accountTotals: any ={};
+  grandTotal = 0;
+  selectedMonth = new Date().toISOString().slice(0,7);
+
+  ngOnInit(): void {
+    this.loadFunds();
+  }
 
   constructor(private auth: AuthService, private router: Router){
 
@@ -58,5 +66,27 @@ export class ManageFundsComponent {
       this.message = "Server Error";
       this.className = 'alert alert-danger';
     })
+  }
+
+  loadFunds(){
+    const [year,month] = this.selectedMonth.split('-');
+
+    this.auth.getMonthlyFunds(+year, +month).subscribe(res => {
+      this.funds = res.data || [];
+      
+      this.accountTotals = {};
+      this.grandTotal = 0;
+
+      this.funds.forEach(f => {
+        if(!this.accountTotals[f.fbAccount]){
+          this.accountTotals[f.fbAccount] = 0;
+        }
+        this.accountTotals[f.fbAccount] += f.amount || 0;
+        this.grandTotal += f.amount || 0;
+      });
+    });
+  }
+  getAccounts(){
+    return Object.keys(this.accountTotals);
   }
 }
