@@ -1633,6 +1633,9 @@ export class AuthService {
   getSalesLeadbyFilter(filters: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/filter`, filters);
   }
+  getSalesLeadbyFilterAdmin(filters: any): Observable<any> {
+    return this.http.post(`${appConfig.apiUrl}/auth/filterAdmin`, filters);
+  }
   allSalesLead(): Observable<any> {
     return this.http.get(`${appConfig.apiUrl}/auth/allSalesLeads`);
   }
