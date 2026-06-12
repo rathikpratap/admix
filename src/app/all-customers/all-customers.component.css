@@ -16,8 +16,9 @@
 }
 .searchData2 input{
     background: rgba(255,255, 255, 0.2);
-    color: black;
+    /* color: black; */
     margin-right: 15px;
+    color: white;
     padding: 5px;
     border-radius: 5px;
     border: none;

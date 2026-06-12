@@ -80,6 +80,24 @@ td{
     border: none;
     color: #fff;
 }
+.table th:first-child,
+.table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    min-width: 60px;
+    background-color: #000000ab;
+}
+.table thead th:first-child{
+    z-index: 3;
+    background-color: #000000ab;
+}
+.table tbody tr{
+    border-bottom: 1px solid #dcdcdc;
+}
+.table tbody tr:hover{
+    background-color: #672241;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }

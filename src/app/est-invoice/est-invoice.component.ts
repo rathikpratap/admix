@@ -499,7 +499,7 @@ export class EstInvoiceComponent implements OnInit {
 
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Advertisement Video', 'Other'];
+    const hideCategories = ['Advertisement Video','AI Videos', 'Other'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
