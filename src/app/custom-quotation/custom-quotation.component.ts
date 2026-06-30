@@ -688,5 +688,9 @@ this.invoiceForm.get('visibilityFlags')?.setValue({
     const items = Array.from(doc.querySelectorAll('li')).map(li => li.textContent?.trim() || '');
     this.invoiceForm.get('termsList')?.setValue(items);
   }
-
+  isPackageSelected(): boolean {
+    return this.rows.controls.some(
+      (row: any) => row.get('invoiceCateg')?.value === 'Package'
+    );
+  }
 }

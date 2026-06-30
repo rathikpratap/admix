@@ -297,7 +297,7 @@ export class EstInvoiceComponent implements OnInit {
       if (res.success) {
 
         const savedInvoice = res.invoice;
-        if(savedInvoice){
+        if (savedInvoice) {
           // this.invoiceForm.get('billNumber')?.setValue(savedInvoice.billNumber);
           // this.invoiceForm.get('quotationNumber')?.setValue(savedInvoice.quotationNumber);
           this.invoiceForm.patchValue({
@@ -307,7 +307,7 @@ export class EstInvoiceComponent implements OnInit {
         }
 
         this.toastr.success('Quotation saved Successfully', 'Success');
-        setTimeout(()=> this.generatePdf(), 0);
+        setTimeout(() => this.generatePdf(), 0);
         // this.generatePdf();
         // window.location.reload();
       } else if (res.sameDateExists) {
@@ -324,14 +324,14 @@ export class EstInvoiceComponent implements OnInit {
             this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
               if (res.success) {
                 const savedInvoice = res.invoice;
-                if(savedInvoice){
+                if (savedInvoice) {
                   this.invoiceForm.patchValue({
                     billNumber: savedInvoice.billNumber,
                     quotationNumber: savedInvoice.quotationNumber
                   });
                 }
                 this.toastr.success('Quotation Updated Successfully', 'Success');
-                setTimeout(()=> this.generatePdf(), 0);
+                setTimeout(() => this.generatePdf(), 0);
                 // this.generatePdf();
                 // window.location.reload();
               } else {
@@ -356,14 +356,14 @@ export class EstInvoiceComponent implements OnInit {
             this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
               if (res.success) {
                 const savedInvoice = res.invoice;
-                if(savedInvoice){
+                if (savedInvoice) {
                   this.invoiceForm.patchValue({
                     billNumber: savedInvoice.billNumber,
                     quotationNumber: savedInvoice.quotationNumber
                   });
                 }
                 this.toastr.success('New Quotation Saved Successfully', 'Success');
-                setTimeout(()=>this.generatePdf(),0);
+                setTimeout(() => this.generatePdf(), 0);
                 // this.generatePdf();
                 // window.location.reload();
               } else {
@@ -499,7 +499,7 @@ export class EstInvoiceComponent implements OnInit {
 
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Advertisement Video','AI Videos', 'Other'];
+    const hideCategories = ['Advertisement Video', 'AI Videos', 'Other'];
 
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
@@ -680,5 +680,10 @@ export class EstInvoiceComponent implements OnInit {
     const doc = parser.parseFromString(html, 'text/html');
     const items = Array.from(doc.querySelectorAll('li')).map(li => li.textContent?.trim() || '');
     this.invoiceForm.get('termsList')?.setValue(items);
+  }
+  isPackageSelected(): boolean {
+    return this.rows.controls.some(
+      (row: any) => row.get('invoiceCateg')?.value === 'Package'
+    );
   }
 }

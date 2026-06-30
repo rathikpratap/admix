@@ -293,6 +293,9 @@
                             If duration
                             exceeds 1 minute, the client must either shorten the script or pay additional charges.
                         </li>
+                        <li contenteditable="true" *ngIf="isModelAvailabilityVisible() && isPackageSelected()">
+                                <strong>Package Validity:</strong> The package must be completed within 90 days from the date of purchase. Any unused services after the validity period will expire.
+                            </li>
                     </ul>
                 </div>
             </div>
