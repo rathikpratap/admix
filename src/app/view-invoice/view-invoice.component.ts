@@ -364,7 +364,7 @@ export class ViewInvoiceComponent implements OnInit {
     const opt: any = {
       margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
       filename: `invoice_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
-      image: { type: 'png', quality: 1.0 },
+      image: { type: 'jpeg', quality: 0.6 },
       html2canvas: {
         scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
         useCORS: true,
@@ -633,5 +633,10 @@ export class ViewInvoiceComponent implements OnInit {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const items = Array.from(doc.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(Boolean);
     if (this.invoiceForm.get('termsList')) (this.invoiceForm.get('termsList') as any).setValue(items);
+  }
+  isPackageSelected(): boolean {
+    return this.rows.controls.some(
+      (row: any) => row.get('invoiceCateg')?.value === 'Package'
+    );
   }
 }

@@ -411,7 +411,7 @@ export class EstInvoiceComponent implements OnInit {
     const opt: any = {
       margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
       filename: `quotation_${customName || this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
-      image: { type: 'png', quality: 1.0 },
+      image: { type: 'jpeg', quality: 0.6 },
       html2canvas: {
         scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
         useCORS: true,
