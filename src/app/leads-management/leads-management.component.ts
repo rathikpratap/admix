@@ -518,4 +518,8 @@ toggleRowAll(lead: any) {
         const url = `/salesHome/download-leads`;
         window.location.href = url;
   }
+  leadReport(){
+    const url = `/salesHome/customer-lead-report`;
+    window.location.href = url;
+  }
 }

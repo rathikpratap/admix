@@ -53,8 +53,10 @@ export class CustomLeadsComponent {
     leadsCreatedDate: new FormControl(""),
     salesPerson: new FormControl(""),
     companyName: new FormControl(""),
-    projectStatus: new FormControl("null"),
-    remark: new FormControl("")
+    projectStatus: new FormControl("Null"),
+    remark: new FormControl(""),
+    leadType: new FormControl("",[Validators.required]),
+    leadDate: new FormControl("",[Validators.required])
   })
   getControls(name: any) : AbstractControl | null{
     return this.leadForm.get(name)
@@ -62,8 +64,8 @@ export class CustomLeadsComponent {
 
   addLead(){
     const currentDate = new Date();
-    const modifiedDate = new Date(currentDate.getTime() + 5.5 * 60 * 60 * 1000).toISOString();
-    this.leadForm.get('closingDate')?.setValue(modifiedDate);
+    // const modifiedDate = new Date(currentDate.getTime() + 5.5 * 60 * 60 * 1000).toISOString();
+    // this.leadForm.get('closingDate')?.setValue(modifiedDate);
     this.isProcess = true;
     console.warn(this.leadForm.value);
     const custData = this.leadForm.value;
@@ -85,5 +87,35 @@ export class CustomLeadsComponent {
       this.message = "Server Error";
       this.className = 'alert alert-danger';
     })
+  }
+  showLeadDate = false;
+  showLeadTypeSelection = true;
+
+  checkLeadStatus(){
+    const numberr = this.leadForm.get('custNumb')?.value;
+
+    if(!numberr) return;
+
+    this.auth.checkNumber(numberr).subscribe((res:any)=>{
+      const latestLead = res.latestLead;
+
+      this.showLeadDate = latestLead?.projectStatus === 'Closing';
+
+      if(latestLead && latestLead.projectStatus !== 'Closing'){
+        this.showLeadTypeSelection = false;
+
+        this.leadForm.patchValue({
+          leadType: 'Meta Forms'
+        });
+        this.leadForm.get('leadType')?.disable();
+      } else {
+        this.showLeadTypeSelection = true;
+        this.leadForm.get('leadType')?.enable();
+
+        this.leadForm.patchValue({
+          leadType: ''
+        });
+      }
+    });
   }
 }

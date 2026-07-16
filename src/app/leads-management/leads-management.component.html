@@ -236,8 +236,10 @@
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
                 <div class="details">
-                    <button type="submit" class="btn btn-sm btn-warning" (click)="downloadLeads()">Download
-                        Leads</button>
+                    <button type="submit" class="btn btn-sm btn-warning" (click)="downloadLeads()">Download Leads</button>
+                </div>
+                <div class="details">
+                    <button type="submit" class="btn btn-sm btn-warning" (click)="leadReport()">Leads Report</button>
                 </div>
             </div>
         </form>
@@ -265,18 +267,18 @@
                         </th>
                         <th scope="col"> No. </th>
                         <th scope="col">Tag</th>
-                        <th scope="col"> Created Date </th>
+                        <th scope="col">Created Date </th>
                         <th scope="col">Lead Time</th>
-                        <th scope="col"> Customer Name </th>
-                        <th scope="col"> Number </th>
+                        <th scope="col">Customer Name </th>
+                        <th scope="col">Number </th>
                         <th scope="col">SalesPerson</th>
                         <th *ngFor="let field of dynamicFields">{{ field }}</th>
-                        <th scope="col"> State </th>
-                        <th scope="col"> Bussiness </th>
-                        <th scope="col"> Project Status </th>
-                        <th scope="col"> Remark </th>
+                        <th scope="col">State </th>
+                        <th scope="col">Bussiness </th>
+                        <th scope="col">Project Status </th>
+                        <th scope="col">Remark </th>
                         <th scope="col">Follow Ups</th>
-                        <th scope="col"> Create Quotation</th>
+                        <th scope="col">Create Quotation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -287,7 +289,7 @@
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm:ss'}}</td>
+                        <td>{{list.closingDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
@@ -437,20 +439,20 @@
                 <thead>
                     <tr>
                         <th scope="col">Select</th>
-                        <th scope="col"> No. </th>
+                        <th scope="col">No. </th>
                         <th scope="col">Tag</th>
-                        <th scope="col"> Created Date </th>
-                        <th scope="col"> Lead Time</th>
-                        <th scope="col"> Customer Name </th>
-                        <th scope="col"> Number </th>
+                        <th scope="col">Created Date </th>
+                        <th scope="col">Lead Time</th>
+                        <th scope="col">Customer Name </th>
+                        <th scope="col">Number </th>
                         <th scope="col">SalesPerson</th>
                         <th *ngFor="let field of dynamicFields">{{ field }}</th>
-                        <th scope="col"> State </th>
-                        <th scope="col"> Bussiness </th>
-                        <th scope="col"> Project Status </th>
-                        <th scope="col"> Remark </th>
+                        <th scope="col">State </th>
+                        <th scope="col">Bussiness </th>
+                        <th scope="col">Project Status </th>
+                        <th scope="col">Remark </th>
                         <th scope="col">Follow Ups</th>
-                        <th scope="col"> Create Quotation</th>
+                        <th scope="col">Create Quotation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -461,7 +463,7 @@
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm:ss'}}</td>
+                        <td>{{list.closingDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
@@ -614,20 +616,20 @@
                             <input type="checkbox" [(ngModel)]="selectAllAllLeads"
                                 (ngModelChange)="toggleSelectAllAllLeads($event)" />
                         </th>
-                        <th scope="col"> No. </th>
+                        <th scope="col">No. </th>
                         <th scope="col">Tag</th>
-                        <th scope="col"> Created Date </th>
+                        <th scope="col">Created Date </th>
                         <th scope="col">Lead Time</th>
-                        <th scope="col"> Customer Name </th>
-                        <th scope="col"> Number </th>
+                        <th scope="col">Customer Name </th>
+                        <th scope="col">Number </th>
                         <th scope="col">SalesPerson</th>
                         <th *ngFor="let field of dynamicFields">{{ field }}</th>
-                        <th scope="col"> State </th>
-                        <th scope="col"> Bussiness </th>
-                        <th scope="col"> Project Status </th>
-                        <th scope="col"> Remark </th>
+                        <th scope="col">State </th>
+                        <th scope="col">Bussiness </th>
+                        <th scope="col">Project Status </th>
+                        <th scope="col">Remark </th>
                         <th scope="col">Follow Ups</th>
-                        <th scope="col"> Create Quotation</th>
+                        <th scope="col">Create Quotation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -638,7 +640,7 @@
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
                         <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm:ss'}}</td>
+                        <td>{{list.closingDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>

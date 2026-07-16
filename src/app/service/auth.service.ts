@@ -959,6 +959,20 @@ export class AuthService {
       console.error('Error Downloading File: ', error);
     });
   }
+  
+  checkNumber(numberr: any):Observable<any>{
+    return this.http.get(`${appConfig.apiUrl}/auth/checkNumber/${numberr}`);
+  }
+
+  getCustomerLeadReport(): Observable<any> {
+    return this.http.get(`${appConfig.apiUrl}/auth/customerLeadReport`);
+  }
+
+  getCustomerLeadReportRange(fromDate: Date, toDate: Date): Observable<any> {
+  return this.http.get(
+    `${appConfig.apiUrl}/auth/customerLeadReport?fromDate=${fromDate}&toDate=${toDate}`
+  );
+}
 
   newCategory(data: any): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/newCategory`, data);

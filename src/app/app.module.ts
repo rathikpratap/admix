@@ -93,6 +93,7 @@ import { ManageFundsComponent } from './manage-funds/manage-funds.component';
 import { DownloadLeadsComponent } from './download-leads/download-leads.component';
 import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
 import { ProjectStatusComponent } from './project-status/project-status.component';
+import { CustomerLeadReportComponent } from './customer-lead-report/customer-lead-report.component';
 
  
 @NgModule({
@@ -175,7 +176,8 @@ import { ProjectStatusComponent } from './project-status/project-status.componen
     ManageFundsComponent,
     DownloadLeadsComponent,
     ProjectSubmissionComponent,
-    ProjectStatusComponent
+    ProjectStatusComponent,
+    CustomerLeadReportComponent
     ],
   imports: [
     BrowserModule,

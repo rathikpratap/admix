@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -149,11 +149,12 @@ export class NewCustomerComponent implements OnInit {
     custCode: new FormControl(''),
     quotationNumber: new FormControl("", [Validators.required]),
     quotationSuffix: new FormControl("", [Validators.required]),
-    custName: new FormControl("", [Validators.required]),
+    custName: new FormControl("", [Validators.required, clientNameValidator]),
     custNumb: new FormControl("", [Validators.required, Validators.pattern(this.integerRegex)]),
     custNumb2: new FormControl(""),
     custBussiness: new FormControl("", [Validators.required]),
     closingDate: new FormControl("", [Validators.required]),
+    leadDate: new FormControl(""),
     closingPrice: new FormControl("", [Validators.required]),
     closingCateg: new FormControl("null", [Validators.required]),
     billType: new FormControl("null", [Validators.required]),
@@ -175,7 +176,8 @@ export class NewCustomerComponent implements OnInit {
     Qr: new FormControl("", [Validators.required]),
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
-    reelsCount: new FormControl(0)
+    reelsCount: new FormControl(0),
+    leadType: new FormControl("")
   });
 
   b2bCustomerForm = new FormGroup({
@@ -221,6 +223,15 @@ export class NewCustomerComponent implements OnInit {
   }
 
   addCust() {
+     if (this.customerForm.invalid) {
+    this.customerForm.markAllAsTouched();
+    this.toastr.error(
+      'Please enter valid customer details',
+      'Validation Error'
+    );
+    return;
+  }
+
     const currentDate = new Date().toISOString();
     this.customerForm.get('graphicPassDate')!.setValue(currentDate);
     this.isProcess = true;
@@ -413,4 +424,88 @@ export class NewCustomerComponent implements OnInit {
   normalizeName(name: any): string {
     return (name || '').toString().trim().toLowerCase();
   }
+  showLeadDate = false;
+  showLeadTypeSelection = true;
+
+  checkLeadStatus() {
+    const numberr = this.customerForm.get('custNumb')?.value;
+
+    if (!numberr) return;
+
+    this.auth.checkNumber(numberr).subscribe((res: any) => {
+      const latestLead = res.latestLead;
+
+      this.showLeadDate = latestLead?.projectStatus === 'Closing';
+
+      if (latestLead && latestLead.projectStatus !== 'Closing') {
+        this.showLeadTypeSelection = false;
+
+        this.customerForm.patchValue({
+          leadType: 'Meta Forms'
+        });
+        this.customerForm.get('leadType')?.disable();
+      } else {
+        this.showLeadTypeSelection = true;
+        this.customerForm.get('leadType')?.enable();
+
+        this.customerForm.patchValue({
+          leadType: ''
+        });
+      }
+    });
+  }
 }
+export const clientNameValidator: ValidatorFn = (
+  control: AbstractControl
+): { [key: string]: any } | null => {
+
+  const value = (control.value || '').trim();
+
+  if (!value) {
+    return null;
+  }
+
+  const lowerValue = value.toLowerCase();
+
+  // Restricted words
+  const restrictedWords = [
+    'query',
+    'new query',
+    'test',
+    'dummy',
+    'demo',
+    'sample',
+    'lead'
+  ];
+
+  // Exact match OR starts with restricted words
+  // const hasRestrictedWord = restrictedWords.some(word =>
+  //   lowerValue === word ||
+  //   lowerValue.startsWith(word + ' ') ||
+  //   lowerValue.includes(word + ' ')
+  // );
+  const normalizedValue = lowerValue.replace(/\s+/g, '');
+
+const hasRestrictedWord = restrictedWords.some(word => {
+  const normalizedWord = word.replace(/\s+/g, '');
+  return normalizedValue.includes(normalizedWord);
+});
+
+  if (hasRestrictedWord) {
+    return { invalidClientName: true };
+  }
+
+  // Allow alphabets, numbers, spaces, dot, hyphen, ampersand
+  const validPattern = /^[a-zA-Z0-9\s.&-]+$/;
+
+  if (!validPattern.test(value)) {
+    return { invalidClientName: true };
+  }
+
+  // Minimum 3 chars
+  if (value.length < 3) {
+    return { invalidClientName: true };
+  }
+
+  return null;
+};

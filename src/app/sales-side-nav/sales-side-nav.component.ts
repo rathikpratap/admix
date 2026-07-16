@@ -82,9 +82,9 @@ export class SalesSideNavComponent {
     },
     {
       number: '12',
-      name: 'Create Custom Quotation',
+      name: 'Create Custom Lead',
       icon: 'bi bi-book',
-      route: '/salesHome/custom-quotation'
+      route: '/salesHome/custom-leads'
     },
     {
       number: '13',
