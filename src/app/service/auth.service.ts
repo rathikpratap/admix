@@ -1035,7 +1035,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getTeams-leads/${name}`, { headers });
   }
   getWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getWhatsApp-leads/${name}`,{headers});
   }
 
   assignCampaign(data: { campaignName: string, employees: string[] }): Observable<any> {
@@ -1101,7 +1106,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayTeams-leads/${name}`, { headers });
   }
   getYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getYesterdayWhatsApp-leads/${name}`,{headers});
   }
 
   getSalesYesterdayTeamWork(): Observable<any> {
@@ -1112,7 +1122,12 @@ export class AuthService {
   }
 
   getOneYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getOneYesterdayWhatsApp-leads/${name}`,{headers});
   }
   getOneYesterdayTeamLeads(name: any): Observable<any> {
     const token = localStorage.getItem('token');
@@ -1139,7 +1154,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayTeams-leads/${name}`, { headers });
   }
   getTwoYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getTwoYesterdayWhatsApp-leads/${name}`,{headers});
   }
 
   getSalesTwoYesterdayTeamWork(): Observable<any> {
@@ -1158,7 +1178,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayTeams-leads/${name}`, { headers });
   }
   getThreeYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getThreeYesterdayWhatsApp-leads/${name}`,{headers});
   }
 
   getSalesThreeYesterdayTeamWork(): Observable<any> {
@@ -1177,7 +1202,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayTeams-leads/${name}`, { headers });
   }
   getFourYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getFourYesterdayWhatsApp-leads/${name}`,{headers});
   }
 
   getSalesFourYesterdayTeamWork(): Observable<any> {
@@ -1196,7 +1226,12 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayTeams-leads/${name}`, { headers });
   }
   getFiveYesterdayWhatsAppLeads(name: any): Observable<any> {
-    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads/${name}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application.json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${appConfig.apiUrl}/auth/getFiveYesterdayWhatsApp-leads/${name}`,{headers});
   }
 
   getSalesFiveYesterdayTeamWork(): Observable<any> {
