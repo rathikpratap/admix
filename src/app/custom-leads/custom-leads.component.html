@@ -66,7 +66,8 @@
                             <span class="details"> Lead Type:</span>
                             <select class="form-select" formControlName="leadType" [disabled]="!showLeadTypeSelection" aria-label="Default select example" [ngClass]="{error: getControls('leadType')?.errors && getControls('leadType')?.touched}">
                                 <option value="">Select Lead Type</option>
-                                <option value="Meta Forms">Meta Forms</option>
+                                <option value="Meta Forms" hidden>Meta Forms</option>
+                                <option value="WhatsApp Leads">WhatsApp Leads</option>
                                 <option value="WhatsApp API">WhatsApp API</option>
                                 <option value="Own FollowUp">Own FollowUp</option>
                                 <option value="Direct closing">Direct closing/Reference</option>
@@ -76,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="input-box">
+                    <!-- <div class="input-box"> Graphocs: 5 Graphics - 1600*669, 5 Graphics 800*800, Logo in HD
                         <div class="form-group">
                             <span class="details"> State: </span>
                             <input type="text" class="form-control" formControlName="state" placeholder="Enter Customer State">

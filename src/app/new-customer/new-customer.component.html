@@ -241,11 +241,13 @@
                             <input type="datetime-local" class="form-control" formControlName="LeadDate" [ngClass]="{error:getControls('leadDate')?.errors && getControls('leadDate')?.touched}" placeholder="Enter Lead Date">
                         </div>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box" *ngIf="showLeadDate">
                         <div class="form-group">
                             <span class="details"> Lead Type:</span>
                             <select class="form-select" formControlName="leadType" [disabled]="!showLeadTypeSelection" aria-label="Default select example" [ngClass]="{error: getControls('leadType')?.errors && getControls('leadType')?.touched}">
                                 <option value="">Select Lead Type</option>
+                                <option value="Meta Forms" hidden>Meta Forms</option>
+                                <option value="WhatsApp Leads">WhatsApp Leads</option>
                                 <option value="WhatsApp API">WhatsApp API</option>
                                 <option value="SalesPerson FollowUp">SalesPerson FollowUp</option>
                                 <option value="Direct closing">Direct closing</option>
