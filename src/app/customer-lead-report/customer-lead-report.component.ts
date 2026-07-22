@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
 import { FormGroup,FormControl,FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,12 +22,12 @@ export class CustomerLeadReportComponent implements OnInit {
   });
   rangeData: any;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.auth.getCustomerLeadReport().subscribe((res:any) => {
       console.log("ITS RUNNING NOW");
       this.data = res.data;
       console.log("RUNNING DATA===>>", this.data);
-    })
+    });
   }
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder,private toastr: ToastrService){
