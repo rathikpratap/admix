@@ -23,6 +23,7 @@ export class CustomerLeadReportComponent implements OnInit {
   rangeData: any;
 
   ngOnInit() {
+    console.log('CHECK STATUS');
     this.auth.getCustomerLeadReport().subscribe((res:any) => {
       console.log("ITS RUNNING NOW");
       this.data = res.data;
