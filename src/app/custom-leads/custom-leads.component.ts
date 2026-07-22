@@ -62,32 +62,95 @@ export class CustomLeadsComponent {
     return this.leadForm.get(name)
   }
 
+  // addLead() {
+  //   const currentDate = new Date();
+  //   // const modifiedDate = new Date(currentDate.getTime() + 5.5 * 60 * 60 * 1000).toISOString();
+  //   // this.leadForm.get('closingDate')?.setValue(modifiedDate);
+  //   this.isProcess = true;
+  //   console.warn(this.leadForm.value);
+  //   const custData = this.leadForm.value;
+  //   this.auth.addLead(custData).subscribe(res => {
+  //     if (res.success) {
+  //       this.isProcess = false;
+  //       this.message = "New Lead Added";
+  //       this.className = 'alert alert-success';
+  //       this.leadForm.get('leadsCreatedDate')?.setValue(this.leadForm.get('closingDate')?.value || null);
+  //       window.location.reload();
+  //     } else {
+  //       this.isProcess = false;
+  //       this.message = res.message;
+  //       this.className = 'alert alert-danger';
+  //       this.leadForm.reset();
+  //     }
+  //   }, err => {
+  //     this.isProcess = false;
+  //     this.message = "Server Error";
+  //     this.className = 'alert alert-danger';
+  //   })
+  // }
+
   addLead() {
-    const currentDate = new Date();
-    // const modifiedDate = new Date(currentDate.getTime() + 5.5 * 60 * 60 * 1000).toISOString();
-    // this.leadForm.get('closingDate')?.setValue(modifiedDate);
-    this.isProcess = true;
-    console.warn(this.leadForm.value);
-    const custData = this.leadForm.value;
-    this.auth.addLead(custData).subscribe(res => {
-      if (res.success) {
-        this.isProcess = false;
-        this.message = "New Lead Added";
-        this.className = 'alert alert-success';
-        this.leadForm.get('leadsCreatedDate')?.setValue(this.leadForm.get('closingDate')?.value || null);
-        window.location.reload();
-      } else {
-        this.isProcess = false;
-        this.message = res.message;
-        this.className = 'alert alert-danger';
-        this.leadForm.reset();
-      }
-    }, err => {
-      this.isProcess = false;
-      this.message = "Server Error";
-      this.className = 'alert alert-danger';
-    })
+
+  // Form validation
+  if (this.leadForm.invalid) {
+    this.leadForm.markAllAsTouched();
+    return;
   }
+
+  // Show Processing Popup
+  this.isProcess = true;
+  this.className = 'd-none';
+  this.message = '';
+
+  const custData = this.leadForm.value;
+
+  console.log(custData);
+
+  this.auth.addLead(custData).subscribe({
+
+    next: (res: any) => {
+
+      // Hide Processing Popup
+      this.isProcess = false;
+
+      if (res.success) {
+
+        this.message = "New Lead Added Successfully";
+        this.className = "alert alert-success";
+
+        // Reset Form (Optional)
+        this.leadForm.reset();
+
+        // Reload after 1 second
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+
+      } else {
+
+        this.message = res.message || "Lead could not be added.";
+        this.className = "alert alert-danger";
+
+      }
+
+    },
+
+    error: (err) => {
+
+      console.error(err);
+
+      // Hide Processing Popup
+      this.isProcess = false;
+
+      this.message = "Server Error. Please try again.";
+      this.className = "alert alert-danger";
+
+    }
+
+  });
+
+}
+
   showLeadDate = false;
   showLeadTypeSelection = true;
 

@@ -95,7 +95,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of projects; let i = index">
+                    <tr *ngFor="let customer of projects; let i = index"[ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
                         <td>{{i+1}}</td>
                         <td>{{customer.campaign_Name}}</td>
                         <td>{{customer.custName}}</td>
@@ -139,7 +139,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers; let i = index">
+                    <tr *ngFor="let customer of customers; let i = index" [ngClass]="{'highlight-completed': customer.projectStatus === 'Closing'}">
                         <td>{{i+1}}</td>
                         <td>{{customer.campaign_Name}}</td>
                         <td>{{customer.custName}}</td>
@@ -188,7 +188,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of rangeData; let i = index">
+                        <tr *ngFor="let list of rangeData; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -198,9 +198,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -292,7 +299,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of data; let i = index">
+                        <tr *ngFor="let list of data; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -302,9 +309,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(data)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -353,7 +367,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataYesterday; let i = index">
+                        <tr *ngFor="let list of dataYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -363,9 +377,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -415,7 +436,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataOneYesterday; let i = index">
+                        <tr *ngFor="let list of dataOneYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -425,9 +446,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataOneYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybr Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -477,7 +505,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataTwoYesterday; let i = index">
+                        <tr *ngFor="let list of dataTwoYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -487,9 +515,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataTwoYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -539,7 +574,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataThreeYesterday; let i = index">
+                        <tr *ngFor="let list of dataThreeYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -549,9 +584,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataThreeYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -601,7 +643,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataFourYesterday; let i = index">
+                        <tr *ngFor="let list of dataFourYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -611,9 +653,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFourYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later"></option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>
@@ -663,7 +712,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of dataFiveYesterday; let i = index">
+                        <tr *ngFor="let list of dataFiveYesterday; let i = index" [ngClass]="{'highlight-completed': list.projectStatus === 'Closing'}">
                             <td>{{i+1}}</td>
                             <td>{{list.campaign_Name}}</td>
                             <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
@@ -673,9 +722,16 @@
                             <td>{{list.state}}</td>
                             <td>{{list.custBussiness}}</td>
                             <td>
-                                <select [(ngModel)]="list.projectStatus"
+                                <select [(ngModel)]="list.projectStatus" [disabled]="list.projectStatus === 'Closing'"
                                     (change)="updateButtonVisible = list.projectStatus !== 'Closing'; updateProjectStatus(dataFiveYesterday)">
                                     <option value="Null"> Null</option>
+                                    <option value="New Lead">New Lead</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Demo Sent">Demo Sent</option>
+                                    <option value="Low Cost">Low Cost</option>
+                                    <option value="Requirement Mismatch">Requirement Mismatch</option>
+                                    <option value="Invalid">Invalid</option>
+                                    <option value="Maybe Later">Maybe Later</option>
                                     <option value="Not Interested">Not Interested</option>
                                     <option value="Not Pick">Not Pick</option>
                                     <option value="Switch Off">Switch Off</option>

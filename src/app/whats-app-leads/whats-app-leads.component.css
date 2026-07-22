@@ -148,7 +148,9 @@ tr textarea{
     margin-right: 10px; /* Space between the label and the select box */
     color: #fff;
 }
-
+.highlight-completed {
+  background-color: #076f76 !important;
+} 
 .categ-right {
     width: 40%; /* Make the select box take the remaining space */
     
