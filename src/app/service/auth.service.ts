@@ -1789,9 +1789,9 @@ export class AuthService {
   }
 
   // verifyInvoice(financialYear: string, invoiceNumber: string, custName: string, custNumb: string, billType: string) {
-  verifyInvoice(invoiceNumber: string, custName: string, custNumb: string, billType: string) {
+  verifyInvoice(financialYear: string, invoiceNumber: string, custName: string, custNumb: string, billType: string) {
     const params = new HttpParams()
-      // .set('financialYear', financialYear)
+      .set('financialYear', financialYear)
       .set('invoiceNumber', invoiceNumber)
       .set('custName', custName ?? '')
       .set('custNumb', custNumb ?? '')
