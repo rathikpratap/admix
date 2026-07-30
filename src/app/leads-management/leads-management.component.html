@@ -288,8 +288,8 @@
                         </td>
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
-                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm'}}</td>
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td> 
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
@@ -462,8 +462,8 @@
                         </td>
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
-                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm'}}</td>
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>
@@ -639,8 +639,8 @@
                         </td>
                         <td>{{i+1}}</td>
                         <td>{{list.tag}}</td>
-                        <td>{{list.closingDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{list.closingDate | date:'HH:mm'}}</td>
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{list.closingDate || list.leadsCreatedDate | date:'HH:mm'}}</td>
                         <td>{{list.custName}}</td>
                         <td>{{list.custNumb}}</td>
                         <td>{{list.salesPerson}}</td>

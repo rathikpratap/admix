@@ -67,7 +67,7 @@
                     <tbody>
                         <tr *ngFor="let list of rangeData; let i = index">
                             <td>{{i+1}}</td>
-                            <td>{{list.closingDate}}</td>
+                            <td>{{list.closingDate || list.leadsCreatedDate | date:'dd-MM-yyyy'}}</td>
                             <td>{{list.custName}}</td>
                             <td>{{list.custNumb || list.additionalFields.number}}</td>
                             <td>{{list.custBussiness}}</td>
