@@ -91,65 +91,70 @@ export class CustomLeadsComponent {
 
   addLead() {
 
-  // Form validation
-  if (this.leadForm.invalid) {
-    this.leadForm.markAllAsTouched();
-    return;
-  }
+    // Form validation
+    if (this.leadForm.invalid) {
+      this.leadForm.markAllAsTouched();
+      return;
+    }
 
-  // Show Processing Popup
-  this.isProcess = true;
-  this.className = 'd-none';
-  this.message = '';
+    // Show Processing Popup
+    this.isProcess = true;
+    this.className = 'd-none';
+    this.message = '';
 
-  const custData = this.leadForm.value;
+    // const custData = this.leadForm.value;
 
-  console.log(custData);
+    const custData = {
+      ...this.leadForm.value,
+      leadDate: new Date(this.leadForm.value.leadDate!).toISOString()
+    };
 
-  this.auth.addLead(custData).subscribe({
+    console.log(custData);
 
-    next: (res: any) => {
+    this.auth.addLead(custData).subscribe({
 
-      // Hide Processing Popup
-      this.isProcess = false;
+      next: (res: any) => {
 
-      if (res.success) {
+        // Hide Processing Popup
+        this.isProcess = false;
 
-        this.message = "New Lead Added Successfully";
-        this.className = "alert alert-success";
+        if (res.success) {
 
-        // Reset Form (Optional)
-        this.leadForm.reset();
+          this.message = "New Lead Added Successfully";
+          this.className = "alert alert-success";
 
-        // Reload after 1 second
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          // Reset Form (Optional)
+          this.leadForm.reset();
 
-      } else {
+          // Reload after 1 second
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
 
-        this.message = res.message || "Lead could not be added.";
+        } else {
+
+          this.message = res.message || "Lead could not be added.";
+          this.className = "alert alert-danger";
+
+        }
+
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+        // Hide Processing Popup
+        this.isProcess = false;
+
+        this.message = "Server Error. Please try again.";
         this.className = "alert alert-danger";
 
       }
 
-    },
+    });
 
-    error: (err) => {
-
-      console.error(err);
-
-      // Hide Processing Popup
-      this.isProcess = false;
-
-      this.message = "Server Error. Please try again.";
-      this.className = "alert alert-danger";
-
-    }
-
-  });
-
-}
+  }
 
   showLeadDate = false;
   showLeadTypeSelection = true;

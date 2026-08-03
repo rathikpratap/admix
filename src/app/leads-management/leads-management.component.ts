@@ -144,11 +144,13 @@ export class LeadsManagementComponent implements OnInit {
 
   // === Utility getters ===
   get anySelected(): boolean {
-    return (this.selectedRangeLeads.length + this.selectedAllLeads.length) > 0;
+    // return (this.selectedRangeLeads.length + this.selectedAllLeads.length) > 0;
+    return (this.selectedRangeLeads.length + this.selectedAllLeads.length + this.selectedLeads.length) > 0;
   }
 
   get combinedSelectedLeads(): any[] {
     const map = new Map<string, any>();
+    this.selectedLeads.forEach(l => { if (l && l._id) map.set(l._id,l); });
     this.selectedRangeLeads.forEach(l => { if (l && l._id) map.set(l._id, l); });
     this.selectedAllLeads.forEach(l => { if (l && l._id) map.set(l._id, l); });
     return Array.from(map.values());
