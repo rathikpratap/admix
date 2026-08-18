@@ -1,1 +1,108 @@
 <router-outlet></router-outlet>
+
+<div
+  class="reminder-overlay"
+  *ngIf="showReminder && reminder"
+>
+
+  <div class="reminder-modal">
+
+    <!-- Header -->
+    <div class="reminder-header">
+
+      <div class="reminder-icon">
+        🔔
+      </div>
+
+      <div>
+        <h2>Call Reminder</h2>
+
+        <p>
+          Scheduled call is due
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- Customer Details -->
+    <div class="reminder-body">
+
+      <div class="customer-row">
+
+        <span class="label">
+          Customer
+        </span>
+
+        <strong>
+          {{ reminder.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="customer-row">
+
+        <span class="label">
+          Phone
+        </span>
+
+        <strong>
+          {{ reminder.number }}
+        </strong>
+
+      </div>
+
+
+      <div
+        class="customer-row"
+        *ngIf="reminder.time"
+      >
+
+        <span class="label">
+          Reminder Time
+        </span>
+
+        <strong>
+          {{ reminder.time | date:'dd MMM yyyy, hh:mm a' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Buttons -->
+    <div class="reminder-actions">
+
+      <button
+        type="button"
+        class="btn-close-reminder"
+        (click)="closeReminder()"
+      >
+        Close
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-snooze"
+        (click)="snoozeReminder()"
+      >
+        😴 Snooze 15 Min
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-call"
+        (click)="callCustomer()"
+      >
+        📞 Call Now
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

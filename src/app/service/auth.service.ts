@@ -204,14 +204,35 @@ export class AuthService {
   //   return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: data });
   // }
 
-  updateProjectStatus(dataa: any) {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: dataa }, { headers });
-  }
+  // updateProjectStatus(dataa: any) {
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders({
+  //     'content-Type': 'application/json',
+  //     'Authorization': `Bearer ${token}`
+  //   });
+  //   return this.http.post(`${appConfig.apiUrl}/auth/update-projectStatus`, { items: dataa }, { headers });
+  // }
+
+  updateProjectStatus(items: any[]) {
+
+  const token =
+    localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.post(
+    `${appConfig.apiUrl}/auth/update-projectStatus`,
+    {
+      items: items
+    },
+    {
+      headers
+    }
+  );
+}
   updateProjectStatusManagement(items: any[] | any) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({

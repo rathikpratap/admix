@@ -1,0 +1,264 @@
+/* ================================= */
+/* REMINDER OVERLAY */
+/* ================================= */
+
+.reminder-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999999;
+}
+
+
+/* ================================= */
+/* MODAL */
+/* ================================= */
+
+.reminder-modal {
+
+  width: 450px;
+  max-width: calc(100% - 30px);
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3);
+
+  overflow: hidden;
+
+  animation: reminderPopup 0.25s ease-out;
+}
+
+
+/* ================================= */
+/* ANIMATION */
+/* ================================= */
+
+@keyframes reminderPopup {
+
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* ================================= */
+/* HEADER */
+/* ================================= */
+
+.reminder-header {
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 22px;
+
+  background: #f5f7ff;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.reminder-icon {
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff3cd;
+
+  font-size: 28px;
+}
+
+
+.reminder-header h2 {
+
+  margin: 0;
+
+  font-size: 22px;
+
+  font-weight: 700;
+}
+
+
+.reminder-header p {
+
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+
+/* ================================= */
+/* BODY */
+/* ================================= */
+
+.reminder-body {
+
+  padding: 25px;
+}
+
+
+.customer-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+
+.customer-row:last-child {
+
+  border-bottom: none;
+
+}
+
+
+.label {
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+
+.customer-row strong {
+
+  color: #111827;
+
+  font-size: 15px;
+
+  text-align: right;
+}
+
+
+/* ================================= */
+/* ACTIONS */
+/* ================================= */
+
+.reminder-actions {
+
+  display: flex;
+
+  gap: 10px;
+
+  padding: 18px;
+
+  background: #f9fafb;
+
+  border-top: 1px solid #eeeeee;
+}
+
+
+.reminder-actions button {
+
+  flex: 1;
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 11px 12px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.reminder-actions button:hover {
+
+  transform: translateY(-1px);
+
+}
+
+
+/* Close */
+
+.btn-close-reminder {
+
+  background: #e5e7eb;
+
+  color: #374151;
+}
+
+
+/* Snooze */
+
+.btn-snooze {
+
+  background: #f59e0b;
+
+  color: #ffffff;
+}
+
+
+/* Call */
+
+.btn-call {
+
+  background: #16a34a;
+
+  color: #ffffff;
+}
+
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+@media (max-width: 500px) {
+
+  .reminder-actions {
+
+    flex-direction: column;
+
+  }
+
+  .reminder-modal {
+
+    width: calc(100% - 25px);
+
+  }
+
+}
