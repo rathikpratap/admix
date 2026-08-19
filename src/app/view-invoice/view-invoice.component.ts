@@ -360,10 +360,12 @@ export class ViewInvoiceComponent implements OnInit {
     const elementWidthPx = Math.ceil(invoiceElement.scrollWidth);
     const elementHeightPx = Math.ceil(invoiceElement.scrollHeight);
 
+    const prefix = this.formatType === 'Estimate' ? 'quotation' : 'invoice';
+
     // html2pdf options:
     const opt: any = {
       margin: 0, // keep 0 because we add padding inside the element (or set numeric/tuple if preferred)
-      filename: `invoice_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
+      filename: `${prefix}_${this.name || 'invoice'}.pdf`.replace(/\s+/g, '_'),
       image: { type: 'jpeg', quality: 0.6 },
       html2canvas: {
         scale: 2,          // 1 => preserve on-screen pixel sizes exactly (no upscaling)
