@@ -396,86 +396,86 @@ export class TeamLeadsComponent implements OnInit {
 
   updateProjectStatus(dataa: any): void {
 
-  console.log(
-    '📤 Original data:',
-    dataa
-  );
+    console.log(
+      '📤 Original data:',
+      dataa
+    );
 
-  /*
-   * API ko array chahiye.
-   * Agar dataa already array hai to wahi use karo.
-   */
-  const items = Array.isArray(dataa)
-    ? dataa
-    : [dataa];
-
-
-  /*
-   * Date ko UTC ISO mein convert karo
-   */
-  const convertedItems = items.map(item => {
-
-    const updatedItem = {
-      ...item
-    };
-
-    if (updatedItem.callReminderDate) {
-
-      updatedItem.callReminderDate =
-        new Date(
-          updatedItem.callReminderDate
-        ).toISOString();
-
-      /*
-       * New reminder set hua hai,
-       * isliye reminder ko unsent mark karo.
-       */
-      updatedItem.reminderSent = false;
-    }
-
-    return updatedItem;
-  });
+    /*
+     * API ko array chahiye.
+     * Agar dataa already array hai to wahi use karo.
+     */
+    const items = Array.isArray(dataa)
+      ? dataa
+      : [dataa];
 
 
-  console.log(
-    '📤 Sending to API:',
-    convertedItems
-  );
+    /*
+     * Date ko UTC ISO mein convert karo
+     */
+    const convertedItems = items.map(item => {
 
+      const updatedItem = {
+        ...item
+      };
 
-  this.auth
-    .updateProjectStatus(convertedItems)
-    .subscribe({
+      if (updatedItem.callReminderDate) {
 
-      next: (res: any) => {
+        updatedItem.callReminderDate =
+          new Date(
+            updatedItem.callReminderDate
+          ).toISOString();
 
-        console.log(
-          '✅ Project status updated:',
-          res
-        );
-
-        this.toastr.success(
-          'Data stored successfully',
-          'Success'
-        );
-
-      },
-
-      error: (err) => {
-
-        console.error(
-          '❌ API error:',
-          err
-        );
-
-        this.toastr.error(
-          'Unable to store data',
-          'Error'
-        );
+        /*
+         * New reminder set hua hai,
+         * isliye reminder ko unsent mark karo.
+         */
+        updatedItem.reminderSent = false;
       }
 
+      return updatedItem;
     });
-}
+
+
+    console.log(
+      '📤 Sending to API:',
+      convertedItems
+    );
+
+
+    this.auth
+      .updateProjectStatus(convertedItems)
+      .subscribe({
+
+        next: (res: any) => {
+
+          console.log(
+            '✅ Project status updated:',
+            res
+          );
+
+          this.toastr.success(
+            'Data stored successfully',
+            'Success'
+          );
+
+        },
+
+        error: (err) => {
+
+          console.error(
+            '❌ API error:',
+            err
+          );
+
+          this.toastr.error(
+            'Unable to store data',
+            'Error'
+          );
+        }
+
+      });
+  }
 
   downloadRangeFile() {
     const startDateValue = this.dateRangeForm.value.startDate;

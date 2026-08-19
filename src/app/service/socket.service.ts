@@ -53,10 +53,10 @@ export class SocketService {
   private socket: Socket;
 
   // Local
-  //private socketUrl = 'http://localhost:5000';
+  private socketUrl = 'http://localhost:5000';
 
   // Production mein:
-  private socketUrl = 'https://www.login.admixmedia.in';
+  //private socketUrl = 'https://www.login.admixmedia.in';
 
   constructor() {
 
