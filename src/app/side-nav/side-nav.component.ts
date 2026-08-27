@@ -48,21 +48,21 @@ export class SideNavComponent {
     },
     {
       number: '7',
+      name: 'Leads',
+      icon: 'bi bi-box-arrow-in-up',
+      route: '/Leads'
+    },
+    {
+      number: '8',
       name: 'Add New Category',
       icon: 'bi bi-file-earmark-plus-fill',
       route: '/new-category'
     },
     {
-      number: '8',
+      number: '9',
       name: 'Get Leads',
       icon: 'bi bi-arrow-down-circle',
       route: '/facebook-leads'
-    },
-    {
-      number: '9',
-      name: 'Leads',
-      icon: 'bi bi-box-arrow-in-up',
-      route: '/Leads'
     },
     {
       number:'10',

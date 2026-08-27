@@ -13,6 +13,16 @@ tr.highlighted {
     flex-direction: row;
     justify-content: flex-end;
 }
+.highlight-completed {
+  background-color: #076f76 !important;
+}
+.table tbody tr:hover {
+    background-color: #672241;
+}
+table tbody tr.selected-row {
+    background-color: #e4a7c3 !important;
+    color: white;
+}
 .nameCard2{
     display: flex;
     justify-content: space-between;

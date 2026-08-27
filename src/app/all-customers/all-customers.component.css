@@ -14,6 +14,9 @@
 .highlight-completed {
   background-color: #076f76 !important;
 }
+.table tbody tr:hover {
+    background-color: #672241;
+}
 .searchData2 input{
     background: rgba(255,255, 255, 0.2);
     /* color: black; */
