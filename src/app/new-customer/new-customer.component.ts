@@ -177,7 +177,11 @@ export class NewCustomerComponent implements OnInit {
     graphicsCount: new FormControl(0),
     videosCount: new FormControl(0),
     reelsCount: new FormControl(0),
-    leadType: new FormControl("")
+    leadType: new FormControl(""),
+    website: new FormControl("", [Validators.required]),
+    websiteName: new FormControl(""),
+    googleProfile: new FormControl("", [Validators.required]),
+    ecomm: new FormControl("", [Validators.required])
   });
 
   b2bCustomerForm = new FormGroup({

@@ -132,6 +132,56 @@ form .user-details .input-box{
 ::placeholder{
     color: #a6a3a3;
 }
+
+/* Website Radio Group */
+.form-group-radio {
+    position: relative;
+    border: 0;
+    padding: .375rem .75rem;
+    color: white;
+}
+
+.form-group-radio input.form-radio {
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0;
+    padding: 0;
+    accent-color: #6c5ce7;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* Yes / No text */
+.form-group-radio input.form-radio + label {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+/* Agar label nahi hai aur direct Yes/No text hai */
+.form-group-radio input.form-radio {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.form-group-radio input.form-radio ~ span {
+    color: #fff;
+}
+
+/* Radio ke beech spacing */
+.form-group-radio input.form-radio + label {
+    margin-right: 25px;
+}
+
+/* Validation error */
+.form-group-radio .text-danger {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #ff4d6d !important;
+}
+
 @media only screen and (max-width:550px){
     .new-customer form .user-details{
         display: block;

@@ -315,6 +315,42 @@
                         </div>
                     </div>
                     <div class="input-box">
+                        <div class="form-group-radio">
+                            <span class="details">Has Website:</span>
+                            <input type="radio" name="website" value="Yes" class="form-radio" formControlName="website" [ngClass]="{error: getControls('website')?.errors && getControls('website')?.touched}"/> Yes
+                            <input type="radio" name="website" value="No" class="form-radio" formControlName="website" [ngClass]="{error: getControls('website')?.errors && getControls('website')?.touched}"/> No
+                            <div *ngIf="getControls('website')?.errors">
+                                <label class="text-danger" *ngIf="getControls('website')?.errors?.['required']">Selection Required</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box" *ngIf="updateForm.get('website')?.value === 'Yes'">
+                        <div class="form-group">
+                            <span class="details"> Website Domain:</span>
+                            <input type="text" class="form-control" formControlName="websiteName" placeHolder="Enter Domain">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group-radio">
+                            <span class="details">Google Business Profile</span>
+                            <input type="radio" name="gooogleProfile" value="Yes" class="form-radio" formControlName="googleProfile" [ngClass]="{error: getControls('googleProfile')?.errors && getControls('googleProfile')?.touched}"/> Yes
+                            <input type="radio" name="googleProfile" value="No" class="form-radio" formControlName="googleProfile" [ngClass]="{error: getControls('googleProfile')?.errors && getControls('googleProfile')?.touched}"/> No
+                            <div *ngIf="getControls('googleProfile')?.errors">
+                                <label class="text-danger" *ngIf="getControls('googleProfile')?.errors?.['required']">Selection Required</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="form-group-radio">
+                            <span class="details">Available on E-commerce Plateform:</span>
+                            <input type="radio" name="ecomm" value="Yes" class="form-radio" formControlName="ecomm" [ngClass]="{error: getControls('ecomm')?.errors && getControls('ecomm')?.touched}"> Yes
+                            <input type="radio" name="ecom" value="No" class="form-radio" formControlName="ecomm" [ngClass]="{error: getControls('ecomm')?.errors && getControls('ecomm')?.touched}"> No
+                            <div *ngIf="getControls('ecomm')?.errors">
+                                <label class="text-danger" *ngIf="getControls('ecomm')?.errors?.['required']">Selection Required</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Country: </span>
                             <select formControlName="custCountry" (change)="onCountryChange()"
