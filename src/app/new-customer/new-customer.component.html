@@ -60,17 +60,11 @@
                             <div *ngIf="getControls('custName')?.errors && getControls('custName')?.touched">
                                 <label class="text-danger" *ngIf="getControls('custName')?.errors?.['required']"> Name is Required </label>
                             </div>
-                            <div
-  *ngIf="
-    customerForm.get('custName')?.hasError('invalidClientName') &&
-    customerForm.get('custName')?.touched
-  "
-  class="text-danger"
->
-  Please enter a valid client/business name.
-</div>
+                            <div *ngIf="customerForm.get('custName')?.hasError('invalidClientName') && customerForm.get('custName')?.touched" class="text-danger">
+                                Please enter a valid client/business name.
+                            </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Customer Number: </span>
@@ -167,7 +161,7 @@
                     </div>
                     <div class="input-box">
                         <div class="form-group">
-                            <span class="details"> Advance Payment: </span>
+                            <span class="details"> Advance Payment: </span> 
                             <input type="number" class="form-control" formControlName="AdvPay"
                                 [ngClass]="{error:getControls('AdvPay')?.errors && getControls('AdvPay')?.touched}"
                                 placeholder="Enter Received Payment">

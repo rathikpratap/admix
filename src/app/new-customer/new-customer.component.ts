@@ -159,6 +159,11 @@ export class NewCustomerComponent implements OnInit {
     closingCateg: new FormControl("null", [Validators.required]),
     billType: new FormControl("null", [Validators.required]),
     AdvPay: new FormControl("", [Validators.required]),
+    //new
+    advInvoiceCreated: new FormControl(false),
+    advInvoiceNumber: new FormControl(''),
+    advInvoiceDate: new FormControl(''),
+
     remainingAmount: new FormControl("", [Validators.required]),
     restAmount: new FormControl(""),
     customerType: new FormControl("", [Validators.required]),
@@ -227,14 +232,14 @@ export class NewCustomerComponent implements OnInit {
   }
 
   addCust() {
-     if (this.customerForm.invalid) {
-    this.customerForm.markAllAsTouched();
-    this.toastr.error(
-      'Please enter valid customer details',
-      'Validation Error'
-    );
-    return;
-  }
+    if (this.customerForm.invalid) {
+      this.customerForm.markAllAsTouched();
+      this.toastr.error(
+        'Please enter valid customer details',
+        'Validation Error'
+      );
+      return;
+    }
 
     const currentDate = new Date().toISOString();
     this.customerForm.get('graphicPassDate')!.setValue(currentDate);
@@ -458,6 +463,9 @@ export class NewCustomerComponent implements OnInit {
       }
     });
   }
+
+  //new
+  
 }
 export const clientNameValidator: ValidatorFn = (
   control: AbstractControl
@@ -490,10 +498,10 @@ export const clientNameValidator: ValidatorFn = (
   // );
   const normalizedValue = lowerValue.replace(/\s+/g, '');
 
-const hasRestrictedWord = restrictedWords.some(word => {
-  const normalizedWord = word.replace(/\s+/g, '');
-  return normalizedValue.includes(normalizedWord);
-});
+  const hasRestrictedWord = restrictedWords.some(word => {
+    const normalizedWord = word.replace(/\s+/g, '');
+    return normalizedValue.includes(normalizedWord);
+  });
 
   if (hasRestrictedWord) {
     return { invalidClientName: true };

@@ -246,7 +246,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Rest Payment: </span>
                             <input type="number" class="form-control" formControlName="restAmount"
@@ -263,6 +263,45 @@
                             <div *ngIf="getControls('restPaymentDate')?.errors">
                                 <label class="text-danger" *ngIf="getControls('restPaymentDate')?.errors?.['required']">
                                     Rest Payment Date is Required</label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="rest-payments-section">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="details">Rest Payments</span>
+                                <button type="button" class="btn btn-sm btn-primary rest-pay" (click)="addRestPayment()">+ Add Rest Payment</button>
+                            </div>
+                            <div formArrayName="restPayments">
+                                <div *ngFor="let payment of restPayments.controls; let i = index" [formGroupName]="i" class="border rounded p-3 mb-2">
+                                    <div class="row align-items-end">
+                                        <div class="col-md-5">
+                                            <label class="details">Rest Amount {{ i + 1}}</label>
+                                            <input type="number" class="form-control" formControlName="amount" min="0" placeholder="Enter Rest Amount">
+                                            <small class="text-danger" *ngIf="payment.get('amount')?.invalid && payment.get('amount')?.touched">Rest Amount is Required</small>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="details">Rest Payment Date {{ i + 1}}</label>
+                                            <input type="date" class="form-control" formControlName="date">
+                                            <small class="text-danger" *ngIf="payment.get('date')?.invalid && payment.get('date')?.touched">Rest Payment Date is Required</small>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-success w-100 mb-2" [disabled]="payment.get('invoiceCreated')?.value" (click)="createRestPaymentInvoice(i)">{{
+                                                payment.get('invoiceCreated')?.value ? 'Invoice Created' : 'Create Invoice'}}</button>
+                                            <button type="button" class="btn btn-danger w-100" [disabled]="payment.get('invoiceCreated')?.value" (click)="removeRestPayment(i)">Remove</button>
+                                        </div>
+                                        <div *ngIf="payment.get('invoiceCreated')?.value">
+                                                    <small class="invoiceData">
+                                                        Invoice No: {{payment.get('invoiceNumber')?.value}}
+                                                    </small>
+                                                    <br>
+                                                    <small class="invoiceData">
+                                                        Invoice Date: {{ payment.get('invoiceDate')?.value}}
+                                                    </small>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="restPayments.length === 0" class="text-muted mt-2">No Rest Payment added.</div>
                             </div>
                         </div>
                     </div>
@@ -287,7 +326,7 @@
                     <div class="input-box">
                         <div class="form-group">
                             <span class="details"> Remaining Amount: </span>
-                            <input type="number" class="form-control" formControlName="remainingAmount"
+                            <input type="number" class="form-control" formControlName="remainingAmount" readOnly 
                                 [ngClass]="{error:getControls('remainingAmount')?.errors && getControls('remainingAmount')?.touched}"
                                 placeholder="Remaining Amount">
                             <div

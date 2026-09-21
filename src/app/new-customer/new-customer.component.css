@@ -181,6 +181,40 @@ form .user-details .input-box{
     font-size: 12px;
     color: #ff4d6d !important;
 }
+.advance-invoice-box {
+  margin-top: 10px;
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.advance-invoice-btn {
+  width: 100%;
+  min-height: 45px;
+  font-size: 17px;
+}
+
+.advance-invoice-info {
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 4px 0;
+  overflow-wrap: anywhere;
+}
+
+.advance-remove-btn {
+  width: 100%;
+}
+
+.advance-invoice-btn:disabled,
+.advance-remove-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 
 @media only screen and (max-width:550px){
     .new-customer form .user-details{

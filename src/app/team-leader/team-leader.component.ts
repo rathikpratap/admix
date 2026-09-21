@@ -50,7 +50,7 @@ export class TeamLeaderComponent implements OnInit {
   allClosings: any;
   closingData: any;
   cloDatat: any;
-  salesEmp: any;
+  salesEmp: any; 
   salesPerson_name: any;
   empData: any;
   combineTwo: any;

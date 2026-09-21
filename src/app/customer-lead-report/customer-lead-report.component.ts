@@ -15,12 +15,16 @@ export class CustomerLeadReportComponent implements OnInit {
   customers: any[] = [];
   transferName: any;
   errorMessage: any;
+  salesEmp: any;
 
   dateRangeForm = new FormGroup({
     startDate: new FormControl(""),
     endDate: new FormControl("")
   });
   rangeData: any;
+  salesForm = new FormGroup({
+    salesperson_name: new FormControl("null")
+  });
 
   ngOnInit() {
     console.log('CHECK STATUS');
@@ -42,6 +46,13 @@ export class CustomerLeadReportComponent implements OnInit {
     });
     this.searchForm = this.formBuilder.group({
       mobile: ['']
+    });
+    this.auth.allEmployee().subscribe((res: any) => {
+      if (Array.isArray(res)) {
+        this.salesEmp = res.filter((empS: any) => empS.signupRole && empS.signupRole.includes('Sales Team'));
+      } else {
+        console.error("Unexpected response format:", res);
+      }
     });
   }
 

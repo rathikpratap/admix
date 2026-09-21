@@ -44,6 +44,11 @@ export class MainInvoiceComponent implements OnInit {
   billFormat: any;
   afterDiscountTotal: number = 0;
   isGeneratingPdf = false;
+  //new
+  restPaymentIndex: number | null = null;
+  restPaymentAmount: number = 0;
+  restPaymentDate: string = '';
+  isRestPaymentInvoice: boolean = false;
 
   invoiceForm = new FormGroup({
     billType: new FormControl("GST"),
@@ -113,10 +118,114 @@ export class MainInvoiceComponent implements OnInit {
       this.Category = res;
     });
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+    //new
+    const restPaymentIndexParam = this.activatedRoute.snapshot.queryParamMap.get('restPaymentIndex');
+    if (restPaymentIndexParam !== null) {
+      this.restPaymentIndex = Number(restPaymentIndexParam);
+      if (!Number.isNaN(this.restPaymentIndex) && this.restPaymentIndex >= 0) {
+        this.isRestPaymentInvoice = true;
+      } else {
+        this.restPaymentIndex = null;
+        this.isRestPaymentInvoice = false;
+      }
+    }
+
     this.auth.getCustomer(this.getId).subscribe((res: any) => {
       this.name = res.custName;
       this.number = res.custNumb;
       this.QrCheck = res.Qr;
+      //new
+      // if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+      //   const payments = Array.isArray(res.restPayments) ? res.restPayments : [];
+      //   const payment = payments[this.restPaymentIndex];
+      //   if (!payment) {
+      //     Swal.fire({
+      //       title: 'Payment Not Found',
+      //       text: 'Selected rest payment does not exist.',
+      //       icon: 'error'
+      //     }).then(() => {
+      //       this.location.back();
+      //     });
+
+      //     return;
+      //   }
+      //   //Already invoiced check
+      //   if (payment.invoiceCreated === true) {
+      //     Swal.fire({
+      //       title: 'Invoice Already Created',
+      //       text: payment.invoiceNumber ? `Invoice ${payment.invoiceNumber} has already been created for this payment.` : 'Invoice has already been created for this payment.',
+      //       icon: 'info'
+      //     }).then(() => {
+      //       this.location.back();
+      //     });
+      //     return;
+      //   }
+      //   this.restPaymentAmount = Number(payment.amount || 0);
+      //   this.restPaymentDate = payment.date ? this.formatInputDate(payment.date) : '';
+
+      //   this.invoiceForm.get('totalAmount')?.setValue(this.restPaymentAmount);
+      //   console.log('Rest Payment Invoice:', {
+      //     index: this.restPaymentIndex,
+      //     amount: this.restPaymentAmount,
+      //     date: this.restPaymentDate
+      //   });
+      // }
+      if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+        const draftKey = `customerUpdateDraft_${this.getId}`;
+        const savedDraft = sessionStorage.getItem(draftKey);
+
+        let draftData: any = null;
+
+        if (savedDraft) {
+          try {
+            draftData = JSON.parse(savedDraft);
+          } catch (error) {
+            console.error('Invalid customer draft:', error);
+          }
+        }
+
+        let payments: any[] = [];
+
+        if (draftData && Array.isArray(draftData.restPayments)) {
+          payments = draftData.restPayments;
+        } else if (Array.isArray(draftData.restPayments)) {
+          payments = draftData.restPayments;
+        } else if (Array.isArray(res.restPayments)) {
+          payments = res.restPayments;
+        }
+
+        const payment = payments[this.restPaymentIndex];
+
+        if (!payment) {
+          Swal.fire({
+            title: 'Payment Not Found',
+            text: 'Selected rest payment does not exist.',
+            icon: 'error'
+          }).then(() => {
+            this.location.back();
+          });
+          return;
+        }
+        //Already invoiced check
+        if (payment.invoiceCreated === true) {
+          Swal.fire({
+            title: 'Invoice Already Created',
+            text: payment.invoiceNumber ? `Invoice ${payment.invoiceNumber} has already been created for this payment.` : 'Invoice has already been created for this payment.',
+            icon: 'info'
+          }).then(() => {
+            this.location.back();
+          });
+          return;
+        }
+        this.restPaymentAmount = Number(payment.amount || 0);
+        this.restPaymentDate = payment.date ? this.formatInputDate(payment.date) : '';
+        this.invoiceForm.get('totalAmount')?.setValue(this.restPaymentAmount);
+
+        console.log('Rest Payment Invoice: ', {
+          index: this.restPaymentIndex, amount: this.restPaymentAmount, date: this.restPaymentDate, source: draftData ? 'Unsaved Draft' : 'Database'
+        });
+      }
+
       const state = res.custState;
       this.invoiceForm.get('state')?.setValue(state);
       if (state === 'UP') {
@@ -312,48 +421,26 @@ export class MainInvoiceComponent implements OnInit {
         amt: row.get('amt')?.value || 0
       };
     });
-    // let invoiceNumb = '';
-
-    // if (this.invoiceForm.get('billFormat')?.value === 'Main' && this.invoiceForm.get('billType')?.value === 'GST') {
-    //   invoiceNumb = `ADMIX-${this.financialYear}/${this.count}`;
-    // } else {
-    //   invoiceNumb = `ADM-${this.financialYear}/${this.countNonGST}`;
-    // }
-
-    // this.invoiceForm.get('invoiceDate')?.setValue(this.date);
     this.invoiceForm.get('GSTAmount')?.setValue(this.gstAmount || 0);
     this.invoiceForm.get('totalAmount')?.setValue(this.totalAmount || 0);
 
-    // this.invoiceForm.get('billNumber')?.setValue(110+this.count);
-    // if (this.billFormat === 'Main') {
-    //   this.invoiceForm.get('billNumber')?.setValue(this.count);
-    // } else {
-    //   this.invoiceForm.get('billNumber')?.setValue(this.countNonGST);
-    // }
-
     this.invoiceForm.get('rows')?.setValue(rowsData);
-    // this.invoiceForm.get('invoiceNumb')?.setValue(invoiceNumb);
 
-    // BEFORE building combinedData: read DOM directly for any contenteditable elements
     const noteText = this.invoiceForm.get('noteText')?.value || '';
     const noteHtml = (() => {
       const ta = document.querySelector('.bottom-txt') as HTMLTextAreaElement;
       return ta ? ta.value : noteText;
     })();
 
-    // Terms (prefer DOM value, fallback to form control)
     const termsEl = document.querySelector('.editable-terms') as HTMLElement | null;
     const termsHtml = termsEl ? termsEl.innerHTML : (this.invoiceForm.get('termsHtml')?.value || '');
 
-    // Payment terms list: if you want raw html
     const paymentTermsEl = document.querySelector('.editable-payment-terms') as HTMLElement | null;
     const paymentTermsHtml = paymentTermsEl ? paymentTermsEl.innerHTML : (this.invoiceForm.get('paymentTermsHtml')?.value || '');
 
-    // Additional notes
     const additionalNotesEl = document.querySelector('.editable-additional-notes') as HTMLElement | null;
     const additionalNotesHtml = additionalNotesEl ? additionalNotesEl.innerHTML : (this.invoiceForm.get('additionalNotesHtml')?.value || '');
 
-    // Also extract list items as string arrays (structured)
     const extractList = (el: Element | null) => {
       if (!el) return [] as string[];
       return Array.from(el.querySelectorAll('li')).map(li => (li.textContent || '').trim()).filter(s => s.length > 0);
@@ -382,178 +469,234 @@ export class MainInvoiceComponent implements OnInit {
 
     const invoiceData = this.invoiceForm.value;
     const custData = this.custForm.value;
-    const combinedData = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId, QrCheck: this.QrCheck };
+    const combinedData: any = { ...custData, ...invoiceData, financialYear: this.financialYear, customerId: this.getId, QrCheck: this.QrCheck };
 
-    // this.auth.addEstInvoice(combinedData).subscribe((res: any) => {
-    //   if (res.success) {
-    //     const savedInvoice = res.invoice;
-    //     if (savedInvoice) {
-    //       this.invoiceForm.patchValue({
-    //         billNumber: savedInvoice.billNumber,
-    //         invoiceNumber: savedInvoice.invoiceNumber?.[0]?.InvoiceNo || ''
-    //       });
-    //     }
+    //new
+    if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+      combinedData.isRestPaymentInvoice = true;
+      combinedData.restPaymentIndex = this.restPaymentIndex;
+      combinedData.restPaymentAmount = this.restPaymentAmount;
+      combinedData.restPaymentDate = this.restPaymentDate;
 
-    //     this.toastr.success('Invoice saved successfully', 'Success');
-    //     // this.generatePdf();
-    //     setTimeout(() => this.generatePdf(), 0);
-    //   } else if (res.sameDateExists) {
-    //     Swal.fire({
-    //       title: 'Invoice Exists on Same Date',
-    //       text: res.message,
-    //       icon: 'warning',
-    //       showCancelButton: true,
-    //       confirmButtonText: 'Yes, Update it',
-    //       cancelButtonText: 'No, Cancel'
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.auth.addEstInvoice({ ...combinedData, allowUpdate: true }).subscribe((res: any) => {
-    //           if (res.success) {
-    //             const savedInvoice = res.invoice;
-    //             if (savedInvoice) {
-    //               this.invoiceForm.patchValue({
-    //                 billNumber: savedInvoice.billNumber,
-    //                 invoiceNumber: savedInvoice.invoiceNumb
-    //               });
-    //             }
-    //             this.toastr.success('Invoice Updated Successfully', 'Success');
-    //             // this.generatePdf();
-    //             setTimeout(() => this.generatePdf(), 0);
-    //           } else {
-    //             this.toastr.error('Update Failed', 'Error');
-    //           }
-    //         });
-    //       }
-    //     });
-    //   } else if (res.differentDateExists) {
-    //     Swal.fire({
-    //       title: 'Invoice Already Exists This Month',
-    //       text: res.message,
-    //       icon: 'info',
-    //       showCancelButton: true,
-    //       confirmButtonText: 'Yes, Save New Entry',
-    //       cancelButtonText: 'No, Cancel'
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.auth.addEstInvoice({ ...combinedData, allowNewDateEntry: true }).subscribe((res: any) => {
-    //           if (res.success) {
-    //             const savedInvoice = res.invoice;
-    //             if (savedInvoice) {
-    //               this.invoiceForm.patchValue({
-    //                 billNumber: savedInvoice.billNumber,
-    //                 invoiceNumber: savedInvoice.invoiceNumb
-    //               });
-    //             }
-    //             this.toastr.success('New Invoice Saved Successfully', 'Success');
-    //             // this.generatePdf();
-    //             setTimeout(() => this.generatePdf(), 0);
-    //           } else {
-    //             this.toastr.error('Failed to Save New Invoice', 'Error');
-    //           }
-    //         });
-    //       }
-    //     });
-    //   } else {
-    //     this.toastr.error('Unknown error occurred', 'Error');
-    //   }
-    // });
+      combinedData.totalAmount = this.restPaymentAmount;
+
+      if (this.invoiceForm.get('billType')?.value === 'GST') {
+        const gst = this.restPaymentAmount * 0.18;
+        combinedData.GSTAmount = Number(gst.toFixed(2));
+      } else {
+        combinedData.GSTAmount = 0;
+      }
+    }
 
     this.auth.addInvoice(combinedData).subscribe((res: any) => {
 
-  if (res.success) {
-    this.handleSuccess(res.invoice, 'Invoice saved successfully');
+      if (res.success) {
+        // if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+        //   this.markRestPaymentInvoiceCreated(this.restPaymentIndex, res.invoice);
+        // } else {
+        //   this.handleSuccess(res.invoice, 'Invoice saved successfully');
+        // }
+        this.handleSuccess(res.invoice, this.isRestPaymentInvoice ? 'Rest Payment Invoice Created Successfully' : 'Invoice Saved Successfully');
 
-  } else if (res.sameDateExists) {
+        //  this.handleSuccess(res.invoice, 'Invoice saved successfully');
+      } else if (res.sameDateExists) {
 
-    Swal.fire({
-      title: 'Invoice Exists on Same Date',
-      text: res.message,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, Update it',
-      cancelButtonText: 'No, Cancel'
-    }).then((result) => {
+        Swal.fire({
+          title: 'Invoice Exists on Same Date',
+          text: res.message,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, Update it',
+          cancelButtonText: 'No, Cancel'
+        }).then((result) => {
 
-      if (result.isConfirmed) {
+          if (result.isConfirmed) {
 
-        this.auth.addInvoice({
-          ...combinedData,
-          allowUpdate: true
-        }).subscribe((res: any) => {
+            this.auth.addInvoice({
+              ...combinedData,
+              allowUpdate: true
+            }).subscribe((res: any) => {
 
-          if (res.success) {
-            this.handleSuccess(res.invoice, 'Invoice Updated Successfully');
-          } else {
-            this.toastr.error('Update Failed', 'Error');
+              // if (res.success) {
+              //   if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+              //     this.markRestPaymentInvoiceCreated(this.restPaymentIndex, res.invoice);
+              //   } else {
+              //     this.handleSuccess(res.invoice, 'Invoice Updated Successfully');
+              //   }
+              //   // this.handleSuccess(res.invoice, 'Invoice Updated Successfully');
+              // } else {
+              //   this.toastr.error('Update Failed', 'Error');
+              // }
+              if (res.success) {
+                this.handleSuccess(res.invoice, this.isRestPaymentInvoice ? 'Rest Payment Invoice Created Successfully' : 'Invoice Updated Successfully');
+              }
+
+            });
+
           }
-
         });
 
-      }
-    });
+      } else if (res.differentDateExists) {
 
-  } else if (res.differentDateExists) {
+        Swal.fire({
+          title: 'Invoice Already Exists This Month',
+          text: res.message,
+          icon: 'info',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, Save New Entry',
+          cancelButtonText: 'No, Cancel'
+        }).then((result) => {
 
-    Swal.fire({
-      title: 'Invoice Already Exists This Month',
-      text: res.message,
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, Save New Entry',
-      cancelButtonText: 'No, Cancel'
-    }).then((result) => {
+          if (result.isConfirmed) {
 
-      if (result.isConfirmed) {
+            this.auth.addInvoice({
+              ...combinedData,
+              allowNewDateEntry: true
+            }).subscribe((res: any) => {
 
-        this.auth.addInvoice({
-          ...combinedData,
-          allowNewDateEntry: true
-        }).subscribe((res: any) => {
-
-          if (res.success) {
-            this.handleSuccess(res.invoice, 'New Invoice Saved Successfully');
-          } else {
-            this.toastr.error('Failed to Save New Invoice', 'Error');
+              if (res.success) {
+                // if (this.isRestPaymentInvoice && this.restPaymentIndex !== null) {
+                //   this.markRestPaymentInvoiceCreated(this.restPaymentIndex, res.invoice);
+                // } else {
+                //   this.handleSuccess(res.invoice, 'New Invoice Saved Successfully');
+                // }
+                this.handleSuccess(res.invoice, this.isRestPaymentInvoice ? 'Rest Payment Invoice Created Successfully' : 'New Invoice Updated Successfully');
+                // this.handleSuccess(res.invoice, 'New Invoice Saved Successfully');
+              } else {
+                this.toastr.error('Failed to Save New Invoice', 'Error');
+              }
+            });
           }
-
         });
-
+      } else {
+        this.toastr.error('Unknown error occurred', 'Error');
       }
     });
-
-  } else {
-    this.toastr.error('Unknown error occurred', 'Error');
   }
 
-});
-  }
+  //new
+  // markRestPaymentInvoiceCreated(
+  //   index: number,
+  //   savedInvoice: any
+  // ): void {
+
+  //   let invoiceNo = '';
+
+  //   // Main invoice number
+  //   if (savedInvoice?.invoiceNumber?.length) {
+
+  //     invoiceNo =
+  //       savedInvoice.invoiceNumber[0]?.InvoiceNo || '';
+  //   }
+
+  //   // Estimate fallback
+  //   else if (savedInvoice?.quotationNumber) {
+
+  //     invoiceNo = savedInvoice.quotationNumber;
+  //   }
+
+  //   const invoiceDate =
+  //     this.invoiceForm.get('invoiceDate')?.value ||
+  //     new Date().toISOString().substring(0, 10);
+
+  //   const updateData = {
+  //     restPaymentIndex: index,
+
+  //     restPaymentInvoiceCreated: true,
+
+  //     restPaymentInvoiceNumber: invoiceNo,
+
+  //     restPaymentInvoiceDate: invoiceDate
+  //   };
+
+  //   console.log(
+  //     'Updating Rest Payment Invoice Status:',
+  //     updateData
+  //   );
+
+  //   this.auth
+  //     .updateRestPaymentInvoice(
+  //       this.getId,
+  //       updateData
+  //     )
+  //     .subscribe({
+
+  //       next: (res: any) => {
+
+  //         console.log(
+  //           'Rest payment invoice status updated:',
+  //           res
+  //         );
+
+  //         if (res?.success) {
+
+  //           this.handleSuccess(
+  //             savedInvoice,
+  //             'Rest Payment Invoice Created Successfully'
+  //           );
+
+  //         } else {
+
+  //           Swal.fire({
+  //             title: 'Invoice Created',
+  //             text: 'Invoice was created, but payment invoice status could not be updated.',
+  //             icon: 'warning'
+  //           });
+
+  //           this.handleSuccess(
+  //             savedInvoice,
+  //             'Invoice saved successfully'
+  //           );
+  //         }
+  //       },
+
+  //       error: (error) => {
+
+  //         console.error(
+  //           'Error updating rest payment invoice:',
+  //           error
+  //         );
+
+  //         Swal.fire({
+  //           title: 'Invoice Created',
+  //           text: 'Invoice was created, but rest payment status could not be updated.',
+  //           icon: 'warning'
+  //         });
+
+  //         this.handleSuccess(
+  //           savedInvoice,
+  //           'Invoice saved successfully'
+  //         );
+  //       }
+  //     });
+  // }
 
   private handleSuccess(savedInvoice: any, message: string) {
 
-  let invoiceNo = '';
+    let invoiceNo = '';
 
-  // ✅ MAIN invoice (GST / Non-GST)
-  if (savedInvoice?.invoiceNumber?.length) {
-    invoiceNo = savedInvoice.invoiceNumber[0].InvoiceNo;
+    // ✅ MAIN invoice (GST / Non-GST)
+    if (savedInvoice?.invoiceNumber?.length) {
+      invoiceNo = savedInvoice.invoiceNumber[0].InvoiceNo;
+    }
+
+    // ✅ ESTIMATE
+    else if (savedInvoice?.quotationNumber) {
+      invoiceNo = savedInvoice.quotationNumber;
+    }
+
+    this.invoiceForm.patchValue({
+      billNumber: savedInvoice.billNumber,
+      invoiceNumber: invoiceNo
+    });
+
+    this.toastr.success(message, 'Success');
+
+    // 🔥 IMPORTANT: force UI update before PDF
+    this.cd.detectChanges();
+
+    this.generatePdf();
   }
-
-  // ✅ ESTIMATE
-  else if (savedInvoice?.quotationNumber) {
-    invoiceNo = savedInvoice.quotationNumber;
-  }
-
-  this.invoiceForm.patchValue({
-    billNumber: savedInvoice.billNumber,
-    invoiceNumber: invoiceNo
-  });
-
-  this.toastr.success(message, 'Success');
-
-  // 🔥 IMPORTANT: force UI update before PDF
-  this.cd.detectChanges();
-
-  this.generatePdf();
-}
 
   generatePdf() {
     const invoiceElement = document.getElementById('invoice');
@@ -613,6 +756,10 @@ export class MainInvoiceComponent implements OnInit {
         if (addPdfPadding) {
           invoiceElement.style.paddingTop = prevPaddingTop;
           invoiceElement.style.paddingBottom = prevPaddingBottom;
+        }
+        if(this.isRestPaymentInvoice){
+          // sessionStorage.removeItem( `customerUpdateDraft_${this.getId}`);
+          this.location.back();
         }
       })
       .catch((err: any) => {
@@ -689,7 +836,7 @@ export class MainInvoiceComponent implements OnInit {
   }
   isAdvertisementVideoVisible(): boolean {
     // Agar koi row in categories me se select kare to Model Availability wala li HIDE karna hai
-    const hideCategories = ['Advertisement Video','AI Videos', 'Other'];
+    const hideCategories = ['Advertisement Video', 'AI Videos', 'Other'];
     // rows FormArray ko read karke check karte hain
     const formArray = this.rows; // getter already defined in your class
     for (let i = 0; i < formArray.length; i++) {
@@ -861,4 +1008,17 @@ export class MainInvoiceComponent implements OnInit {
       (row: any) => row.get('invoiceCateg')?.value === 'Package'
     );
   }
-} 
+  formatInputDate(date: any): string {
+    if (!date) {
+      return '';
+    }
+    const d = new Date(date);
+    if (Number.isNaN(d.getTime())) {
+      return '';
+    }
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+}

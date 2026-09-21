@@ -80,7 +80,17 @@
                             <th scope="col">Lead Date</th>
                             <th scope="col">Lead Source</th>
                             <th scope="col">Tag</th>
-                            <th scope="col">SalesPerson</th>
+                            <th scope="col">
+                                <form [formGroup]="salesForm">
+                                    <select class="form-select closing_categ-right" formControlName="salesperson_name"
+                                        aria-label="Default select example">
+                                        <option value="null">Sales Person</option>
+                                        <option *ngFor="let empS of salesEmp" value="{{empS.signupUsername}}">
+                                            {{empS.signupUsername}}
+                                        </option>
+                                    </select>
+                                </form>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,4 +144,4 @@
             </table>
         </div>
     </div>
-</div>
+</div> 

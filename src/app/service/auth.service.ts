@@ -451,6 +451,11 @@ export class AuthService {
     return this.http.get(`${appConfig.apiUrl}/auth/profile`, { headers: headers })
   }
 
+  //new
+  updateRestPaymentInvoice( customerId: string, data: any) {
+    return this.http.put(`${appConfig.apiUrl}/auth/update-rest-payment-invoice/${customerId}`, data);
+  }
+
   updateCustomer(id: any, data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
