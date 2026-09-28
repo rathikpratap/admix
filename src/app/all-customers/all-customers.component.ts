@@ -222,5 +222,29 @@ export class AllCustomersComponent {
       this.toastr.success("Transferred successfully", "Success");
     });
   }
+  getTotalRestAmount(user: any): number {
+    if (user?.restPayments?.length) {
+      return user.restPayments.reduce(
+        (sum: number, payment: any) => {
+          return sum + Number(payment?.amount || 0);
+        },
+        0
+      );
+    }
 
+    return Number(user?.restAmount || 0);
+  }
+
+  getSubTotalRestAmount(sub: any): number {
+    if (sub?.restPayments?.length) {
+      return sub.restPayments.reduce(
+        (sum: number, payment: any) => {
+          return sum + Number(payment?.amount || 0);
+        },
+        0
+      );
+    }
+
+    return Number(sub?.restAmount || 0);
+  }
 }
