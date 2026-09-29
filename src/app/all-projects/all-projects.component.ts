@@ -247,19 +247,6 @@ export class AllProjectsComponent implements OnInit {
     this.auth.sendNotifications([selectedEmployee], [sub], msgTitle, msgBody, currentDate).subscribe();
   }
 
-
-  // searchCustomer() {
-  //   const mobile = this.searchForm.get('mobile')!.value;
-  //   this.auth.searchCustomerbyMobile(mobile).subscribe((customers: any) => {
-  //     this.customers = customers;
-  //     this.errorMessage = null;
-  //   },
-  //     error => {
-  //       this.customers = [];
-  //       this.errorMessage = error.message;
-  //     });
-  // }
-
   uploadFile(event: any) {
     this.selectedFile = event.target.files[0];
   }
@@ -347,5 +334,18 @@ export class AllProjectsComponent implements OnInit {
         this.toastr.error("Failed to update points", "Error");
         console.log("POINT Error====>>", err);
       })
+  }
+  getTotalReceived(user: any): number {
+    const advance = Number(user?.AdvPay || 0);
+
+    const rest = user?.restPayments?.length
+      ? user.restPayments.reduce(
+        (sum: number, payment: any) =>
+          sum + Number(payment?.amount || 0),
+        0
+      )
+      : Number(user?.restAmount || 0);
+
+    return advance + rest;
   }
 }
