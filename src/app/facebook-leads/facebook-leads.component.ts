@@ -14,6 +14,8 @@ export class FacebookLeadsComponent {
   emp: any;
   rangeData: any;
   tok: any;
+  Category: any;
+  rangeDataCateg: any;
 
   statusList: string[] = [
     "Exclude Closing", "Closing", "Demo Sent", "Contacted",
@@ -21,6 +23,7 @@ export class FacebookLeadsComponent {
   ];
 
   selectedStatus: string[] = [];
+  selectedCateg: string[] =[];
 
   // filters display ke liye
   lastStartDate!: Date | null;
@@ -30,6 +33,12 @@ export class FacebookLeadsComponent {
     status: new FormControl<string[]>([] as string[]),
     startDate: new FormControl(""),
     endDate: new FormControl("")
+  });
+  dateRangeFormCategory = new FormGroup({
+    startDate: new FormControl(""),
+    endDate: new FormControl(""),
+    closingCateg: new FormControl<string[]>([] as string[]),
+
   });
 
 
@@ -52,6 +61,9 @@ export class FacebookLeadsComponent {
     this.auth.allEmployee().subscribe((res: any) => {
       this.emp = res;
     });
+    this.auth.getCategory().subscribe((category: any) => {
+      this.Category = category;
+    })
   }
 
   onStatusCheckboxChange(event: any, status: string) {
@@ -120,6 +132,43 @@ export class FacebookLeadsComponent {
         console.log("Data by Date Range & Status===>>", rangeData.rangeTotalData);
         this.rangeData = rangeData.rangeTotalData;
       });
+    }
+  }
+  onDateCategory(){
+    const formValueCateg = this.dateRangeFormCategory.value;
+
+    const startDateValue = formValueCateg.startDate;
+    const endDateValue = formValueCateg.endDate;
+    const categValue = formValueCateg.closingCateg || [];
+
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.lastStartDate = startDate;
+      this.lastEndDate = endDate;
+      this.selectedCateg = categValue;
+
+      this.auth.getCategbyRangeEx(startDate, endDate, categValue).subscribe((res: any) => {
+        this.rangeDataCateg = res.rangeDataCateg || [];
+      })
+    }
+  }
+
+  downloadRangeFileCateg(){
+    const startDateValue = this.dateRangeForm.value.startDate;
+    const endDateValue = this.dateRangeForm.value.endDate;
+    const categValue = this.dateRangeForm.value.status || [];
+
+    const startDate = startDateValue ? new Date(startDateValue) : null;
+    const endDate = endDateValue ? new Date(endDateValue) : null;
+
+    if(startDate && endDate){
+      this.lastStartDate = startDate;
+      this.lastEndDate = endDate;
+      this.selectedCateg = categValue;
+
+      this.auth.downloadRangeFileCategEx(startDate, endDate, categValue);
     }
   }
 

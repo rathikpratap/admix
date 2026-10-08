@@ -172,8 +172,7 @@
                             <ul>
                                 <li>
                                     <strong>Payment & Refund Policy:</strong> Deal amount is final once
-                                    confirmed. Advance
-                                    payments are strictly
+                                    confirmed. Advance payments are strictly
                                     non-refundable. Clients must read and agree before closing the deal.
                                 </li>
                             </ul>
@@ -214,33 +213,24 @@
                                 <div class="notes editable-additional-notes">
                                     <ul>
                                         <li contenteditable="true">Domain charges depend on the extension you choose
-                                            (.com, .in, etc.) and
-                                            availability.</li>
+                                            (.com, .in, etc.) and availability.</li>
                                         <li contenteditable="true">Estimated delivery: <strong>15–20 working
                                                 days</strong>.</li>
                                         <li contenteditable="true">More than 4 pages will incur <strong>₹2,000 per extra
                                                 page</strong>.</li>
                                         <li *ngIf="isIntroductionWebsite" contenteditable="true">More than 15 products
-                                            will be charged
-                                            <strong>₹1,000 for every 5–10
-                                                additional
-                                                products</strong>.
+                                            will be charged <strong>₹1,000 for every 5–10 additional products</strong>.
                                         </li>
                                         <li contenteditable="true">1-Year Support will be provided only for the features
-                                            developed during
-                                            initial
+                                            developed during initial
                                             development. Any new feature requests will be charged separately.</li>
                                         <li *ngIf="isIntroductionWebsite" contenteditable="true">Payment Gateway and
-                                            Shiprocket account
-                                            creation must be done by the
-                                            customer. A
-                                            fully verified account for both must be provided within <strong>1
-                                                month</strong>
+                                            Shiprocket account creation must be done by the customer. A
+                                            fully verified account for both must be provided within <strong>1 month</strong>
                                             from the start of development.</li>
                                         <li contenteditable="true">
                                             <strong>Payment & Refund Policy:</strong> Deal amount is final once
-                                            confirmed. Advance
-                                            payments are strictly
+                                            confirmed. Advance payments are strictly
                                             non-refundable. Clients must read and agree before closing the deal.
                                         </li>
                                         <li contenteditable="true">
@@ -261,43 +251,33 @@
                         <ul class="terms-ul" *ngIf="!isMetaAdsVisible()">
                             <li contenteditable="true" *ngIf="isModelAvailabilityVisible() && isAdvertisementVideoVisible()">
                                 <strong>Model Availability & Shoot Delay:</strong> Once a model is selected, Admix Media
-                                is not responsible
-                                for delays due to model’s personal/health issues. If unavailable for 7–10 days, the
-                                client may select
-                                another model in the same price segment.
+                                is not responsible for delays due to model’s personal/health issues. If unavailable for 7–10 days, the
+                                client may select another model in the same price segment.
                             </li>
                             <li contenteditable="true" *ngIf="isAdrunVisible()">
                                 <strong>Delivery & Revision Timeline:</strong> Committed delivery date is for first
-                                draft only. Revisions after
-                                delivery require minimum 24 hours, not counted in the original deadline.
+                                draft only. Revisions after delivery require minimum 24 hours, not counted in the original deadline.
                             </li>
                             <li contenteditable="true" *ngIf="isAdrunVisible()">
                                 <strong>Payment & Refund Policy:</strong> Deal amount is final once confirmed. Advance
-                                payments are strictly
-                                non-refundable. Clients must read and agree before closing the deal.
+                                payments are strictly non-refundable. Clients must read and agree before closing the deal.
                             </li>
                             <li contenteditable="true" *ngIf="isModelAvailabilityVisible() && isAdvertisementVideoVisible()">
                                 <strong>Reshoot Policy:</strong> Reshoot is not possible once the shoot is completed.
-                                All requirements,
-                                references, and approvals must be provided before the shoot date.
+                                All requirements, references, and approvals must be provided before the shoot date.
                             </li>
                             <li contenteditable="true" *ngIf="isAdrunVisible()">
                                 <strong>Watermark Policy:</strong> After advance payment, videos/Logo/Graphics are
-                                shared with
-                                watermark. Final
-                                watermark-free file is released only after full and final payment.
+                                shared with watermark. Final watermark-free file is released only after full and final payment.
                             </li>
                             <li contenteditable="true" *ngIf="isModelAvailabilityVisible()">
                                 <strong>Video Format Policy:</strong> Final video is delivered in one standard format.
-                                Multiple
-                                formats/resolutions require additional charges.
+                                Multiple formats/resolutions require additional charges.
                             </li>
                             <li contenteditable="true" *ngIf="isModelAvailabilityVisible()">
                                 <strong>Video Duration Policy:</strong> The quoted price is valid for videos up to 45
-                                seconds. If the final video
-                                exceeds 45 seconds but is within 1 minute, it will be considered under the same price.
-                                If duration
-                                exceeds 1 minute, the client must either shorten the script or pay additional charges.
+                                seconds. If the final video exceeds 45 seconds but is within 1 minute, it will be considered under the same price.
+                                If duration exceeds 1 minute, the client must either shorten the script or pay additional charges.
                             </li>
                             <li contenteditable="true" *ngIf="isModelAvailabilityVisible() && isPackageSelected()">
                                 <strong>Package Validity:</strong> The package must be completed within 90 days from the date of purchase. Any unused services after the validity period will expire.
@@ -321,15 +301,12 @@
                                     <p><strong>SGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
                                     <p><strong>CGST &#64;9%: </strong>₹{{this.gstAmount / 2}} </p>
                                 </div>
-
                                 <p class="bottom-total"><strong>Total: </strong>₹ {{this.afterDiscountTotal}} </p>
                             </div>
                         </div>
                     </div>
-  
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-lg-4">
                     <div class="qr-code" *ngIf="invoiceForm.get('billType')?.value === 'GST'">
@@ -382,55 +359,44 @@
                             <div style="font-weight:700;font-size:1rem;color:#111;" contenteditable="true">₹8,000 /
                                 Month</div>
                         </header>
-
                         <p style="margin:0 0 12px 0;color:#333;" contenteditable="true">
                             <strong>Max spend:</strong> ₹1,00,000 / Month
                         </p>
-
                         <ul style="margin:0 0 12px 18px;color:#333;line-height:1.5;">
                             <li contenteditable="true">Meta Ads: Web Traffic, Web Signups &amp; Re-marketing</li>
-                            <li contenteditable="true">Geo-targeted ads for visibility in high-intent regions (Local
-                                Ads)</li>
+                            <li contenteditable="true">Geo-targeted ads for visibility in high-intent regions (Local Ads)</li>
                             <li contenteditable="true">Meta Ads: Web Traffic, Web Purchases &amp; Re-marketing</li>
                             <li contenteditable="true">Meta Pixel, Google Analytics &amp; event tracking setup</li>
-                            <li contenteditable="true">Retargeting past visitors, ad clickers, purchasers, add to cart,
-                                checkout initiate, etc.</li>
+                            <li contenteditable="true">Retargeting past visitors, ad clickers, purchasers, add to cart, checkout initiate, etc.</li>
                             <li contenteditable="true">Proper targeting of quality audience to reduce RTO</li>
                             <li contenteditable="true">Generate quality leads which lead to sales</li>
                         </ul>
-
                         <div
                             style="margin:14px 0;padding:12px;background:#fafafa;border-radius:6px;border:1px solid #f0f0f0;">
                             <p style="margin:0 0 8px 0;font-weight:600;">One Time Setup Fee</p>
                             <div style="font-size:1.05rem;font-weight:700;" contenteditable="true">₹5,000</div>
                         </div>
-
                         <div style="margin-bottom:12px;">
                             <h3 style="margin:0 0 6px 0;font-size:1rem;">After ₹1,00,000 a flat 10% of ad spent will be
                                 charged extra.</h3>
                             <ul style="margin:6px 0 0 18px;color:#333;line-height:1.5;">
                                 <li contenteditable="true">
-                                    <strong>Monthly Reporting:</strong> Actionable insights into campaign performance
-                                    with improvement strategies.
-                                    <small style="display:block;color:#666;">(3 days reporting if a new ad account owned
-                                        by us is provided)</small>
+                                    <strong>Monthly Reporting:</strong> Actionable insights into campaign performance with improvement strategies.
+                                    <small style="display:block;color:#666;">(3 days reporting if a new ad account owned by us is provided)</small>
                                 </li>
                                 <li contenteditable="true"><strong>Dedicated Account Manager:</strong> A single point of
-                                    contact to ensure
-                                    smooth communication and execution.</li>
+                                    contact to ensure smooth communication and execution.</li>
                             </ul>
                         </div>
 
                         <div style="margin-top:14px;border-top:1px dashed #eee;padding-top:12px;color:#222;">
-                            <p style="margin:0 0 8px 0;font-weight:600;">Let’s take your business to new digital
-                                heights! 🌍✈️</p>
+                            <p style="margin:0 0 8px 0;font-weight:600;">Let’s take your business to new digital heights! 🌍✈️</p>
                         </div>
 
                         <footer style="margin-top:14px;color:#666;font-size:0.9rem;">
                             <p style="margin:0;">Looking forward to collaborating with you!</p>
                         </footer>
                     </section>
-
                     <section class="pm-card" *ngIf="isMetaAdsPremium"
                         style="max-width:800px;margin:16px auto;padding:18px;border:1px solid #e6e6e6;border-radius:8px;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;">
                         <header
@@ -439,29 +405,23 @@
                             <div style="font-weight:700;font-size:1rem;color:#111;" contenteditable="true">₹3,000 /
                                 Month</div>
                         </header>
-
                         <p style="margin:0 0 12px 0;color:#333;" contenteditable="true">
                             <strong>Max spend:</strong> ₹30,000 / Month
                         </p>
-
                         <ul style="margin:0 0 12px 18px;color:#333;line-height:1.5;">
                             <li contenteditable="true">Meta Ads: Web Traffic, Web Signups &amp; Re-marketing</li>
-                            <li contenteditable="true">Geo-targeted ads for visibility in high-intent regions (Local
-                                Ads)</li>
+                            <li contenteditable="true">Geo-targeted ads for visibility in high-intent regions (Local Ads)</li>
                             <li contenteditable="true">Meta Ads: Web Traffic, Web Purchases &amp; Re-marketing</li>
                             <li contenteditable="true">Meta Pixel, Google Analytics &amp; event tracking setup</li>
-                            <li contenteditable="true">Retargeting past visitors, ad clickers, purchasers, add to cart,
-                                checkout initiate, etc.</li>
+                            <li contenteditable="true">Retargeting past visitors, ad clickers, purchasers, add to cart, checkout initiate, etc.</li>
                             <li contenteditable="true">Proper targeting of quality audience to reduce RTO</li>
                             <li contenteditable="true">Generate quality leads which lead to sales</li>
                         </ul>
-
                         <div
                             style="margin:14px 0;padding:12px;background:#fafafa;border-radius:6px;border:1px solid #f0f0f0;">
                             <p style="margin:0 0 8px 0;font-weight:600;">One Time Setup Fee</p>
                             <div style="font-size:1.05rem;font-weight:700;" contenteditable="true">₹3,000</div>
                         </div>
-
                         <div style="margin-bottom:12px;">
                             <h3 style="margin:0 0 6px 0;font-size:1rem;">Bonus Services — <span
                                     style="font-weight:600">FREE</span></h3>
@@ -473,16 +433,12 @@
                                         by us is provided)</small>
                                 </li>
                                 <li contenteditable="true"><strong>Dedicated Account Manager:</strong> A single point of
-                                    contact to ensure
-                                    smooth communication and execution.</li>
+                                    contact to ensure smooth communication and execution.</li>
                             </ul>
                         </div>
-
                         <div style="margin-top:14px;border-top:1px dashed #eee;padding-top:12px;color:#222;">
-                            <p style="margin:0 0 8px 0;font-weight:600;">Let’s take your business to new digital
-                                heights! 🌍✈️</p>
+                            <p style="margin:0 0 8px 0;font-weight:600;">Let’s take your business to new digital heights! 🌍✈️</p>
                         </div>
-
                         <footer style="margin-top:14px;color:#666;font-size:0.9rem;">
                             <p style="margin:0;">Looking forward to collaborating with you!</p>
                         </footer>

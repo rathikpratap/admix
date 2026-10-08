@@ -828,6 +828,13 @@ export class AuthService {
       status: status
     });
   }
+  getCategbyRangeEx(startDate: Date, endDate: Date, closingCategory: string[]): Observable<any>{
+    return this.http.post(`${appConfig.apiUrl}/auth/categByRangeEx`,{
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      closingCategory: closingCategory
+    });
+  }
   getLeadbyRangeExMa(startDate: Date, endDate: Date, status: string[], salesPerson?: string): Observable<any> {
     return this.http.post(`${appConfig.apiUrl}/auth/leadsByRangeExMa`, {
       startDate: startDate.toISOString(),
@@ -1877,6 +1884,35 @@ export class AuthService {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       });
 
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'customers.xlsx';
+      link.click();
+      console.log("Download Done");
+    }, error => {
+      console.error('Error Downloading File: ', error);
+    });
+  }
+
+  downloadRangeFileCategEx(startDate: Date, endDate: Date, closingCategory: string[]){
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const body = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      closingCateg: closingCategory
+    };
+    this.http.post(`${appConfig.apiUrl}/auth/downloadRangeCategFileEx`,body,{
+      headers,
+      responseType: 'blob'
+    }).subscribe((res: Blob) => {
+      const blob = new Blob([res], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'customers.xlsx';
